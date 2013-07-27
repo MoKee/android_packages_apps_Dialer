@@ -32,6 +32,11 @@
         android:onClick="onMenuEditNumberBeforeCall"
     />
     <item
+        android:id="@+id/menu_ipcall"
+        android:title="@string/dialer_ipcall_title"
+        android:onClick="onMenuIPCall"
+    />
+    <item
         android:id="@+id/menu_add_to_blacklist"
         android:title="@string/menu_add_to_blacklist"
         android:onClick="onMenuAddToBlacklist"

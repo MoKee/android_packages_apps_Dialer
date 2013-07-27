@@ -230,5 +230,18 @@
         <service
             android:name=".contact.ContactUpdateService"
             android:exported="false" />
+
+        <activity
+            android:name=".preference.IPCallPreferenceActivity"
+            android:label="@string/dialer_ipcall_title"
+            android:icon="@mipmap/ic_launcher_phone"
+            android:theme="@style/@android:style/Theme.Holo.DialogWhenLarge">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
     </application>
 </manifest>
