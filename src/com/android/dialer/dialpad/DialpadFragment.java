@@ -30,6 +30,10 @@ import android.database.ContentObserver;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
 import android.net.Uri;
@@ -100,6 +104,7 @@ public class DialpadFragment extends Fragment
         AdapterView.OnItemClickListener, TextWatcher,
         PopupMenu.OnMenuItemClickListener,
         DialpadImageButton.OnPressedListener,
+		SensorEventListener,
         SmartDialLoaderTask.SmartDialLoaderCallback {
     private static final String TAG = DialpadFragment.class.getSimpleName();
 
@@ -162,6 +167,13 @@ public class DialpadFragment extends Fragment
      * smart dialing suggestion strip is visible.
      */
     private boolean mSmartDialEnabled = false;
+
+    private SensorManager mSensorManager;
+    private int SensorOrientationY;
+    private int SensorProximity;
+    private int oldProximity;
+    private boolean initProx;
+    private boolean proxChanged;
 
     /**
      * Regular expression prohibiting manual phone call. Can be empty, which means "no rule".
@@ -282,6 +294,55 @@ public class DialpadFragment extends Fragment
 
         updateDialAndDeleteButtonEnabledState();
         loadSmartDialEntries();
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+
+	    switch (event.sensor.getType()) {
+		    case Sensor.TYPE_ORIENTATION:
+			SensorOrientationY = (int) event.values[SensorManager.DATA_Y];
+			break;
+		    case Sensor.TYPE_PROXIMITY:
+			int currentProx = (int) event.values[0];
+			if (initProx) {
+			    SensorProximity = currentProx;
+			    initProx = false;
+			} else {
+			    if( SensorProximity > 0 && currentProx <= 3){
+			        proxChanged = true;
+			    }
+			}
+			SensorProximity = currentProx;
+			break;
+	        }
+
+	    if (rightOrientation(SensorOrientationY) && SensorProximity <= 3 && proxChanged ) {
+	        if (isDigitsEmpty() == false) {
+	            // unregister Listener to don't let the onSesorChanged run the
+	            // whole time
+	            mSensorManager.unregisterListener(this, mSensorManager
+	                    .getDefaultSensor(Sensor.TYPE_ORIENTATION));
+	            mSensorManager.unregisterListener(this,
+	                    mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY));
+
+	            // get number and attach it to an Intent.ACTION_CALL, then start
+	            // the Intent
+	            dialButtonPressed();
+	        }
+	    }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+    }
+    
+    public boolean rightOrientation(int orientation) {
+	    if (orientation < -50 && orientation > -130) {
+	        return true;
+	    } else {
+	        return false;
+	    }
     }
 
     @Override
@@ -636,6 +697,25 @@ public class DialpadFragment extends Fragment
         stopWatch.lap("bes");
 
         stopWatch.stopAndLog(TAG, 50);
+        
+        try {
+	        if(Settings.System.getInt(getActivity().getContentResolver(),
+                    Settings.System.DIALER_DIRECT_CALL, 0) == 0 ? false : true) {
+	            SensorOrientationY = 0;
+	            SensorProximity = 0;
+	            proxChanged = false;
+	            initProx = true;
+	            mSensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
+	            mSensorManager.registerListener(this,
+	                        mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION),
+	                        SensorManager.SENSOR_DELAY_UI);
+	            mSensorManager.registerListener(this,
+	                        mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY),
+	                        SensorManager.SENSOR_DELAY_UI);
+	        }
+	    } catch (Exception e) {
+	        Log.w("ERROR", e.toString());
+	    }
     }
 
     @Override
@@ -663,6 +743,18 @@ public class DialpadFragment extends Fragment
         mLastNumberDialed = EMPTY_NUMBER;  // Since we are going to query again, free stale number.
 
         SpecialCharSequenceMgr.cleanup();
+        
+	    try {
+	        if(Settings.System.getInt(getActivity().getContentResolver(),
+                    Settings.System.DIALER_DIRECT_CALL, 0) ==0 ? false : true) {
+	            mSensorManager.unregisterListener(this,
+	                        mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION));
+	            mSensorManager.unregisterListener(this,
+	                        mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY));
+	        }
+	    } catch (Exception e) {
+	        Log.w("ERROR", e.toString());
+	    }
     }
 
     @Override
