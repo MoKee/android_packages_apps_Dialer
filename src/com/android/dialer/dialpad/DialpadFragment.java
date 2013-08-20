@@ -136,7 +136,7 @@ public class DialpadFragment extends Fragment
      * isn't enclosed by the container.
      */
     private View mDigitsContainer;
-    private EditText mDigits;
+    private static EditText mDigits;
 
     /** Remembers if we need to clear digits field when the screen is completely gone. */
     private boolean mClearDigitsOnStop;
@@ -1949,5 +1949,9 @@ public class DialpadFragment extends Fragment
             startActivity(intent);
             mClearDigitsOnStop = true;
         }
+    }
+
+    public static int getDigitsCurrentLength() {
+        return mDigits.length();
     }
 }

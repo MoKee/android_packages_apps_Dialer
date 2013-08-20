@@ -36,6 +36,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.dialer.R;
+import com.android.dialer.util.HanziToPinyin;
 
 import com.google.common.collect.Lists;
 
@@ -361,8 +362,19 @@ public class SmartDialController {
                     if (p.end > displayName.length()) {
                         p.end = displayName.length();
                     }
+                    if (p.start > displayName.length()) {
+                        p.start = 0;
+                        if (DialpadFragment.getDigitsCurrentLength() <= displayName.length()) {
+                            p.end = DialpadFragment.getDigitsCurrentLength();
+                        }
+                    }
                     // Create a new ForegroundColorSpan for each section of the name to highlight,
                     // otherwise multiple highlights won't work.
+                    if (!HanziToPinyin.getInstance().isChineseWords(displayName.toString())) {
+                        p.start --;
+                        if (p.end != displayName.length())
+                            p.end --;
+                    }
                     displayName.setSpan(new ForegroundColorSpan(mNameHighlightedTextColor), p.start,
                             p.end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }

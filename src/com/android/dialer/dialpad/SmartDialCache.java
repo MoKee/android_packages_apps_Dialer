@@ -33,6 +33,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.android.contacts.common.util.StopWatch;
+import com.android.dialer.util.HanziToPinyin;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Preconditions;
@@ -246,7 +247,10 @@ public class SmartDialCache {
                     final String phoneNumber = c.getString(PhoneQuery.PHONE_NUMBER);
                     final long id = c.getLong(PhoneQuery.PHONE_CONTACT_ID);
                     final String lookupKey = c.getString(PhoneQuery.PHONE_LOOKUP_KEY);
-                    cache.put(new ContactNumber(id, displayName, phoneNumber, lookupKey,
+                    cache.put(new ContactNumber(id, HanziToPinyin.getInstance().getFullPinYin(displayName) + "|" + displayName, phoneNumber, lookupKey,
+                            affinityCount));
+                    affinityCount++;
+                    cache.put(new ContactNumber(id, HanziToPinyin.getInstance().getFirstPinYin(displayName) + "|" + displayName, phoneNumber, lookupKey,
                             affinityCount));
                     affinityCount++;
                 }

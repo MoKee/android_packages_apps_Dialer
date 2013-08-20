@@ -123,7 +123,7 @@ public class SmartDialLoaderTask extends AsyncTask<String, Integer, List<SmartDi
             final boolean matches = mNameMatcher.matches(contact.displayName);
 
             candidates.add(new SmartDialEntry(
-                    contact.displayName,
+                    contact.displayName.split("\\|")[1],
                     Contacts.getLookupUri(contact.id, contact.lookupKey),
                     contact.phoneNumber,
                     mNameMatcher.getMatchPositions(),
