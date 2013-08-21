@@ -1952,6 +1952,6 @@ public class DialpadFragment extends Fragment
     }
 
     public static int getDigitsCurrentLength() {
-        return mDigits.length();
+        return mDigits.getText().toString().replace("-", "").replace("(", "").replace(")", "").replace("+", "").replace("*", "").replace("#", "").length();
     }
 }

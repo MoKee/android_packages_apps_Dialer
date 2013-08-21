@@ -22,6 +22,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -359,22 +360,38 @@ public class SmartDialController {
             final SpannableString displayName = new SpannableString(item.displayName);
             for (final SmartDialMatchPosition p : item.matchPositions) {
                 if (p.start < p.end) {
+                    String[] words = HanziToPinyin.getInstance().getSplitFullWordsString(displayName.toString());
+                    boolean chineseWords = HanziToPinyin.getInstance().isChineseWords(displayName.toString());
+                    int digitsLength = DialpadFragment.getDigitsCurrentLength();
+                    if (HanziToPinyin.getInstance().getFullWordsString(displayName.toString()).length() != displayName.length() && chineseWords && p.end > displayName.length()) {
+                        if (words != null) {
+                            int lengthSum = 0;
+                            for (int i = 0; i < words.length; i++ ) {
+                                lengthSum = lengthSum + words[i].length();
+                                if (p.end <= lengthSum) {
+                                    p.end = i + 1;
+                                    break;
+                                }
+                            }
+                        }
+                    }
                     if (p.end > displayName.length()) {
                         p.end = displayName.length();
                     }
                     if (p.start > displayName.length()) {
-                        p.start = 0;
-                        if (DialpadFragment.getDigitsCurrentLength() <= displayName.length()) {
-                            p.end = DialpadFragment.getDigitsCurrentLength();
+                        if (digitsLength <= displayName.length()) {
+                            p.start = 0;
+                            p.end = digitsLength;
                         }
+                    }
+                    if (!chineseWords) {
+                        p.start = 0;
+                        p.end --;
+                        if (digitsLength == displayName.toString().replace(" ", "").length())
+                            p.end = displayName.length();
                     }
                     // Create a new ForegroundColorSpan for each section of the name to highlight,
                     // otherwise multiple highlights won't work.
-                    if (!HanziToPinyin.getInstance().isChineseWords(displayName.toString())) {
-                        p.start --;
-                        if (p.end != displayName.length())
-                            p.end --;
-                    }
                     displayName.setSpan(new ForegroundColorSpan(mNameHighlightedTextColor), p.start,
                             p.end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
