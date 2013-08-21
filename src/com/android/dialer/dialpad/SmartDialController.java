@@ -375,10 +375,20 @@ public class SmartDialController {
                         if (digitsLength == displayName.toString().replace(" ", "").length())
                             p.end = displayLength;
                     } else {
-                        if (words.length < displayLength && firstChineseWords) {
+                        if (words.length < displayLength) {
                             tmpEnd = p.end - p.start;
-                            p.start = words[0].length();
+                            if (firstChineseWords) {
+                                if (checkMatcher(words[words.length - 1], DialpadFragment.getDigitsText())) {
+                                    p.start = words[0].length();
+                                }              
+                            } else {
+                                p.start = words.length - words[words.length - 1].length(); 
+                            }
                             p.end = p.start + tmpEnd;
+                            if (p.end > displayLength) {
+                                p.start = words.length - 1;
+                                p.end = digitsLength + p.start;
+                            }
                         } else if (HanziToPinyin.getInstance().getFullWordsString(displayName.toString()).length() != displayLength && p.end > displayLength) {
                             if (words != null) {
                                 int lengthSum = 0;
@@ -398,7 +408,7 @@ public class SmartDialController {
                                     tmpEnd = p.end;
                                     if (p.end <= lengthSum) {
                                         p.end = i + 1;
-                                        if(tmpEnd >= p.end && tmpEnd <= displayLength && !checkMatcher(words[0].toString(),DialpadFragment.getDigitsTest()))
+                                        if(tmpEnd >= p.end && tmpEnd <= displayLength && !checkMatcher(words[0].toString(),DialpadFragment.getDigitsText()))
                                             p.end = tmpEnd ;
                                         break;
                                     }
