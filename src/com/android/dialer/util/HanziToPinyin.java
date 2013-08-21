@@ -635,6 +635,25 @@ public class HanziToPinyin {
         return false;       
     }
 
+    public boolean isFristChineseWords(String source) {
+        if (!Arrays.asList(Collator.getAvailableLocales()).contains(Locale.CHINA)) {
+            return false;
+        }
+        ArrayList<Token> tokens = this.get(source);
+        if (tokens == null || tokens.size() == 0) {
+            return false;
+        }
+        for (Token token : tokens) {
+            if (token.type == Token.PINYIN) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        return false;       
+    }
+
     public String getFullWordsString(String source) {
         if (!Arrays.asList(Collator.getAvailableLocales()).contains(Locale.CHINA)) {
             return source;
