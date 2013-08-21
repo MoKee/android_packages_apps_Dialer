@@ -38,9 +38,12 @@ import android.widget.TextView;
 
 import com.android.dialer.R;
 import com.android.dialer.util.HanziToPinyin;
+import com.android.dialer.dialpad.SmartDialMatchPosition;
+import com.android.dialer.dialpad.SmartDialNameMatcher;
 
 import com.google.common.collect.Lists;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -363,33 +366,72 @@ public class SmartDialController {
                     String[] words = HanziToPinyin.getInstance().getSplitFullWordsString(displayName.toString());
                     boolean chineseWords = HanziToPinyin.getInstance().isChineseWords(displayName.toString());
                     int digitsLength = DialpadFragment.getDigitsCurrentLength();
-                    if (HanziToPinyin.getInstance().getFullWordsString(displayName.toString()).length() != displayName.length() && chineseWords && p.end > displayName.length()) {
-                        if (words != null) {
-                            int lengthSum = 0;
-                            for (int i = 0; i < words.length; i++ ) {
-                                lengthSum = lengthSum + words[i].length();
-                                if (p.end <= lengthSum) {
-                                    p.end = i + 1;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    if (p.end > displayName.length()) {
-                        p.end = displayName.length();
-                    }
-                    if (p.start > displayName.length()) {
-                        if (digitsLength <= displayName.length()) {
-                            p.start = 0;
-                            p.end = digitsLength;
-                        }
-                    }
+                    int tmpEnd = 0;
+                    int displayLength = displayName.length();
+                    Log.i("MOKEEEEEEEEEEEEEEE + 姓名", String.valueOf(displayName));
+                    Log.i("MOKEEEEEEEEEEEEEEE + 长度", String.valueOf(displayLength));
+                    Log.i("MOKEEEEEEEEEEEEEEE 初始值 + p.start", String.valueOf(p.start));
+                    Log.i("MOKEEEEEEEEEEEEEEE 初始值 + p.end", String.valueOf(p.end));
                     if (!chineseWords) {
                         p.start = 0;
                         p.end --;
                         if (digitsLength == displayName.toString().replace(" ", "").length())
-                            p.end = displayName.length();
+                            p.end = displayLength;
+                    } else {
+                        if (HanziToPinyin.getInstance().getFullWordsString(displayName.toString()).length() != displayLength && p.end > displayLength) {
+                            if (words != null) {
+                                int lengthSum = 0;
+                                for (int i = 0; i < words.length; i++ ) {
+                                    lengthSum = lengthSum + words[i].length();
+                                    if (p.end <= lengthSum) {
+                                        p.end = i + 1;
+                                        break;
+                                    }
+                                }
+                            }
+                        } else if (words.length == displayLength && digitsLength <= words[0].length()) {
+                            if (words != null) {
+                                int lengthSum = 0;
+                                for (int i = 0; i < words.length; i++ ) {
+                                    Log.i("MOKEEEEEEEEEEEEEEEEEE + index + "+ String.valueOf(i), String.valueOf(words[i].length()));
+                                    lengthSum = lengthSum + words[i].length();
+                                    tmpEnd = p.end;
+                                    Log.i("MOKEEEEEEEEEEEEEEES + 方法2 + 姓名", String.valueOf(displayName));
+                                    Log.i("MOKEEEEEEEEEEEEEEES + 方法2 + 长度", String.valueOf(displayLength));
+                                    Log.i("MOKEEEEEEEEEEEEEEES 方法2 + 初始值 + p.end", String.valueOf(p.end));
+                                    if (p.end <= lengthSum) {
+                                        p.end = i + 1;
+                                        Log.i("MOKEEEEEEEEEEEEEEES 运算后lengthSum", String.valueOf(lengthSum));
+                                        Log.i("MOKEEEEEEEEEEEEEEES 运算后", String.valueOf(p.end));
+                                        if(tmpEnd >= p.end && tmpEnd <= displayLength && !checkMatcher(words[0].toString(),DialpadFragment.getDigitsTest()))
+                                            p.end = tmpEnd ;
+                                        break;
+                                    }
+                                    Log.i("MOKEEEEEEEEEEEEEEE + 方法2 + 姓名", String.valueOf(displayName));
+                                    Log.i("MOKEEEEEEEEEEEEEEE + 方法2 + 长度", String.valueOf(displayLength));
+                                    Log.i("MOKEEEEEEEEEEEEEEE 方法2 + 初始值 + p.start", String.valueOf(p.start));
+                                    Log.i("MOKEEEEEEEEEEEEEEE 方法2 + 初始值 + p.end", String.valueOf(p.end));
+                                    Log.i("MOKEEEEEEEEEEEEEEE 方法2 + + 我进来了", String.valueOf(displayName));
+                                }
+                            }
+                        }
                     }
+                    Log.i("MOKEEEEEEEEEEEEEEE 运行时 + p.start", String.valueOf(p.start));
+                    Log.i("MOKEEEEEEEEEEEEEEE 运行时 + p.end", String.valueOf(p.end));
+                    if (p.end > displayLength) {
+                        p.end = displayLength;
+                        Log.i("MOKEEEEEEEEEEEEEEE 匹配汉字结尾超过长度 + p.end", String.valueOf(p.end));    
+                    }
+                    if (p.start > displayLength) {
+                        if (digitsLength <= displayLength) {
+                            Log.i("MOKEEEEEEEEEEEEEEE 匹配汉字起始超过长度 + p.start", String.valueOf(p.start));
+                            Log.i("MOKEEEEEEEEEEEEEEE 匹配汉字起始超过长度 + p.end", String.valueOf(p.end));
+                            p.start = 0;
+                            p.end = digitsLength;
+                        }
+                    }
+                    Log.i("MOKEEEEEEEEEEEEEEE 最终状态 + p.start", String.valueOf(p.start));
+                    Log.i("MOKEEEEEEEEEEEEEEE 最终状态 + p.end", String.valueOf(p.end));
                     // Create a new ForegroundColorSpan for each section of the name to highlight,
                     // otherwise multiple highlights won't work.
                     displayName.setSpan(new ForegroundColorSpan(mNameHighlightedTextColor), p.start,
@@ -414,5 +456,14 @@ public class SmartDialController {
         }
         view.setEnabled(true);
         view.setTag(item);
+    }
+
+    public boolean checkMatcher (String displayName, String query) {
+        final SmartDialNameMatcher matcher = new SmartDialNameMatcher(query);
+        final ArrayList<SmartDialMatchPosition> matchPositions =
+                new ArrayList<SmartDialMatchPosition>();
+        final boolean matches = matcher.matchesCombination(
+                displayName, query, matchPositions);
+        return matches;
     }
 }
