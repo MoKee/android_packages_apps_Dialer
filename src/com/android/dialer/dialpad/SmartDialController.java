@@ -370,6 +370,7 @@ public class SmartDialController {
                     int tmpEnd = 0;
                     int displayLength = displayName.length();
                     if (!chineseWords) {
+                        // Not Chinese Words
                         p.start = 0;
                         p.end --;
                         if (digitsLength == displayName.toString().replace(" ", "").length())
@@ -408,10 +409,20 @@ public class SmartDialController {
                             } else {
                                 if (!checkMatcher(words[0], DialpadFragment.getDigitsText())) {
                                     p.start = words.length - words[words.length - 1].length();
-                                    if (p.end > displayLength) {
+                                    if (p.end > displayLength && p.start != 0) {
                                         p.start = words.length - 1;
                                         p.end = digitsLength + p.start;
+                                    } else {
+                                        p.start = words[0].length();
+                                        if (words != null) {
+                                            for (int i = 1; i < words.length; i++) {
+                                                if (checkMatcher(words[i],DialpadFragment.getDigitsText())) {
+                                                    p.end = p.start + i;
+                                                }
+                                            }
+                                        }
                                     }
+                                    Log.i("MOKEEEEEEEEEEEEEEEEEEEEEEEEEE + 进去没 + p.start", String.valueOf(p.start)); 
                                 }
                                 
                                 Log.i("MOKEEEEEEEEEEEEEEEEEEEEEEEEEE + 哪s里 + p.start", String.valueOf(p.start));                               
@@ -433,6 +444,7 @@ public class SmartDialController {
                             }
                             Log.i("MOKEEEEEEEEEEEEEEEEEEEEEEEEEE", "多用途");
                         } else if (words.length == displayLength && digitsLength <= words[0].length()) {
+                            // All PinYin Words
                             if (words != null) {
                                 int lengthSum = 0;
                                 for (int i = 0; i < words.length; i++ ) {
