@@ -420,6 +420,9 @@ public class SmartDialController {
                                                 }
                                             }
                                         }
+                                        if (p.end < p.start) {
+                                            p.end = p.start + p.end;
+                                        }
                                     }
                                 }
                             }
