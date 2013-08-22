@@ -376,16 +376,11 @@ public class SmartDialController {
                         if (digitsLength == displayName.toString().replace(" ", "").length())
                             p.end = displayLength;
                     } else {
-                        Log.i("MOKEEEEEEEEEEEEEEEEEEEEEEEEEE + displayName", String.valueOf(displayName));
-                        Log.i("MOKEEEEEEEEEEEEEEEEEEEEEEEEEE + digitsLength", String.valueOf(digitsLength));
-                        Log.i("MOKEEEEEEEEEEEEEEEEEEEEEEEEEE + 处理前 + p.start", String.valueOf(p.start));
-                        Log.i("MOKEEEEEEEEEEEEEEEEEEEEEEEEEE + 处理前 + p.end", String.valueOf(p.end));
                         if (words.length < displayLength) {
                             tmpEnd = p.end - p.start;
                             if (firstChineseWords) {
                                 if (checkMatcher(words[words.length - 1], DialpadFragment.getDigitsText())) {
                                     p.start = words[0].length();
-                                    Log.i("MOKEEEEEEEEEEEEEEEEEEEEEEEEEE + 和末尾字母匹配 + p.start", String.valueOf(p.start)); 
                                     p.end = p.start + tmpEnd;
                                     if (p.end > displayLength) {
                                         p.start = words.length - 1;
@@ -401,11 +396,15 @@ public class SmartDialController {
                                                 break;
                                             }
                                         }
+                                        if (p.end > displayLength) {
+                                            lengthSum = 0;
+                                            for (int i = 0; i < words.length - 1; i++) {
+                                                lengthSum = lengthSum + words[i].length();
+                                            }
+                                            p.end = words.length - 1 + digitsLength - lengthSum;
+                                        }
                                     }
-                                    Log.i("MOKEEEEEEEEEEEEEEEEEEEEEEEEEE + 首字匹配 + p.start", String.valueOf(p.start)); 
                                 }
-                                Log.i("MOKEEEEEEEEEEEEEEEEEEEEEEEEEE + 这里 + p.start", String.valueOf(p.start));    
-                                Log.i("MOKEEEEEEEEEEEEEEEEEEEEEEEEEE + 这里 + p.end", String.valueOf(p.end)); 
                             } else {
                                 if (!checkMatcher(words[0], DialpadFragment.getDigitsText())) {
                                     p.start = words.length - words[words.length - 1].length();
@@ -422,15 +421,8 @@ public class SmartDialController {
                                             }
                                         }
                                     }
-                                    Log.i("MOKEEEEEEEEEEEEEEEEEEEEEEEEEE + 进去没 + p.start", String.valueOf(p.start)); 
                                 }
-                                
-                                Log.i("MOKEEEEEEEEEEEEEEEEEEEEEEEEEE + 哪s里 + p.start", String.valueOf(p.start));                               
-                                //p.end = p.start + tmpEnd;
                             }
-                            Log.i("MOKEEEEEEEEEEEEEEEEEEEEEEEEEE", "中英混合");
-                            Log.i("MOKEEEEEEEEEEEEEEEEEEEEEEEEEE + 处理中 + p.start", String.valueOf(p.start));
-                            Log.i("MOKEEEEEEEEEEEEEEEEEEEEEEEEEE + 处理中 + p.end", String.valueOf(p.end));
                         } else if (HanziToPinyin.getInstance().getFullWordsString(displayName.toString()).length() != displayLength && p.end > displayLength) {
                             if (words != null) {
                                 int lengthSum = 0;
@@ -442,7 +434,6 @@ public class SmartDialController {
                                     }
                                 }
                             }
-                            Log.i("MOKEEEEEEEEEEEEEEEEEEEEEEEEEE", "多用途");
                         } else if (words.length == displayLength) {
                             // All PinYin Words
                             if (digitsLength <= words[0].length()) {
@@ -471,8 +462,6 @@ public class SmartDialController {
                                     }
                                 }
                             }
-                            
-                            Log.i("MOKEEEEEEEEEEEEEEEEEEEEEEEEEE", "文字长度相等");
                         }
                     }
                     if (p.end > displayLength) {
@@ -484,8 +473,6 @@ public class SmartDialController {
                             p.end = digitsLength;
                         }
                     }
-                    Log.i("MOKEEEEEEEEEEEEEEEEEEEEEEEEEE + 处理后 + p.start", String.valueOf(p.start));
-                    Log.i("MOKEEEEEEEEEEEEEEEEEEEEEEEEEE + 处理后 + p.end", String.valueOf(p.end));
                     // Create a new ForegroundColorSpan for each section of the name to highlight,
                     // otherwise multiple highlights won't work.
                     displayName.setSpan(new ForegroundColorSpan(mNameHighlightedTextColor), p.start,
