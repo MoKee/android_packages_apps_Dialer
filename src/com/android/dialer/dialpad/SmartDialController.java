@@ -453,7 +453,7 @@ public class SmartDialController {
                                         }
                                     }
                                 }
-                            } else {
+                            } else if(p.end > displayLength || digitsLength == 3 && checkMatcher(words[0].toString(),DialpadFragment.getDigitsText().substring(0, 2))) {
                                 if (words != null) {
                                     int lengthSum = 0;
                                     for (int i = 0; i < words.length; i++ ) {
