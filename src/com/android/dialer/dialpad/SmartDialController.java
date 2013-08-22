@@ -443,21 +443,35 @@ public class SmartDialController {
                                 }
                             }
                             Log.i("MOKEEEEEEEEEEEEEEEEEEEEEEEEEE", "多用途");
-                        } else if (words.length == displayLength && digitsLength <= words[0].length()) {
+                        } else if (words.length == displayLength) {
                             // All PinYin Words
-                            if (words != null) {
-                                int lengthSum = 0;
-                                for (int i = 0; i < words.length; i++ ) {
-                                    lengthSum = lengthSum + words[i].length();
-                                    tmpEnd = p.end;
-                                    if (p.end <= lengthSum) {
-                                        p.end = i + 1;
-                                        if(tmpEnd >= p.end && tmpEnd <= displayLength && !checkMatcher(words[0].toString(),DialpadFragment.getDigitsText()))
-                                            p.end = tmpEnd ;
-                                        break;
+                            if (digitsLength <= words[0].length()) {
+                                if (words != null) {
+                                    int lengthSum = 0;
+                                    for (int i = 0; i < words.length; i++ ) {
+                                        lengthSum = lengthSum + words[i].length();
+                                        tmpEnd = p.end;
+                                        if (p.end <= lengthSum) {
+                                            p.end = i + 1;
+                                            if(tmpEnd >= p.end && tmpEnd <= displayLength && !checkMatcher(words[0].toString(),DialpadFragment.getDigitsText()))
+                                                p.end = tmpEnd ;
+                                            break;
+                                        }
+                                    }
+                                }
+                            } else {
+                                if (words != null) {
+                                    int lengthSum = 0;
+                                    for (int i = 0; i < words.length; i++ ) {
+                                        lengthSum = lengthSum + words[i].length();
+                                        if (p.end <= lengthSum) {
+                                            p.end = i + 1;
+                                            break;
+                                        }
                                     }
                                 }
                             }
+                            
                             Log.i("MOKEEEEEEEEEEEEEEEEEEEEEEEEEE", "文字长度相等");
                         }
                     }
