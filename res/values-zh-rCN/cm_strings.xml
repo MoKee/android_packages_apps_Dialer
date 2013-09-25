@@ -17,6 +17,7 @@
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
+    <!-- Title bar for call stat detail screen -->
     <string name="callStatsDetailTitle">通话统计数据详情</string>
     <string name="call_stats">通话统计数据</string>
     <string name="call_stats_refresh">刷新</string>
@@ -34,6 +35,7 @@
     <string name="call_stats_filter_from">开始日期</string>
     <string name="call_stats_filter_to">结束日期</string>
     <string name="call_stats_filter_picker_title">过滤范围</string>
+
     <string name="date_quick_selection">快速选择</string>
     <string name="date_qs_currentmonth">本月</string>
     <string name="date_qs_currentquarter">本季度</string>
@@ -46,6 +48,6 @@
     <string name="call_stats_reset_filter">重置时间范围</string>
     <string name="call_stats_sort_by_duration">以通话时间排序</string>
     <string name="call_stats_sort_by_count">以通话次数排序</string>
-    <string name="menu_add_to_blacklist">加入黑名单</string>
-    <string name="toast_added_to_blacklist">%s 已加入黑名单.</string>
+    <string name="menu_add_to_blacklist">添加到黑名单</string>
+    <string name="toast_added_to_blacklist">%s 已添加到黑名单.</string>
 </resources>
