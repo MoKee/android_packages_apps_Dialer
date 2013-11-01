@@ -2115,12 +2115,11 @@ public class DialpadFragment extends Fragment
         public void onClick(View view) {
             final SmartDialEntry entry = (SmartDialEntry) view.getTag();
             if (entry == null) return; // just in case.
-            // Dial the displayed phone number immediately
-            final Intent intent = CallUtil.getCallIntent(entry.phoneNumber.toString(),
-                    (getActivity() instanceof DialtactsActivity ?
-                            ((DialtactsActivity) getActivity()).getCallOrigin() : null));
-            startActivity(intent);
-            mClearDigitsOnStop = true;
+            // Set Digits and move the cursor to the end of the digits string,
+            // so you'll be able to delete digits using the Delete
+            // button (just as if you had typed the number manually.)
+            mDigits.setText(entry.phoneNumber.toString());
+            mDigits.setSelection(mDigits.getText().length());
         }
     }
 
