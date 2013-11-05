@@ -262,7 +262,14 @@
             android:theme="@style/@android:style/Theme.Holo.DialogWhenLarge">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".preference.SpeedDialPreferenceActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

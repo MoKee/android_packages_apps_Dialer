@@ -26,6 +26,7 @@ import android.app.Fragment;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -33,6 +34,7 @@ import android.database.ContentObserver;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -46,6 +48,7 @@ import android.os.Handler;
 import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.os.SystemProperties;
+import android.preference.PreferenceManager;
 import android.provider.Contacts.Intents.Insert;
 import android.provider.Contacts.People;
 import android.provider.Contacts.Phones;
@@ -74,6 +77,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -94,6 +98,7 @@ import com.android.dialer.R;
 import com.android.dialer.SpecialCharSequenceMgr;
 import com.android.dialer.interactions.PhoneNumberInteraction;
 import com.android.dialer.preference.IPCallPreferenceActivity;
+import com.android.dialer.preference.SpeedDialPreferenceActivity;
 import com.android.dialer.util.OrientationUtil;
 import com.android.i18n.phonenumbers.NumberParseException;
 import com.android.i18n.phonenumbers.PhoneNumberUtil;
@@ -104,6 +109,8 @@ import com.android.phone.common.HapticFeedback;
 import com.google.common.annotations.VisibleForTesting;
 
 import java.util.List;
+import java.util.Set;
+
 import com.android.internal.telephony.TelephonyProperties;
 
 /**
@@ -190,6 +197,12 @@ public class DialpadFragment extends Fragment
     private int oldProximity;
     private boolean initProx;
     private boolean proxChanged;
+
+	private SharedPreferences speedDialPrefs;
+	private static final String SPEED_DIAL = "speed_dial";
+	private static final String PREF_DONT_REMIND_ME_KEY = "pref_dont_remind_me_key";
+	private static final int PICK_CONTACT = 1;
+	private String speed_dial_num;
 
     /**
      * Regular expression prohibiting manual phone call. Can be empty, which means "no rule".
@@ -664,6 +677,11 @@ public class DialpadFragment extends Fragment
         // Long-pressing zero button will enter '+' instead.
         fragmentView.findViewById(R.id.zero).setOnLongClickListener(this);
 
+        int[] speedButtonIds = new int[] { R.id.two, R.id.three, R.id.four, R.id.five,
+                R.id.six, R.id.seven, R.id.eight, R.id.nine};
+        for (int id : speedButtonIds) {
+            ((DialpadImageButton) fragmentView.findViewById(id)).setOnLongClickListener(this);
+        }
     }
 
     @Override
@@ -818,7 +836,7 @@ public class DialpadFragment extends Fragment
         mLastNumberDialed = EMPTY_NUMBER;  // Since we are going to query again, free stale number.
 
         SpecialCharSequenceMgr.cleanup();
-        
+
 	    try {
 	        if(Settings.System.getInt(getActivity().getContentResolver(),
                     Settings.System.DIALER_DIRECT_CALL, 0) ==0 ? false : true) {
@@ -1160,6 +1178,70 @@ public class DialpadFragment extends Fragment
 
                 return true;
             }
+            case R.id.two: {
+                if (TextUtils.equals(mDigits.getText(), "2")) {
+                	removePreviousDigitIfPossible();
+                	callSpeedDial("2");
+                    return true;
+                }
+                return false;
+            }
+            case R.id.three: {
+                if (TextUtils.equals(mDigits.getText(), "3")) {
+                	removePreviousDigitIfPossible();
+                	callSpeedDial("3");
+                    return true;
+                }
+                return false;
+            }
+            case R.id.four: {
+                if (TextUtils.equals(mDigits.getText(), "4")) {
+                	removePreviousDigitIfPossible();
+                	callSpeedDial("4");
+                    return true;
+                }
+                return false;
+            }
+            case R.id.five: {
+                if (TextUtils.equals(mDigits.getText(), "5")) {
+                	removePreviousDigitIfPossible();
+                	callSpeedDial("5");
+                    return true;
+                }
+                return false;
+            }
+            case R.id.six: {
+                if (TextUtils.equals(mDigits.getText(), "6")) {
+                	removePreviousDigitIfPossible();
+                	callSpeedDial("6");
+                    return true;
+                }
+                return false;
+            }
+            case R.id.seven: {
+                if (TextUtils.equals(mDigits.getText(), "7")) {
+                	removePreviousDigitIfPossible();
+                	callSpeedDial("7");
+                    return true;
+                }
+                return false;
+            }
+            case R.id.eight: {
+                if (TextUtils.equals(mDigits.getText(), "8")) {
+                	removePreviousDigitIfPossible();
+                	callSpeedDial("8");
+                    return true;
+                }
+                return false;
+            }
+            case R.id.nine: {
+                if (TextUtils.equals(mDigits.getText(), "9")) {
+                	removePreviousDigitIfPossible();
+                	callSpeedDial("9");
+                    return true;
+                }
+                return false;
+            }
             case R.id.digits: {
                 // Right now EditText does not show the "paste" option when cursor is not visible.
                 // To show that, make the cursor visible, and return false, letting the EditText
@@ -1180,6 +1262,78 @@ public class DialpadFragment extends Fragment
         }
         return false;
     }
+
+	private void callSpeedDial(final String num) {
+		final Context mContext= getActivity();
+		speedDialPrefs = mContext.getSharedPreferences(SPEED_DIAL, Context.MODE_PRIVATE);
+		Set<String> entry = speedDialPrefs.getStringSet(SpeedDialPreferenceActivity.SPEED_DIAL + num, null);
+		if(entry == null || entry.isEmpty()) {
+			boolean remindMe = speedDialPrefs.getBoolean(PREF_DONT_REMIND_ME_KEY, false);
+			if(!remindMe) {
+				LinearLayout viewLayout = new LinearLayout(mContext);
+				viewLayout.setOrientation(LinearLayout.VERTICAL);
+				TextView alertTextView = new TextView(mContext);
+				alertTextView.setText(getString(R.string.alert_add_speeddial_title, num));
+				alertTextView.setPadding(15, 15, 0, 0);
+				alertTextView.setTextColor(Color.WHITE);
+				viewLayout.addView(alertTextView);
+				final CheckBox cbCheckBox = new CheckBox(mContext);
+				cbCheckBox.setText(R.string.dont_remind_me_title);
+				viewLayout.addView(cbCheckBox);
+				new AlertDialog.Builder(mContext).setTitle(R.string.speeddial_title)
+						.setView(viewLayout)
+						.setPositiveButton(android.R.string.ok, new OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								if (cbCheckBox.isChecked()) {
+									speedDialPrefs.edit().putBoolean(PREF_DONT_REMIND_ME_KEY, true).apply();
+								}
+								speed_dial_num = num;
+								Intent intent = new Intent(Intent.ACTION_PICK,
+										ContactsContract.Contacts.CONTENT_URI);
+								intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
+								startActivityForResult(intent, PICK_CONTACT);
+							}
+						}).setNegativeButton(android.R.string.cancel, null).create()
+						.show();
+			} else {
+				speed_dial_num = num;
+				Intent intent = new Intent(Intent.ACTION_PICK,
+						ContactsContract.Contacts.CONTENT_URI);
+				intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
+				startActivityForResult(intent, PICK_CONTACT);
+			}
+		} else {
+			String number = entry.toArray()[1].toString().replace(" ","");
+			Intent intent = CallUtil.getCallIntent(number, (getActivity() instanceof DialtactsActivity ?
+					((DialtactsActivity) getActivity()).getCallOrigin() : null));
+			startActivity(intent);
+		}
+
+	}
+
+    @Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		switch (requestCode) {
+		case (PICK_CONTACT):
+			if (resultCode == Activity.RESULT_OK) {
+				Uri contactData = data.getData();
+				Cursor c = getActivity().getContentResolver().query(contactData, null, null, null, null);
+				if(c != null && c.moveToFirst()) {
+					String name = c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+					String number = c.getString(c.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+					c.close();
+					Intent intent = new Intent(getActivity(), SpeedDialPreferenceActivity.class);
+					intent.putExtra("name", name);
+					intent.putExtra("number", number);
+					intent.putExtra("id", speed_dial_num);
+					startActivity(intent);
+				}
+			}
+		}
+	}
 
     /**
      * Remove the digit just before the current position. This can be used if we want to replace
@@ -1345,7 +1499,7 @@ public class DialpadFragment extends Fragment
     }
 
     public void dialIPCallButtonPressed() {
-    	Context context = DialpadFragment.this.getActivity().getBaseContext();
+    	Context context = getActivity();
             final String number = mDigits.getText().toString();
 
             // "persist.radio.otaspdial" is a temporary hack needed for one carrier's automated
@@ -1365,22 +1519,21 @@ public class DialpadFragment extends Fragment
                 // Clear the digits just in case.
                 mDigits.getText().clear();
             } else {
-            	PhoneNumber pNumber;
+                PhoneNumber pNumber;
                 String nNumber= number;
                 String ipNumber = "";
-			try {
-				pNumber = PhoneNumberUtil.getInstance().parse(number, IPCallPreferenceActivity.getCurrentCountryCode(context));
-	            		nNumber = String.valueOf(pNumber.getNationalNumber());
-				String ip_call_prefix = IPCallPreferenceActivity.getIPCallPrefix(context);
-				if(nNumber.indexOf(ip_call_prefix) == 0 && ip_call_prefix.length() != 0)
-				{
-					nNumber = nNumber.replaceFirst(ip_call_prefix, "");
-				}
-				ipNumber = ip_call_prefix + nNumber;
-			} catch (NumberParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+            try {
+                pNumber = PhoneNumberUtil.getInstance().parse(number, IPCallPreferenceActivity.getCurrentCountryCode(context));
+                nNumber = String.valueOf(pNumber.getNationalNumber());
+                String ip_call_prefix = IPCallPreferenceActivity.getIPCallPrefix(context);
+                if(nNumber.indexOf(ip_call_prefix) == 0 && ip_call_prefix.length() != 0) {
+                    nNumber = nNumber.replaceFirst(ip_call_prefix, "");
+                }
+                ipNumber = ip_call_prefix + nNumber;
+                } catch (NumberParseException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
                 final Intent intent = CallUtil.getCallIntent(ipNumber,
                         (getActivity() instanceof DialtactsActivity ?
                                 ((DialtactsActivity)getActivity()).getCallOrigin() : null));
@@ -1814,13 +1967,11 @@ public class DialpadFragment extends Fragment
                 updateDialString(WAIT);
                 return true;
             case R.id.menu_ipcall:
-            	Context context = DialpadFragment.this.getActivity().getBaseContext();
-            	if(TextUtils.isEmpty(IPCallPreferenceActivity.getIPCallPrefix(context)))
-            	{
+            	Context context = getActivity();
+            	if(TextUtils.isEmpty(IPCallPreferenceActivity.getIPCallPrefix(context))) {
                     IPCallDialogFragment.show(this);
             	}
-            	else
-            	{
+            	else {
                     dialIPCallButtonPressed();
             	}
                 return true;
