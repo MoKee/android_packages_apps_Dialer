@@ -194,7 +194,6 @@ public class DialpadFragment extends Fragment
     private SensorManager mSensorManager;
     private int SensorOrientationY;
     private int SensorProximity;
-    private int oldProximity;
     private boolean initProx;
     private boolean proxChanged;
 
@@ -891,6 +890,7 @@ public class DialpadFragment extends Fragment
         final MenuItem callSettingsMenuItem = menu.findItem(R.id.menu_call_settings_dialpad);
         final MenuItem addToContactMenuItem = menu.findItem(R.id.menu_add_contacts);
         final MenuItem IPCallMenuItem = menu.findItem(R.id.menu_ipcall);
+        final MenuItem SpeedDialMenuItem = menu.findItem(R.id.menu_speeddial);
 
         // Check if all the menu items are inflated correctly. As a shortcut, we assume all menu
         // items are ready if the first item is non-null.
@@ -1266,8 +1266,8 @@ public class DialpadFragment extends Fragment
 	private void callSpeedDial(final String num) {
 		final Context mContext= getActivity();
 		speedDialPrefs = mContext.getSharedPreferences(SPEED_DIAL, Context.MODE_PRIVATE);
-		Set<String> entry = speedDialPrefs.getStringSet(SpeedDialPreferenceActivity.SPEED_DIAL + num, null);
-		if(entry == null || entry.isEmpty()) {
+		String value = speedDialPrefs.getString(SpeedDialPreferenceActivity.SPEED_DIAL + num, null);
+		if(value == null) {
 			boolean remindMe = speedDialPrefs.getBoolean(PREF_DONT_REMIND_ME_KEY, false);
 			if(!remindMe) {
 				LinearLayout viewLayout = new LinearLayout(mContext);
@@ -1276,6 +1276,7 @@ public class DialpadFragment extends Fragment
 				alertTextView.setText(getString(R.string.alert_add_speeddial_title, num));
 				alertTextView.setPadding(15, 15, 0, 0);
 				alertTextView.setTextColor(Color.WHITE);
+				alertTextView.setTextSize(16);
 				viewLayout.addView(alertTextView);
 				final CheckBox cbCheckBox = new CheckBox(mContext);
 				cbCheckBox.setText(R.string.dont_remind_me_title);
@@ -1305,7 +1306,8 @@ public class DialpadFragment extends Fragment
 				startActivityForResult(intent, PICK_CONTACT);
 			}
 		} else {
-			String number = entry.toArray()[1].toString().replace(" ","");
+			String valueArray[] = value.split("\n");
+			String number = valueArray[1].replaceAll(" ","");
 			Intent intent = CallUtil.getCallIntent(number, (getActivity() instanceof DialtactsActivity ?
 					((DialtactsActivity) getActivity()).getCallOrigin() : null));
 			startActivity(intent);
@@ -1324,10 +1326,14 @@ public class DialpadFragment extends Fragment
 				if(c != null && c.moveToFirst()) {
 					String name = c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
 					String number = c.getString(c.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+					int typeID = c.getInt(c.getColumnIndex(ContactsContract.CommonDataKinds.Phone.TYPE));
+					String customLabel = c.getString(c.getColumnIndex(ContactsContract.CommonDataKinds.Phone.LABEL));
+					CharSequence type = ContactsContract.CommonDataKinds.Phone.getTypeLabel(getActivity().getResources(), typeID, customLabel);
 					c.close();
 					Intent intent = new Intent(getActivity(), SpeedDialPreferenceActivity.class);
 					intent.putExtra("name", name);
 					intent.putExtra("number", number);
+					intent.putExtra("type", type);
 					intent.putExtra("id", speed_dial_num);
 					startActivity(intent);
 				}
@@ -1975,6 +1981,10 @@ public class DialpadFragment extends Fragment
                     dialIPCallButtonPressed();
             	}
                 return true;
+            case R.id.menu_speeddial:
+				Intent intent = new Intent(getActivity(), SpeedDialPreferenceActivity.class);
+				startActivity(intent);
+            	return true;
             default:
                 return false;
         }

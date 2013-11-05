@@ -51,7 +51,7 @@ public class IPCallPreferenceActivity extends PreferenceActivity {
 
         //IPCall add
         context = getBaseContext();
-	String preFixStr = getIPCallPrefix(context);
+        String preFixStr = getIPCallPrefix(context);
         mipCallPrefix = (Preference) findPreference(IPCALL_PREFIX);
         mipCallPrefix.setSummary(TextUtils.isEmpty(preFixStr) ? context.getString(R.string.dialer_ip_call_prefix_summary) : preFixStr);
     }
