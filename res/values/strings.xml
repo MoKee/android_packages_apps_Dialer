@@ -119,12 +119,6 @@
     <!-- Message to display if we fail to get content within a suitable time period. [CHAR LIMIT=40] -->
     <string name="voicemail_fetching_timout">Couldn\'t fetch voicemail.</string>
 
-    <!-- The header in the call log used to identify missed calls and voicemail that have not yet been consumed [CHAR LIMIT=10] -->
-    <string name="call_log_new_header">New</string>
-
-    <!-- The header in the call log used to identify items that have been already consumed [CHAR LIMIT=10] -->
-    <string name="call_log_old_header">Older</string>
-
     <!-- The header to show that call log is only showing voicemail calls. [CHAR LIMIT=40] -->
     <string name="call_log_voicemail_header">Calls with voicemail only</string>
 
@@ -302,11 +296,19 @@
     -->
     <string name="description_digits_edittext">number to dial</string>
 
+    <!-- Content description for the fake action menu button that brings up the call history
+         activity -->
+    <string name="action_menu_call_history_description">Call History</string>
+
     <!-- Content description for the fake action menu overflow button.
          This should be same as the description for the real action menu
          overflow button available in ActionBar.
          [CHAR LIMIT=NONE] -->
     <string name="action_menu_overflow_description" msgid="2295659037509008453">More options</string>
+
+    <!-- Content description for the button that displays the dialpad
+         [CHAR LIMIT=NONE] -->
+    <string name="action_menu_dialpad_button">dial pad</string>
 
     <!-- Menu item to copy something [CHAR_LIMIT=10] -->
     <string name="menu_copy">Copy</string>
@@ -335,6 +337,9 @@
 
     <!-- Menu item to create a new contact -->
     <string name="menu_newContact">New contact</string>
+
+    <!-- Menu item to display all contacts -->
+    <string name="menu_allContacts">All contacts</string>
 
     <!-- Title bar for call detail screen -->
     <string name="callDetailTitle">Call details</string>
@@ -448,8 +453,11 @@
     -->
     <string name="description_call_log_unheard_voicemail">Unheard voicemail</string>
 
+    <!-- String describing the icon used to start a voice search -->
+    <string name="description_start_voice_search">Start voice search</string>
+
     <!-- The string used to represent an unknown location for a phone number in the call log [CHAR LIMIT=3] -->
-    <string name="call_log_empty_gecode">-</string>
+    <string name="call_log_empty_gecode">\u0020</string>
 
     <!-- Menu item used to call a contact, containing the number of the contact to call -->
     <string name="menu_callNumber">Call <xliff:g id="number">%s</xliff:g></string>
@@ -511,6 +519,120 @@
     <!-- Message displayed when there is no application available to handle the add contact menu option. [CHAR LIMIT=NONE] -->
     <string name="add_contact_not_available">Re-enable the People application to use this feature.</string>
 
-    <string name="dial_conference">Dial conference</string>
-    <string name="to_hint" translatable="false">1111:to;sip:abby@example.com:bcc;sip:bill@example.com:cc;</string>
+    <!-- Hint displayed in dialer search box when there is no query that is currently typed.
+         [CHAR LIMIT=30] -->
+    <string name="dialer_hint_find_contact">Type a name or phone number</string>
+
+    <!-- Title for the call log tab containing the list of all voicemails and calls
+         [CHAR LIMIT=15] -->
+    <string name="call_log_all_title">All</string>
+
+    <!-- Title for the call log tab containing the list of all missed calls only
+         [CHAR LIMIT=15] -->
+    <string name="call_log_missed_title">Missed</string>
+
+    <!-- String resource for the font-family to use for the call log activity's title
+         Do not translate. -->
+    <string name="call_log_activity_title_font_family">sans-serif-light</string>
+
+    <!-- String resource for the font-family to use for show all contacts' title
+         Do not translate. -->
+    <string name="show_all_contacts_title_font_family">sans-serif-light</string>
+
+    <!-- Text displayed when the list of missed calls is empty -->
+    <string name="recentMissed_empty">No recent missed calls.</string>
+
+    <!-- Text displayed when the list of voicemails is empty -->
+    <string name="recentVoicemails_empty">No recent voicemails.</string>
+
+    <!--  Menu option to enable all contacts to be displayed -->
+    <string name="show_all_contacts">Show all contacts</string>
+
+    <!--  Menu option to show favorite contacts only -->
+    <string name="show_favorites_only">Show favorites only</string>
+
+    <!--  Title of activity that displays a list of all calls -->
+    <string name="call_log_activity_title">History</string>
+
+    <!-- The digit to be displayed on the 0 key of the dialpad [CHAR LIMIT=1]-->
+    <string name="dialpad_0_number">0</string>
+    <!-- The digit to be displayed on the 1 key of the dialpad [CHAR LIMIT=1]-->
+    <string name="dialpad_1_number">1</string>
+    <!-- The digit to be displayed on the 2 key of the dialpad [CHAR LIMIT=1]-->
+    <string name="dialpad_2_number">2</string>
+    <!-- The digit to be displayed on the 3 key of the dialpad [CHAR LIMIT=1]-->
+    <string name="dialpad_3_number">3</string>
+    <!-- The digit to be displayed on the 4 key of the dialpad [CHAR LIMIT=1]-->
+    <string name="dialpad_4_number">4</string>
+    <!-- The digit to be displayed on the 5 key of the dialpad [CHAR LIMIT=1]-->
+    <string name="dialpad_5_number">5</string>
+    <!-- The digit to be displayed on the 6 key of the dialpad [CHAR LIMIT=1]-->
+    <string name="dialpad_6_number">6</string>
+    <!-- The digit to be displayed on the 7 key of the dialpad [CHAR LIMIT=1]-->
+    <string name="dialpad_7_number">7</string>
+    <!-- The digit to be displayed on the 8 key of the dialpad [CHAR LIMIT=1]-->
+    <string name="dialpad_8_number">8</string>
+    <!-- The digit to be displayed on the 9 key of the dialpad [CHAR LIMIT=1]-->
+    <string name="dialpad_9_number">9</string>
+    <!--  Do not translate. -->
+    <string name="dialpad_star_number">*</string>
+    <!--  Do not translate. -->
+    <string name="dialpad_pound_number">#</string>
+
+    <!--  Do not translate. -->
+    <string name="dialpad_0_letters">+</string>
+    <!--  Do not translate. -->
+    <string name="dialpad_1_letters"></string>
+    <!--  Do not translate. -->
+    <string name="dialpad_2_letters">ABC</string>
+    <!--  Do not translate. -->
+    <string name="dialpad_3_letters">DEF</string>
+    <!--  Do not translate. -->
+    <string name="dialpad_4_letters">GHI</string>
+    <!--  Do not translate. -->
+    <string name="dialpad_5_letters">JKL</string>
+    <!--  Do not translate. -->
+    <string name="dialpad_6_letters">MNO</string>
+    <!--  Do not translate. -->
+    <string name="dialpad_7_letters">PQRS</string>
+    <!--  Do not translate. -->
+    <string name="dialpad_8_letters">TUV</string>
+    <!--  Do not translate. -->
+    <string name="dialpad_9_letters">WXYZ</string>
+    <!--  Do not translate. -->
+    <string name="dialpad_star_letters"></string>
+    <!--  Do not translate. -->
+    <string name="dialpad_pound_letters"></string>
+
+    <!--  Title of fragment that displays all contacts -->
+    <string name="show_all_contacts_title">All contacts</string>
+    <!--  Title of show all contacts button -->
+    <string name="show_all_contacts_button_text">All contacts</string>
+    <!--  Text displayed when user swipes out a favorite contact -->
+    <string name="favorite_hidden">Removed from favorites</string>
+    <!--  Text displayed for the undo button to undo removing a favorite contact -->
+    <string name="favorite_hidden_undo">Undo</string>
+
+    <!-- Shortcut item used to call a number directly from search -->
+    <string name="search_shortcut_call_number">Call
+        <xliff:g id="number">%s</xliff:g>
+    </string>
+
+    <!-- Shortcut item used to add a number directly from search -->
+    <string name="search_shortcut_add_to_contacts">Add to contacts</string>
+
+    <!-- Number of missed calls shown on call card [CHAR LIMIT=40] -->
+    <string name="num_missed_calls"><xliff:g id="number">%s</xliff:g> new missed calls</string>
+
+    <!-- Shows when there are no favorites. -->
+    <string name="no_favorites">Favorites &amp; contacts you\ncall often will show here.\nSo, start calling.</string>
+
+    <!-- Shows up as a tooltip to provide a hint to the user that the profile pic in a contact
+         card can be tapped to bring up a list of all numbers, or long pressed to start reordering
+         [CHAR LIMIT=NONE]
+    -->
+    <string name="contact_tooltip">Tap image to see all numbers or press and hold to reorder</string>
+
+    <!-- Content description for dismiss button on badge. [CHAR LIMIT=NONE] -->
+    <string name="description_dismiss">Dismiss</string>
 </resources>

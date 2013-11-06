@@ -20,11 +20,12 @@ import android.net.Uri;
 import android.text.TextUtils;
 
 import com.android.contacts.common.util.UriUtils;
+import com.google.common.base.Objects;
 
 /**
  * Information for a contact as needed by the Call Log.
  */
-public final class ContactInfo {
+public class ContactInfo {
     public Uri lookupUri;
     public String name;
     public int type;
@@ -38,6 +39,10 @@ public final class ContactInfo {
     public Uri photoUri;
 
     public static ContactInfo EMPTY = new ContactInfo();
+
+    public static String GEOCODE_AS_LABEL = "";
+
+    public int sourceType = 0;
 
     @Override
     public int hashCode() {
@@ -67,5 +72,13 @@ public final class ContactInfo {
         if (photoId != other.photoId) return false;
         if (!UriUtils.areEqual(photoUri, other.photoUri)) return false;
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return Objects.toStringHelper(this).add("lookupUri", lookupUri).add("name", name).add(
+                "type", type).add("label", label).add("number", number).add("formattedNumber",
+                formattedNumber).add("normalizedNumber", normalizedNumber).add("photoId", photoId)
+                .add("photoUri", photoUri).toString();
     }
 }

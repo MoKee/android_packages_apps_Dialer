@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.mokee.location.PhoneLocation;
+import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.telephony.PhoneNumberUtils;
 import android.text.SpannableString;
@@ -33,7 +34,9 @@ import android.widget.TextView;
 
 import com.android.contacts.common.test.NeededForTesting;
 import com.android.dialer.calllog.CallTypeHelper;
+import com.android.dialer.calllog.ContactInfo;
 import com.android.dialer.calllog.PhoneNumberHelper;
+import com.android.dialer.calllog.PhoneNumberUtilsWrapper;
 
 /**
  * Helper class to fill in the views in {@link PhoneCallDetailsViews}.
@@ -48,6 +51,7 @@ public class PhoneCallDetailsHelper {
     // Helper classes.
     private final CallTypeHelper mCallTypeHelper;
     private final PhoneNumberHelper mPhoneNumberHelper;
+    private final PhoneNumberUtilsWrapper mPhoneNumberUtilsWrapper;
 
     /**
      * Creates a new instance of the helper.
@@ -57,10 +61,11 @@ public class PhoneCallDetailsHelper {
      * @param resources used to look up strings
      */
     public PhoneCallDetailsHelper(Resources resources, CallTypeHelper callTypeHelper,
-            PhoneNumberHelper phoneNumberHelper) {
+            PhoneNumberUtilsWrapper phoneUtils) {
         mResources = resources;
         mCallTypeHelper = callTypeHelper;
-        mPhoneNumberHelper = phoneNumberHelper;
+        mPhoneNumberHelper = new PhoneNumberHelper(resources);
+        mPhoneNumberUtilsWrapper = phoneUtils;
     }
 
     /** Fills the call details views with content. */
@@ -72,6 +77,7 @@ public class PhoneCallDetailsHelper {
         for (int index = 0; index < count && index < MAX_CALL_TYPE_ICONS; ++index) {
             views.callTypeIcons.add(details.callTypes[index]);
         }
+        views.callTypeIcons.requestLayout();
         views.callTypeIcons.setVisibility(View.VISIBLE);
 
         // Show the total call count only if there are more than the maximum number of icons.
@@ -99,32 +105,36 @@ public class PhoneCallDetailsHelper {
         // Only show a label if the number is shown and it is not a SIP address.
         if (!TextUtils.isEmpty(details.number)
                 && !PhoneNumberUtils.isUriNumber(details.number.toString())) {
-            numberFormattedLabel = Phone.getTypeLabel(mResources, details.numberType,
-                    details.numberLabel);
+            if (details.numberLabel == ContactInfo.GEOCODE_AS_LABEL) {
+                numberFormattedLabel = details.geocode;
+            } else {
+                numberFormattedLabel = Phone.getTypeLabel(mResources, details.numberType,
+                        details.numberLabel);
+            }
         }
 
         final CharSequence nameText;
         final CharSequence numberText;
         final CharSequence labelText;
         final CharSequence displayNumber =
-            mPhoneNumberHelper.getDisplayNumber(details.number, details.formattedNumber);
+            mPhoneNumberHelper.getDisplayNumber(details.number,
+                    details.numberPresentation, details.formattedNumber);
         if (TextUtils.isEmpty(details.name)) {
             nameText = displayNumber;
             if (TextUtils.isEmpty(details.geocode)
-                    || mPhoneNumberHelper.isVoicemailNumber(details.number)) {
+                    || mPhoneNumberUtilsWrapper.isVoicemailNumber(details.number)) {
                 numberText = "";
             } else {
                 numberText = details.geocode;
             }
-            labelText = null;
+            labelText = numberText;
             // We have a real phone number as "nameView" so make it always LTR
             views.nameView.setTextDirection(View.TEXT_DIRECTION_LTR);
         } else {
             nameText = details.name;
             numberText = displayNumber;
-            labelText = numberFormattedLabel;
-            // We have a real phone number as "numberView" so make it always LTR
-            views.numberView.setTextDirection(View.TEXT_DIRECTION_LTR);
+            labelText = TextUtils.isEmpty(numberFormattedLabel) ? numberText :
+                    numberFormattedLabel;
         }
 
         Context mContext = views.labelView.getContext();   
@@ -138,7 +148,7 @@ public class PhoneCallDetailsHelper {
         }
 
         views.nameView.setText(nameText);
-        views.numberView.setText(numberText);
+
         views.labelView.setText(labelText);
         views.labelView.setVisibility(TextUtils.isEmpty(labelText) ? View.GONE : View.VISIBLE);
         views.numberView.setVisibility(numberText == details.geocode || TextUtils.isEmpty(numberText) ? View.GONE : View.VISIBLE);
@@ -148,7 +158,7 @@ public class PhoneCallDetailsHelper {
     public void setCallDetailsHeader(TextView nameView, PhoneCallDetails details) {
         final CharSequence nameText;
         final CharSequence displayNumber =
-                mPhoneNumberHelper.getDisplayNumber(details.number,
+            mPhoneNumberHelper.getDisplayNumber(details.number, details.numberPresentation,
                         mResources.getString(R.string.recentCalls_addToContact));
         if (TextUtils.isEmpty(details.name)) {
             nameText = displayNumber;

@@ -20,6 +20,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
@@ -36,6 +37,7 @@ import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.provider.ContactsContract.CommonDataKinds.SipAddress;
 import android.provider.ContactsContract.Contacts;
 import android.provider.ContactsContract.Data;
+import android.provider.ContactsContract.PinnedPositions;
 import android.provider.ContactsContract.RawContacts;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -187,7 +189,6 @@ public class PhoneNumberInteraction implements OnLoadCompleteListener<Cursor> {
         private static final String ARG_PHONE_LIST = "phoneList";
         private static final String ARG_INTERACTION_TYPE = "interactionType";
         private static final String ARG_CALL_ORIGIN = "callOrigin";
-        private static final String ARG_CAN_SAVE_PRIMARY = "canSavePrimary";
 
         private int mInteractionType;
         private ListAdapter mPhonesAdapter;
@@ -196,13 +197,12 @@ public class PhoneNumberInteraction implements OnLoadCompleteListener<Cursor> {
 
         public static void show(FragmentManager fragmentManager,
                 ArrayList<PhoneItem> phoneList, int interactionType,
-                String callOrigin, boolean canSavePrimary) {
+                String callOrigin) {
             PhoneDisambiguationDialogFragment fragment = new PhoneDisambiguationDialogFragment();
             Bundle bundle = new Bundle();
             bundle.putParcelableArrayList(ARG_PHONE_LIST, phoneList);
             bundle.putSerializable(ARG_INTERACTION_TYPE, interactionType);
             bundle.putString(ARG_CALL_ORIGIN, callOrigin);
-            bundle.putBoolean(ARG_CAN_SAVE_PRIMARY, canSavePrimary);
             fragment.setArguments(bundle);
             fragment.show(fragmentManager, TAG);
         }
@@ -215,13 +215,8 @@ public class PhoneNumberInteraction implements OnLoadCompleteListener<Cursor> {
             mCallOrigin = getArguments().getString(ARG_CALL_ORIGIN);
 
             mPhonesAdapter = new PhoneItemAdapter(activity, mPhoneList, mInteractionType);
-
-            View setPrimaryView = null;
-            if (getArguments().getBoolean(ARG_CAN_SAVE_PRIMARY)) {
-                final LayoutInflater inflater = activity.getLayoutInflater();
-                setPrimaryView = inflater.inflate(R.layout.set_primary_checkbox, null);
-            }
-
+            final LayoutInflater inflater = activity.getLayoutInflater();
+            final View setPrimaryView = inflater.inflate(R.layout.set_primary_checkbox, null);
             return new AlertDialog.Builder(activity)
                     .setAdapter(mPhonesAdapter, this)
                     .setTitle(mInteractionType == ContactDisplayUtils.INTERACTION_SMS
@@ -238,7 +233,7 @@ public class PhoneNumberInteraction implements OnLoadCompleteListener<Cursor> {
             if (mPhoneList.size() > which && which >= 0) {
                 final PhoneItem phoneItem = mPhoneList.get(which);
                 final CheckBox checkBox = (CheckBox)alertDialog.findViewById(R.id.setPrimary);
-                if (checkBox != null && checkBox.isChecked()) {
+                if (checkBox.isChecked()) {
                     // Request to mark the data as primary in the background.
                     final Intent serviceIntent = ContactUpdateService.createSetSuperPrimaryIntent(
                             activity, phoneItem.id);
@@ -254,15 +249,26 @@ public class PhoneNumberInteraction implements OnLoadCompleteListener<Cursor> {
     }
 
     private static final String[] PHONE_NUMBER_PROJECTION = new String[] {
-            Phone._ID,
-            Phone.NUMBER,
-            Phone.IS_SUPER_PRIMARY,
-            RawContacts.ACCOUNT_TYPE,
-            RawContacts.DATA_SET,
-            Phone.TYPE,
-            Phone.LABEL,
-            Phone.MIMETYPE
+            Phone._ID,                      // 0
+            Phone.NUMBER,                   // 1
+            Phone.IS_SUPER_PRIMARY,         // 2
+            RawContacts.ACCOUNT_TYPE,       // 3
+            RawContacts.DATA_SET,           // 4
+            Phone.TYPE,                     // 5
+            Phone.LABEL,                    // 6
+            Phone.MIMETYPE,                 // 7
+            Phone.CONTACT_ID                // 8
     };
+
+    private static final int _ID = 0;
+    private static final int NUMBER = 1;
+    private static final int IS_SUPER_PRIMARY = 2;
+    private static final int ACCOUNT_TYPE = 3;
+    private static final int DATA_SET = 4;
+    private static final int TYPE = 5;
+    private static final int LABEL = 6;
+    private static final int MIMETYPE = 7;
+    private static final int CONTACT_ID = 8;
 
     private static final String PHONE_NUMBER_SELECTION =
             Data.MIMETYPE + " IN ('"
@@ -276,6 +282,9 @@ public class PhoneNumberInteraction implements OnLoadCompleteListener<Cursor> {
 
     private final String mCallOrigin;
     private boolean mUseDefault;
+
+    private static final int UNKNOWN_CONTACT_ID = -1;
+    private long mContactId = UNKNOWN_CONTACT_ID;
 
     private CursorLoader mLoader;
 
@@ -379,20 +388,23 @@ public class PhoneNumberInteraction implements OnLoadCompleteListener<Cursor> {
         String primaryPhone = null;
         try {
             while (cursor.moveToNext()) {
-                if (mUseDefault && cursor.getInt(cursor.getColumnIndex(Phone.IS_SUPER_PRIMARY)) != 0) {
+                if (mContactId == UNKNOWN_CONTACT_ID) {
+                    mContactId = cursor.getLong(CONTACT_ID);
+                }
+
+                if (mUseDefault && cursor.getInt(IS_SUPER_PRIMARY) != 0) {
                     // Found super primary, call it.
-                    primaryPhone = cursor.getString(cursor.getColumnIndex(Phone.NUMBER));
+                    primaryPhone = cursor.getString(NUMBER);
                 }
 
                 PhoneItem item = new PhoneItem();
-                item.id = cursor.getLong(cursor.getColumnIndex(Data._ID));
-                item.phoneNumber = cursor.getString(cursor.getColumnIndex(Phone.NUMBER));
-                item.accountType =
-                        cursor.getString(cursor.getColumnIndex(RawContacts.ACCOUNT_TYPE));
-                item.dataSet = cursor.getString(cursor.getColumnIndex(RawContacts.DATA_SET));
-                item.type = cursor.getInt(cursor.getColumnIndex(Phone.TYPE));
-                item.label = cursor.getString(cursor.getColumnIndex(Phone.LABEL));
-                item.mimeType = cursor.getString(cursor.getColumnIndex(Phone.MIMETYPE));
+                item.id = cursor.getLong(_ID);
+                item.phoneNumber = cursor.getString(NUMBER);
+                item.accountType = cursor.getString(ACCOUNT_TYPE);
+                item.dataSet = cursor.getString(DATA_SET);
+                item.type = cursor.getInt(TYPE);
+                item.label = cursor.getString(LABEL);
+                item.mimeType = cursor.getString(MIMETYPE);
 
                 phoneList.add(item);
             }
@@ -507,6 +519,6 @@ public class PhoneNumberInteraction implements OnLoadCompleteListener<Cursor> {
     @VisibleForTesting
     /* package */ void showDisambiguationDialog(ArrayList<PhoneItem> phoneList) {
         PhoneDisambiguationDialogFragment.show(((Activity)mContext).getFragmentManager(),
-                phoneList, mInteractionType, mCallOrigin, mUseDefault);
+                phoneList, mInteractionType, mCallOrigin);
     }
 }

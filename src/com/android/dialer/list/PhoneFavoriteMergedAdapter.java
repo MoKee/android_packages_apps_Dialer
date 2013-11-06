@@ -18,24 +18,27 @@ package com.android.dialer.list;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.database.DataSetObserver;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
-import android.widget.SectionIndexer;
 
-import com.android.contacts.common.list.ContactEntryListAdapter;
-import com.android.contacts.common.list.ContactListItemView;
-import com.android.contacts.common.list.ContactTileAdapter;
 import com.android.dialer.R;
+import com.android.dialer.calllog.CallLogAdapter;
+import com.android.dialer.calllog.CallLogNotificationsHelper;
+import com.android.dialer.calllog.CallLogQueryHandler;
+import com.android.dialer.list.SwipeHelper.OnItemGestureListener;
+import com.android.dialer.list.SwipeHelper.SwipeHelperCallback;
 
 /**
- * An adapter that combines items from {@link com.android.contacts.common.list.ContactTileAdapter} and
- * {@link com.android.contacts.common.list.ContactEntryListAdapter} into a single list. In between those two results,
- * an account filter header will be inserted.
+ * An adapter that combines items from {@link com.android.contacts.common.list.ContactTileAdapter}
+ * and {@link com.android.dialer.calllog.CallLogAdapter} into a single list.
  */
-public class PhoneFavoriteMergedAdapter extends BaseAdapter implements SectionIndexer {
+public class PhoneFavoriteMergedAdapter extends BaseAdapter {
 
     private class CustomDataSetObserver extends DataSetObserver {
         @Override
@@ -44,264 +47,344 @@ public class PhoneFavoriteMergedAdapter extends BaseAdapter implements SectionIn
         }
     }
 
-    private final ContactTileAdapter mContactTileAdapter;
-    private final ContactEntryListAdapter mContactEntryListAdapter;
-    private final View mAccountFilterHeaderContainer;
-    private final View mLoadingView;
+    private static final String TAG = PhoneFavoriteMergedAdapter.class.getSimpleName();
 
-    private final int mItemPaddingLeft;
-    private final int mItemPaddingRight;
+    private static final int TILE_INTERACTION_TEASER_VIEW_POSITION = 2;
+    private static final int TILE_INTERACTION_TEASER_VIEW_ID = -2;
+    private static final int ALL_CONTACTS_BUTTON_ITEM_ID = -1;
+    private final PhoneFavoritesTileAdapter mContactTileAdapter;
+    private final CallLogAdapter mCallLogAdapter;
+    private final View mShowAllContactsButton;
+    private final PhoneFavoriteFragment mFragment;
+    private final TileInteractionTeaserView mTileInteractionTeaserView;
 
-    // Make frequent header consistent with account filter header.
-    private final int mFrequentHeaderPaddingTop;
+    private final int mCallLogPadding;
+
+    private final Context mContext;
 
     private final DataSetObserver mObserver;
 
+    private final CallLogQueryHandler mCallLogQueryHandler;
+
+    private final OnItemGestureListener mCallLogOnItemSwipeListener =
+            new OnItemGestureListener() {
+        @Override
+        public void onSwipe(View view) {
+            mCallLogQueryHandler.markNewCallsAsOld();
+            mCallLogQueryHandler.markNewVoicemailsAsOld();
+            CallLogNotificationsHelper.removeMissedCallNotifications();
+            CallLogNotificationsHelper.updateVoicemailNotifications(mContext);
+            mFragment.dismissShortcut(((View) view.getParent()).getHeight());
+        }
+
+        @Override
+        public void onTouch() {}
+
+        @Override
+        public boolean isSwipeEnabled() {
+            return true;
+        }
+    };
+
+    private final CallLogQueryHandler.Listener mCallLogQueryHandlerListener =
+            new CallLogQueryHandler.Listener() {
+        @Override
+        public void onVoicemailStatusFetched(Cursor statusCursor) {}
+
+        @Override
+        public void onCallsFetched(Cursor combinedCursor) {
+            mCallLogAdapter.invalidateCache();
+            mCallLogAdapter.changeCursor(combinedCursor);
+            mCallLogAdapter.notifyDataSetChanged();
+        }
+    };
+
     public PhoneFavoriteMergedAdapter(Context context,
-            ContactTileAdapter contactTileAdapter,
-            View accountFilterHeaderContainer,
-            ContactEntryListAdapter contactEntryListAdapter,
-            View loadingView) {
-        Resources resources = context.getResources();
-        mItemPaddingLeft = resources.getDimensionPixelSize(R.dimen.detail_item_side_margin);
-        mItemPaddingRight = resources.getDimensionPixelSize(R.dimen.list_visible_scrollbar_padding);
-        mFrequentHeaderPaddingTop = resources.getDimensionPixelSize(
-                R.dimen.contact_browser_list_top_margin);
+            PhoneFavoriteFragment fragment,
+            PhoneFavoritesTileAdapter contactTileAdapter,
+            CallLogAdapter callLogAdapter,
+            View showAllContactsButton,
+            TileInteractionTeaserView tileInteractionTeaserView) {
+        final Resources resources = context.getResources();
+        mContext = context;
+        mFragment = fragment;
+        mCallLogPadding = resources.getDimensionPixelSize(R.dimen.recent_call_log_item_padding);
         mContactTileAdapter = contactTileAdapter;
-        mContactEntryListAdapter = contactEntryListAdapter;
-
-        mAccountFilterHeaderContainer = accountFilterHeaderContainer;
-
+        mCallLogAdapter = callLogAdapter;
         mObserver = new CustomDataSetObserver();
+        mCallLogAdapter.registerDataSetObserver(mObserver);
         mContactTileAdapter.registerDataSetObserver(mObserver);
-        mContactEntryListAdapter.registerDataSetObserver(mObserver);
-
-        mLoadingView = loadingView;
-    }
-
-    @Override
-    public boolean isEmpty() {
-        // Cannot use the super's method here because we add extra rows in getCount() to account
-        // for headers
-        return mContactTileAdapter.getCount() + mContactEntryListAdapter.getCount() == 0;
+        mShowAllContactsButton = showAllContactsButton;
+        mTileInteractionTeaserView = tileInteractionTeaserView;
+        mCallLogQueryHandler = new CallLogQueryHandler(mContext.getContentResolver(),
+                mCallLogQueryHandlerListener);
     }
 
     @Override
     public int getCount() {
-        final int contactTileAdapterCount = mContactTileAdapter.getCount();
-        final int contactEntryListAdapterCount = mContactEntryListAdapter.getCount();
-        if (mContactEntryListAdapter.isLoading()) {
-            // Hide "all" contacts during its being loaded. Instead show "loading" view.
-            //
-            // "+2" for mAccountFilterHeaderContainer and mLoadingView
-            return contactTileAdapterCount + 2;
+        if (mContactTileAdapter.getCount() > 0) {
+            return mContactTileAdapter.getCount() + mCallLogAdapter.getCount() + 1 +
+                    getTeaserViewCount();
         } else {
-            // "+1" for mAccountFilterHeaderContainer
-            return contactTileAdapterCount + contactEntryListAdapterCount + 1;
+            return mCallLogAdapter.getCount();
         }
     }
 
     @Override
     public Object getItem(int position) {
-        final int contactTileAdapterCount = mContactTileAdapter.getCount();
-        final int contactEntryListAdapterCount = mContactEntryListAdapter.getCount();
-        if (position < contactTileAdapterCount) {  // For "tile" and "frequent" sections
-            return mContactTileAdapter.getItem(position);
-        } else if (position == contactTileAdapterCount) {  // For "all" section's account header
-            return mAccountFilterHeaderContainer;
-        } else {  // For "all" section
-            if (mContactEntryListAdapter.isLoading()) {  // "All" section is being loaded.
-                return mLoadingView;
-            } else {
-                // "-1" for mAccountFilterHeaderContainer
-                final int localPosition = position - contactTileAdapterCount - 1;
-                return mContactTileAdapter.getItem(localPosition);
+        final int callLogAdapterCount = mCallLogAdapter.getCount();
+
+        if (callLogAdapterCount > 0) {
+            if (position < callLogAdapterCount) {
+                return mCallLogAdapter.getItem(position);
             }
+        }
+        // Set position to the position of the actual favorite contact in the favorites adapter
+        position = getAdjustedFavoritePosition(position, callLogAdapterCount);
+
+        return mContactTileAdapter.getItem(position);
+    }
+
+    /**
+     * In order to ensure that items have stable ids (for animation purposes), we need to
+     * guarantee that every single item has a unique ID, even across data set changes.
+     *
+     * These are the ranges of IDs reserved for each item type.
+     *
+     * -(N + 1) to -3: CallLogAdapterItems, where N is equal to the number of call log items
+     * -2: Teaser
+     * -1: All contacts button
+     * 0 to (N -1): Rows of tiled contacts, where N is equal to the max rows of tiled contacts
+     * N to infinity: Rows of regular contacts. Their item id is calculated by N + contact_id,
+     * where contact_id is guaranteed to never be negative.
+     */
+    @Override
+    public long getItemId(int position) {
+        final int callLogAdapterCount = mCallLogAdapter.getCount();
+        if (position < callLogAdapterCount) {
+            // Call log items are not animated, so reusing their position for IDs is fine.
+            return ALL_CONTACTS_BUTTON_ITEM_ID - 2 - position;
+        } else if (position == TILE_INTERACTION_TEASER_VIEW_POSITION + callLogAdapterCount &&
+                mTileInteractionTeaserView.getShouldDisplayInList()){
+            return TILE_INTERACTION_TEASER_VIEW_ID;
+        } else if (position < (callLogAdapterCount + mContactTileAdapter.getCount() +
+                getTeaserViewCount())) {
+            return mContactTileAdapter.getItemId(
+                    getAdjustedFavoritePosition(position, callLogAdapterCount));
+        } else {
+            // All contacts button
+            return ALL_CONTACTS_BUTTON_ITEM_ID;
         }
     }
 
     @Override
-    public long getItemId(int position) {
-        return position;
+    public boolean hasStableIds() {
+        return true;
     }
 
     @Override
     public int getViewTypeCount() {
-        // "+2" for mAccountFilterHeaderContainer and mLoadingView
-        return (mContactTileAdapter.getViewTypeCount()
-                + mContactEntryListAdapter.getViewTypeCount()
-                + 2);
+        return (mContactTileAdapter.getViewTypeCount() +            /* Favorite and frequent */
+                mCallLogAdapter.getViewTypeCount() +                /* Recent call log */
+                getTeaserViewCount() +                              /* Teaser */
+                1);                                                 /* Show all contacts button. */
     }
 
     @Override
     public int getItemViewType(int position) {
-        final int contactTileAdapterCount = mContactTileAdapter.getCount();
-        final int contactEntryListAdapterCount = mContactEntryListAdapter.getCount();
-        // There should be four kinds of types that are usually used, and one more exceptional
-        // type (IGNORE_ITEM_VIEW_TYPE), which sometimes comes from mContactTileAdapter.
-        //
-        // The four ordinary view types have the index equal to or more than 0, and less than
-        // mContactTileAdapter.getViewTypeCount()+ mContactEntryListAdapter.getViewTypeCount() + 2.
-        // (See also this class's getViewTypeCount())
-        //
-        // We have those values for:
-        // - The view types mContactTileAdapter originally has
-        // - The view types mContactEntryListAdapter originally has
-        // - mAccountFilterHeaderContainer ("all" section's account header), and
-        // - mLoadingView
-        //
-        // Those types should not be mixed, so we have a different range for each kinds of types:
-        // - Types for mContactTileAdapter ("tile" and "frequent" sections)
-        //   They should have the index, >=0 and <mContactTileAdapter.getViewTypeCount()
-        //
-        // - Types for mContactEntryListAdapter ("all" sections)
-        //   They should have the index, >=mContactTileAdapter.getViewTypeCount() and
-        //   <(mContactTileAdapter.getViewTypeCount() + mContactEntryListAdapter.getViewTypeCount())
-        //
-        // - Type for "all" section's account header
-        //   It should have the exact index
-        //   mContactTileAdapter.getViewTypeCount()+ mContactEntryListAdapter.getViewTypeCount()
-        //
-        // - Type for "loading" view used during "all" section is being loaded.
-        //   It should have the exact index
-        //   mContactTileAdapter.getViewTypeCount()+ mContactEntryListAdapter.getViewTypeCount() + 1
-        //
-        // As an exception, IGNORE_ITEM_VIEW_TYPE (-1) will be remained as is, which will be used
-        // by framework's Adapter implementation and thus should be left as is.
-        if (position < contactTileAdapterCount) {  // For "tile" and "frequent" sections
-            return mContactTileAdapter.getItemViewType(position);
-        } else if (position == contactTileAdapterCount) {  // For "all" section's account header
-            return mContactTileAdapter.getViewTypeCount()
-                    + mContactEntryListAdapter.getViewTypeCount();
-        } else {  // For "all" section
-            if (mContactEntryListAdapter.isLoading()) {  // "All" section is being loaded.
-                return mContactTileAdapter.getViewTypeCount()
-                        + mContactEntryListAdapter.getViewTypeCount() + 1;
-            } else {
-                // "-1" for mAccountFilterHeaderContainer
-                final int localPosition = position - contactTileAdapterCount - 1;
-                final int type = mContactEntryListAdapter.getItemViewType(localPosition);
-                // IGNORE_ITEM_VIEW_TYPE must be handled differently.
-                return (type < 0) ? type : type + mContactTileAdapter.getViewTypeCount();
-            }
+        final int callLogAdapterCount = mCallLogAdapter.getCount();
+
+        if (position < callLogAdapterCount) {
+            // View type of the call log adapter is the last view type of the contact tile adapter
+            // + 1
+            return mContactTileAdapter.getViewTypeCount();
+        } else if (position == TILE_INTERACTION_TEASER_VIEW_POSITION + callLogAdapterCount &&
+                mTileInteractionTeaserView.getShouldDisplayInList()) {
+            // View type of the teaser row is the last view type of the contact tile adapter + 3
+            return mContactTileAdapter.getViewTypeCount() + 2;
+        } else if (position < getCount() - 1) {
+            return mContactTileAdapter.getItemViewType(
+                    getAdjustedFavoritePosition(position, callLogAdapterCount));
+        } else {
+            // View type of the show all contact button is the last view type of the contact tile
+            // adapter + 2
+            return mContactTileAdapter.getViewTypeCount() + 1;
         }
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final int contactTileAdapterCount = mContactTileAdapter.getCount();
-        final int contactEntryListAdapterCount = mContactEntryListAdapter.getCount();
+        final int callLogAdapterCount = mCallLogAdapter.getCount();
 
-        // Obtain a View relevant for that position, and adjust its horizontal padding. Each
-        // View has different implementation, so we use different way to control those padding.
-        if (position < contactTileAdapterCount) {  // For "tile" and "frequent" sections
-            final View view = mContactTileAdapter.getView(position, convertView, parent);
-            final int frequentHeaderPosition = mContactTileAdapter.getFrequentHeaderPosition();
-            if (position < frequentHeaderPosition) {  // "starred" contacts
-                // No padding adjustment.
-            } else if (position == frequentHeaderPosition) {
-                view.setPadding(mItemPaddingLeft, mFrequentHeaderPaddingTop,
-                        mItemPaddingRight, view.getPaddingBottom());
-            } else {
-                // Views for "frequent" contacts use FrameLayout's margins instead of padding.
-                final FrameLayout frameLayout = (FrameLayout) view;
-                final View child = frameLayout.getChildAt(0);
-                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-                        FrameLayout.LayoutParams.WRAP_CONTENT,
-                        FrameLayout.LayoutParams.WRAP_CONTENT);
-                params.setMargins(mItemPaddingLeft, 0, mItemPaddingRight, 0);
-                child.setLayoutParams(params);
-            }
-            return view;
-        } else if (position == contactTileAdapterCount) {  // For "all" section's account header
-            mAccountFilterHeaderContainer.setPadding(mItemPaddingLeft,
-                    mAccountFilterHeaderContainer.getPaddingTop(),
-                    mItemPaddingRight,
-                    mAccountFilterHeaderContainer.getPaddingBottom());
+        if ((position == getCount() - 1) && (mContactTileAdapter.getCount() > 0)) {
+            return mShowAllContactsButton;
+        }
 
-            // Show a single "No Contacts" label under the "all" section account header
-            // if no contacts are displayed.
-            mAccountFilterHeaderContainer.findViewById(
-                    R.id.contact_list_all_empty).setVisibility(
-                    contactEntryListAdapterCount == 0 ? View.VISIBLE : View.GONE);
-            return mAccountFilterHeaderContainer;
-        } else {  // For "all" section
-            if (mContactEntryListAdapter.isLoading()) {  // "All" section is being loaded.
-                mLoadingView.setPadding(mItemPaddingLeft,
-                        mLoadingView.getPaddingTop(),
-                        mItemPaddingRight,
-                        mLoadingView.getPaddingBottom());
-                return mLoadingView;
-            } else {
-                // "-1" for mAccountFilterHeaderContainer
-                final int localPosition = position - contactTileAdapterCount - 1;
-                final ContactListItemView itemView = (ContactListItemView)
-                        mContactEntryListAdapter.getView(localPosition, convertView, null);
-                itemView.setPadding(mItemPaddingLeft, itemView.getPaddingTop(),
-                        mItemPaddingRight, itemView.getPaddingBottom());
-                itemView.setSelectionBoundsHorizontalMargin(mItemPaddingLeft, mItemPaddingRight);
-                return itemView;
+        if (mTileInteractionTeaserView.getShouldDisplayInList())  {
+            if (position == TILE_INTERACTION_TEASER_VIEW_POSITION + callLogAdapterCount) {
+                return mTileInteractionTeaserView;
             }
         }
+
+        if (callLogAdapterCount > 0) {
+            if (position == 0) {
+                final SwipeableCallLogRow wrapper;
+                if (convertView == null) {
+                    wrapper = new SwipeableCallLogRow(mContext);
+                    wrapper.setOnItemSwipeListener(mCallLogOnItemSwipeListener);
+                } else {
+                    wrapper = (SwipeableCallLogRow) convertView;
+                }
+
+                // Special case wrapper view for the most recent call log item. This allows
+                // us to create a card-like effect for the more recent call log item in
+                // the PhoneFavoriteMergedAdapter, but keep the original look of the item in
+                // the CallLogAdapter.
+                final View view = mCallLogAdapter.getView(position, convertView == null ?
+                        null : wrapper.getChildAt(0), parent);
+                wrapper.removeAllViews();
+                final View callLogItem = view.findViewById(R.id.call_log_list_item);
+                // Reset the internal call log item view if it is being recycled
+                callLogItem.setTranslationX(0);
+                callLogItem.setAlpha(1);
+                wrapper.addView(view);
+                return wrapper;
+            }
+        }
+
+        // Set position to the position of the actual favorite contact in the
+        // favorites adapter
+        position = getAdjustedFavoritePosition(position, callLogAdapterCount);
+
+        // Favorites section
+        final View view = mContactTileAdapter.getView(position, convertView, parent);
+        if (position >= mContactTileAdapter.getMaxTiledRows()) {
+            final FrameLayout frameLayout = (FrameLayout) view;
+            final View child = frameLayout.getChildAt(0);
+            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+                    FrameLayout.LayoutParams.WRAP_CONTENT,
+                    FrameLayout.LayoutParams.WRAP_CONTENT);
+            child.setLayoutParams(params);
+        }
+        return view;
     }
 
     @Override
     public boolean areAllItemsEnabled() {
-        // If "all" section is being loaded we'll show mLoadingView, which is not enabled.
-        // Otherwise check the all the other components in the ListView and return appropriate
-        // result.
-        return !mContactEntryListAdapter.isLoading()
-                && (mContactTileAdapter.areAllItemsEnabled()
-                && mAccountFilterHeaderContainer.isEnabled()
-                && mContactEntryListAdapter.areAllItemsEnabled());
+        return mCallLogAdapter.areAllItemsEnabled() && mContactTileAdapter.areAllItemsEnabled();
     }
 
     @Override
     public boolean isEnabled(int position) {
-        final int contactTileAdapterCount = mContactTileAdapter.getCount();
-        final int contactEntryListAdapterCount = mContactEntryListAdapter.getCount();
-        if (position < contactTileAdapterCount) {  // For "tile" and "frequent" sections
-            return mContactTileAdapter.isEnabled(position);
-        } else if (position == contactTileAdapterCount) {  // For "all" section's account header
-            // This will be handled by View's onClick event instead of ListView's onItemClick event.
-            return false;
-        } else {  // For "all" section
-            if (mContactEntryListAdapter.isLoading()) {  // "All" section is being loaded.
-                return false;
-            } else {
-                // "-1" for mAccountFilterHeaderContainer
-                final int localPosition = position - contactTileAdapterCount - 1;
-                return mContactEntryListAdapter.isEnabled(localPosition);
+        final int callLogAdapterCount = mCallLogAdapter.getCount();
+        if (position < callLogAdapterCount) {
+            return mCallLogAdapter.isEnabled(position);
+        } else { // For favorites section
+            return mContactTileAdapter.isEnabled(
+                    getAdjustedFavoritePosition(position, callLogAdapterCount));
+        }
+    }
+
+    private int getAdjustedFavoritePosition(int position, int callLogAdapterCount) {
+        if (position - callLogAdapterCount > TILE_INTERACTION_TEASER_VIEW_POSITION &&
+                mTileInteractionTeaserView.getShouldDisplayInList()) {
+            return position - callLogAdapterCount - 1;
+        } else {
+            return position - callLogAdapterCount;
+        }
+    }
+
+    private int getTeaserViewCount() {
+        return (mContactTileAdapter.getCount() > TILE_INTERACTION_TEASER_VIEW_POSITION &&
+                mTileInteractionTeaserView.getShouldDisplayInList() ? 1 : 0);
+    }
+
+    /**
+     * The swipeable call log row.
+     * See also {@link PhoneFavoritesTileAdapter.ContactTileRow}.
+     */
+    private class SwipeableCallLogRow extends FrameLayout implements SwipeHelperCallback {
+        private SwipeHelper mSwipeHelper;
+        private OnItemGestureListener mOnItemSwipeListener;
+
+        public SwipeableCallLogRow(Context context) {
+            super(context);
+            final float densityScale = getResources().getDisplayMetrics().density;
+            final float pagingTouchSlop = ViewConfiguration.get(context)
+                    .getScaledPagingTouchSlop();
+            mSwipeHelper = new SwipeHelper(context, SwipeHelper.X, this,
+                    densityScale, pagingTouchSlop);
+        }
+
+        @Override
+        public void addView(View view) {
+            view.setBackgroundResource(R.drawable.dialer_recent_card_bg);
+
+            final FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+                    FrameLayout.LayoutParams.MATCH_PARENT,
+                    FrameLayout.LayoutParams.WRAP_CONTENT);
+            params.setMarginsRelative(mCallLogPadding, mCallLogPadding, mCallLogPadding,
+                    mCallLogPadding);
+            view.setLayoutParams(params);
+
+            super.addView(view);
+        }
+
+        @Override
+        public View getChildAtPosition(MotionEvent ev) {
+            return getChildCount() > 0 ? getChildAt(0) : null;
+        }
+
+        @Override
+        public View getChildContentView(View v) {
+            return v.findViewById(R.id.call_log_list_item);
+        }
+
+        @Override
+        public void onScroll() {}
+
+        @Override
+        public boolean canChildBeDismissed(View v) {
+            return true;
+        }
+
+        @Override
+        public void onBeginDrag(View v) {
+            // We do this so the underlying ScrollView knows that it won't get
+            // the chance to intercept events anymore
+            requestDisallowInterceptTouchEvent(true);
+        }
+
+        @Override
+        public void onChildDismissed(View v) {
+            if (v != null && mOnItemSwipeListener != null) {
+                mOnItemSwipeListener.onSwipe(v);
             }
         }
-    }
 
-    @Override
-    public int getPositionForSection(int sectionIndex) {
-        final int contactTileAdapterCount = mContactTileAdapter.getCount();
-        final int localPosition = mContactEntryListAdapter.getPositionForSection(sectionIndex);
-        return contactTileAdapterCount + 1 + localPosition;
-    }
+        @Override
+        public void onDragCancelled(View v) {}
 
-    @Override
-    public int getSectionForPosition(int position) {
-        final int contactTileAdapterCount = mContactTileAdapter.getCount();
-        if (position <= contactTileAdapterCount) {
-            return 0;
-        } else {
-            // "-1" for mAccountFilterHeaderContainer
-            final int localPosition = position - contactTileAdapterCount - 1;
-            return mContactEntryListAdapter.getSectionForPosition(localPosition);
+        @Override
+        public boolean onInterceptTouchEvent(MotionEvent ev) {
+            if (mSwipeHelper != null) {
+                return mSwipeHelper.onInterceptTouchEvent(ev) || super.onInterceptTouchEvent(ev);
+            } else {
+                return super.onInterceptTouchEvent(ev);
+            }
         }
-    }
 
-    @Override
-    public Object[] getSections() {
-        return mContactEntryListAdapter.getSections();
-    }
+        @Override
+        public boolean onTouchEvent(MotionEvent ev) {
+            if (mSwipeHelper != null) {
+                return mSwipeHelper.onTouchEvent(ev) || super.onTouchEvent(ev);
+            } else {
+                return super.onTouchEvent(ev);
+            }
+        }
 
-    public boolean shouldShowFirstScroller(int firstVisibleItem) {
-        final int contactTileAdapterCount = mContactTileAdapter.getCount();
-        return firstVisibleItem > contactTileAdapterCount;
+        public void setOnItemSwipeListener(OnItemGestureListener listener) {
+            mOnItemSwipeListener = listener;
+        }
     }
 }

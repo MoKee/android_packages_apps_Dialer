@@ -1,7 +1,5 @@
 /*
- * Copyright (C) 2008 The Android Open Source Project
- * Copyright (c) 2013, The Linux Foundation. All rights reserved.
- * Not a Contribution.
+ * Copyright (C) 2013 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,389 +16,171 @@
 
 package com.android.dialer;
 
-import android.app.ActionBar;
-import android.app.ActionBar.LayoutParams;
-import android.app.ActionBar.Tab;
-import android.app.ActionBar.TabListener;
+import android.animation.Animator;
+import android.animation.Animator.AnimatorListener;
+import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentManager.BackStackEntry;
 import android.app.FragmentTransaction;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.os.ServiceManager;
-import android.preference.PreferenceManager;
 import android.provider.CallLog.Calls;
 import android.provider.ContactsContract.Contacts;
+import android.provider.ContactsContract.Intents;
 import android.provider.ContactsContract.Intents.UI;
-import android.support.v13.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.telephony.MSimTelephonyManager;
+import android.speech.RecognizerIntent;
+import android.telephony.TelephonyManager;
+import android.text.Editable;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
-import android.view.ViewConfiguration;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AbsListView.OnScrollListener;
+import android.widget.EditText;
 import android.widget.PopupMenu;
-import android.widget.SearchView;
-import android.widget.SearchView.OnCloseListener;
-import android.widget.SearchView.OnQueryTextListener;
 import android.widget.Toast;
 
 import com.android.contacts.common.CallUtil;
 import com.android.contacts.common.activity.TransactionSafeActivity;
-import com.android.contacts.common.list.ContactListFilterController;
-import com.android.contacts.common.list.ContactListFilterController.ContactListFilterListener;
-import com.android.contacts.common.list.ContactListItemView;
+import com.android.contacts.common.dialog.ClearFrequentsDialog;
+import com.android.contacts.common.interactions.ImportExportDialogFragment;
 import com.android.contacts.common.list.OnPhoneNumberPickerActionListener;
-import com.android.contacts.common.list.PhoneNumberPickerFragment;
-import com.android.contacts.common.util.AccountFilterUtil;
-import com.android.dialer.calllog.CallLogFragment;
-import com.android.dialer.callstats.CallStatsActivity;
+import com.android.dialer.calllog.CallLogActivity;
+import com.android.dialer.database.DialerDatabaseHelper;
 import com.android.dialer.dialpad.DialpadFragment;
+import com.android.dialer.dialpad.SmartDialNameMatcher;
+import com.android.dialer.dialpad.SmartDialPrefix;
 import com.android.dialer.interactions.PhoneNumberInteraction;
+import com.android.dialer.list.AllContactsActivity;
+import com.android.dialer.list.OnListFragmentScrolledListener;
 import com.android.dialer.list.PhoneFavoriteFragment;
-import com.android.dialer.util.OrientationUtil;
+import com.android.dialer.list.RegularSearchFragment;
+import com.android.dialer.list.SearchFragment;
+import com.android.dialer.list.SmartDialSearchFragment;
+import com.android.dialerbind.DatabaseHelperManager;
 import com.android.internal.telephony.ITelephony;
 
+import java.util.ArrayList;
+
 /**
- * The dialer activity that has one tab with the virtual 12key
- * dialer, a tab with recent calls in it, a tab with the contacts and
- * a tab with the favorite. This is the container and the tabs are
- * embedded using intents.
  * The dialer tab's title is 'phone', a more common name (see strings.xml).
  */
-public class DialtactsActivity extends TransactionSafeActivity implements View.OnClickListener {
+public class DialtactsActivity extends TransactionSafeActivity implements View.OnClickListener,
+        DialpadFragment.OnDialpadQueryChangedListener, PopupMenu.OnMenuItemClickListener,
+        OnListFragmentScrolledListener,
+        DialpadFragment.OnDialpadFragmentStartedListener,
+        PhoneFavoriteFragment.OnShowAllContactsListener {
     private static final String TAG = "DialtactsActivity";
 
     public static final boolean DEBUG = false;
+
+    public static final String SHARED_PREFS_NAME = "com.android.dialer_preferences";
 
     /** Used to open Call Setting */
     private static final String PHONE_PACKAGE = "com.android.phone";
     private static final String CALL_SETTINGS_CLASS_NAME =
             "com.android.phone.CallFeaturesSetting";
-    private static final String MSIM_CALL_SETTINGS_CLASS_NAME =
-            "com.android.phone.MSimCallFeaturesSetting";
-
     /** @see #getCallOrigin() */
     private static final String CALL_ORIGIN_DIALTACTS =
             "com.android.dialer.DialtactsActivity";
+
+    private static final String KEY_IN_REGULAR_SEARCH_UI = "in_regular_search_ui";
+    private static final String KEY_IN_DIALPAD_SEARCH_UI = "in_dialpad_search_ui";
+    private static final String KEY_SEARCH_QUERY = "search_query";
+    private static final String KEY_FIRST_LAUNCH = "first_launch";
+
+    private static final String TAG_DIALPAD_FRAGMENT = "dialpad";
+    private static final String TAG_REGULAR_SEARCH_FRAGMENT = "search";
+    private static final String TAG_SMARTDIAL_SEARCH_FRAGMENT = "smartdial";
+    private static final String TAG_FAVORITES_FRAGMENT = "favorites";
 
     /**
      * Just for backward compatibility. Should behave as same as {@link Intent#ACTION_DIAL}.
      */
     private static final String ACTION_TOUCH_DIALER = "com.android.phone.action.TOUCH_DIALER";
 
-    /** Used both by {@link ActionBar} and {@link ViewPagerAdapter} */
-    private static final int TAB_INDEX_DIALER = 0;
-    private static final int TAB_INDEX_CALL_LOG = 1;
-    private static final int TAB_INDEX_FAVORITES = 2;
-
-    private static final int TAB_INDEX_COUNT = 3;
-
-    private SharedPreferences mPrefs;
-
-    /** Last manually selected tab index */
-    private static final String PREF_LAST_MANUALLY_SELECTED_TAB =
-            "DialtactsActivity_last_manually_selected_tab";
-    private static final int PREF_LAST_MANUALLY_SELECTED_TAB_DEFAULT = TAB_INDEX_DIALER;
-
     private static final int SUBACTIVITY_ACCOUNT_FILTER = 1;
 
-    public class ViewPagerAdapter extends FragmentPagerAdapter {
-        public ViewPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            switch (position) {
-                case TAB_INDEX_DIALER:
-                    return new DialpadFragment();
-                case TAB_INDEX_CALL_LOG:
-                    return new CallLogFragment();
-                case TAB_INDEX_FAVORITES:
-                    return new PhoneFavoriteFragment();
-            }
-            throw new IllegalStateException("No fragment at position " + position);
-        }
-
-        @Override
-        public void setPrimaryItem(ViewGroup container, int position, Object object) {
-            // The parent's setPrimaryItem() also calls setMenuVisibility(), so we want to know
-            // when it happens.
-            if (DEBUG) {
-                Log.d(TAG, "FragmentPagerAdapter#setPrimaryItem(), position: " + position);
-            }
-            super.setPrimaryItem(container, position, object);
-        }
-
-        @Override
-        public int getCount() {
-            return TAB_INDEX_COUNT;
-        }
-    }
-
-    /**
-     * True when the app detects user's drag event. This variable should not become true when
-     * mUserTabClick is true.
-     *
-     * During user's drag or tab click, we shouldn't show fake buttons but just show real
-     * ActionBar at the bottom of the screen, for transition animation.
-     */
-    boolean mDuringSwipe = false;
-    /**
-     * True when the app detects user's tab click (at the top of the screen). This variable should
-     * not become true when mDuringSwipe is true.
-     *
-     * During user's drag or tab click, we shouldn't show fake buttons but just show real
-     * ActionBar at the bottom of the screen, for transition animation.
-     */
-    boolean mUserTabClick = false;
-
-    private class PageChangeListener implements OnPageChangeListener {
-        private int mCurrentPosition = -1;
-        /**
-         * Used during page migration, to remember the next position {@link #onPageSelected(int)}
-         * specified.
-         */
-        private int mNextPosition = -1;
-
-        @Override
-        public void onPageScrolled(
-                int position, float positionOffset, int positionOffsetPixels) {
-        }
-
-        @Override
-        public void onPageSelected(int position) {
-            if (DEBUG) Log.d(TAG, "onPageSelected: position: " + position);
-            final ActionBar actionBar = getActionBar();
-            if (mDialpadFragment != null) {
-                if (mDuringSwipe && position == TAB_INDEX_DIALER) {
-                    // TODO: Figure out if we want this or not. Right now
-                    // - with this call, both fake buttons and real action bar overlap
-                    // - without this call, there's tiny flicker happening to search/menu buttons.
-                    // If we can reduce the flicker without this call, it would be much better.
-                    // updateFakeMenuButtonsVisibility(true);
-                }
-            }
-
-            if (mCurrentPosition == position) {
-                Log.w(TAG, "Previous position and next position became same (" + position + ")");
-            }
-
-            actionBar.selectTab(actionBar.getTabAt(position));
-            mNextPosition = position;
-        }
-
-        public void setCurrentPosition(int position) {
-            mCurrentPosition = position;
-        }
-
-        public int getCurrentPosition() {
-            return mCurrentPosition;
-        }
-
-        @Override
-        public void onPageScrollStateChanged(int state) {
-            switch (state) {
-                case ViewPager.SCROLL_STATE_IDLE: {
-                    if (mNextPosition == -1) {
-                        // This happens when the user drags the screen just after launching the
-                        // application, and settle down the same screen without actually swiping it.
-                        // At that moment mNextPosition is apparently -1 yet, and we expect it
-                        // being updated by onPageSelected(), which is *not* called if the user
-                        // settle down the exact same tab after the dragging.
-                        if (DEBUG) {
-                            Log.d(TAG, "Next position is not specified correctly. Use current tab ("
-                                    + mViewPager.getCurrentItem() + ")");
-                        }
-                        mNextPosition = mViewPager.getCurrentItem();
-                    }
-                    if (DEBUG) {
-                        Log.d(TAG, "onPageScrollStateChanged() with SCROLL_STATE_IDLE. "
-                                + "mCurrentPosition: " + mCurrentPosition
-                                + ", mNextPosition: " + mNextPosition);
-                    }
-                    // Interpret IDLE as the end of migration (both swipe and tab click)
-                    mDuringSwipe = false;
-                    mUserTabClick = false;
-
-                    updateFakeMenuButtonsVisibility(mNextPosition == TAB_INDEX_DIALER);
-                    sendFragmentVisibilityChange(mCurrentPosition, false);
-                    sendFragmentVisibilityChange(mNextPosition, true);
-
-                    invalidateOptionsMenu();
-
-                    mCurrentPosition = mNextPosition;
-                    break;
-                }
-                case ViewPager.SCROLL_STATE_DRAGGING: {
-                    if (DEBUG) Log.d(TAG, "onPageScrollStateChanged() with SCROLL_STATE_DRAGGING");
-                    mDuringSwipe = true;
-                    mUserTabClick = false;
-                    break;
-                }
-                case ViewPager.SCROLL_STATE_SETTLING: {
-                    if (DEBUG) Log.d(TAG, "onPageScrollStateChanged() with SCROLL_STATE_SETTLING");
-                    mDuringSwipe = true;
-                    mUserTabClick = false;
-                    break;
-                }
-                default:
-                    break;
-            }
-        }
-    }
+    private static final int ACTIVITY_REQUEST_CODE_VOICE_SEARCH = 1;
 
     private String mFilterText;
 
-    /** Enables horizontal swipe between Fragments. */
-    private ViewPager mViewPager;
-    private final PageChangeListener mPageChangeListener = new PageChangeListener();
-    private DialpadFragment mDialpadFragment;
-    private CallLogFragment mCallLogFragment;
+    /**
+     * The main fragment displaying the user's favorites and frequent contacts
+     */
     private PhoneFavoriteFragment mPhoneFavoriteFragment;
 
-    private View mSearchButton;
+    /**
+     * Fragment containing the dialpad that slides into view
+     */
+    private DialpadFragment mDialpadFragment;
+
+    /**
+     * Fragment for searching phone numbers using the alphanumeric keyboard.
+     */
+    private RegularSearchFragment mRegularSearchFragment;
+
+    /**
+     * Fragment for searching phone numbers using the dialpad.
+     */
+    private SmartDialSearchFragment mSmartDialSearchFragment;
+
     private View mMenuButton;
+    private View mCallHistoryButton;
+    private View mDialpadButton;
+    private PopupMenu mOverflowMenu;
 
-    private final ContactListFilterListener mContactListFilterListener =
-            new ContactListFilterListener() {
-        @Override
-        public void onContactListFilterChanged() {
-            boolean doInvalidateOptionsMenu = false;
+    // Padding view used to shift the fragments up when the dialpad is shown.
+    private View mBottomPaddingView;
+    private View mFragmentsFrame;
+    private View mActionBar;
 
-            if (mPhoneFavoriteFragment != null && mPhoneFavoriteFragment.isAdded()) {
-                mPhoneFavoriteFragment.setFilter(mContactListFilterController.getFilter());
-                doInvalidateOptionsMenu = true;
-            }
-
-            if (mSearchFragment != null && mSearchFragment.isAdded()) {
-                mSearchFragment.setFilter(mContactListFilterController.getFilter());
-                doInvalidateOptionsMenu = true;
-            } else {
-                Log.w(TAG, "Search Fragment isn't available when ContactListFilter is changed");
-            }
-
-            if (doInvalidateOptionsMenu) {
-                invalidateOptionsMenu();
-            }
-        }
-    };
-
-    private final TabListener mTabListener = new TabListener() {
-        @Override
-        public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-            if (DEBUG) Log.d(TAG, "onTabUnselected(). tab: " + tab);
-        }
-
-        @Override
-        public void onTabSelected(Tab tab, FragmentTransaction ft) {
-            if (DEBUG) {
-                Log.d(TAG, "onTabSelected(). tab: " + tab + ", mDuringSwipe: " + mDuringSwipe);
-            }
-            // When the user swipes the screen horizontally, this method will be called after
-            // ViewPager.SCROLL_STATE_DRAGGING and ViewPager.SCROLL_STATE_SETTLING events, while
-            // when the user clicks a tab at the ActionBar at the top, this will be called before
-            // them. This logic interprets the order difference as a difference of the user action.
-            if (!mDuringSwipe) {
-                if (DEBUG) {
-                    Log.d(TAG, "Tab select. from: " + mPageChangeListener.getCurrentPosition()
-                            + ", to: " + tab.getPosition());
-                }
-                if (mDialpadFragment != null) {
-                    updateFakeMenuButtonsVisibility(tab.getPosition() == TAB_INDEX_DIALER);
-                }
-                mUserTabClick = true;
-            }
-
-            if (mViewPager.getCurrentItem() != tab.getPosition()) {
-                mViewPager.setCurrentItem(tab.getPosition(), true);
-            }
-
-            // During the call, we don't remember the tab position.
-            if (!DialpadFragment.phoneIsInUse()) {
-                // Remember this tab index. This function is also called, if the tab is set
-                // automatically in which case the setter (setCurrentTab) has to set this to its old
-                // value afterwards
-                mLastManuallySelectedFragment = tab.getPosition();
-            }
-        }
-
-        @Override
-        public void onTabReselected(Tab tab, FragmentTransaction ft) {
-            if (DEBUG) Log.d(TAG, "onTabReselected");
-        }
-    };
+    private boolean mInDialpadSearch;
+    private boolean mInRegularSearch;
+    private boolean mClearSearchOnPause;
 
     /**
-     * Fragment for searching phone numbers. Unlike the other Fragments, this doesn't correspond
-     * to tab but is shown by a search action.
+     * True if the dialpad is only temporarily showing due to being in call
      */
-    private PhoneNumberPickerFragment mSearchFragment;
-    /**
-     * True when this Activity is in its search UI (with a {@link SearchView} and
-     * {@link PhoneNumberPickerFragment}).
-     */
-    private boolean mInSearchUi;
-    private SearchView mSearchView;
-
-    private final OnClickListener mFilterOptionClickListener = new OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            final PopupMenu popupMenu = new PopupMenu(DialtactsActivity.this, view);
-            final Menu menu = popupMenu.getMenu();
-            popupMenu.inflate(R.menu.dialtacts_search_options);
-            final MenuItem filterOptionMenuItem = menu.findItem(R.id.filter_option);
-            filterOptionMenuItem.setOnMenuItemClickListener(mFilterOptionsMenuItemClickListener);
-            final MenuItem addContactOptionMenuItem = menu.findItem(R.id.add_contact);
-            addContactOptionMenuItem.setIntent(
-                    new Intent(Intent.ACTION_INSERT, Contacts.CONTENT_URI));
-            popupMenu.show();
-        }
-    };
+    private boolean mInCallDialpadUp;
 
     /**
-     * The index of the Fragment (or, the tab) that has last been manually selected.
-     * This value does not keep track of programmatically set Tabs (e.g. Call Log after a Call)
+     * True when this activity has been launched for the first time.
      */
-    private int mLastManuallySelectedFragment;
+    private boolean mFirstLaunch;
+    private View mSearchViewContainer;
+    private View mSearchViewCloseButton;
+    private View mVoiceSearchButton;
+    private EditText mSearchView;
 
-    private ContactListFilterController mContactListFilterController;
-    private OnMenuItemClickListener mFilterOptionsMenuItemClickListener =
-            new OnMenuItemClickListener() {
-        @Override
-        public boolean onMenuItemClick(MenuItem item) {
-            AccountFilterUtil.startAccountFilterActivityForResult(
-                    DialtactsActivity.this, SUBACTIVITY_ACCOUNT_FILTER,
-                    mContactListFilterController.getFilter());
-            return true;
-        }
-    };
+    private String mSearchQuery;
 
-    private OnMenuItemClickListener mSearchMenuItemClickListener =
-            new OnMenuItemClickListener() {
-        @Override
-        public boolean onMenuItemClick(MenuItem item) {
-            enterSearchUi();
-            return true;
+    private DialerDatabaseHelper mDialerDatabaseHelper;
+
+    private class OverflowPopupMenu extends PopupMenu {
+        public OverflowPopupMenu(Context context, View anchor) {
+            super(context, anchor);
         }
-    };
+
+        @Override
+        public void show() {
+            final Menu menu = getMenu();
+            final MenuItem clearFrequents = menu.findItem(R.id.menu_clear_frequents);
+            clearFrequents.setVisible(mPhoneFavoriteFragment.hasFrequents());
+            super.show();
+        }
+    }
 
     /**
      * Listener used when one of phone numbers in search UI is selected. This will initiate a
@@ -413,7 +193,15 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
                     // Specify call-origin so that users will see the previous tab instead of
                     // CallLog screen (search UI will be automatically exited).
                     PhoneNumberInteraction.startInteractionForPhoneCall(
-                            DialtactsActivity.this, dataUri, getCallOrigin());
+                        DialtactsActivity.this, dataUri, getCallOrigin());
+                    mClearSearchOnPause = true;
+                }
+
+                @Override
+                public void onCallNumberDirectly(String phoneNumber) {
+                    Intent intent = CallUtil.getCallIntent(phoneNumber, getCallOrigin());
+                    startActivity(intent);
+                    mClearSearchOnPause = true;
                 }
 
                 @Override
@@ -430,175 +218,234 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
     /**
      * Listener used to send search queries to the phone search fragment.
      */
-    private final OnQueryTextListener mPhoneSearchQueryTextListener =
-            new OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit(String query) {
-                    View view = getCurrentFocus();
-                    if (view != null) {
-                        hideInputMethod(view);
-                        view.clearFocus();
-                    }
-                    return true;
-                }
+    private final TextWatcher mPhoneSearchQueryTextListener = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
-                @Override
-                public boolean onQueryTextChange(String newText) {
-                    // Show search result with non-empty text. Show a bare list otherwise.
-                    if (mSearchFragment != null) {
-                        mSearchFragment.setQueryString(newText, true);
-                    }
-                    return true;
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                final String newText = s.toString();
+                if (newText.equals(mSearchQuery)) {
+                    // If the query hasn't changed (perhaps due to activity being destroyed
+                    // and restored, or user launching the same DIAL intent twice), then there is
+                    // no need to do anything here.
+                    return;
                 }
+                mSearchQuery = newText;
+                if (DEBUG) {
+                    Log.d(TAG, "onTextChange for mSearchView called with new query: " + s);
+                }
+                final boolean dialpadSearch = isDialpadShowing();
+
+                // Show search result with non-empty text. Show a bare list otherwise.
+                if (TextUtils.isEmpty(newText) && getInSearchUi()) {
+                    exitSearchUi();
+                    mSearchViewCloseButton.setVisibility(View.GONE);
+                    mVoiceSearchButton.setVisibility(View.VISIBLE);
+                    return;
+                } else if (!TextUtils.isEmpty(newText)) {
+                    final boolean sameSearchMode = (dialpadSearch && mInDialpadSearch) ||
+                            (!dialpadSearch && mInRegularSearch);
+                    if (!sameSearchMode) {
+                        // call enterSearchUi only if we are switching search modes, or entering
+                        // search ui for the first time
+                        enterSearchUi(dialpadSearch, newText);
+                    }
+
+                    if (dialpadSearch && mSmartDialSearchFragment != null) {
+                            mSmartDialSearchFragment.setQueryString(newText, false);
+                    } else if (mRegularSearchFragment != null) {
+                        mRegularSearchFragment.setQueryString(newText, false);
+                    }
+                    mSearchViewCloseButton.setVisibility(View.VISIBLE);
+                    mVoiceSearchButton.setVisibility(View.GONE);
+                    return;
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
     };
 
-    /**
-     * Listener used to handle the "close" button on the right side of {@link SearchView}.
-     * If some text is in the search view, this will clean it up. Otherwise this will exit
-     * the search UI and let users go back to usual Phone UI.
-     *
-     * This does _not_ handle back button.
-     */
-    private final OnCloseListener mPhoneSearchCloseListener =
-            new OnCloseListener() {
-                @Override
-                public boolean onClose() {
-                    if (!TextUtils.isEmpty(mSearchView.getQuery())) {
-                        mSearchView.setQuery(null, true);
-                    }
-                    return true;
-                }
-    };
-
-    private final View.OnLayoutChangeListener mFirstLayoutListener
-            = new View.OnLayoutChangeListener() {
-        @Override
-        public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft,
-                int oldTop, int oldRight, int oldBottom) {
-            v.removeOnLayoutChangeListener(this); // Unregister self.
-            addSearchFragment();
-        }
-    };
+    private boolean isDialpadShowing() {
+        return mDialpadFragment != null && mDialpadFragment.isVisible();
+    }
 
     @Override
-    protected void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mFirstLaunch = true;
 
         final Intent intent = getIntent();
         fixIntent(intent);
 
         setContentView(R.layout.dialtacts_activity);
 
-        mContactListFilterController = ContactListFilterController.getInstance(this);
-        mContactListFilterController.addListener(mContactListFilterListener);
+        getActionBar().hide();
 
-        findViewById(R.id.dialtacts_frame).addOnLayoutChangeListener(mFirstLayoutListener);
+        // Add the favorites fragment, and the dialpad fragment, but only if savedInstanceState
+        // is null. Otherwise the fragment manager takes care of recreating these fragments.
+        if (savedInstanceState == null) {
+            final PhoneFavoriteFragment phoneFavoriteFragment = new PhoneFavoriteFragment();
 
-        mViewPager = (ViewPager) findViewById(R.id.pager);
-        mViewPager.setAdapter(new ViewPagerAdapter(getFragmentManager()));
-        mViewPager.setOnPageChangeListener(mPageChangeListener);
-        mViewPager.setOffscreenPageLimit(2);
-
-        // Do same width calculation as ActionBar does
-        DisplayMetrics dm = getResources().getDisplayMetrics();
-        int minCellSize = getResources().getDimensionPixelSize(R.dimen.fake_menu_button_min_width);
-        int cellCount = dm.widthPixels / minCellSize;
-        int fakeMenuItemWidth = dm.widthPixels / cellCount;
-        if (DEBUG) Log.d(TAG, "The size of fake menu buttons (in pixel): " + fakeMenuItemWidth);
-
-        // Soft menu button should appear only when there's no hardware menu button.
-        mMenuButton = findViewById(R.id.overflow_menu);
-        if (mMenuButton != null) {
-            mMenuButton.setMinimumWidth(fakeMenuItemWidth);
-            if (ViewConfiguration.get(this).hasPermanentMenuKey()) {
-                // This is required for dialpad button's layout, so must not use GONE here.
-                mMenuButton.setVisibility(View.INVISIBLE);
-            } else {
-                mMenuButton.setOnClickListener(this);
-            }
-        }
-        mSearchButton = findViewById(R.id.searchButton);
-        if (mSearchButton != null) {
-            mSearchButton.setMinimumWidth(fakeMenuItemWidth);
-            mSearchButton.setOnClickListener(this);
+            final FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.add(R.id.dialtacts_frame, phoneFavoriteFragment, TAG_FAVORITES_FRAGMENT);
+            ft.add(R.id.dialtacts_container, new DialpadFragment(), TAG_DIALPAD_FRAGMENT);
+            ft.commit();
+        } else {
+            mSearchQuery = savedInstanceState.getString(KEY_SEARCH_QUERY);
+            mInRegularSearch = savedInstanceState.getBoolean(KEY_IN_REGULAR_SEARCH_UI);
+            mInDialpadSearch = savedInstanceState.getBoolean(KEY_IN_DIALPAD_SEARCH_UI);
+            mFirstLaunch = savedInstanceState.getBoolean(KEY_FIRST_LAUNCH);
         }
 
-        // Setup the ActionBar tabs (the order matches the tab-index contants TAB_INDEX_*)
-        setupDialer();
-        setupCallLog();
-        setupFavorites();
-        getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        getActionBar().setDisplayShowTitleEnabled(false);
-        getActionBar().setDisplayShowHomeEnabled(false);
-
-        // Load the last manually loaded tab
-        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        mLastManuallySelectedFragment = mPrefs.getInt(PREF_LAST_MANUALLY_SELECTED_TAB,
-                PREF_LAST_MANUALLY_SELECTED_TAB_DEFAULT);
-        if (mLastManuallySelectedFragment >= TAB_INDEX_COUNT) {
-            // Stored value may have exceeded the number of current tabs. Reset it.
-            mLastManuallySelectedFragment = PREF_LAST_MANUALLY_SELECTED_TAB_DEFAULT;
-        }
-
-        setCurrentTab(intent);
+        mBottomPaddingView = findViewById(R.id.dialtacts_bottom_padding);
+        mFragmentsFrame = findViewById(R.id.dialtacts_frame);
+        mActionBar = findViewById(R.id.fake_action_bar);
+        prepareSearchView();
 
         if (UI.FILTER_CONTACTS_ACTION.equals(intent.getAction())
-                && icicle == null) {
+                && savedInstanceState == null) {
             setupFilterText(intent);
         }
+
+        setupFakeActionBarItems();
+
+        mDialerDatabaseHelper = DatabaseHelperManager.getDatabaseHelper(this);
+        SmartDialPrefix.initializeNanpSettings(this);
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        if (mPhoneFavoriteFragment != null) {
-            mPhoneFavoriteFragment.setFilter(mContactListFilterController.getFilter());
-        }
-        if (mSearchFragment != null) {
-            mSearchFragment.setFilter(mContactListFilterController.getFilter());
-        }
-
-        if (mDuringSwipe || mUserTabClick) {
-            if (DEBUG) Log.d(TAG, "reset buggy flag state..");
-            mDuringSwipe = false;
-            mUserTabClick = false;
+    protected void onResume() {
+        super.onResume();
+        if (mFirstLaunch) {
+            displayFragment(getIntent());
+        } else if (!phoneIsInUse() && mInCallDialpadUp) {
+            hideDialpadFragment(false, true);
+            mInCallDialpadUp = false;
         }
 
-        final int currentPosition = mPageChangeListener.getCurrentPosition();
-        if (DEBUG) {
-            Log.d(TAG, "onStart(). current position: " + mPageChangeListener.getCurrentPosition()
-                    + ". Reset all menu visibility state.");
+        mFirstLaunch = false;
+        mDialerDatabaseHelper.startSmartDialUpdateThread();
+    }
+
+    @Override
+    protected void onPause() {
+        if (mClearSearchOnPause) {
+            hideDialpadAndSearchUi();
+            mClearSearchOnPause = false;
         }
-        updateFakeMenuButtonsVisibility(currentPosition == TAB_INDEX_DIALER && !mInSearchUi);
-        for (int i = 0; i < TAB_INDEX_COUNT; i++) {
-            sendFragmentVisibilityChange(i, i == currentPosition);
+        super.onPause();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(KEY_SEARCH_QUERY, mSearchQuery);
+        outState.putBoolean(KEY_IN_REGULAR_SEARCH_UI, mInRegularSearch);
+        outState.putBoolean(KEY_IN_DIALPAD_SEARCH_UI, mInDialpadSearch);
+        outState.putBoolean(KEY_FIRST_LAUNCH, mFirstLaunch);
+    }
+
+    @Override
+    public void onAttachFragment(Fragment fragment) {
+        if (fragment instanceof DialpadFragment) {
+            mDialpadFragment = (DialpadFragment) fragment;
+            final FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.hide(mDialpadFragment);
+            transaction.commit();
+        } else if (fragment instanceof SmartDialSearchFragment) {
+            mSmartDialSearchFragment = (SmartDialSearchFragment) fragment;
+            mSmartDialSearchFragment.setOnPhoneNumberPickerActionListener(
+                    mPhoneNumberPickerActionListener);
+        } else if (fragment instanceof SearchFragment) {
+            mRegularSearchFragment = (RegularSearchFragment) fragment;
+            mRegularSearchFragment.setOnPhoneNumberPickerActionListener(
+                    mPhoneNumberPickerActionListener);
+        } else if (fragment instanceof PhoneFavoriteFragment) {
+            mPhoneFavoriteFragment = (PhoneFavoriteFragment) fragment;
+            mPhoneFavoriteFragment.setListener(mPhoneFavoriteListener);
         }
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mContactListFilterController.removeListener(mContactListFilterListener);
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_import_export:
+                // We hard-code the "contactsAreAvailable" argument because doing it properly would
+                // involve querying a {@link ProviderStatusLoader}, which we don't want to do right
+                // now in Dialtacts for (potential) performance reasons. Compare with how it is
+                // done in {@link PeopleActivity}.
+                ImportExportDialogFragment.show(getFragmentManager(), true,
+                        DialtactsActivity.class);
+                return true;
+            case R.id.menu_clear_frequents:
+                ClearFrequentsDialog.show(getFragmentManager());
+                return true;
+            case R.id.menu_add_contact:
+                try {
+                    startActivity(new Intent(Intent.ACTION_INSERT, Contacts.CONTENT_URI));
+                } catch (ActivityNotFoundException e) {
+                    Toast toast = Toast.makeText(this,
+                            R.string.add_contact_not_available,
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                return true;
+            case R.id.menu_call_settings:
+                handleMenuSettings();
+                return true;
+            case R.id.menu_all_contacts:
+                onShowAllContacts();
+                return true;
+        }
+        return false;
+    }
+
+    protected void handleMenuSettings() {
+        openTelephonySetting(this);
+    }
+
+    public static void openTelephonySetting(Activity activity) {
+        final Intent settingsIntent = getCallSettingsIntent();
+        activity.startActivity(settingsIntent);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.searchButton: {
-                enterSearchUi();
+            case R.id.overflow_menu: {
+                mOverflowMenu.show();
                 break;
             }
-            case R.id.overflow_menu: {
-                if (mDialpadFragment != null) {
-                    PopupMenu popup = mDialpadFragment.constructPopupMenu(view);
-                    if (popup != null) {
-                        popup.show();
-                    }
-                } else {
-                    Log.w(TAG, "DialpadFragment is null during onClick() event for " + view);
+            case R.id.dialpad_button:
+                // Reset the boolean flag that tracks whether the dialpad was up because
+                // we were in call. Regardless of whether it was true before, we want to
+                // show the dialpad because the user has explicitly clicked the dialpad
+                // button.
+                mInCallDialpadUp = false;
+                showDialpadFragment(true);
+                break;
+            case R.id.call_history_on_dialpad_button:
+            case R.id.call_history_button:
+                // Use explicit CallLogActivity intent instead of ACTION_VIEW +
+                // CONTENT_TYPE, so that we always open our call log from our dialer
+                final Intent intent = new Intent(this, CallLogActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.search_close_button:
+                // Clear the search field
+                if (!TextUtils.isEmpty(mSearchView.getText())) {
+                    mDialpadFragment.clearDialpad();
+                    mSearchView.setText("");
                 }
                 break;
-            }
+            case R.id.voice_search_button:
+                final Intent voiceIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+                startActivityForResult(voiceIntent, ACTIVITY_REQUEST_CODE_VOICE_SEARCH);
+                break;
             default: {
                 Log.wtf(TAG, "Unexpected onClick event from " + view);
                 break;
@@ -606,117 +453,161 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
         }
     }
 
-    /**
-     * Add search fragment.  Note this is called during onLayout, so there's some restrictions,
-     * such as executePendingTransaction can't be used in it.
-     */
-    private void addSearchFragment() {
-        // In order to take full advantage of "fragment deferred start", we need to create the
-        // search fragment after all other fragments are created.
-        // The other fragments are created by the ViewPager on the first onMeasure().
-        // We use the first onLayout call, which is after onMeasure().
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == ACTIVITY_REQUEST_CODE_VOICE_SEARCH) {
+            if (resultCode == RESULT_OK) {
+                final ArrayList<String> matches = data.getStringArrayListExtra(
+                        RecognizerIntent.EXTRA_RESULTS);
+                if (matches.size() > 0) {
+                    final String match = matches.get(0);
+                    mSearchView.setText(match);
+                } else {
+                    Log.e(TAG, "Voice search - nothing heard");
+                }
+            } else {
+                Log.e(TAG, "Voice search failed");
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
-        // Just return if the fragment is already created, which happens after configuration
-        // changes.
-        if (mSearchFragment != null) return;
-
+    private void showDialpadFragment(boolean animate) {
+        mDialpadFragment.setAdjustTranslationForAnimation(animate);
         final FragmentTransaction ft = getFragmentManager().beginTransaction();
-        final Fragment searchFragment = new PhoneNumberPickerFragment();
+        if (animate) {
+            ft.setCustomAnimations(R.anim.slide_in, 0);
+        } else {
+            mDialpadFragment.setYFraction(0);
+        }
+        ft.show(mDialpadFragment);
+        ft.commit();
+    }
 
-        searchFragment.setUserVisibleHint(false);
-        ft.add(R.id.dialtacts_frame, searchFragment);
-        ft.hide(searchFragment);
-        ft.commitAllowingStateLoss();
+    public void hideDialpadFragment(boolean animate, boolean clearDialpad) {
+        if (mDialpadFragment == null) return;
+        if (clearDialpad) {
+            mDialpadFragment.clearDialpad();
+        }
+        if (!mDialpadFragment.isVisible()) return;
+        mDialpadFragment.setAdjustTranslationForAnimation(animate);
+        final FragmentTransaction ft = getFragmentManager().beginTransaction();
+        if (animate) {
+            ft.setCustomAnimations(0, R.anim.slide_out);
+        }
+        ft.hide(mDialpadFragment);
+        ft.commit();
     }
 
     private void prepareSearchView() {
-        final View searchViewLayout =
-                getLayoutInflater().inflate(R.layout.dialtacts_custom_action_bar, null);
-        mSearchView = (SearchView) searchViewLayout.findViewById(R.id.search_view);
-        mSearchView.setOnQueryTextListener(mPhoneSearchQueryTextListener);
-        mSearchView.setOnCloseListener(mPhoneSearchCloseListener);
-        // Since we're using a custom layout for showing SearchView instead of letting the
-        // search menu icon do that job, we need to manually configure the View so it looks
-        // "shown via search menu".
-        // - it should be iconified by default
-        // - it should not be iconified at this time
-        // See also comments for onActionViewExpanded()/onActionViewCollapsed()
-        mSearchView.setIconifiedByDefault(true);
-        mSearchView.setQueryHint(getString(R.string.hint_findContacts));
-        mSearchView.setIconified(false);
-        mSearchView.setOnQueryTextFocusChangeListener(new OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if (hasFocus) {
-                    showInputMethod(view.findFocus());
-                }
-            }
-        });
-
-        if (!ViewConfiguration.get(this).hasPermanentMenuKey()) {
-            // Filter option menu should be shown on the right side of SearchView.
-            final View filterOptionView = searchViewLayout.findViewById(R.id.search_option);
-            filterOptionView.setVisibility(View.VISIBLE);
-            filterOptionView.setOnClickListener(mFilterOptionClickListener);
-        }
-
-        getActionBar().setCustomView(searchViewLayout,
-                new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+        mSearchViewContainer = findViewById(R.id.search_view_container);
+        mSearchViewCloseButton = findViewById(R.id.search_close_button);
+        mSearchViewCloseButton.setOnClickListener(this);
+        mVoiceSearchButton = findViewById(R.id.voice_search_button);
+        mVoiceSearchButton.setOnClickListener(this);
+        mSearchView = (EditText) findViewById(R.id.search_view);
+        mSearchView.addTextChangedListener(mPhoneSearchQueryTextListener);
+        mSearchView.setHint(getString(R.string.dialer_hint_find_contact));
     }
 
-    @Override
-    public void onAttachFragment(Fragment fragment) {
-        // This method can be called before onCreate(), at which point we cannot rely on ViewPager.
-        // In that case, we will setup the "current position" soon after the ViewPager is ready.
-        final int currentPosition = mViewPager != null ? mViewPager.getCurrentItem() : -1;
+    final AnimatorListener mHideListener = new AnimatorListenerAdapter() {
+        @Override
+        public void onAnimationEnd(Animator animation) {
+            mSearchViewContainer.setVisibility(View.GONE);
+        }
+    };
 
-        if (fragment instanceof DialpadFragment) {
-            mDialpadFragment = (DialpadFragment) fragment;
-        } else if (fragment instanceof CallLogFragment) {
-            mCallLogFragment = (CallLogFragment) fragment;
-        } else if (fragment instanceof PhoneFavoriteFragment) {
-            mPhoneFavoriteFragment = (PhoneFavoriteFragment) fragment;
-            mPhoneFavoriteFragment.setListener(mPhoneFavoriteListener);
-            if (mContactListFilterController != null
-                    && mContactListFilterController.getFilter() != null) {
-                mPhoneFavoriteFragment.setFilter(mContactListFilterController.getFilter());
-            }
-        } else if (fragment instanceof PhoneNumberPickerFragment) {
-            mSearchFragment = (PhoneNumberPickerFragment) fragment;
-            mSearchFragment.setOnPhoneNumberPickerActionListener(mPhoneNumberPickerActionListener);
-            mSearchFragment.setQuickContactEnabled(true);
-            mSearchFragment.setDarkTheme(true);
-            mSearchFragment.setPhotoPosition(ContactListItemView.getDefaultPhotoPosition(
-                    true /* opposite */));
-            mSearchFragment.setUseCallableUri(true);
-            if (mContactListFilterController != null
-                    && mContactListFilterController.getFilter() != null) {
-                mSearchFragment.setFilter(mContactListFilterController.getFilter());
-            }
-            // Here we assume that we're not on the search mode, so let's hide the fragment.
-            //
-            // We get here either when the fragment is created (normal case), or after configuration
-            // changes.  In the former case, we're not in search mode because we can only
-            // enter search mode if the fragment is created.  (see enterSearchUi())
-            // In the latter case we're not in search mode either because we don't retain
-            // mInSearchUi -- ideally we should but at this point it's not supported.
-            mSearchFragment.setUserVisibleHint(false);
-            // After configuration changes fragments will forget their "hidden" state, so make
-            // sure to hide it.
-            if (!mSearchFragment.isHidden()) {
-                final FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.hide(mSearchFragment);
-                transaction.commitAllowingStateLoss();
-            }
+    private boolean getInSearchUi() {
+        return mInDialpadSearch || mInRegularSearch;
+    }
+
+    private void setNotInSearchUi() {
+        mInDialpadSearch = false;
+        mInRegularSearch = false;
+    }
+
+    private void hideDialpadAndSearchUi() {
+        mSearchView.setText(null);
+        hideDialpadFragment(false, true);
+    }
+
+    public void hideSearchBar() {
+       hideSearchBar(true);
+    }
+
+    public void hideSearchBar(boolean shiftView) {
+        if (shiftView) {
+            mSearchViewContainer.animate().cancel();
+            mSearchViewContainer.setAlpha(1);
+            mSearchViewContainer.setTranslationY(0);
+            mSearchViewContainer.animate().withLayer().alpha(0).translationY(-mSearchView.getHeight())
+                    .setDuration(200).setListener(mHideListener);
+
+            mFragmentsFrame.animate().withLayer()
+                    .translationY(-mSearchViewContainer.getHeight()).setDuration(200).setListener(
+                    new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            mBottomPaddingView.setVisibility(View.VISIBLE);
+                            mFragmentsFrame.setTranslationY(0);
+                            mActionBar.setVisibility(View.INVISIBLE);
+                        }
+                    });
+        } else {
+            mSearchViewContainer.setTranslationY(-mSearchView.getHeight());
+            mActionBar.setVisibility(View.INVISIBLE);
         }
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
+    public void showSearchBar() {
+        mSearchViewContainer.animate().cancel();
+        mSearchViewContainer.setAlpha(0);
+        mSearchViewContainer.setTranslationY(-mSearchViewContainer.getHeight());
+        mSearchViewContainer.animate().withLayer().alpha(1).translationY(0).setDuration(200)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        mSearchViewContainer.setVisibility(View.VISIBLE);
+                        mActionBar.setVisibility(View.VISIBLE);
+                    }
+                });
 
-        mPrefs.edit().putInt(PREF_LAST_MANUALLY_SELECTED_TAB, mLastManuallySelectedFragment)
-                .apply();
+        mFragmentsFrame.setTranslationY(-mSearchViewContainer.getHeight());
+        mFragmentsFrame.animate().withLayer().translationY(0).setDuration(200)
+                .setListener(
+                        new AnimatorListenerAdapter() {
+                            @Override
+                            public void onAnimationStart(Animator animation) {
+                                mBottomPaddingView.setVisibility(View.GONE);
+                            }
+                        });
+    }
+
+
+    public void setupFakeActionBarItems() {
+        mMenuButton = findViewById(R.id.overflow_menu);
+        if (mMenuButton != null) {
+            mMenuButton.setOnClickListener(this);
+
+            mOverflowMenu = new OverflowPopupMenu(DialtactsActivity.this, mMenuButton);
+            final Menu menu = mOverflowMenu.getMenu();
+            mOverflowMenu.inflate(R.menu.dialtacts_options);
+            mOverflowMenu.setOnMenuItemClickListener(this);
+            mMenuButton.setOnTouchListener(mOverflowMenu.getDragToOpenListener());
+        }
+
+        mCallHistoryButton = findViewById(R.id.call_history_button);
+        // mCallHistoryButton.setMinimumWidth(fakeMenuItemWidth);
+        mCallHistoryButton.setOnClickListener(this);
+
+        mDialpadButton = findViewById(R.id.dialpad_button);
+        // DialpadButton.setMinimumWidth(fakeMenuItemWidth);
+        mDialpadButton.setOnClickListener(this);
+    }
+
+    public void setupFakeActionBarItemsForDialpadFragment() {
+        final View callhistoryButton = findViewById(R.id.call_history_on_dialpad_button);
+        callhistoryButton.setOnClickListener(this);
     }
 
     private void fixIntent(Intent intent) {
@@ -730,30 +621,6 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
         }
     }
 
-    private void setupDialer() {
-        final Tab tab = getActionBar().newTab();
-        tab.setContentDescription(R.string.dialerIconLabel);
-        tab.setTabListener(mTabListener);
-        tab.setIcon(R.drawable.ic_tab_dialer);
-        getActionBar().addTab(tab);
-    }
-
-    private void setupCallLog() {
-        final Tab tab = getActionBar().newTab();
-        tab.setContentDescription(R.string.recentCallsIconLabel);
-        tab.setIcon(R.drawable.ic_tab_recent);
-        tab.setTabListener(mTabListener);
-        getActionBar().addTab(tab);
-    }
-
-    private void setupFavorites() {
-        final Tab tab = getActionBar().newTab();
-        tab.setContentDescription(R.string.contactsFavoritesLabel);
-        tab.setIcon(R.drawable.ic_tab_all);
-        tab.setTabListener(mTabListener);
-        getActionBar().addTab(tab);
-    }
-
     /**
      * Returns true if the intent is due to hitting the green send key (hardware call button:
      * KEYCODE_CALL) while in a call.
@@ -762,8 +629,7 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
      * @param recentCallsRequest true if the intent is requesting to view recent calls
      * @return true if the intent is due to hitting the green send key while in a call
      */
-    private boolean isSendKeyWhileInCall(final Intent intent,
-            final boolean recentCallsRequest) {
+    private boolean isSendKeyWhileInCall(Intent intent, boolean recentCallsRequest) {
         // If there is a call in progress go to the call screen
         if (recentCallsRequest) {
             final boolean callKey = intent.getBooleanExtra("call_key", false);
@@ -786,7 +652,7 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
      *
      * @param intent Intent that contains information about which tab should be selected
      */
-    private void setCurrentTab(Intent intent) {
+    private void displayFragment(Intent intent) {
         // If we got here by hitting send and we're in call forward along to the in-call activity
         boolean recentCallsRequest = Calls.CONTENT_TYPE.equals(intent.resolveType(
             getContentResolver()));
@@ -795,59 +661,25 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
             return;
         }
 
-        // Remember the old manually selected tab index so that it can be restored if it is
-        // overwritten by one of the programmatic tab selections
-        final int savedTabIndex = mLastManuallySelectedFragment;
-
-        final int tabIndex;
-        if (DialpadFragment.phoneIsInUse() || isDialIntent(intent)) {
-            tabIndex = TAB_INDEX_DIALER;
-        } else if (recentCallsRequest) {
-            tabIndex = TAB_INDEX_CALL_LOG;
-        } else {
-            tabIndex = mLastManuallySelectedFragment;
+        if (mDialpadFragment != null) {
+            final boolean phoneIsInUse = phoneIsInUse();
+            if (phoneIsInUse || isDialIntent(intent)) {
+                mDialpadFragment.setStartedFromNewIntent(true);
+                if (phoneIsInUse && !mDialpadFragment.isVisible()) {
+                    mInCallDialpadUp = true;
+                }
+                showDialpadFragment(false);
+            }
         }
-
-        final int previousItemIndex = mViewPager.getCurrentItem();
-        mViewPager.setCurrentItem(tabIndex, false /* smoothScroll */);
-        if (previousItemIndex != tabIndex) {
-            sendFragmentVisibilityChange(previousItemIndex, false /* not visible */ );
-        }
-        mPageChangeListener.setCurrentPosition(tabIndex);
-        sendFragmentVisibilityChange(tabIndex, true /* visible */ );
-
-        // Restore to the previous manual selection
-        mLastManuallySelectedFragment = savedTabIndex;
-        mDuringSwipe = false;
-        mUserTabClick = false;
     }
 
     @Override
     public void onNewIntent(Intent newIntent) {
         setIntent(newIntent);
         fixIntent(newIntent);
-        setCurrentTab(newIntent);
+        displayFragment(newIntent);
         final String action = newIntent.getAction();
-        if (UI.FILTER_CONTACTS_ACTION.equals(action)) {
-            setupFilterText(newIntent);
-        }
-        if (mInSearchUi || (mSearchFragment != null && mSearchFragment.isVisible())) {
-            exitSearchUi();
-        }
 
-        if (mViewPager.getCurrentItem() == TAB_INDEX_DIALER) {
-            if (mDialpadFragment != null) {
-                mDialpadFragment.setStartedFromNewIntent(true);
-            } else {
-                Log.e(TAG, "DialpadFragment isn't ready yet when the tab is already selected.");
-            }
-        } else if (mViewPager.getCurrentItem() == TAB_INDEX_CALL_LOG) {
-            if (mCallLogFragment != null) {
-                mCallLogFragment.configureScreenFromIntent(newIntent);
-            } else {
-                Log.e(TAG, "CallLogFragment isn't ready yet when the tab is already selected.");
-            }
-        }
         invalidateOptionsMenu();
     }
 
@@ -907,28 +739,12 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        if (mInSearchUi) {
-            // We should let the user go back to usual screens with tabs.
-            exitSearchUi();
-        } else if (isTaskRoot()) {
-            // Instead of stopping, simply push this to the back of the stack.
-            // This is only done when running at the top of the stack;
-            // otherwise, we have been launched by someone else so need to
-            // allow the user to go back to the caller.
-            moveTaskToBack(false);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
     private final PhoneFavoriteFragment.Listener mPhoneFavoriteListener =
             new PhoneFavoriteFragment.Listener() {
         @Override
         public void onContactSelected(Uri contactUri) {
             PhoneNumberInteraction.startInteractionForPhoneCall(
-                    DialtactsActivity.this, contactUri, getCallOrigin());
+                        DialtactsActivity.this, contactUri, getCallOrigin());
         }
 
         @Override
@@ -938,161 +754,14 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
         }
     };
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.dialtacts_options, menu);
-
-        // set up intents and onClick listeners
-        final MenuItem callSettingsMenuItem = menu.findItem(R.id.menu_call_settings);
-        final MenuItem callStatsMenuItem = menu.findItem(R.id.menu_call_stats);
-        final MenuItem searchMenuItem = menu.findItem(R.id.search_on_action_bar);
-        final MenuItem filterOptionMenuItem = menu.findItem(R.id.filter_option);
-
-        callSettingsMenuItem.setIntent(DialtactsActivity.getCallSettingsIntent());
-        callStatsMenuItem.setIntent(getCallStatsIntent());
-        searchMenuItem.setOnMenuItemClickListener(mSearchMenuItemClickListener);
-        filterOptionMenuItem.setOnMenuItemClickListener(mFilterOptionsMenuItemClickListener);
-
-        return true;
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        if (mInSearchUi) {
-            prepareOptionsMenuInSearchMode(menu);
-        } else {
-            // get reference to the currently selected tab
-            final Tab tab = getActionBar().getSelectedTab();
-            if (tab != null) {
-                switch(tab.getPosition()) {
-                    case TAB_INDEX_DIALER:
-                        prepareOptionsMenuForDialerTab(menu);
-                        break;
-                    case TAB_INDEX_CALL_LOG:
-                        prepareOptionsMenuForCallLogTab(menu);
-                        break;
-                    case TAB_INDEX_FAVORITES:
-                        prepareOptionsMenuForFavoritesTab(menu);
-                        break;
-                }
-            }
-        }
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.add_contact:
-                try {
-                    startActivity(new Intent(Intent.ACTION_INSERT, Contacts.CONTENT_URI));
-                } catch (ActivityNotFoundException e) {
-                    Toast toast = Toast.makeText(this, R.string.add_contact_not_available,
-                            Toast.LENGTH_SHORT);
-                    toast.show();
-                }
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void prepareOptionsMenuInSearchMode(Menu menu) {
-        // get references to menu items
-        final MenuItem searchMenuItem = menu.findItem(R.id.search_on_action_bar);
-        final MenuItem filterOptionMenuItem = menu.findItem(R.id.filter_option);
-        final MenuItem addContactOptionMenuItem = menu.findItem(R.id.add_contact);
-        final MenuItem callSettingsMenuItem = menu.findItem(R.id.menu_call_settings);
-        final MenuItem emptyRightMenuItem = menu.findItem(R.id.empty_right_menu_item);
-        final MenuItem callStatsMenuItem = menu.findItem(R.id.menu_call_stats);
-
-        // prepare the menu items
-        searchMenuItem.setVisible(false);
-        filterOptionMenuItem.setVisible(ViewConfiguration.get(this).hasPermanentMenuKey());
-        addContactOptionMenuItem.setVisible(false);
-        callSettingsMenuItem.setVisible(false);
-        emptyRightMenuItem.setVisible(false);
-        callStatsMenuItem.setVisible(false);
-    }
-
-    private void prepareOptionsMenuForDialerTab(Menu menu) {
-        if (DEBUG) {
-            Log.d(TAG, "onPrepareOptionsMenu(dialer). swipe: " + mDuringSwipe
-                    + ", user tab click: " + mUserTabClick);
-        }
-
-        // get references to menu items
-        final MenuItem searchMenuItem = menu.findItem(R.id.search_on_action_bar);
-        final MenuItem filterOptionMenuItem = menu.findItem(R.id.filter_option);
-        final MenuItem addContactOptionMenuItem = menu.findItem(R.id.add_contact);
-        final MenuItem callSettingsMenuItem = menu.findItem(R.id.menu_call_settings);
-        final MenuItem emptyRightMenuItem = menu.findItem(R.id.empty_right_menu_item);
-        final MenuItem callStatsMenuItem = menu.findItem(R.id.menu_call_stats);
-
-        // prepare the menu items
-        filterOptionMenuItem.setVisible(false);
-        addContactOptionMenuItem.setVisible(false);
-        callStatsMenuItem.setVisible(false);
-        if (mDuringSwipe || mUserTabClick) {
-            // During horizontal movement, the real ActionBar menu items are shown
-            searchMenuItem.setVisible(true);
-            callSettingsMenuItem.setVisible(true);
-            // When there is a permanent menu key, there is no overflow icon on the right of
-            // the action bar which would force the search menu item (if it is visible) to the
-            // left.  This is the purpose of showing the emptyRightMenuItem.
-            emptyRightMenuItem.setVisible(ViewConfiguration.get(this).hasPermanentMenuKey());
-        } else {
-            // This is when the user is looking at the dialer pad.  In this case, the real
-            // ActionBar is hidden and fake menu items are shown.
-            // Except in landscape, in which case the real search menu item is shown.
-            searchMenuItem.setVisible(OrientationUtil.isLandscape(this));
-            // If a permanent menu key is available, then we need to show the call settings item
-            // so that the call settings item can be invoked by the permanent menu key.
-            callSettingsMenuItem.setVisible(ViewConfiguration.get(this).hasPermanentMenuKey());
-            emptyRightMenuItem.setVisible(false);
-        }
-    }
-
-    private void prepareOptionsMenuForCallLogTab(Menu menu) {
-        // get references to menu items
-        final MenuItem searchMenuItem = menu.findItem(R.id.search_on_action_bar);
-        final MenuItem filterOptionMenuItem = menu.findItem(R.id.filter_option);
-        final MenuItem addContactOptionMenuItem = menu.findItem(R.id.add_contact);
-        final MenuItem callSettingsMenuItem = menu.findItem(R.id.menu_call_settings);
-        final MenuItem emptyRightMenuItem = menu.findItem(R.id.empty_right_menu_item);
-        final MenuItem callStatsMenuItem = menu.findItem(R.id.menu_call_stats);
-
-        // prepare the menu items
-        searchMenuItem.setVisible(true);
-        filterOptionMenuItem.setVisible(false);
-        addContactOptionMenuItem.setVisible(false);
-        callSettingsMenuItem.setVisible(true);
-        callStatsMenuItem.setVisible(true);
-        emptyRightMenuItem.setVisible(ViewConfiguration.get(this).hasPermanentMenuKey());
-    }
-
-    private void prepareOptionsMenuForFavoritesTab(Menu menu) {
-        // get references to menu items
-        final MenuItem searchMenuItem = menu.findItem(R.id.search_on_action_bar);
-        final MenuItem filterOptionMenuItem = menu.findItem(R.id.filter_option);
-        final MenuItem addContactOptionMenuItem = menu.findItem(R.id.add_contact);
-        final MenuItem callSettingsMenuItem = menu.findItem(R.id.menu_call_settings);
-        final MenuItem emptyRightMenuItem = menu.findItem(R.id.empty_right_menu_item);
-        final MenuItem callStatsMenuItem = menu.findItem(R.id.menu_call_stats);
-
-        // prepare the menu items
-        searchMenuItem.setVisible(true);
-        filterOptionMenuItem.setVisible(true);
-        addContactOptionMenuItem.setVisible(true);
-        callSettingsMenuItem.setVisible(true);
-        callStatsMenuItem.setVisible(true);
-        emptyRightMenuItem.setVisible(false);
-    }
+    /* TODO krelease: This is only relevant for phones that have a hard button search key (i.e.
+     * Nexus S). Supporting it is a little more tricky because of the dialpad fragment might
+     * be showing when the search key is pressed so there is more state management involved.
 
     @Override
     public void startSearch(String initialQuery, boolean selectInitialQuery,
             Bundle appSearchData, boolean globalSearch) {
-        if (mSearchFragment != null && mSearchFragment.isAdded() && !globalSearch) {
+        if (mRegularSearchFragment != null && mRegularSearchFragment.isAdded() && !globalSearch) {
             if (mInSearchUi) {
                 if (mSearchView.hasFocus()) {
                     showInputMethod(mSearchView.findFocus());
@@ -1105,204 +774,170 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
         } else {
             super.startSearch(initialQuery, selectInitialQuery, appSearchData, globalSearch);
         }
-    }
-
-    /**
-     * Hides every tab and shows search UI for phone lookup.
-     */
-    private void enterSearchUi() {
-        if (mSearchFragment == null) {
-            // We add the search fragment dynamically in the first onLayoutChange() and
-            // mSearchFragment is set sometime later when the fragment transaction is actually
-            // executed, which means there's a window when users are able to hit the (physical)
-            // search key but mSearchFragment is still null.
-            // It's quite hard to handle this case right, so let's just ignore the search key
-            // in this case.  Users can just hit it again and it will work this time.
-            return;
-        }
-        if (mSearchView == null) {
-            prepareSearchView();
-        }
-
-        final ActionBar actionBar = getActionBar();
-
-        final Tab tab = actionBar.getSelectedTab();
-
-        // User can search during the call, but we don't want to remember the status.
-        if (tab != null && !DialpadFragment.phoneIsInUse()) {
-            mLastManuallySelectedFragment = tab.getPosition();
-        }
-
-        mSearchView.setQuery(null, true);
-
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-        actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
-        updateFakeMenuButtonsVisibility(false);
-
-        for (int i = 0; i < TAB_INDEX_COUNT; i++) {
-            sendFragmentVisibilityChange(i, false /* not visible */ );
-        }
-
-        // Show the search fragment and hide everything else.
-        mSearchFragment.setUserVisibleHint(true);
-        final FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.show(mSearchFragment);
-        transaction.commitAllowingStateLoss();
-        mViewPager.setVisibility(View.GONE);
-
-        // We need to call this and onActionViewCollapsed() manually, since we are using a custom
-        // layout instead of asking the search menu item to take care of SearchView.
-        mSearchView.onActionViewExpanded();
-        mInSearchUi = true;
-    }
+    }*/
 
     private void showInputMethod(View view) {
-        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        final InputMethodManager imm = (InputMethodManager) getSystemService(
+                Context.INPUT_METHOD_SERVICE);
         if (imm != null) {
-            if (!imm.showSoftInput(view, 0)) {
-                Log.w(TAG, "Failed to show soft input method.");
-            }
+            imm.showSoftInput(view, 0);
         }
     }
 
     private void hideInputMethod(View view) {
-        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        final InputMethodManager imm = (InputMethodManager) getSystemService(
+                Context.INPUT_METHOD_SERVICE);
         if (imm != null && view != null) {
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
 
     /**
-     * Goes back to usual Phone UI with tags. Previously selected Tag and associated Fragment
-     * should be automatically focused again.
+     * Shows the search fragment
      */
-    private void exitSearchUi() {
-        final ActionBar actionBar = getActionBar();
-
-        // Hide the search fragment, if exists.
-        if (mSearchFragment != null) {
-            mSearchFragment.setUserVisibleHint(false);
-
-            final FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.hide(mSearchFragment);
-            transaction.commitAllowingStateLoss();
+    private void enterSearchUi(boolean smartDialSearch, String query) {
+        if (getFragmentManager().isDestroyed()) {
+            // Weird race condition where fragment is doing work after the activity is destroyed
+            // due to talkback being on (b/10209937). Just return since we can't do any
+            // constructive here.
+            return;
         }
 
-        // We want to hide SearchView and show Tabs. Also focus on previously selected one.
-        actionBar.setDisplayShowCustomEnabled(false);
-        actionBar.setDisplayShowHomeEnabled(false);
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
-        for (int i = 0; i < TAB_INDEX_COUNT; i++) {
-            sendFragmentVisibilityChange(i, i == mViewPager.getCurrentItem());
-        }
-
-        // Before exiting the search screen, reset swipe state.
-        mDuringSwipe = false;
-        mUserTabClick = false;
-
-        mViewPager.setVisibility(View.VISIBLE);
-
-        hideInputMethod(getCurrentFocus());
-
-        // Request to update option menu.
-        invalidateOptionsMenu();
-
-        // See comments in onActionViewExpanded()
-        mSearchView.onActionViewCollapsed();
-        mInSearchUi = false;
-    }
-
-    private Fragment getFragmentAt(int position) {
-        switch (position) {
-            case TAB_INDEX_DIALER:
-                return mDialpadFragment;
-            case TAB_INDEX_CALL_LOG:
-                return mCallLogFragment;
-            case TAB_INDEX_FAVORITES:
-                return mPhoneFavoriteFragment;
-            default:
-                throw new IllegalStateException("Unknown fragment index: " + position);
-        }
-    }
-
-    private void sendFragmentVisibilityChange(int position, boolean visibility) {
         if (DEBUG) {
-            Log.d(TAG, "sendFragmentVisibiltyChange(). position: " + position
-                    + ", visibility: " + visibility);
+            Log.d(TAG, "Entering search UI - smart dial " + smartDialSearch);
         }
-        // Position can be -1 initially. See PageChangeListener.
-        if (position >= 0) {
-            final Fragment fragment = getFragmentAt(position);
-            if (fragment != null) {
-                fragment.setMenuVisibility(visibility);
-                fragment.setUserVisibleHint(visibility);
+
+        final FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+
+        SearchFragment fragment;
+        if (mInDialpadSearch) {
+            transaction.remove(mSmartDialSearchFragment);
+        } else if (mInRegularSearch) {
+            transaction.remove(mRegularSearchFragment);
+        } else {
+            transaction.remove(mPhoneFavoriteFragment);
+        }
+
+        final String tag;
+        if (smartDialSearch) {
+            tag = TAG_SMARTDIAL_SEARCH_FRAGMENT;
+        } else {
+            tag = TAG_REGULAR_SEARCH_FRAGMENT;
+        }
+        mInDialpadSearch = smartDialSearch;
+        mInRegularSearch = !smartDialSearch;
+
+        fragment = (SearchFragment) getFragmentManager().findFragmentByTag(tag);
+        if (fragment == null) {
+            if (smartDialSearch) {
+                fragment = new SmartDialSearchFragment();
+            } else {
+                fragment = new RegularSearchFragment();
             }
         }
+        transaction.replace(R.id.dialtacts_frame, fragment, tag);
+        transaction.addToBackStack(null);
+        fragment.setQueryString(query, false);
+        transaction.commit();
     }
 
     /**
-     * Update visibility of the search button and menu button at the bottom.
-     * They should be invisible when bottom ActionBar's real items are available, and be visible
-     * otherwise.
-     *
-     * @param visible True when visible.
+     * Hides the search fragment
      */
-    private void updateFakeMenuButtonsVisibility(boolean visible) {
-        // Note: Landscape mode does not have the fake menu and search buttons.
-        if (DEBUG) {
-            Log.d(TAG, "updateFakeMenuButtonVisibility(" + visible + ")");
+    private void exitSearchUi() {
+        // See related bug in enterSearchUI();
+        if (getFragmentManager().isDestroyed()) {
+            return;
         }
-
-        if (mSearchButton != null) {
-            if (visible) {
-                mSearchButton.setVisibility(View.VISIBLE);
-            } else {
-                mSearchButton.setVisibility(View.INVISIBLE);
-            }
-        }
-        if (mMenuButton != null) {
-            if (visible && !ViewConfiguration.get(this).hasPermanentMenuKey()) {
-                mMenuButton.setVisibility(View.VISIBLE);
-            } else {
-                mMenuButton.setVisibility(View.INVISIBLE);
-            }
-        }
+        // Go all the way back to the favorites fragment, regardless of how many times we
+        // transitioned between search fragments
+        final BackStackEntry entry = getFragmentManager().getBackStackEntryAt(0);
+        getFragmentManager().popBackStack(0, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        setNotInSearchUi();
     }
 
     /** Returns an Intent to launch Call Settings screen */
     public static Intent getCallSettingsIntent() {
         final Intent intent = new Intent(Intent.ACTION_MAIN);
-        if (MSimTelephonyManager.getDefault().isMultiSimEnabled()) {
-            intent.setClassName(PHONE_PACKAGE, MSIM_CALL_SETTINGS_CLASS_NAME);
-        } else {
-            intent.setClassName(PHONE_PACKAGE, CALL_SETTINGS_CLASS_NAME);
-        }
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        return intent;
-    }
-
-    private Intent getCallStatsIntent() {
-        final Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setClass(this, CallStatsActivity.class);
+        intent.setClassName(PHONE_PACKAGE, CALL_SETTINGS_CLASS_NAME);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         return intent;
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode != Activity.RESULT_OK) {
-            return;
+    public void onBackPressed() {
+        if (mDialpadFragment != null && mDialpadFragment.isVisible()) {
+            hideDialpadFragment(true, false);
+        } else if (getInSearchUi()) {
+            mSearchView.setText(null);
+            mDialpadFragment.clearDialpad();
+        } else if (isTaskRoot()) {
+            // Instead of stopping, simply push this to the back of the stack.
+            // This is only done when running at the top of the stack;
+            // otherwise, we have been launched by someone else so need to
+            // allow the user to go back to the caller.
+            moveTaskToBack(false);
+        } else {
+            super.onBackPressed();
         }
-        switch (requestCode) {
-            case SUBACTIVITY_ACCOUNT_FILTER: {
-                AccountFilterUtil.handleAccountFilterResult(
-                        mContactListFilterController, resultCode, data);
+    }
+
+    @Override
+    public void onDialpadQueryChanged(String query) {
+        final String normalizedQuery = SmartDialNameMatcher.normalizeNumber(query,
+                SmartDialNameMatcher.LATIN_SMART_DIAL_MAP);
+        if (!TextUtils.equals(mSearchView.getText(), normalizedQuery)) {
+            if (DEBUG) {
+                Log.d(TAG, "onDialpadQueryChanged - new query: " + query);
             }
-            break;
+            if (mDialpadFragment == null || !mDialpadFragment.isVisible()) {
+                // This callback can happen if the dialpad fragment is recreated because of
+                // activity destruction. In that case, don't update the search view because
+                // that would bring the user back to the search fragment regardless of the
+                // previous state of the application. Instead, just return here and let the
+                // fragment manager correctly figure out whatever fragment was last displayed.
+                return;
+            }
+            mSearchView.setText(normalizedQuery);
         }
+    }
+
+    @Override
+    public void onListFragmentScrollStateChange(int scrollState) {
+        if (scrollState == OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
+            hideDialpadFragment(true, false);
+            hideInputMethod(getCurrentFocus());
+        }
+    }
+
+    @Override
+    public void onDialpadFragmentStarted() {
+        setupFakeActionBarItemsForDialpadFragment();
+    }
+
+    private boolean phoneIsInUse() {
+        final TelephonyManager tm = (TelephonyManager) getSystemService(
+                Context.TELEPHONY_SERVICE);
+        return tm.getCallState() != TelephonyManager.CALL_STATE_IDLE;
+    }
+
+    @Override
+    public void onShowAllContacts() {
+        final Intent intent = new Intent(this, AllContactsActivity.class);
+        startActivity(intent);
+    }
+
+    public static Intent getAddNumberToContactIntent(CharSequence text) {
+        final Intent intent = new Intent(Intent.ACTION_INSERT_OR_EDIT);
+        intent.putExtra(Intents.Insert.PHONE, text);
+        intent.setType(Contacts.CONTENT_ITEM_TYPE);
+        return intent;
+    }
+
+    public static Intent getInsertContactWithNameIntent(CharSequence text) {
+        final Intent intent = new Intent(Intent.ACTION_INSERT, Contacts.CONTENT_URI);
+        intent.putExtra(Intents.Insert.NAME, text);
+        return intent;
     }
 }

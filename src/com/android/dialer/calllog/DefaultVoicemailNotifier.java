@@ -118,11 +118,12 @@ public class DefaultVoicemailNotifier implements VoicemailNotifier {
             // Check if we already know the name associated with this number.
             String name = names.get(newCall.number);
             if (name == null) {
-                // Look it up in the database.
-                name = mNameLookupQuery.query(newCall.number);
+                name = mPhoneNumberHelper.getDisplayName(newCall.number,
+                        newCall.numberPresentation).toString();
                 // If we cannot lookup the contact, use the number instead.
-                if (name == null) {
-                    name = mPhoneNumberHelper.getDisplayNumber(newCall.number, "").toString();
+                if (TextUtils.isEmpty(name)) {
+                    // Look it up in the database.
+                    name = mNameLookupQuery.query(newCall.number);
                     if (TextUtils.isEmpty(name)) {
                         name = newCall.number;
                     }
@@ -210,11 +211,14 @@ public class DefaultVoicemailNotifier implements VoicemailNotifier {
         public final Uri callsUri;
         public final Uri voicemailUri;
         public final String number;
+        public final int numberPresentation;
 
-        public NewCall(Uri callsUri, Uri voicemailUri, String number) {
+        public NewCall(Uri callsUri, Uri voicemailUri, String number,
+                int numberPresentation) {
             this.callsUri = callsUri;
             this.voicemailUri = voicemailUri;
             this.number = number;
+            this.numberPresentation = numberPresentation;
         }
     }
 
@@ -237,11 +241,12 @@ public class DefaultVoicemailNotifier implements VoicemailNotifier {
      */
     private static final class DefaultNewCallsQuery implements NewCallsQuery {
         private static final String[] PROJECTION = {
-            Calls._ID, Calls.NUMBER, Calls.VOICEMAIL_URI
+            Calls._ID, Calls.NUMBER, Calls.VOICEMAIL_URI, Calls.NUMBER_PRESENTATION
         };
         private static final int ID_COLUMN_INDEX = 0;
         private static final int NUMBER_COLUMN_INDEX = 1;
         private static final int VOICEMAIL_URI_COLUMN_INDEX = 2;
+        private static final int NUMBER_PRESENTATION_COLUMN_INDEX = 3;
 
         private final ContentResolver mContentResolver;
 
@@ -276,7 +281,8 @@ public class DefaultVoicemailNotifier implements VoicemailNotifier {
             Uri callsUri = ContentUris.withAppendedId(
                     Calls.CONTENT_URI_WITH_VOICEMAIL, cursor.getLong(ID_COLUMN_INDEX));
             Uri voicemailUri = voicemailUriString == null ? null : Uri.parse(voicemailUriString);
-            return new NewCall(callsUri, voicemailUri, cursor.getString(NUMBER_COLUMN_INDEX));
+            return new NewCall(callsUri, voicemailUri, cursor.getString(NUMBER_COLUMN_INDEX),
+                    cursor.getInt(NUMBER_PRESENTATION_COLUMN_INDEX));
         }
     }
 

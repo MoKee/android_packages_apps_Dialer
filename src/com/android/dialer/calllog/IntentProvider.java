@@ -22,6 +22,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.CallLog.Calls;
+import android.util.Log;
 
 import com.android.contacts.common.CallUtil;
 import com.android.dialer.CallDetailActivity;
@@ -32,6 +33,9 @@ import com.android.dialer.CallDetailActivity;
  * The intent is constructed lazily with the given information.
  */
 public abstract class IntentProvider {
+
+    private static final String TAG = IntentProvider.class.getSimpleName();
+
     public abstract Intent getIntent(Context context);
 
     public static IntentProvider getReturnCallIntentProvider(final String number) {
@@ -62,16 +66,20 @@ public abstract class IntentProvider {
     }
 
     public static IntentProvider getCallDetailIntentProvider(
-            final CallLogAdapter adapter, final int position, final long id, final int groupSize) {
+            final Cursor cursor, final int position, final long id, final int groupSize) {
         return new IntentProvider() {
             @Override
             public Intent getIntent(Context context) {
-                Cursor cursor = adapter.getCursor();
-                cursor.moveToPosition(position);
-                if (CallLogQuery.isSectionHeader(cursor)) {
-                    // Do nothing when a header is clicked.
+                if (cursor.isClosed()) {
+                    // There are reported instances where the cursor is already closed.
+                    // b/10937133
+                    // When causes a crash when it's accessed here.
+                    Log.e(TAG, "getCallDetailIntentProvider() cursor is already closed.");
                     return null;
                 }
+
+                cursor.moveToPosition(position);
+
                 Intent intent = new Intent(context, CallDetailActivity.class);
                 // Check if the first item is a voicemail.
                 String voicemailUri = cursor.getString(CallLogQuery.VOICEMAIL_URI);

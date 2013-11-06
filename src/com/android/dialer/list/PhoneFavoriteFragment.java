@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 The Android Open Source Project
+ * Copyright (C) 2013 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,50 +15,53 @@
  */
 package com.android.dialer.list;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.LoaderManager;
+import android.content.Context;
 import android.content.CursorLoader;
-import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.provider.ContactsContract;
-import android.provider.ContactsContract.Directory;
-import android.provider.Settings;
+import android.provider.CallLog;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 
 import com.android.contacts.common.ContactPhotoManager;
 import com.android.contacts.common.ContactTileLoaderFactory;
-import com.android.contacts.common.dialog.ClearFrequentsDialog;
-import com.android.contacts.common.list.ContactListFilter;
-import com.android.contacts.common.list.ContactListFilterController;
-import com.android.contacts.common.list.ContactListItemView;
-import com.android.contacts.common.list.ContactTileAdapter;
+import com.android.contacts.common.GeoUtil;
+import com.android.contacts.common.list.ContactEntry;
 import com.android.contacts.common.list.ContactTileView;
-import com.android.contacts.common.list.PhoneNumberListAdapter;
-import com.android.contacts.common.preference.ContactsPreferences;
-import com.android.contacts.common.util.AccountFilterUtil;
-import com.android.contacts.common.interactions.ImportExportDialogFragment;
 import com.android.dialer.DialtactsActivity;
 import com.android.dialer.R;
+import com.android.dialer.calllog.CallLogQuery;
+import com.android.dialer.calllog.ContactInfoHelper;
+import com.android.dialer.calllog.CallLogAdapter;
+import com.android.dialer.calllog.CallLogQueryHandler;
+import com.android.dialer.list.PhoneFavoritesTileAdapter.ContactTileRow;
+import com.android.dialerbind.ObjectFactory;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Fragment for Phone UI's favorite screen.
@@ -68,23 +71,61 @@ import com.android.dialer.R;
  * {@link com.android.contacts.common.list.PhoneNumberListAdapter} into one unified list using {@link PhoneFavoriteMergedAdapter}.
  * A contact filter header is also inserted between those adapters' results.
  */
-public class PhoneFavoriteFragment extends Fragment implements OnItemClickListener {
+public class PhoneFavoriteFragment extends Fragment implements OnItemClickListener,
+        CallLogQueryHandler.Listener, CallLogAdapter.CallFetcher,
+        PhoneFavoritesTileAdapter.OnDataSetChangedForAnimationListener {
+
+    /**
+     * By default, the animation code assumes that all items in a list view are of the same height
+     * when animating new list items into view (e.g. from the bottom of the screen into view).
+     * This can cause incorrect translation offsets when a item that is larger or smaller than
+     * other list item is removed from the list. This key is used to provide the actual height
+     * of the removed object so that the actual translation appears correct to the user.
+     */
+    private static final long KEY_REMOVED_ITEM_HEIGHT = Long.MAX_VALUE;
+
     private static final String TAG = PhoneFavoriteFragment.class.getSimpleName();
     private static final boolean DEBUG = false;
+
+    private int mAnimationDuration;
 
     /**
      * Used with LoaderManager.
      */
     private static int LOADER_ID_CONTACT_TILE = 1;
-    private static int LOADER_ID_ALL_CONTACTS = 2;
+    private static int MISSED_CALL_LOADER = 2;
 
-    private static final String KEY_FILTER = "filter";
+    private static final String KEY_LAST_DISMISSED_CALL_SHORTCUT_DATE =
+            "key_last_dismissed_call_shortcut_date";
 
-    private static final int REQUEST_CODE_ACCOUNT_FILTER = 1;
+    public interface OnShowAllContactsListener {
+        public void onShowAllContacts();
+    }
 
     public interface Listener {
         public void onContactSelected(Uri contactUri);
         public void onCallNumberDirectly(String phoneNumber);
+    }
+
+    private class MissedCallLogLoaderListener implements LoaderManager.LoaderCallbacks<Cursor> {
+
+        @Override
+        public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+            final Uri uri = CallLog.Calls.CONTENT_URI;
+            final String[] projection = new String[] {CallLog.Calls.TYPE};
+            final String selection = CallLog.Calls.TYPE + " = " + CallLog.Calls.MISSED_TYPE +
+                    " AND " + CallLog.Calls.IS_READ + " = 0";
+            return new CursorLoader(getActivity(), uri, projection, selection, null, null);
+        }
+
+        @Override
+        public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor data) {
+            mCallLogAdapter.setMissedCalls(data);
+        }
+
+        @Override
+        public void onLoaderReset(Loader<Cursor> cursorLoader) {
+        }
     }
 
     private class ContactTileLoaderListener implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -98,55 +139,12 @@ public class PhoneFavoriteFragment extends Fragment implements OnItemClickListen
         public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
             if (DEBUG) Log.d(TAG, "ContactTileLoaderListener#onLoadFinished");
             mContactTileAdapter.setContactCursor(data);
-
-            if (mAllContactsForceReload) {
-                mAllContactsAdapter.onDataReload();
-                // Use restartLoader() to make LoaderManager to load the section again.
-                getLoaderManager().restartLoader(
-                        LOADER_ID_ALL_CONTACTS, null, mAllContactsLoaderListener);
-            } else if (!mAllContactsLoaderStarted) {
-                // Load "all" contacts if not loaded yet.
-                getLoaderManager().initLoader(
-                        LOADER_ID_ALL_CONTACTS, null, mAllContactsLoaderListener);
-            }
-            mAllContactsForceReload = false;
-            mAllContactsLoaderStarted = true;
-
-            // Show the filter header with "loading" state.
-            updateFilterHeaderView();
-            mAccountFilterHeader.setVisibility(View.VISIBLE);
-
-            // invalidate the options menu if needed
-            invalidateOptionsMenuIfNeeded();
+            setEmptyViewVisibility(mContactTileAdapter.getCount() == 0);
         }
 
         @Override
         public void onLoaderReset(Loader<Cursor> loader) {
             if (DEBUG) Log.d(TAG, "ContactTileLoaderListener#onLoaderReset. ");
-        }
-    }
-
-    private class AllContactsLoaderListener implements LoaderManager.LoaderCallbacks<Cursor> {
-        @Override
-        public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-            if (DEBUG) Log.d(TAG, "AllContactsLoaderListener#onCreateLoader");
-            CursorLoader loader = new CursorLoader(getActivity(), null, null, null, null, null);
-            mAllContactsAdapter.configureLoader(loader, Directory.DEFAULT);
-            return loader;
-        }
-
-        @Override
-        public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-            if (DEBUG) Log.d(TAG, "AllContactsLoaderListener#onLoadFinished");
-            mAllContactsAdapter.changeCursor(0, data);
-            updateFilterHeaderView();
-            mHandler.removeMessages(MESSAGE_SHOW_LOADING_EFFECT);
-            mLoadingView.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        public void onLoaderReset(Loader<Cursor> loader) {
-            if (DEBUG) Log.d(TAG, "AllContactsLoaderListener#onLoaderReset. ");
         }
     }
 
@@ -171,194 +169,152 @@ public class PhoneFavoriteFragment extends Fragment implements OnItemClickListen
         }
     }
 
-    private class FilterHeaderClickListener implements OnClickListener {
-        @Override
-        public void onClick(View view) {
-            AccountFilterUtil.startAccountFilterActivityForResult(
-                    PhoneFavoriteFragment.this,
-                    REQUEST_CODE_ACCOUNT_FILTER,
-                    mFilter);
-        }
-    }
-
-    private class ContactsPreferenceChangeListener
-            implements ContactsPreferences.ChangeListener {
-        @Override
-        public void onChange() {
-            if (loadContactsPreferences()) {
-                requestReloadAllContacts();
-            }
-        }
-    }
-
     private class ScrollListener implements ListView.OnScrollListener {
-        private boolean mShouldShowFastScroller;
         @Override
         public void onScroll(AbsListView view,
                 int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-            // FastScroller should be visible only when the user is seeing "all" contacts section.
-            final boolean shouldShow = mAdapter.shouldShowFirstScroller(firstVisibleItem);
-            if (shouldShow != mShouldShowFastScroller) {
-                mListView.setVerticalScrollBarEnabled(shouldShow);
-                mListView.setFastScrollEnabled(shouldShow);
-                mListView.setFastScrollAlwaysVisible(shouldShow);
-                mShouldShowFastScroller = shouldShow;
-            }
         }
 
         @Override
         public void onScrollStateChanged(AbsListView view, int scrollState) {
+            mActivityScrollListener.onListFragmentScrollStateChange(scrollState);
         }
     }
 
-    private static final int MESSAGE_SHOW_LOADING_EFFECT = 1;
-    private static final int LOADING_EFFECT_DELAY = 500;  // ms
-    private final Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case MESSAGE_SHOW_LOADING_EFFECT:
-                    mLoadingView.setVisibility(View.VISIBLE);
-                    break;
-            }
-        }
-    };
-
     private Listener mListener;
+
+    private OnListFragmentScrolledListener mActivityScrollListener;
+    private OnShowAllContactsListener mShowAllContactsListener;
     private PhoneFavoriteMergedAdapter mAdapter;
-    private ContactTileAdapter mContactTileAdapter;
-    private PhoneNumberListAdapter mAllContactsAdapter;
+    private PhoneFavoritesTileAdapter mContactTileAdapter;
+
+    private CallLogAdapter mCallLogAdapter;
+    private CallLogQueryHandler mCallLogQueryHandler;
+
+    private View mParentView;
+
+    private PhoneFavoriteListView mListView;
+
+    private View mShowAllContactsButton;
+    private View mShowAllContactsInEmptyViewButton;
+    private View mContactTileFrame;
+
+    private TileInteractionTeaserView mTileInteractionTeaserView;
+
+    private final HashMap<Long, Integer> mItemIdTopMap = new HashMap<Long, Integer>();
+    private final HashMap<Long, Integer> mItemIdLeftMap = new HashMap<Long, Integer>();
 
     /**
-     * true when the loader for {@link PhoneNumberListAdapter} has started already.
+     * Layout used when there are no favorites.
      */
-    private boolean mAllContactsLoaderStarted;
-    /**
-     * true when the loader for {@link PhoneNumberListAdapter} must reload "all" contacts again.
-     * It typically happens when {@link ContactsPreferences} has changed its settings
-     * (display order and sort order)
-     */
-    private boolean mAllContactsForceReload;
-
-    private ContactsPreferences mContactsPrefs;
-    private ContactListFilter mFilter;
-
-    private TextView mEmptyView;
-    private ListView mListView;
-    /**
-     * Layout containing {@link #mAccountFilterHeader}. Used to limit area being "pressed".
-     */
-    private FrameLayout mAccountFilterHeaderContainer;
-    private View mAccountFilterHeader;
+    private View mEmptyView;
 
     /**
-     * Layout used when contacts load is slower than expected and thus "loading" view should be
-     * shown.
+     * Call shortcuts older than this date (persisted in shared preferences) will not show up in
+     * at the top of the screen
      */
-    private View mLoadingView;
+    private long mLastCallShortcutDate = 0;
+
+    /**
+     * The date of the current call shortcut that is showing on screen.
+     */
+    private long mCurrentCallShortcutDate = 0;
 
     private final ContactTileView.Listener mContactTileAdapterListener =
             new ContactTileAdapterListener();
     private final LoaderManager.LoaderCallbacks<Cursor> mContactTileLoaderListener =
             new ContactTileLoaderListener();
-    private final LoaderManager.LoaderCallbacks<Cursor> mAllContactsLoaderListener =
-            new AllContactsLoaderListener();
-    private final OnClickListener mFilterHeaderClickListener = new FilterHeaderClickListener();
-    private final ContactsPreferenceChangeListener mContactsPreferenceChangeListener =
-            new ContactsPreferenceChangeListener();
     private final ScrollListener mScrollListener = new ScrollListener();
-
-    private boolean mOptionsMenuHasFrequents;
 
     @Override
     public void onAttach(Activity activity) {
         if (DEBUG) Log.d(TAG, "onAttach()");
         super.onAttach(activity);
 
-        mContactsPrefs = new ContactsPreferences(activity);
-
         // Construct two base adapters which will become part of PhoneFavoriteMergedAdapter.
         // We don't construct the resultant adapter at this moment since it requires LayoutInflater
         // that will be available on onCreateView().
-
-        mContactTileAdapter = new ContactTileAdapter(activity, mContactTileAdapterListener,
-                getResources().getInteger(R.integer.contact_tile_column_count_in_favorites),
-                ContactTileAdapter.DisplayType.STREQUENT_PHONE_ONLY);
+        mContactTileAdapter = new PhoneFavoritesTileAdapter(activity, mContactTileAdapterListener,
+                this,
+                getResources().getInteger(R.integer.contact_tile_column_count_in_favorites_new),
+                1);
         mContactTileAdapter.setPhotoLoader(ContactPhotoManager.getInstance(activity));
-
-        // Setup the "all" adapter manually. See also the setup logic in ContactEntryListFragment.
-        mAllContactsAdapter = new PhoneNumberListAdapter(activity);
-        mAllContactsAdapter.setDisplayPhotos(true);
-        mAllContactsAdapter.setQuickContactEnabled(true);
-        mAllContactsAdapter.setSearchMode(false);
-        mAllContactsAdapter.setIncludeProfile(false);
-        mAllContactsAdapter.setSelectionVisible(false);
-        mAllContactsAdapter.setDarkTheme(true);
-        mAllContactsAdapter.setPhotoLoader(ContactPhotoManager.getInstance(activity));
-        // Disable directory header.
-        mAllContactsAdapter.setHasHeader(0, false);
-        // Show A-Z section index.
-        mAllContactsAdapter.setSectionHeaderDisplayEnabled(true);
-        // Disable pinned header. It doesn't work with this fragment.
-        mAllContactsAdapter.setPinnedPartitionHeadersEnabled(false);
-        // Put photos on START (LEFT in LTR layout direction and RIGHT in RTL layout direction)
-        // for consistency with "frequent" contacts section.
-        mAllContactsAdapter.setPhotoPosition(ContactListItemView.getDefaultPhotoPosition(
-                true /* opposite */ ));
-
-        // Use Callable.CONTENT_URI which will include not only phone numbers but also SIP
-        // addresses.
-        mAllContactsAdapter.setUseCallableUri(true);
-
-        mAllContactsAdapter.setContactNameDisplayOrder(mContactsPrefs.getDisplayOrder());
-        mAllContactsAdapter.setSortOrder(mContactsPrefs.getSortOrder());
     }
 
     @Override
     public void onCreate(Bundle savedState) {
         if (DEBUG) Log.d(TAG, "onCreate()");
         super.onCreate(savedState);
-        if (savedState != null) {
-            mFilter = savedState.getParcelable(KEY_FILTER);
 
-            if (mFilter != null) {
-                mAllContactsAdapter.setFilter(mFilter);
-            }
-        }
+        mAnimationDuration = getResources().getInteger(R.integer.fade_duration);
+        mCallLogQueryHandler = new CallLogQueryHandler(getActivity().getContentResolver(),
+                this, 1);
+        final String currentCountryIso = GeoUtil.getCurrentCountryIso(getActivity());
+        mCallLogAdapter = ObjectFactory.newCallLogAdapter(getActivity(), this,
+                new ContactInfoHelper(getActivity(), currentCountryIso), true, false);
         setHasOptionsMenu(true);
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putParcelable(KEY_FILTER, mFilter);
+    public void onResume() {
+        super.onResume();
+        final SharedPreferences prefs = getActivity().getSharedPreferences(
+                DialtactsActivity.SHARED_PREFS_NAME, Context.MODE_PRIVATE);
+
+        mLastCallShortcutDate = prefs.getLong(KEY_LAST_DISMISSED_CALL_SHORTCUT_DATE, 0);
+
+        fetchCalls();
+        mCallLogAdapter.setLoading(true);
+        getLoaderManager().getLoader(LOADER_ID_CONTACT_TILE).forceLoad();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        final View listLayout = inflater.inflate(
-                R.layout.phone_contact_tile_list, container, false);
+        mParentView = inflater.inflate(R.layout.phone_favorites_fragment, container, false);
 
-        mListView = (ListView) listLayout.findViewById(R.id.contact_tile_list);
+        mListView = (PhoneFavoriteListView) mParentView.findViewById(R.id.contact_tile_list);
         mListView.setItemsCanFocus(true);
         mListView.setOnItemClickListener(this);
         mListView.setVerticalScrollBarEnabled(false);
         mListView.setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_RIGHT);
         mListView.setScrollBarStyle(ListView.SCROLLBARS_OUTSIDE_OVERLAY);
+        mListView.setOnItemSwipeListener(mContactTileAdapter);
+        mListView.setOnDragDropListener(mContactTileAdapter);
 
-        // Create the account filter header but keep it hidden until "all" contacts are loaded.
-        mAccountFilterHeaderContainer = new FrameLayout(getActivity(), null);
-        mAccountFilterHeader = inflater.inflate(R.layout.account_filter_header_for_phone_favorite,
-                mListView, false);
-        mAccountFilterHeader.setOnClickListener(mFilterHeaderClickListener);
-        mAccountFilterHeaderContainer.addView(mAccountFilterHeader);
+        final ImageView dragShadowOverlay =
+                (ImageView) mParentView.findViewById(R.id.contact_tile_drag_shadow_overlay);
+        mListView.setDragShadowOverlay(dragShadowOverlay);
 
-        mLoadingView = inflater.inflate(R.layout.phone_loading_contacts, mListView, false);
+        mEmptyView = mParentView.findViewById(R.id.phone_no_favorites_view);
 
-        mAdapter = new PhoneFavoriteMergedAdapter(getActivity(),
-                mContactTileAdapter, mAccountFilterHeaderContainer, mAllContactsAdapter,
-                mLoadingView);
+        mShowAllContactsInEmptyViewButton = mParentView.findViewById(
+                R.id.show_all_contact_button_in_nofav);
+        mShowAllContactsInEmptyViewButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showAllContacts();
+            }
+        });
+
+        mShowAllContactsButton = inflater.inflate(R.layout.show_all_contact_button, mListView,
+                false);
+        mShowAllContactsButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showAllContacts();
+            }
+        });
+
+        mContactTileFrame = mParentView.findViewById(R.id.contact_tile_frame);
+
+        mTileInteractionTeaserView = (TileInteractionTeaserView) inflater.inflate(
+                R.layout.tile_interactions_teaser_view, mListView, false);
+
+        mAdapter = new PhoneFavoriteMergedAdapter(getActivity(), this, mContactTileAdapter,
+                mCallLogAdapter, mShowAllContactsButton, mTileInteractionTeaserView);
+
+        mTileInteractionTeaserView.setAdapter(mAdapter);
 
         mListView.setAdapter(mAdapter);
 
@@ -366,96 +322,52 @@ public class PhoneFavoriteFragment extends Fragment implements OnItemClickListen
         mListView.setFastScrollEnabled(false);
         mListView.setFastScrollAlwaysVisible(false);
 
-        mEmptyView = (TextView) listLayout.findViewById(R.id.contact_tile_list_empty);
-        mEmptyView.setText(getString(R.string.listTotalAllContactsZero));
-        mListView.setEmptyView(mEmptyView);
-
-        updateFilterHeaderView();
-
-        return listLayout;
+        return mParentView;
     }
 
-    private boolean isOptionsMenuChanged() {
-        return mOptionsMenuHasFrequents != hasFrequents();
-    }
-
-    private void invalidateOptionsMenuIfNeeded() {
-        if (isOptionsMenuChanged()) {
-            getActivity().invalidateOptionsMenu();
-        }
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.phone_favorite_options, menu);
-    }
-
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        final MenuItem clearFrequents = menu.findItem(R.id.menu_clear_frequents);
-        mOptionsMenuHasFrequents = hasFrequents();
-        clearFrequents.setVisible(mOptionsMenuHasFrequents);
-    }
-
-    private boolean hasFrequents() {
+    public boolean hasFrequents() {
+        if (mContactTileAdapter == null) return false;
         return mContactTileAdapter.getNumFrequents() > 0;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_import_export:
-                // We hard-code the "contactsAreAvailable" argument because doing it properly would
-                // involve querying a {@link ProviderStatusLoader}, which we don't want to do right
-                // now in Dialtacts for (potential) performance reasons.  Compare with how it is
-                // done in {@link PeopleActivity}.
-                ImportExportDialogFragment.show(getFragmentManager(), true,
-                        DialtactsActivity.class);
-                return true;
-            case R.id.menu_accounts:
-                final Intent intent = new Intent(Settings.ACTION_SYNC_SETTINGS);
-                intent.putExtra(Settings.EXTRA_AUTHORITIES, new String[] {
-                    ContactsContract.AUTHORITY
-                });
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-                startActivity(intent);
-                return true;
-            case R.id.menu_clear_frequents:
-                ClearFrequentsDialog.show(getFragmentManager());
-                return true;
+    /* package */ void setEmptyViewVisibility(final boolean visible) {
+        final int previousVisibility = mEmptyView.getVisibility();
+        final int newVisibility = visible ? View.VISIBLE : View.GONE;
+
+        if (previousVisibility != newVisibility) {
+            final RelativeLayout.LayoutParams params = (LayoutParams) mContactTileFrame
+                    .getLayoutParams();
+            params.height = visible ? LayoutParams.WRAP_CONTENT : LayoutParams.MATCH_PARENT;
+            mContactTileFrame.setLayoutParams(params);
+            mEmptyView.setVisibility(newVisibility);
         }
-        return false;
     }
 
     @Override
     public void onStart() {
         super.onStart();
 
-        mContactsPrefs.registerChangeListener(mContactsPreferenceChangeListener);
+        final Activity activity = getActivity();
 
-        // If ContactsPreferences has changed, we need to reload "all" contacts with the new
-        // settings. If mAllContactsFoarceReload is already true, it should be kept.
-        if (loadContactsPreferences()) {
-            mAllContactsForceReload = true;
+        try {
+            mActivityScrollListener = (OnListFragmentScrolledListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnListFragmentScrolledListener");
+        }
+
+        try {
+            mShowAllContactsListener = (OnShowAllContactsListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnShowAllContactsListener");
         }
 
         // Use initLoader() instead of restartLoader() to refraining unnecessary reload.
         // This method call implicitly assures ContactTileLoaderListener's onLoadFinished() will
         // be called, on which we'll check if "all" contacts should be reloaded again or not.
         getLoaderManager().initLoader(LOADER_ID_CONTACT_TILE, null, mContactTileLoaderListener);
-
-        // Delay showing "loading" view until certain amount of time so that users won't see
-        // instant flash of the view when the contacts load is fast enough.
-        // This will be kept shown until both tile and all sections are loaded.
-        mLoadingView.setVisibility(View.INVISIBLE);
-        mHandler.sendEmptyMessageDelayed(MESSAGE_SHOW_LOADING_EFFECT, LOADING_EFFECT_DELAY);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        mContactsPrefs.unregisterChangeListener();
+        getLoaderManager().initLoader(MISSED_CALL_LOADER, null, new MissedCallLogLoaderListener());
     }
 
     /**
@@ -470,104 +382,260 @@ public class PhoneFavoriteFragment extends Fragment implements OnItemClickListen
         if (position <= contactTileAdapterCount) {
             Log.e(TAG, "onItemClick() event for unexpected position. "
                     + "The position " + position + " is before \"all\" section. Ignored.");
-        } else {
-            final int localPosition = position - mContactTileAdapter.getCount() - 1;
-            if (mListener != null) {
-                mListener.onContactSelected(mAllContactsAdapter.getDataUri(localPosition));
-            }
         }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_CODE_ACCOUNT_FILTER) {
-            if (getActivity() != null) {
-                AccountFilterUtil.handleAccountFilterResult(
-                        ContactListFilterController.getInstance(getActivity()), resultCode, data);
-            } else {
-                Log.e(TAG, "getActivity() returns null during Fragment#onActivityResult()");
-            }
-        }
-    }
-
-    private boolean loadContactsPreferences() {
-        if (mContactsPrefs == null || mAllContactsAdapter == null) {
-            return false;
-        }
-
-        boolean changed = false;
-        final int currentDisplayOrder = mContactsPrefs.getDisplayOrder();
-        if (mAllContactsAdapter.getContactNameDisplayOrder() != currentDisplayOrder) {
-            mAllContactsAdapter.setContactNameDisplayOrder(currentDisplayOrder);
-            changed = true;
-        }
-
-        final int currentSortOrder = mContactsPrefs.getSortOrder();
-        if (mAllContactsAdapter.getSortOrder() != currentSortOrder) {
-            mAllContactsAdapter.setSortOrder(currentSortOrder);
-            changed = true;
-        }
-
-        return changed;
     }
 
     /**
-     * Requests to reload "all" contacts. If the section is already loaded, this method will
-     * force reloading it now. If the section isn't loaded yet, the actual load may be done later
-     * (on {@link #onStart()}.
+     * Gets called when user click on the show all contacts button.
      */
-    private void requestReloadAllContacts() {
-        if (DEBUG) {
-            Log.d(TAG, "requestReloadAllContacts()"
-                    + " mAllContactsAdapter: " + mAllContactsAdapter
-                    + ", mAllContactsLoaderStarted: " + mAllContactsLoaderStarted);
-        }
-
-        if (mAllContactsAdapter == null || !mAllContactsLoaderStarted) {
-            // Remember this request until next load on onStart().
-            mAllContactsForceReload = true;
-            return;
-        }
-
-        if (DEBUG) Log.d(TAG, "Reload \"all\" contacts now.");
-
-        mAllContactsAdapter.onDataReload();
-        // Use restartLoader() to make LoaderManager to load the section again.
-        getLoaderManager().restartLoader(LOADER_ID_ALL_CONTACTS, null, mAllContactsLoaderListener);
-    }
-
-    private void updateFilterHeaderView() {
-        final ContactListFilter filter = getFilter();
-        if (mAccountFilterHeader == null || mAllContactsAdapter == null || filter == null) {
-            return;
-        }
-        AccountFilterUtil.updateAccountFilterTitleForPhone(mAccountFilterHeader, filter, true);
-    }
-
-    public ContactListFilter getFilter() {
-        return mFilter;
-    }
-
-    public void setFilter(ContactListFilter filter) {
-        if ((mFilter == null && filter == null) || (mFilter != null && mFilter.equals(filter))) {
-            return;
-        }
-
-        if (DEBUG) {
-            Log.d(TAG, "setFilter(). old filter (" + mFilter
-                    + ") will be replaced with new filter (" + filter + ")");
-        }
-
-        mFilter = filter;
-
-        if (mAllContactsAdapter != null) {
-            mAllContactsAdapter.setFilter(mFilter);
-            requestReloadAllContacts();
-            updateFilterHeaderView();
-        }
+    private void showAllContacts() {
+        mShowAllContactsListener.onShowAllContacts();
     }
 
     public void setListener(Listener listener) {
         mListener = listener;
+    }
+
+    @Override
+    public void onVoicemailStatusFetched(Cursor statusCursor) {
+        // no-op
+    }
+
+    @Override
+    public void onCallsFetched(Cursor cursor) {
+        animateListView();
+        mCallLogAdapter.setLoading(false);
+
+        // Save the date of the most recent call log item
+        if (cursor != null && cursor.moveToFirst()) {
+            mCurrentCallShortcutDate = cursor.getLong(CallLogQuery.DATE);
+        }
+
+        mCallLogAdapter.changeCursor(cursor);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void fetchCalls() {
+        mCallLogQueryHandler.fetchCalls(CallLogQueryHandler.CALL_TYPE_ALL, mLastCallShortcutDate);
+    }
+
+    @Override
+    public void onPause() {
+        // If there are any pending contact entries that are to be removed, remove them
+        mContactTileAdapter.removePendingContactEntry();
+        // Wipe the cache to refresh the call shortcut item. This is not that expensive because
+        // it only contains one item.
+        mCallLogAdapter.invalidateCache();
+        super.onPause();
+    }
+
+    /**
+     * Saves the current view offsets into memory
+     */
+    @SuppressWarnings("unchecked")
+    private void saveOffsets(int removedItemHeight) {
+        final int firstVisiblePosition = mListView.getFirstVisiblePosition();
+        if (DEBUG) {
+            Log.d(TAG, "Child count : " + mListView.getChildCount());
+        }
+        for (int i = 0; i < mListView.getChildCount(); i++) {
+            final View child = mListView.getChildAt(i);
+            final int position = firstVisiblePosition + i;
+            final long itemId = mAdapter.getItemId(position);
+            final int itemViewType = mAdapter.getItemViewType(position);
+            if (itemViewType == PhoneFavoritesTileAdapter.ViewTypes.TOP) {
+                // This is a tiled row, so save horizontal offsets instead
+                saveHorizontalOffsets((ContactTileRow) child, (ArrayList<ContactEntry>)
+                        mAdapter.getItem(position));
+            }
+            if (DEBUG) {
+                Log.d(TAG, "Saving itemId: " + itemId + " for listview child " + i + " Top: "
+                        + child.getTop());
+            }
+            mItemIdTopMap.put(itemId, child.getTop());
+        }
+
+        mItemIdTopMap.put(KEY_REMOVED_ITEM_HEIGHT, removedItemHeight);
+    }
+
+    private void saveHorizontalOffsets(ContactTileRow row, ArrayList<ContactEntry> list) {
+        for (int i = 0; i < list.size(); i++) {
+            final View child = row.getChildAt(i);
+            final ContactEntry entry = list.get(i);
+            final long itemId = mContactTileAdapter.getAdjustedItemId(entry.id);
+            if (DEBUG) {
+                Log.d(TAG, "Saving itemId: " + itemId + " for tileview child " + i + " Left: "
+                        + child.getTop());
+            }
+            mItemIdLeftMap.put(itemId, child.getLeft());
+        }
+    }
+
+    /*
+     * Performs a animations for a row of tiles
+     */
+    private void performHorizontalAnimations(ContactTileRow row, ArrayList<ContactEntry> list,
+            long[] idsInPlace) {
+        if (mItemIdLeftMap.isEmpty()) {
+            return;
+        }
+        final AnimatorSet animSet = new AnimatorSet();
+        final ArrayList<Animator> animators = new ArrayList<Animator>();
+        for (int i = 0; i < list.size(); i++) {
+            final View child = row.getChildAt(i);
+            final ContactEntry entry = list.get(i);
+            final long itemId = mContactTileAdapter.getAdjustedItemId(entry.id);
+
+            if (containsId(idsInPlace, itemId)) {
+                animators.add(ObjectAnimator.ofFloat(
+                        child, "alpha", 0.0f, 1.0f));
+                break;
+            } else {
+                Integer startLeft = mItemIdLeftMap.get(itemId);
+                int left = child.getLeft();
+                if (startLeft != null) {
+                    if (startLeft != left) {
+                        int delta = startLeft - left;
+                        if (DEBUG) {
+                            Log.d(TAG, "Found itemId: " + itemId + " for tileview child " + i +
+                                    " Left: " + left +
+                                    " Delta: " + delta);
+                        }
+                        animators.add(ObjectAnimator.ofFloat(
+                                child, "translationX", delta, 0.0f));
+                    }
+                } else {
+                    // In case the last square row is pushed up from the non-square section.
+                    animators.add(ObjectAnimator.ofFloat(
+                            child, "translationX", left, 0.0f));
+                }
+            }
+        }
+        if (animators.size() > 0) {
+            animSet.setDuration(mAnimationDuration).playTogether(animators);
+            animSet.start();
+        }
+    }
+
+    /*
+     * Performs animations for the list view. If the list item is a row of tiles, horizontal
+     * animations will be performed instead.
+     */
+    private void animateListView(final long... idsInPlace) {
+        if (mItemIdTopMap.isEmpty()) {
+            // Don't do animations if the database is being queried for the first time and
+            // the previous item offsets have not been cached, or the user hasn't done anything
+            // (dragging, swiping etc) that requires an animation.
+            return;
+        }
+
+        final int removedItemHeight = mItemIdTopMap.get(KEY_REMOVED_ITEM_HEIGHT);
+
+        final ViewTreeObserver observer = mListView.getViewTreeObserver();
+        observer.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @SuppressWarnings("unchecked")
+            @Override
+            public boolean onPreDraw() {
+                observer.removeOnPreDrawListener(this);
+                final int firstVisiblePosition = mListView.getFirstVisiblePosition();
+                final AnimatorSet animSet = new AnimatorSet();
+                final ArrayList<Animator> animators = new ArrayList<Animator>();
+                for (int i = 0; i < mListView.getChildCount(); i++) {
+                    final View child = mListView.getChildAt(i);
+                    int position = firstVisiblePosition + i;
+                    final int itemViewType = mAdapter.getItemViewType(position);
+                    if (itemViewType == PhoneFavoritesTileAdapter.ViewTypes.TOP) {
+                        // This is a tiled row, so perform horizontal animations instead
+                        performHorizontalAnimations((ContactTileRow) child, (
+                                ArrayList<ContactEntry>) mAdapter.getItem(position), idsInPlace);
+                    }
+
+                    final long itemId = mAdapter.getItemId(position);
+
+                    if (containsId(idsInPlace, itemId)) {
+                        animators.add(ObjectAnimator.ofFloat(
+                                child, "alpha", 0.0f, 1.0f));
+                        break;
+                    } else {
+                        Integer startTop = mItemIdTopMap.get(itemId);
+                        final int top = child.getTop();
+                        int delta = 0;
+                        if (startTop != null) {
+                            if (startTop != top) {
+                                delta = startTop - top;
+                            }
+                        } else if (!mItemIdLeftMap.containsKey(itemId)) {
+                            // Animate new views along with the others. The catch is that they did
+                            // not exist in the start state, so we must calculate their starting
+                            // position based on neighboring views.
+
+                            final int itemHeight;
+                            if (removedItemHeight == 0) {
+                                itemHeight = child.getHeight() + mListView.getDividerHeight();
+                            } else {
+                                itemHeight = removedItemHeight;
+                            }
+                            startTop = top + (i > 0 ? itemHeight : -itemHeight);
+                            delta = startTop - top;
+                        } else {
+                            // In case the first non-square row is pushed down
+                            // from the square section.
+                            animators.add(ObjectAnimator.ofFloat(
+                                    child, "alpha", 0.0f, 1.0f));
+                        }
+                        if (DEBUG) {
+                            Log.d(TAG, "Found itemId: " + itemId + " for listview child " + i +
+                                    " Top: " + top +
+                                    " Delta: " + delta);
+                        }
+
+                        if (delta != 0) {
+                            animators.add(ObjectAnimator.ofFloat(
+                                    child, "translationY", delta, 0.0f));
+                        }
+                    }
+                }
+
+                if (animators.size() > 0) {
+                    animSet.setDuration(mAnimationDuration).playTogether(animators);
+                    animSet.start();
+                }
+
+                mItemIdTopMap.clear();
+                mItemIdLeftMap.clear();
+                return true;
+            }
+        });
+    }
+
+    private boolean containsId(long[] ids, long target) {
+        // Linear search on array is fine because this is typically only 0-1 elements long
+        for (int i = 0; i < ids.length; i++) {
+            if (ids[i] == target) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public void onDataSetChangedForAnimation(long... idsInPlace) {
+        animateListView(idsInPlace);
+    }
+
+    @Override
+    public void cacheOffsetsForDatasetChange() {
+        saveOffsets(0);
+    }
+
+    public void dismissShortcut(int height) {
+        saveOffsets(height);
+        mLastCallShortcutDate = mCurrentCallShortcutDate;
+        final SharedPreferences prefs = getActivity().getSharedPreferences(
+                DialtactsActivity.SHARED_PREFS_NAME, Context.MODE_PRIVATE);
+        prefs.edit().putLong(KEY_LAST_DISMISSED_CALL_SHORTCUT_DATE, mLastCallShortcutDate)
+                .apply();
+        fetchCalls();
     }
 }

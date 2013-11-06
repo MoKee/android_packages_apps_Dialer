@@ -64,47 +64,34 @@ public class CallLogGroupBuilderTest extends AndroidTestCase {
     }
 
     public void testAddGroups_OneCall() {
-        addOldCallLogEntry(TEST_NUMBER1, Calls.INCOMING_TYPE);
+        addCallLogEntry(TEST_NUMBER1, Calls.INCOMING_TYPE);
         mBuilder.addGroups(mCursor);
         assertEquals(0, mFakeGroupCreator.groups.size());
     }
 
     public void testAddGroups_TwoCallsNotMatching() {
-        addOldCallLogEntry(TEST_NUMBER1, Calls.INCOMING_TYPE);
-        addOldCallLogEntry(TEST_NUMBER2, Calls.INCOMING_TYPE);
+        addCallLogEntry(TEST_NUMBER1, Calls.INCOMING_TYPE);
+        addCallLogEntry(TEST_NUMBER2, Calls.INCOMING_TYPE);
         mBuilder.addGroups(mCursor);
         assertEquals(0, mFakeGroupCreator.groups.size());
     }
 
     public void testAddGroups_ThreeCallsMatching() {
-        addOldCallLogEntry(TEST_NUMBER1, Calls.INCOMING_TYPE);
-        addOldCallLogEntry(TEST_NUMBER1, Calls.INCOMING_TYPE);
-        addOldCallLogEntry(TEST_NUMBER1, Calls.INCOMING_TYPE);
+        addCallLogEntry(TEST_NUMBER1, Calls.INCOMING_TYPE);
+        addCallLogEntry(TEST_NUMBER1, Calls.INCOMING_TYPE);
+        addCallLogEntry(TEST_NUMBER1, Calls.INCOMING_TYPE);
         mBuilder.addGroups(mCursor);
         assertEquals(1, mFakeGroupCreator.groups.size());
         assertGroupIs(0, 3, false, mFakeGroupCreator.groups.get(0));
     }
 
     public void testAddGroups_MatchingIncomingAndOutgoing() {
-        addOldCallLogEntry(TEST_NUMBER1, Calls.INCOMING_TYPE);
-        addOldCallLogEntry(TEST_NUMBER1, Calls.OUTGOING_TYPE);
-        addOldCallLogEntry(TEST_NUMBER1, Calls.INCOMING_TYPE);
+        addCallLogEntry(TEST_NUMBER1, Calls.INCOMING_TYPE);
+        addCallLogEntry(TEST_NUMBER1, Calls.OUTGOING_TYPE);
+        addCallLogEntry(TEST_NUMBER1, Calls.INCOMING_TYPE);
         mBuilder.addGroups(mCursor);
         assertEquals(1, mFakeGroupCreator.groups.size());
         assertGroupIs(0, 3, false, mFakeGroupCreator.groups.get(0));
-    }
-
-    public void testAddGroups_HeaderSplitsGroups() {
-        addNewCallLogHeader();
-        addNewCallLogEntry(TEST_NUMBER1, Calls.INCOMING_TYPE);
-        addNewCallLogEntry(TEST_NUMBER1, Calls.INCOMING_TYPE);
-        addOldCallLogHeader();
-        addOldCallLogEntry(TEST_NUMBER1, Calls.INCOMING_TYPE);
-        addOldCallLogEntry(TEST_NUMBER1, Calls.INCOMING_TYPE);
-        mBuilder.addGroups(mCursor);
-        assertEquals(2, mFakeGroupCreator.groups.size());
-        assertGroupIs(1, 2, false, mFakeGroupCreator.groups.get(0));
-        assertGroupIs(4, 2, false, mFakeGroupCreator.groups.get(1));
     }
 
     public void testAddGroups_Voicemail() {
@@ -149,7 +136,7 @@ public class CallLogGroupBuilderTest extends AndroidTestCase {
     }
 
     public void testAddGroups_Mixed() {
-        addMultipleOldCallLogEntries(TEST_NUMBER1,
+        addMultipleCallLogEntries(TEST_NUMBER1,
                 Calls.VOICEMAIL_TYPE,  // Stand-alone
                 Calls.INCOMING_TYPE,  // Group 1: 1-4
                 Calls.OUTGOING_TYPE,
@@ -167,9 +154,66 @@ public class CallLogGroupBuilderTest extends AndroidTestCase {
         assertGroupIs(8, 3, false, mFakeGroupCreator.groups.get(1));
     }
 
+    public void testEqualPhoneNumbers() {
+        // Identical.
+        assertTrue(mBuilder.equalNumbers("6505555555", "6505555555"));
+        assertTrue(mBuilder.equalNumbers("650 555 5555", "650 555 5555"));
+        // Formatting.
+        assertTrue(mBuilder.equalNumbers("6505555555", "650 555 5555"));
+        assertTrue(mBuilder.equalNumbers("6505555555", "(650) 555-5555"));
+        assertTrue(mBuilder.equalNumbers("650 555 5555", "(650) 555-5555"));
+        // Short codes.
+        assertTrue(mBuilder.equalNumbers("55555", "55555"));
+        assertTrue(mBuilder.equalNumbers("55555", "555 55"));
+        // Different numbers.
+        assertFalse(mBuilder.equalNumbers("6505555555", "650555555"));
+        assertFalse(mBuilder.equalNumbers("6505555555", "6505555551"));
+        assertFalse(mBuilder.equalNumbers("650 555 5555", "650 555 555"));
+        assertFalse(mBuilder.equalNumbers("650 555 5555", "650 555 5551"));
+        assertFalse(mBuilder.equalNumbers("55555", "5555"));
+        assertFalse(mBuilder.equalNumbers("55555", "55551"));
+        // SIP addresses.
+        assertTrue(mBuilder.equalNumbers("6505555555@host.com", "6505555555@host.com"));
+        assertTrue(mBuilder.equalNumbers("6505555555@host.com", "6505555555@HOST.COM"));
+        assertTrue(mBuilder.equalNumbers("user@host.com", "user@host.com"));
+        assertTrue(mBuilder.equalNumbers("user@host.com", "user@HOST.COM"));
+        assertFalse(mBuilder.equalNumbers("USER@host.com", "user@host.com"));
+        assertFalse(mBuilder.equalNumbers("user@host.com", "user@host1.com"));
+        // SIP address vs phone number.
+        assertFalse(mBuilder.equalNumbers("6505555555@host.com", "6505555555"));
+        assertFalse(mBuilder.equalNumbers("6505555555", "6505555555@host.com"));
+        assertFalse(mBuilder.equalNumbers("user@host.com", "6505555555"));
+        assertFalse(mBuilder.equalNumbers("6505555555", "user@host.com"));
+        // Nulls.
+        assertTrue(mBuilder.equalNumbers(null, null));
+        assertFalse(mBuilder.equalNumbers(null, "6505555555"));
+        assertFalse(mBuilder.equalNumbers("6505555555", null));
+        assertFalse(mBuilder.equalNumbers(null, "6505555555@host.com"));
+        assertFalse(mBuilder.equalNumbers("6505555555@host.com", null));
+    }
+
+    public void testCompareSipAddresses() {
+        // Identical.
+        assertTrue(mBuilder.compareSipAddresses("6505555555@host.com", "6505555555@host.com"));
+        assertTrue(mBuilder.compareSipAddresses("user@host.com", "user@host.com"));
+        // Host is case insensitive.
+        assertTrue(mBuilder.compareSipAddresses("6505555555@host.com", "6505555555@HOST.COM"));
+        assertTrue(mBuilder.compareSipAddresses("user@host.com", "user@HOST.COM"));
+        // Userinfo is case sensitive.
+        assertFalse(mBuilder.compareSipAddresses("USER@host.com", "user@host.com"));
+        // Different hosts.
+        assertFalse(mBuilder.compareSipAddresses("user@host.com", "user@host1.com"));
+        // Different users.
+        assertFalse(mBuilder.compareSipAddresses("user1@host.com", "user@host.com"));
+        // Nulls.
+        assertTrue(mBuilder.compareSipAddresses(null, null));
+        assertFalse(mBuilder.compareSipAddresses(null, "6505555555@host.com"));
+        assertFalse(mBuilder.compareSipAddresses("6505555555@host.com", null));
+    }
+
     /** Creates (or recreates) the cursor used to store the call log content for the tests. */
     private void createCursor() {
-        mCursor = new MatrixCursor(CallLogQuery.EXTENDED_PROJECTION);
+        mCursor = new MatrixCursor(CallLogQuery._PROJECTION);
     }
 
     /** Clears the content of the {@link FakeGroupCreator} used in the tests. */
@@ -181,7 +225,7 @@ public class CallLogGroupBuilderTest extends AndroidTestCase {
     private void assertCallsAreGrouped(int... types) {
         createCursor();
         clearFakeGroupCreator();
-        addMultipleOldCallLogEntries(TEST_NUMBER1, types);
+        addMultipleCallLogEntries(TEST_NUMBER1, types);
         mBuilder.addGroups(mCursor);
         assertEquals(1, mFakeGroupCreator.groups.size());
         assertGroupIs(0, types.length, false, mFakeGroupCreator.groups.get(0));
@@ -192,63 +236,32 @@ public class CallLogGroupBuilderTest extends AndroidTestCase {
     private void assertCallsAreNotGrouped(int... types) {
         createCursor();
         clearFakeGroupCreator();
-        addMultipleOldCallLogEntries(TEST_NUMBER1, types);
+        addMultipleCallLogEntries(TEST_NUMBER1, types);
         mBuilder.addGroups(mCursor);
         assertEquals(0, mFakeGroupCreator.groups.size());
     }
 
     /** Adds a set of calls with the given types, all from the same number, in the old section. */
-    private void addMultipleOldCallLogEntries(String number, int... types) {
+    private void addMultipleCallLogEntries(String number, int... types) {
         for (int type : types) {
-            addOldCallLogEntry(number, type);
+            addCallLogEntry(number, type);
         }
     }
-
-    /** Adds a call with the given number and type to the old section of the call log. */
-    private void addOldCallLogEntry(String number, int type) {
-        addCallLogEntry(number, type, CallLogQuery.SECTION_OLD_ITEM);
-    }
-
-    /** Adds a call with the given number and type to the new section of the call log. */
-    private void addNewCallLogEntry(String number, int type) {
-        addCallLogEntry(number, type, CallLogQuery.SECTION_NEW_ITEM);
-    }
-
     /** Adds a call log entry with the given number and type to the cursor. */
-    private void addCallLogEntry(String number, int type, int section) {
-        if (section != CallLogQuery.SECTION_NEW_ITEM
-                && section != CallLogQuery.SECTION_OLD_ITEM) {
-            throw new IllegalArgumentException("not an item section: " + section);
-        }
+    private void addCallLogEntry(String number, int type) {
         mCursor.moveToNext();
-        Object[] values = CallLogQueryTestUtils.createTestExtendedValues();
+        Object[] values = CallLogQueryTestUtils.createTestValues();
         values[CallLogQuery.ID] = mCursor.getPosition();
         values[CallLogQuery.NUMBER] = number;
         values[CallLogQuery.CALL_TYPE] = type;
-        values[CallLogQuery.SECTION] = section;
         mCursor.addRow(values);
-    }
-
-    /** Adds the old section header to the call log. */
-    private void addOldCallLogHeader() {
-        addCallLogHeader(CallLogQuery.SECTION_OLD_HEADER);
-    }
-
-    /** Adds the new section header to the call log. */
-    private void addNewCallLogHeader() {
-        addCallLogHeader(CallLogQuery.SECTION_NEW_HEADER);
     }
 
     /** Adds a call log entry with a header to the cursor. */
     private void addCallLogHeader(int section) {
-        if (section != CallLogQuery.SECTION_NEW_HEADER
-                && section != CallLogQuery.SECTION_OLD_HEADER) {
-            throw new IllegalArgumentException("not a header section: " + section);
-        }
         mCursor.moveToNext();
-        Object[] values = CallLogQueryTestUtils.createTestExtendedValues();
+        Object[] values = CallLogQueryTestUtils.createTestValues();
         values[CallLogQuery.ID] = mCursor.getPosition();
-        values[CallLogQuery.SECTION] = section;
         mCursor.addRow(values);
     }
 

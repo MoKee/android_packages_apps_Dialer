@@ -16,21 +16,25 @@
 
 package com.android.dialer.calllog;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.provider.ContactsContract;
+import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.provider.ContactsContract.Contacts;
+import android.provider.ContactsContract.DisplayNameSources;
 import android.provider.ContactsContract.PhoneLookup;
-import android.provider.Settings;
-import android.provider.Telephony;
 import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
-import android.widget.Toast;
-    
-import com.android.dialer.R;
+
+import com.android.contacts.common.util.Constants;
 import com.android.contacts.common.util.UriUtils;
+import com.android.dialer.service.CachedNumberLookupService;
+import com.android.dialer.service.CachedNumberLookupService.CachedContactInfo;
+import com.android.dialerbind.ObjectFactory;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Utility class to look up the contact information for a given number.
@@ -39,9 +43,8 @@ public class ContactInfoHelper {
     private final Context mContext;
     private final String mCurrentCountryIso;
 
-    // Blacklist support
-    private static final String INSERT_BLACKLIST = "com.android.phone.INSERT_BLACKLIST";
-    private static final String BLACKLIST_NUMBER = "number";
+    private static final CachedNumberLookupService mCachedNumberLookupService =
+            ObjectFactory.newCachedNumberLookupService();
 
     public ContactInfoHelper(Context context, String currentCountryIso) {
         mContext = context;
@@ -97,11 +100,43 @@ public class ContactInfoHelper {
                 updatedInfo = new ContactInfo();
                 updatedInfo.number = number;
                 updatedInfo.formattedNumber = formatPhoneNumber(number, null, countryIso);
+                updatedInfo.lookupUri = createTemporaryContactUri(number);
             } else {
                 updatedInfo = info;
             }
         }
         return updatedInfo;
+    }
+
+    /**
+     * Creates a JSON-encoded lookup uri for a unknown number without an associated contact
+     *
+     * @param number - Unknown phone number
+     * @return JSON-encoded URI that can be used to perform a lookup when clicking
+     * on the quick contact card.
+     */
+    private static Uri createTemporaryContactUri(String number) {
+        try {
+            final JSONObject contactRows = new JSONObject()
+                    .put(Phone.CONTENT_ITEM_TYPE, new JSONObject()
+                            .put(Phone.NUMBER, number)
+                                    .put(Phone.TYPE, Phone.TYPE_CUSTOM));
+
+            final String jsonString = new JSONObject()
+                    .put(Contacts.DISPLAY_NAME, number)
+                            .put(Contacts.DISPLAY_NAME_SOURCE, DisplayNameSources.PHONE)
+                            .put(Contacts.CONTENT_ITEM_TYPE, contactRows)
+                            .toString();
+
+            return Contacts.CONTENT_LOOKUP_URI.buildUpon()
+                    .appendPath(Constants.LOOKUP_URI_ENCODED)
+                    .appendQueryParameter(ContactsContract.DIRECTORY_PARAM_KEY,
+                            String.valueOf(Long.MAX_VALUE))
+                    .encodedFragment(jsonString)
+                    .build();
+        } catch (JSONException e) {
+            return null;
+        }
     }
 
     /**
@@ -193,6 +228,10 @@ public class ContactInfoHelper {
         ContactInfo info = lookupContactFromUri(uri);
         if (info != null && info != ContactInfo.EMPTY) {
             info.formattedNumber = formatPhoneNumber(number, null, countryIso);
+        } else if (mCachedNumberLookupService != null) {
+            CachedContactInfo cacheInfo = mCachedNumberLookupService
+                .lookupCachedContactFromNumber(mContext, number);
+            info = cacheInfo != null ? cacheInfo.getContactInfo() : null;
         }
         return info;
     }
@@ -221,33 +260,5 @@ public class ContactInfoHelper {
             countryIso = mCurrentCountryIso;
         }
         return PhoneNumberUtils.formatNumber(number, normalizedNumber, countryIso);
-    }
-
-    /**
-     * Checks whether calls can be blacklisted; that is, whether the
-     * phone blacklist is enabled
-     */
-    public boolean canBlacklistCalls() {
-        return Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.PHONE_BLACKLIST_ENABLED, 1) != 0;
-    }
-
-    /**
-     * Requests the given number to be added to the phone blacklist
-     *
-     * @param number the number to be blacklisted
-     */
-    public void addNumberToBlacklist(String number) {
-        ContentValues cv = new ContentValues();
-        cv.put(Telephony.Blacklist.PHONE_MODE, 1);
-
-        Uri uri = Uri.withAppendedPath(Telephony.Blacklist.CONTENT_FILTER_BYNUMBER_URI, number);
-        int count = mContext.getContentResolver().update(uri, cv, null, null);
-
-        if (count != 0) {
-            // Give the user some feedback
-            String message = mContext.getString(R.string.toast_added_to_blacklist, number);
-            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
-        }
     }
 }

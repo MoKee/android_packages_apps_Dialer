@@ -44,8 +44,6 @@
     <string name="voicemail_buffering" msgid="738287747618697097">"Запiс у буфер..."</string>
     <string name="voicemail_fetching_content" msgid="877911315738258780">"Атрыманне галасавой пошты..."</string>
     <string name="voicemail_fetching_timout" msgid="6691792377574905201">"Немагчыма атрымаць галасавую пошту."</string>
-    <string name="call_log_new_header" msgid="846546437517724715">"Новы"</string>
-    <string name="call_log_old_header" msgid="6262205894314263629">"Старэй"</string>
     <string name="call_log_voicemail_header" msgid="3945407886667089173">"Толькi выклiкі з галасавой поштай"</string>
     <string name="call_log_incoming_header" msgid="2787722299753674684">"Толькi ўваходныя выклiкi"</string>
     <string name="call_log_outgoing_header" msgid="761009180766735769">"Толькi выходныя выклiкi"</string>
@@ -82,7 +80,11 @@
     <string name="description_dial_button" msgid="1274091017188142646">"набор"</string>
     <string name="description_delete_button" msgid="6263102114033407382">"backspace"</string>
     <string name="description_digits_edittext" msgid="8760207516497016437">"нумар для набору"</string>
+    <!-- no translation found for action_menu_call_history_description (9018442816219748968) -->
+    <skip />
     <string name="action_menu_overflow_description" msgid="2303272250613084574">"Дадатковыя параметры"</string>
+    <!-- no translation found for action_menu_dialpad_button (1425910318049008136) -->
+    <skip />
     <string name="menu_copy" msgid="6108677035381940698">"Капіраваць"</string>
     <string name="menu_show_outgoing_only" msgid="1965570298133301970">"Паказаць толькі выходныя"</string>
     <string name="menu_show_incoming_only" msgid="7534206815238877417">"Паказаць толькі ўваходныя"</string>
@@ -93,6 +95,8 @@
     <string name="add_wait" msgid="3360818652790319634">"Дадаецца, чакайце"</string>
     <string name="call_settings" msgid="7666474782093693667">"Налады"</string>
     <string name="menu_newContact" msgid="1209922412763274638">"Новы кантакт"</string>
+    <!-- no translation found for menu_allContacts (6948308384034051670) -->
+    <skip />
     <string name="callDetailTitle" msgid="5340227785196217938">"Падрабязнасці выкліку"</string>
     <string name="toast_call_detail_error" msgid="7200975244804730096">"Не атрымалася прачытаць падрабязнасці запытанага выкліка."</string>
     <string name="dialer_useDtmfDialpad" msgid="1707548397435075040">"Выкарыстанне тонавай клавіятуры"</string>
@@ -113,7 +117,10 @@
     <string name="description_call" msgid="3443678121983852666">"Выклік карыстальнiка <xliff:g id="NAME">%1$s</xliff:g>"</string>
     <string name="description_send_text_message" msgid="7803126439934046891">"Адправіць тэкставае паведамленне карыстальніку <xliff:g id="NAME">%1$s</xliff:g>"</string>
     <string name="description_call_log_unheard_voicemail" msgid="118101684236996786">"Непраслуханая галасавая пошта"</string>
-    <string name="call_log_empty_gecode" msgid="5588904744812100846">"-"</string>
+    <!-- no translation found for description_start_voice_search (520539488194946012) -->
+    <skip />
+    <!-- no translation found for call_log_empty_gecode (2019639420045039861) -->
+    <skip />
     <string name="menu_callNumber" msgid="997146291983360266">"Выклікаць <xliff:g id="NUMBER">%s</xliff:g>"</string>
     <string name="unknown" msgid="740067747858270469">"Невядомы"</string>
     <string name="voicemail" msgid="3851469869202611441">"Галасавая пошта"</string>
@@ -131,4 +138,60 @@
     <string name="simContacts_emptyLoading" msgid="6700035985448642408">"Загрузка з SIM-карты..."</string>
     <string name="simContacts_title" msgid="27341688347689769">"Кантакты SIM-карты"</string>
     <string name="add_contact_not_available" msgid="1419207765446461366">"Каб выкарыстоўваць гэту функцыю, паўторна ўключыце прыкладанне \"Кантакты\"."</string>
+    <!-- no translation found for dialer_hint_find_contact (8798845521253672403) -->
+    <skip />
+    <!-- no translation found for call_log_all_title (3566738938889333307) -->
+    <skip />
+    <!-- no translation found for call_log_missed_title (4541142293870638971) -->
+    <skip />
+    <!-- no translation found for recentMissed_empty (5427113551557296665) -->
+    <skip />
+    <!-- no translation found for recentVoicemails_empty (5163114119598014048) -->
+    <skip />
+    <!-- no translation found for show_all_contacts (1732256558071778056) -->
+    <skip />
+    <!-- no translation found for show_favorites_only (5520072531022614595) -->
+    <skip />
+    <!-- no translation found for call_log_activity_title (4612824396355272023) -->
+    <skip />
+    <!-- no translation found for dialpad_0_number (8859392433961251108) -->
+    <skip />
+    <!-- no translation found for dialpad_1_number (6536740525419909212) -->
+    <skip />
+    <!-- no translation found for dialpad_2_number (4941546415280852148) -->
+    <skip />
+    <!-- no translation found for dialpad_3_number (6539414865185536881) -->
+    <skip />
+    <!-- no translation found for dialpad_4_number (979988372051042362) -->
+    <skip />
+    <!-- no translation found for dialpad_5_number (5492272478939926734) -->
+    <skip />
+    <!-- no translation found for dialpad_6_number (8044579516869379093) -->
+    <skip />
+    <!-- no translation found for dialpad_7_number (4175113016564167123) -->
+    <skip />
+    <!-- no translation found for dialpad_8_number (7949849563865941621) -->
+    <skip />
+    <!-- no translation found for dialpad_9_number (4377059952097526576) -->
+    <skip />
+    <!-- no translation found for show_all_contacts_title (8395378484578221791) -->
+    <skip />
+    <!-- no translation found for show_all_contacts_button_text (8057452310403090131) -->
+    <skip />
+    <!-- no translation found for favorite_hidden (5011234945140912047) -->
+    <skip />
+    <!-- no translation found for favorite_hidden_undo (2508998611039406474) -->
+    <skip />
+    <!-- no translation found for search_shortcut_call_number (7277194656832895870) -->
+    <skip />
+    <!-- no translation found for search_shortcut_add_to_contacts (1853716708655789069) -->
+    <skip />
+    <!-- no translation found for num_missed_calls (8081736535604293886) -->
+    <skip />
+    <!-- no translation found for no_favorites (5212485868783382971) -->
+    <skip />
+    <!-- no translation found for contact_tooltip (7817483485692282287) -->
+    <skip />
+    <!-- no translation found for description_dismiss (2146276780562549643) -->
+    <skip />
 </resources>

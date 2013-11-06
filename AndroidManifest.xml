@@ -27,6 +27,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
     <uses-permission android:name="android.permission.NFC" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
@@ -44,13 +45,21 @@
     <!-- allow broadcasting secret code intents that reboot the phone -->
     <uses-permission android:name="android.permission.REBOOT" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!-- This tells the activity manager to not delay any of our activity
+     start requests, even if they happen immediately after the user
+     presses home. -->
+    <uses-permission android:name="android.permission.STOP_APP_SWITCHES" />
 
     <application
-        android:name="com.android.dialer.DialerApplication"
+        android:name="DialerApplication"
         android:label="@string/applicationLabel"
         android:icon="@mipmap/ic_launcher_phone"
         android:hardwareAccelerated="true"
-        android:supportsRtl="true">
+        android:supportsRtl="true"
+        android:backupAgent='com.android.dialer.DialerBackupAgent'>
+
+        <meta-data android:name="com.google.android.backup.api_key"
+            android:value="AEdPqrEAAAAIBXgtCEKQ6W0PXVnW-ZVia2KmlV2AxsTw3GjAeQ" />
 
         <!-- The entrance point for Phone UI.
              stateAlwaysHidden is set to suppress keyboard show up on
@@ -58,11 +67,10 @@
         <activity android:name=".DialtactsActivity"
             android:label="@string/launcherDialer"
             android:theme="@style/DialtactsTheme"
-            android:uiOptions="splitActionBarWhenNarrow"
             android:launchMode="singleTask"
             android:clearTaskOnLaunch="true"
             android:icon="@mipmap/ic_launcher_phone"
-            android:screenOrientation="nosensor"
+            android:screenOrientation="portrait"
             android:enabled="@*android:bool/config_voice_capable"
             android:windowSoftInputMode="stateAlwaysHidden|adjustNothing">
             <intent-filter>
@@ -96,12 +104,6 @@
                 <data android:scheme="tel" />
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:mimeType="vnd.android.cursor.dir/calls" />
-            </intent-filter>
-            <intent-filter>
                 <action android:name="android.intent.action.CALL_BUTTON" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
@@ -120,11 +122,31 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="com.android.dialer.calllog.CallLogActivity"
+            android:label="@string/call_log_activity_title"
+            android:theme="@style/DialtactsThemeWithActionBarOverlay"
+            android:screenOrientation="portrait"
+            android:icon="@mipmap/ic_launcher_phone">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:mimeType="vnd.android.cursor.dir/calls" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name="com.android.dialer.list.AllContactsActivity"
+            android:label="@string/show_all_contacts_title"
+            android:theme="@style/DialtactsThemeWithActionBarOverlay"
+            android:screenOrientation="portrait">
+        </activity>
+
         <activity android:name="com.android.dialer.CallDetailActivity"
                   android:label="@string/callDetailTitle"
                   android:theme="@style/CallDetailActivityTheme"
                   android:screenOrientation="portrait"
                   android:icon="@mipmap/ic_launcher_phone"
+                  android:parentActivityName="com.android.dialer.calllog.CallLogActivity"
             >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
@@ -222,28 +244,11 @@
             </intent-filter>
         </receiver>
 
-        <!-- "Call Statistics" UI, used only on voice-capable phone devices. -->
-        <activity android:name=".callstats.CallStatsActivity"
-                android:icon="@mipmap/ic_launcher_phone"
-                android:label="@string/activity_title_call_stats"
-                android:configChanges="orientation|screenSize|keyboardHidden"
-                android:theme="@style/CallStatsActivityTheme">
+        <receiver android:name=".interactions.UndemoteOutgoingCallReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
             </intent-filter>
-        </activity>
-
-        <activity android:name=".callstats.CallStatsDetailActivity"
-            android:label="@string/callStatsDetailTitle"
-            android:theme="@style/CallDetailActivityTheme"
-            android:screenOrientation="portrait"
-            android:icon="@mipmap/ic_launcher_phone" >
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+        </receiver>
 
         <service
             android:name=".calllog.CallLogNotificationsService"
@@ -254,6 +259,21 @@
         <service
             android:name=".contact.ContactUpdateService"
             android:exported="false" />
+
+        <!-- Main in-call UI activity.  This is never launched directly
+             from outside the phone app; instead, it's either launched by
+             the OutgoingCallBroadcaster (for outgoing calls), or as the
+             fullScreenIntent of a notification (for incoming calls.) -->
+        <activity android:name="com.android.incallui.InCallActivity"
+                  android:theme="@style/Theme.InCallScreen"
+                  android:label="@string/phoneAppLabel"
+                  android:excludeFromRecents="true"
+                  android:launchMode="singleInstance"
+                  android:screenOrientation="nosensor"
+                  android:configChanges="keyboardHidden"
+                  android:exported="false"
+                  android:process="com.android.incallui">
+        </activity>
 
         <activity
             android:name=".preference.IPCallPreferenceActivity"
@@ -273,6 +293,23 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <service android:name="com.android.incallui.CallHandlerService"
+                 android:process="com.android.incallui"
+                 android:permission="android.permission.BIND_CALL_SERVICE">
+            <intent-filter>
+                <action android:name="com.android.services.telephony.common.ICallHandlerService" />
+            </intent-filter>
+        </service>
+
+        <!-- BroadcastReceiver for receiving Intents from Notification mechanism. -->
+        <receiver android:name="com.android.incallui.InCallApp$NotificationBroadcastReceiver"
+                  android:exported="false"
+                  android:process="com.android.incallui">
+            <intent-filter>
+                <action android:name="com.android.incallui.ACTION_HANG_UP_ONGOING_CALL" />
+            </intent-filter>
+        </receiver>
 
     </application>
 </manifest>
