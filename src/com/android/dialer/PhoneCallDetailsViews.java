@@ -56,7 +56,7 @@ public final class PhoneCallDetailsViews {
                 view.findViewById(R.id.call_type),
                 (CallTypeIconsView) view.findViewById(R.id.call_type_icons),
                 (TextView) view.findViewById(R.id.call_count_and_date),
-                (TextView) view.findViewById(R.id.label)),
+                (TextView) view.findViewById(R.id.label),
                 (TextView) view.findViewById(R.id.location));
     }
 
