@@ -738,7 +738,7 @@ public class DialpadFragment extends Fragment
         int[] speedButtonIds = new int[] { R.id.two, R.id.three, R.id.four, R.id.five,
                 R.id.six, R.id.seven, R.id.eight, R.id.nine};
         for (int id : speedButtonIds) {
-            ((DialpadImageButton) fragmentView.findViewById(id)).setOnLongClickListener(this);
+            fragmentView.findViewById(id).setOnLongClickListener(this);
         }
     }
 
