@@ -151,7 +151,7 @@ public class PhoneCallDetailsHelper {
         views.nameView.setText(nameText);
 
         views.labelView.setText(labelText);
-        views.labelView.setVisibility(TextUtils.isEmpty(labelText) ? View.GONE : View.VISIBLE);
+        views.labelView.setVisibility(TextUtils.isEmpty(labelText) || labelText == details.geocode ? View.GONE : View.VISIBLE);
     }
 
     /** Sets the text of the header view for the details page of a phone call. */
