@@ -243,11 +243,11 @@ public class DialpadFragment extends Fragment
     private boolean proxChanged;
 
     // Speed Dial
-	private SharedPreferences speedDialPrefs;
-	private static final String SPEED_DIAL = "speed_dial";
-	private static final String PREF_DONT_REMIND_ME_KEY = "pref_dont_remind_me_key";
-	private static final int PICK_CONTACT = 1;
-	private String speed_dial_num;
+    private SharedPreferences speedDialPrefs;
+    private static final String SPEED_DIAL = "speed_dial";
+    private static final String PREF_DONT_REMIND_ME_KEY = "pref_dont_remind_me_key";
+    private static final int PICK_CONTACT = 1;
+    private String speed_dial_num;
 
     /**
      * Regular expression prohibiting manual phone call. Can be empty, which means "no rule".
@@ -871,9 +871,9 @@ public class DialpadFragment extends Fragment
                 registerSensorListener(mAccelerometer);
                 registerSensorListener(mMagnetometer);
             }
-	    } catch (Exception e) {
-	        Log.w("ERROR", e.toString());
-	    }
+        } catch (Exception e) {
+            Log.w("ERROR", e.toString());
+        }
     }
 
     @Override
