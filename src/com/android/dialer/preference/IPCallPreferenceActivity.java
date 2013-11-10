@@ -65,6 +65,7 @@ public class IPCallPreferenceActivity extends PreferenceActivity {
             	etIpCallPrefix.setGravity(Gravity.CENTER_HORIZONTAL);
             	etIpCallPrefix.setText(getIPCallPrefix(context));
             	etIpCallPrefix.setInputType(InputType.TYPE_CLASS_NUMBER);
+            	etIpCallPrefix.setSelection(etIpCallPrefix.getText().length());
             	layoutIPCallPrefix.addView(etIpCallPrefix);
             	new AlertDialog.Builder(this).setTitle(R.string.dialer_ip_call_prefix_title).setView(layoutIPCallPrefix).setPositiveButton(android.R.string.ok, new OnClickListener(){
 
