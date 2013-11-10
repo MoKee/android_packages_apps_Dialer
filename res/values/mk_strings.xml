@@ -21,8 +21,8 @@
     <string name="dialer_ipcall_msg">IP prefix has not been set. Do you want to make the call without IP prefix</string>
 
     <!-- Speed Dial -->
-    <string name="speeddial_menu">Speed Dial</string>
-    <string name="speeddial_title">Assign speed dial?</string>
+    <string name="speeddial_title">Speed Dial</string>
+    <string name="speeddial_dialog_title">Assign speed dial?</string>
     <string name="alert_add_speeddial_title">%s is not setup as a speed dial. Do you want to assign it now?</string>
     <string name="dont_remind_me_title">Don \'t remind me again.</string>
     <string name="speeddial_added">%1$s\'s %2$s number %3$s has been added to speed dial, shortcut is %4$s .</string>

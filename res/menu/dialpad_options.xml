@@ -37,7 +37,7 @@
 
     <item
         android:id="@+id/menu_speeddial"
-        android:title="@string/speeddial_menu"
+        android:title="@string/speeddial_title"
         android:showAsAction="withText"
         android:orderInCategory="1" />
 </menu>

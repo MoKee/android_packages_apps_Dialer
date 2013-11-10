@@ -24,8 +24,8 @@
     <string name="dialer_ipcall_msg">尚未设置IP拨号前缀。您想直接拨打此号码吗？</string>
 
     <!-- Speed Dial -->
-    <string name="speeddial_menu">快速拨号</string>
-    <string name="speeddial_title">指定快速拨号？</string>
+    <string name="speeddial_title">快速拨号</string>
+    <string name="speeddial_dialog_title">指定快速拨号？</string>
     <string name="alert_add_speeddial_title">%s 没有设置为快速拨号。是否立即指定？</string>
     <string name="dont_remind_me_title">不再提醒我。</string>
     <string name="speeddial_added">%1$s 的 %2$s 号码 %3$s 已成功添加到快速拨号设置中，快速拨号键为 %4$s 。</string>

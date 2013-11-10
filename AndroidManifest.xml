@@ -289,8 +289,7 @@
         <activity
             android:name=".preference.IPCallPreferenceActivity"
             android:label="@string/dialer_ipcall_title"
-            android:icon="@mipmap/ic_launcher_phone"
-            android:theme="@style/@android:style/Theme.Holo.DialogWhenLarge">
+            android:theme="@style/SettingsLight" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -298,7 +297,9 @@
         </activity>
 
         <activity
-            android:name=".preference.SpeedDialPreferenceActivity">
+            android:name=".preference.SpeedDialPreferenceActivity"
+            android:label="@string/speeddial_title"
+            android:theme="@style/SettingsLight" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />

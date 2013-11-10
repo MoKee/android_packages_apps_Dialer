@@ -1275,13 +1275,13 @@ public class DialpadFragment extends Fragment
 				TextView alertTextView = new TextView(mContext);
 				alertTextView.setText(getString(R.string.alert_add_speeddial_title, num));
 				alertTextView.setPadding(15, 15, 0, 0);
-				alertTextView.setTextColor(Color.WHITE);
+				alertTextView.setTextColor(Color.BLACK);
 				alertTextView.setTextSize(16);
 				viewLayout.addView(alertTextView);
 				final CheckBox cbCheckBox = new CheckBox(mContext);
 				cbCheckBox.setText(R.string.dont_remind_me_title);
 				viewLayout.addView(cbCheckBox);
-				new AlertDialog.Builder(mContext).setTitle(R.string.speeddial_title)
+				new AlertDialog.Builder(mContext).setTitle(R.string.speeddial_dialog_title)
 						.setView(viewLayout)
 						.setPositiveButton(android.R.string.ok, new OnClickListener() {
 
