@@ -119,7 +119,6 @@ public class DialpadFragment extends Fragment
         View.OnLongClickListener, View.OnKeyListener,
         AdapterView.OnItemClickListener, TextWatcher,
         PopupMenu.OnMenuItemClickListener,
-        SensorEventListener,
         DialpadKeyButton.OnPressedListener {
     private static final String TAG = DialpadFragment.class.getSimpleName();
 
@@ -233,12 +232,17 @@ public class DialpadFragment extends Fragment
     private ListView mDialpadChooser;
     private DialpadChooserAdapter mDialpadChooserAdapter;
 
+    // Direct Call
     private SensorManager mSensorManager;
+    private Sensor mProximitySensor;
+    private Sensor mAccelerometer;
+    private Sensor mMagnetometer;
     private int SensorOrientationY;
     private int SensorProximity;
     private boolean initProx;
     private boolean proxChanged;
 
+    // Speed Dial
 	private SharedPreferences speedDialPrefs;
 	private static final String SPEED_DIAL = "speed_dial";
 	private static final String PREF_DONT_REMIND_ME_KEY = "pref_dont_remind_me_key";
@@ -373,46 +377,68 @@ public class DialpadFragment extends Fragment
         updateDialAndDeleteButtonEnabledState();
     }
 
-    @Override
-    public void onSensorChanged(SensorEvent event) {
+    private void registerSensorListener(Sensor sensor) {
+        if (sensor != null)
+            mSensorManager.registerListener(mSensorListener, sensor, SensorManager.SENSOR_DELAY_UI);
+    }
 
-        switch (event.sensor.getType()) {
-        case Sensor.TYPE_ORIENTATION:
-            SensorOrientationY = (int) event.values[SensorManager.DATA_Y];
-            break;
-        case Sensor.TYPE_PROXIMITY:
-            int currentProx = (int) event.values[0];
-            if (initProx) {
+    private void unregisterSensorListener(Sensor sensor) {
+        if (sensor != null)
+            mSensorManager.unregisterListener(mSensorListener, sensor);
+    }
+
+    private SensorEventListener mSensorListener = new SensorEventListener() {
+        float[] mGravity;
+        float[] mGeomagnetic;
+
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+            float value = event.values[0];
+            if (event.sensor.equals(mProximitySensor)) {
+                int currentProx = (int) value;
+                if (initProx) {
+                    SensorProximity = currentProx;
+                    initProx = false;
+                } else {
+                    if( SensorProximity > 0 && currentProx <= 3){
+                        proxChanged = true;
+                    }
+                }
                 SensorProximity = currentProx;
-                initProx = false;
-            } else {
-                if (SensorProximity > 0 && currentProx <= 5){
-                    proxChanged = true;
+            } else if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+                mGravity = event.values;
+            } else if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
+                mGeomagnetic = event.values;
+            }
+            if (mGravity != null && mGeomagnetic != null) {
+                float R[] = new float[9];
+                float I[] = new float[9];
+                boolean success = SensorManager.getRotationMatrix(R, I, mGravity, mGeomagnetic);
+                if (success) {
+                    float orientation[] = new float[3];
+                    SensorManager.getOrientation(R, orientation);
+                    SensorOrientationY = (int) (orientation[1] * 180f / Math.PI);
                 }
             }
-            SensorProximity = currentProx;
-            break;
-        }
+            if (rightOrientation(SensorOrientationY) && SensorProximity <= 3 && proxChanged ) {
+                if (isDigitsEmpty() == false) {
+                    // unregister Listener to don't let the onSesorChanged run the
+                    // whole time
+                    unregisterSensorListener(mProximitySensor);
+                    unregisterSensorListener(mAccelerometer);
+                    unregisterSensorListener(mMagnetometer);
 
-        if (rightOrientation(SensorOrientationY) && SensorProximity <= 5 && proxChanged ) {
-            if (isDigitsEmpty() == false) {
-	        // unregister Listener to don't let the onSesorChanged run the
-	        // whole time
-            mSensorManager.unregisterListener(this, mSensorManager
-                    .getDefaultSensor(Sensor.TYPE_ORIENTATION));
-            mSensorManager.unregisterListener(this,
-                    mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY));
-
-            // get number and attach it to an Intent.ACTION_CALL, then start
-            // the Intent
-            dialButtonPressed();
+                    // get number and attach it to an Intent.ACTION_CALL, then start
+                    // the Intent
+                    dialButtonPressed();
+                }
             }
         }
-    }
 
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-    }
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        }
+    };
 
     public boolean rightOrientation(int orientation) {
         if (orientation < -50 && orientation > -130) {
@@ -833,17 +859,17 @@ public class DialpadFragment extends Fragment
         try {
             if (Settings.System.getInt(getActivity().getContentResolver(),
                     Settings.System.DIALER_DIRECT_CALL, 0) == 0 ? false : true) {
+                mSensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
+                mProximitySensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+                mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+                mMagnetometer = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
                 SensorOrientationY = 0;
                 SensorProximity = 0;
                 proxChanged = false;
                 initProx = true;
-                mSensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
-                mSensorManager.registerListener(this,
-                    mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION),
-                    SensorManager.SENSOR_DELAY_UI);
-                mSensorManager.registerListener(this,
-                    mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY),
-                    SensorManager.SENSOR_DELAY_UI);
+                registerSensorListener(mProximitySensor);
+                registerSensorListener(mAccelerometer);
+                registerSensorListener(mMagnetometer);
             }
 	    } catch (Exception e) {
 	        Log.w("ERROR", e.toString());
@@ -873,17 +899,16 @@ public class DialpadFragment extends Fragment
 
         SpecialCharSequenceMgr.cleanup();
 
-	    try {
-	        if (Settings.System.getInt(getActivity().getContentResolver(),
+        try {
+            if (Settings.System.getInt(getActivity().getContentResolver(),
                     Settings.System.DIALER_DIRECT_CALL, 0) == 0 ? false : true) {
-	            mSensorManager.unregisterListener(this,
-                    mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION));
-	            mSensorManager.unregisterListener(this,
-                    mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY));
-	        }
-	    } catch (Exception e) {
-	        Log.w("ERROR", e.toString());
-	    }
+                unregisterSensorListener(mProximitySensor);
+                unregisterSensorListener(mAccelerometer);
+                unregisterSensorListener(mMagnetometer);
+            }
+        } catch (Exception e) {
+            Log.w("ERROR", e.toString());
+        }
     }
 
     @Override
