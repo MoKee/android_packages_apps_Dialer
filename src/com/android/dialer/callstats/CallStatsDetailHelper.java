@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
+ * Copyright (C) 2013 The MoKee OpenSource Project
  * Copyright (C) 2013 Android Open Kang Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,6 +19,8 @@
 package com.android.dialer.callstats;
 
 import android.content.res.Resources;
+import android.mokee.util.MoKeeUtils;
+import android.mokee.location.PhoneLocation;
 import android.provider.CallLog.Calls;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.telephony.PhoneNumberUtils;
@@ -66,7 +69,7 @@ public class CallStatsDetailHelper {
             nameText = displayNumber;
             if (TextUtils.isEmpty(details.geocode)
                     || mPhoneNumberUtilsWrapper.isVoicemailNumber(details.number)) {
-                numberText = mResources.getString(R.string.call_log_empty_gecode);
+                numberText = "";
             } else {
                 numberText = details.geocode;
             }
@@ -96,11 +99,21 @@ public class CallStatsDetailHelper {
             missed = ratio;
         }
 
+        if (MoKeeUtils.isChineseLanguage()) {
+        	CharSequence PhoneLocationStr = PhoneLocation.getCityFromPhone(String.valueOf(details.number));
+        	views.locationView.setText(PhoneLocationStr);
+        	views.locationView.setVisibility(TextUtils.isEmpty(PhoneLocationStr) ? View.INVISIBLE : View.VISIBLE);
+        } else {
+        	views.locationView.setText(details.geocode);
+        	views.locationView.setVisibility(TextUtils.isEmpty(details.geocode) ? View.INVISIBLE : View.VISIBLE);
+        }
+
         views.barView.setRatios(in, out, missed);
         views.nameView.setText(nameText);
         views.numberView.setText(numberText);
+        views.numberView.setVisibility(TextUtils.isEmpty(numberText) || numberText.equals(details.geocode) ? View.GONE : View.VISIBLE);
         views.labelView.setText(labelText);
-        views.labelView.setVisibility(TextUtils.isEmpty(labelText) ? View.GONE : View.VISIBLE);
+        views.labelView.setVisibility(TextUtils.isEmpty(labelText) || labelText.equals(details.geocode) ? View.GONE : View.VISIBLE);
 
         if (byDuration && type == Calls.MISSED_TYPE) {
             views.percentView.setText(getCallCountString(mResources, details.missedCount));

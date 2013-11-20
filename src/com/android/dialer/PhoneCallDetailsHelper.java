@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
+ * Copyright (C) 2013 The MoKee OpenSource Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,10 +17,9 @@
 
 package com.android.dialer;
 
-import android.content.Context;
 import android.content.res.Resources;
-import android.mokee.util.MoKeeUtils;
 import android.graphics.Typeface;
+import android.mokee.util.MoKeeUtils;
 import android.mokee.location.PhoneLocation;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
@@ -138,7 +138,6 @@ public class PhoneCallDetailsHelper {
                     numberFormattedLabel;
         }
 
-        Context mContext = views.labelView.getContext();   
         if (MoKeeUtils.isChineseLanguage()) {
         	CharSequence PhoneLocationStr = PhoneLocation.getCityFromPhone(String.valueOf(details.number));
         	views.locationView.setText(PhoneLocationStr);
@@ -151,7 +150,7 @@ public class PhoneCallDetailsHelper {
         views.nameView.setText(nameText);
 
         views.labelView.setText(labelText);
-        views.labelView.setVisibility(TextUtils.isEmpty(labelText) || labelText == details.geocode ? View.GONE : View.VISIBLE);
+        views.labelView.setVisibility(TextUtils.isEmpty(labelText) || labelText.equals(details.geocode) ? View.GONE : View.VISIBLE);
     }
 
     /** Sets the text of the header view for the details page of a phone call. */

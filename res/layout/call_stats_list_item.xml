@@ -110,6 +110,16 @@
                 android:textColor="?attr/call_log_secondary_text_color"
                 android:textSize="14sp"
                 android:textStyle="bold" />
+            <TextView
+                android:id="@+id/location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/call_log_icon_margin"
+                android:ellipsize="marquee"
+                android:singleLine="true"
+                android:textColor="?attr/call_log_secondary_text_color"
+                android:textSize="14sp"
+                android:textStyle="bold" />
         </LinearLayout>
     </GridLayout>
 
