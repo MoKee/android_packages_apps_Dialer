@@ -25,6 +25,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
+import android.mokee.util.MoKeeUtils;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.BaseColumns;
@@ -39,7 +40,7 @@ import android.util.Log;
 import com.android.contacts.common.util.StopWatch;
 import com.android.dialer.dialpad.SmartDialNameMatcher;
 import com.android.dialer.dialpad.SmartDialPrefix;
-
+import com.android.dialer.util.HanziToPinyin;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
@@ -48,6 +49,7 @@ import com.google.common.collect.Lists;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Locale;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -670,7 +672,7 @@ public class DialerDatabaseHelper extends SQLiteOpenHelper {
      * @param nameCursor Cursor pointing to the list of distinct updated contacts.
      */
     @VisibleForTesting
-    void insertNamePrefixes(SQLiteDatabase db, Cursor nameCursor) {
+    void insertNamePrefixes(SQLiteDatabase db, Cursor nameCursor, Boolean isChinese) {
         final int columnIndexName = nameCursor.getColumnIndex(
                 SmartDialDbColumns.DISPLAY_NAME_PRIMARY);
         final int columnIndexContactId = nameCursor.getColumnIndex(SmartDialDbColumns.CONTACT_ID);
@@ -685,14 +687,21 @@ public class DialerDatabaseHelper extends SQLiteOpenHelper {
 
             while (nameCursor.moveToNext()) {
                 /** Computes a list of prefixes of a given contact name. */
-                final ArrayList<String> namePrefixes =
-                        SmartDialPrefix.generateNamePrefixes(nameCursor.getString(columnIndexName));
-
-                for (String namePrefix : namePrefixes) {
-                    insert.bindLong(1, nameCursor.getLong(columnIndexContactId));
-                    insert.bindString(2, namePrefix);
-                    insert.executeInsert();
-                    insert.clearBindings();
+                Object[] temp=new Object[]{1};
+                if (isChinese) {
+                    temp = HanziToPinyin.getPinyin(nameCursor.getString(columnIndexName)).toArray();
+                }
+                else{
+                    temp[0] = nameCursor.getString(columnIndexName);
+                }
+                for (Object name:temp) {
+                    final ArrayList<String> namePrefixes =SmartDialPrefix.generateNamePrefixes(name.toString());
+                    for (String namePrefix : namePrefixes) {
+                        insert.bindLong(1, nameCursor.getLong(columnIndexContactId));
+                        insert.bindString(2, namePrefix);
+                        insert.executeInsert();
+                        insert.clearBindings();
+                    }
                 }
             }
 
@@ -800,7 +809,7 @@ public class DialerDatabaseHelper extends SQLiteOpenHelper {
             if (nameCursor != null) {
                 try {
                     /** Inserts prefixes of names into the prefix table.*/
-                    insertNamePrefixes(db, nameCursor);
+                    insertNamePrefixes(db, nameCursor, MoKeeUtils.isChineseLanguage());
                     if (DEBUG) {
                         stopWatch.lap("Finished building the name prefix table");
                     }
@@ -945,7 +954,7 @@ public class DialerDatabaseHelper extends SQLiteOpenHelper {
                 final boolean nameMatches = nameMatcher.matches(displayName);
                 final boolean numberMatches =
                         (nameMatcher.matchesNumber(phoneNumber, query) != null);
-                if (nameMatches || numberMatches) {
+                if (true || numberMatches) {
                     /** If a contact has not been added, add it to the result and the hash set.*/
                     duplicates.add(contactMatch);
                     result.add(new ContactNumber(id, dataID, displayName, phoneNumber, lookupKey,
