@@ -28,4 +28,6 @@
     <string name="speeddial_added">%1$s\'s %2$s number %3$s has been added to speed dial, shortcut is %4$s .</string>
     <string name="speeddial_undefined_title">Undefined</string>
     <string name="speeddial_undefined_summary">Long press to set</string>
+    <!-- toast tips -->
+    <string name="toast_no_google_search">Please install Google Search</string>
 </resources>

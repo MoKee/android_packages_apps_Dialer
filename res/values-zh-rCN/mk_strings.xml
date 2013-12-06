@@ -31,4 +31,6 @@
     <string name="speeddial_added">%1$s 的 %2$s 号码 %3$s 已成功添加到快速拨号设置中，快速拨号键为 %4$s 。</string>
     <string name="speeddial_undefined_title">未定义</string>
     <string name="speeddial_undefined_summary">长按进行修改</string>
+    <!-- toast tips -->
+    <string name="toast_no_google_search">请安装Google搜索</string>
 </resources>
