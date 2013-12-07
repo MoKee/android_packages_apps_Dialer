@@ -53,34 +53,32 @@ public class HanziToPinyin {
             hanYuPinOutputFormat.setCaseType(HanyuPinyinCaseType.LOWERCASE);
             hanYuPinOutputFormat.setToneType(HanyuPinyinToneType.WITHOUT_TONE);
             hanYuPinOutputFormat.setVCharType(HanyuPinyinVCharType.WITH_V);
-            String[][] firstTemp=new String[src.length()][];
+            String[][] firstTemp = new String[src.length()][];
             String[][] pinyinTemp = new String[src.length()][];
             for (int i = 0; i < srcChar.length; i++) {
                 char c = srcChar[i];
                 // 中文判断
                 if (String.valueOf(c).matches("[\\u4E00-\\u9FA5]+")) {
                     try {
-                        pinyinTemp[i] = PinyinHelper.toHanyuPinyinStringArray(srcChar[i],hanYuPinOutputFormat);
-                        if(pinyinTemp[i]!=null)
-                        {
+                        pinyinTemp[i] = PinyinHelper.toHanyuPinyinStringArray(srcChar[i], hanYuPinOutputFormat);
+                        if (pinyinTemp[i] != null) {
                             String[] temp=new String[pinyinTemp[i].length];
-                            for(int j=0;j<pinyinTemp[i].length;j++)
-                            {
-                                temp[j]=String.valueOf((pinyinTemp[i])[j].charAt(0));
+                            for(int j = 0; j < pinyinTemp[i].length; j++) {
+                                temp[j] = String.valueOf((pinyinTemp[i])[j].charAt(0));
                             }
-                            firstTemp[i]=temp;
+                            firstTemp[i] = temp;
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 } else {
-                    String str=String.valueOf(srcChar[i]).toLowerCase();
+                    String str = String.valueOf(srcChar[i]).toLowerCase();
                     pinyinTemp[i] = new String[] {str};
                     firstTemp [i] = new String[] {str};
                 }
             }
             String[] pingyinArray = Exchange(pinyinTemp);
-            String[] firstArray=Exchange(firstTemp);
+            String[] firstArray = Exchange(firstTemp);
             Set<String> pinyinSet = new HashSet<String>();
             for (int i = 0; i < pingyinArray.length; i++) {
                 pinyinSet.add(pingyinArray[i]);
