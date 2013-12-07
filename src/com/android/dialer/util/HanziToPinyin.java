@@ -16,14 +16,7 @@
 
 package com.android.dialer.util;
 
-import android.text.TextUtils;
-import android.util.Log;
-
-import java.text.Collator;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Locale;
 import java.util.Set;
 
 import net.sourceforge.pinyin4j.PinyinHelper;
@@ -31,17 +24,15 @@ import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
 import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType;
-import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
 
 /**
- * An object to convert Chinese character to its corresponding pinyin string. For characters with
- * multiple possible pinyin string, only one is selected according to collator. Polyphone is not
- * supported in this implementation. This class is implemented to achieve the best runtime
- * performance and minimum runtime resources with tolerable sacrifice of accuracy. This
- * implementation highly depends on zh_CN ICU collation data and must be always synchronized with
- * ICU.
- *
- * Currently this file is aligned to zh.txt in ICU 4.6
+ * An object to convert Chinese character to its corresponding pinyin string.
+ * For characters with multiple possible pinyin string, only one is selected
+ * according to collator. Polyphone is not supported in this implementation.
+ * This class is implemented to achieve the best runtime performance and minimum
+ * runtime resources with tolerable sacrifice of accuracy. This implementation
+ * highly depends on zh_CN ICU collation data and must be always synchronized
+ * with ICU. Currently this file is aligned to zh.txt in ICU 4.6
  */
 public class HanziToPinyin {
     public static Set<String> getPinyin(String src) {
@@ -57,13 +48,13 @@ public class HanziToPinyin {
             String[][] pinyinTemp = new String[src.length()][];
             for (int i = 0; i < srcChar.length; i++) {
                 char c = srcChar[i];
-                // 中文判断
-                if (String.valueOf(c).matches("[\\u4E00-\\u9FA5]+")) {
+                if (PinyinHelper.matchesCheck(c)) {
                     try {
-                        pinyinTemp[i] = PinyinHelper.toHanyuPinyinStringArray(srcChar[i], hanYuPinOutputFormat);
+                        pinyinTemp[i] = PinyinHelper.toHanyuPinyinStringArray(srcChar[i],
+                                hanYuPinOutputFormat);
                         if (pinyinTemp[i] != null) {
-                            String[] temp=new String[pinyinTemp[i].length];
-                            for(int j = 0; j < pinyinTemp[i].length; j++) {
+                            String[] temp = new String[pinyinTemp[i].length];
+                            for (int j = 0; j < pinyinTemp[i].length; j++) {
                                 temp[j] = String.valueOf((pinyinTemp[i])[j].charAt(0));
                             }
                             firstTemp[i] = temp;
@@ -73,8 +64,12 @@ public class HanziToPinyin {
                     }
                 } else {
                     String str = String.valueOf(srcChar[i]).toLowerCase();
-                    pinyinTemp[i] = new String[] {str};
-                    firstTemp [i] = new String[] {str};
+                    pinyinTemp[i] = new String[] {
+                        str
+                    };
+                    firstTemp[i] = new String[] {
+                        str
+                    };
                 }
             }
             String[] pingyinArray = Exchange(pinyinTemp);
