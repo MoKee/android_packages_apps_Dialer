@@ -37,15 +37,25 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import android.app.LoaderManager.LoaderCallbacks;
+import android.content.Loader;
+
 import com.android.contacts.common.CallUtil;
 import com.android.contacts.common.ClipboardUtils;
 import com.android.contacts.common.ContactPhotoManager;
+import com.android.contacts.common.model.Contact;
+import com.android.contacts.common.model.ContactLoader;
 import com.android.contacts.common.format.FormatUtils;
 import com.android.contacts.common.util.Constants;
 import com.android.dialer.calllog.PhoneNumberHelper;
 import com.android.dialer.calllog.PhoneNumberUtilsWrapper;
 
+import android.provider.ContactsContract.DisplayNameSources;
+
 public class CallDetailHeader {
+    private static final int LOADER_ID = 0;
+    private static final String BUNDLE_CONTACT_URI_EXTRA = "contact_uri_extra";
+
     private static final char LEFT_TO_RIGHT_EMBEDDING = '\u202A';
     private static final char POP_DIRECTIONAL_FORMATTING = '\u202C';
 
@@ -195,6 +205,8 @@ public class CallDetailHeader {
         final CharSequence dataNumber = data.getNumber();
         final Uri contactUri = data.getContactUri();
 
+        boolean skipBind = false;
+
         mNumber = number;
         mCanPlaceCallsTo = PhoneNumberUtilsWrapper.canPlaceCallsTo(number, numberPresentation);
 
@@ -251,24 +263,9 @@ public class CallDetailHeader {
             mainActionDescription = null;
         }
 
-        if (mainActionIntent == null) {
-            mMainActionView.setVisibility(View.INVISIBLE);
-            mMainActionPushLayerView.setVisibility(View.GONE);
-            mHeaderTextView.setVisibility(View.INVISIBLE);
-            mHeaderOverlayView.setVisibility(View.INVISIBLE);
-        } else {
-            mMainActionView.setVisibility(View.VISIBLE);
-            mMainActionView.setImageResource(mainActionIcon);
-            mMainActionPushLayerView.setVisibility(View.VISIBLE);
-            mMainActionPushLayerView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mActivity.startActivity(mainActionIntent);
-                }
-            });
-            mMainActionPushLayerView.setContentDescription(mainActionDescription);
-            mHeaderTextView.setVisibility(View.VISIBLE);
-            mHeaderOverlayView.setVisibility(View.VISIBLE);
+        if (!skipBind) {
+            bindContactPhotoAction(mainActionIntent, mainActionIcon,
+                    mainActionDescription);
         }
 
         // This action allows to call the number that places the call.
@@ -312,6 +309,29 @@ public class CallDetailHeader {
 
         mHasEditNumberBeforeCallOption =
             mCanPlaceCallsTo && !isSipNumber && !isVoicemailNumber;
+    }
+
+    private void bindContactPhotoAction(final Intent actionIntent, int actionIcon,
+            String actionDescription) {
+        if (actionIntent == null) {
+            mMainActionView.setVisibility(View.INVISIBLE);
+            mMainActionPushLayerView.setVisibility(View.GONE);
+            mHeaderTextView.setVisibility(View.INVISIBLE);
+            mHeaderOverlayView.setVisibility(View.INVISIBLE);
+        } else {
+            mMainActionView.setVisibility(View.VISIBLE);
+            mMainActionView.setImageResource(actionIcon);
+            mMainActionPushLayerView.setVisibility(View.VISIBLE);
+            mMainActionPushLayerView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mActivity.startActivity(actionIntent);
+                }
+            });
+            mMainActionPushLayerView.setContentDescription(actionDescription);
+            mHeaderTextView.setVisibility(View.VISIBLE);
+            mHeaderOverlayView.setVisibility(View.VISIBLE);
+        }
     }
 
     /** Load the contact photos and places them in the corresponding views. */

@@ -223,6 +223,8 @@ public class DialpadFragment extends Fragment
     private ToneGenerator mToneGenerator;
     private final Object mToneGeneratorLock = new Object();
     private View mDialpad;
+    private View mSpacer;
+
     /**
      * Set of dialpad keys that are currently being pressed
      */
@@ -532,6 +534,18 @@ public class DialpadFragment extends Fragment
             mDelete.setOnClickListener(this);
             mDelete.setOnLongClickListener(this);
         }
+
+        mSpacer = fragmentView.findViewById(R.id.spacer);
+        mSpacer.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (isDigitsEmpty()) {
+                    hideAndClearDialpad();
+                    return true;
+                }
+                return false;
+            }
+        });
 
         mDialpad = fragmentView.findViewById(R.id.dialpad);  // This is null in landscape mode.
 
