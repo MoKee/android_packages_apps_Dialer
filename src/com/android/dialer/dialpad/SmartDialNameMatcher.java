@@ -16,14 +16,19 @@
 
 package com.android.dialer.dialpad;
 
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 
 import com.android.dialer.dialpad.SmartDialPrefix.PhoneNumberTokens;
+import com.android.dialer.util.HanziToPinyin;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Lists;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * {@link #SmartDialNameMatcher} contains utility functions to remove accents from accented
@@ -408,12 +413,15 @@ public class SmartDialNameMatcher {
         }
         return false;
     }
-
+    
     public boolean matches(String displayName) {
         mMatchPositions.clear();
         return matchesCombination(displayName, mQuery, mMatchPositions);
     }
-
+    public boolean matchesCN(String displayName) {
+        mMatchPositions.clear();
+        return isMatch(displayName, mQuery, mMatchPositions);
+    }
     public ArrayList<SmartDialMatchPosition> getMatchPositions() {
         // Return a clone of mMatchPositions so that the caller can use it without
         // worrying about it changing
@@ -430,5 +438,51 @@ public class SmartDialNameMatcher {
 
     public String getQuery() {
         return mQuery;
+    }
+    public static boolean isChinese(char c) {
+        return String.valueOf(c).matches("[\\u4E00-\\u9FA5]+");
+    }
+    public static boolean isEnglish(char c)
+    {
+        return String.valueOf(c).matches("[a-zA-Z]");
+    }
+    public  boolean isMatch(String displayName, String query,ArrayList<SmartDialMatchPosition> matchList) {
+        int length = displayName.length();
+        for (int i = 0; i < length; i++) {
+            char c = displayName.charAt(i);
+            if (isChinese(c)) {
+                Set<String> pinyins = HanziToPinyin.getPinyin(String.valueOf(c));
+                ArrayList<String> prefixs = new ArrayList<String>();
+                boolean isContinue = true;
+                for (Object pinyin : pinyins.toArray()) {
+                        prefixs.addAll(SmartDialPrefix.generateNamePrefixes(pinyin.toString()));
+                }
+                for (String prefix : prefixs) {
+                    if (prefix.equals(query)) {//优先使用全字匹配
+                        matchList.add(new SmartDialMatchPosition(i, i + 1));
+                        return true;
+                    }
+                }
+                for (String prefix : prefixs) {// 遍历T9映射
+                    if (query.contains(prefix)) {// 判断当前输入是否包含T9映射值
+                        matchList.add(new SmartDialMatchPosition(i, i + 1));// 只要包含即跳出
+                        break;
+                    }
+                }
+            } else if (isEnglish(c)) {
+                ArrayList<String> prefixs = SmartDialPrefix.generateNamePrefixes(String.valueOf(c));
+                for (String prefix : prefixs) {
+                    if (query.contains(prefix)) {
+                        matchList.add(new SmartDialMatchPosition(i, i + 1));
+                        break;
+                    }
+                }
+            }
+        }
+        if (!matchList.isEmpty()) {
+            return true;
+        }
+        return false;
+    
     }
 }

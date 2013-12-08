@@ -31,8 +31,10 @@ import com.android.dialer.dialpad.SmartDialCursorLoader;
 import com.android.dialer.dialpad.SmartDialNameMatcher;
 import com.android.dialer.dialpad.SmartDialPrefix;
 import com.android.dialer.dialpad.SmartDialMatchPosition;
+import com.android.dialer.util.HanziToPinyin;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * List adapter to display the SmartDial search results.
@@ -77,25 +79,40 @@ public class SmartDialNumberListAdapter extends DialerPhoneNumberListAdapter {
     @Override
     protected void setHighlight(ContactListItemView view, Cursor cursor) {
         view.clearHighlightSequences();
-
-        if (mNameMatcher.matches(cursor.getString(PhoneQuery.DISPLAY_NAME))) {
-            final ArrayList<SmartDialMatchPosition> nameMatches = mNameMatcher.getMatchPositions();
-            for (SmartDialMatchPosition match:nameMatches) {
-                view.addNameHighlightSequence(match.start, match.end);
-                if (DEBUG) {
-                    Log.v(TAG, cursor.getString(PhoneQuery.DISPLAY_NAME) + " " +
-                            mNameMatcher.getQuery() + " " + String.valueOf(match.start));
+        String query = cursor.getString(PhoneQuery.DISPLAY_NAME);
+        if(query.getBytes().length == query.length()?false:true)
+        {
+            if(mNameMatcher.matchesCN(query))
+            {
+                final ArrayList<SmartDialMatchPosition> nameMatches = mNameMatcher.getMatchPositions();
+                for (SmartDialMatchPosition match:nameMatches) {
+                    view.addNameHighlightSequence(match.start, match.end);
+                    if (DEBUG) {
+                        Log.v(TAG, cursor.getString(PhoneQuery.DISPLAY_NAME) + " " +
+                                mNameMatcher.getQuery() + " " + String.valueOf(match.start));
+                    }
                 }
             }
         }
-
+        else{
+            if (mNameMatcher.matches(query)) {
+                final ArrayList<SmartDialMatchPosition> nameMatches = mNameMatcher.getMatchPositions();
+                for (SmartDialMatchPosition match:nameMatches) {
+                    view.addNameHighlightSequence(match.start, match.end);
+                    if (DEBUG) {
+                        Log.v(TAG, cursor.getString(PhoneQuery.DISPLAY_NAME) + " " +
+                                mNameMatcher.getQuery() + " " + String.valueOf(match.start));
+                    }
+                }
+            }
+        }
         final SmartDialMatchPosition numberMatch = mNameMatcher.matchesNumber(cursor.getString(
                 PhoneQuery.PHONE_NUMBER));
         if (numberMatch != null) {
             view.addNumberHighlightSequence(numberMatch.start, numberMatch.end);
         }
     }
-
+ 
     /**
      * Gets Uri for the list item at the given position.
      * @param position Location of the data of interest.
