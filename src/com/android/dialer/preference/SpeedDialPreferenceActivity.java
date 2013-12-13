@@ -45,6 +45,7 @@ import android.widget.Toast;
 import com.android.contacts.common.CallUtil;
 import com.android.dialer.DialtactsActivity;
 import com.android.dialer.R;
+import com.android.phone.common.HapticFeedback;
 
 public class SpeedDialPreferenceActivity extends PreferenceActivity implements
         OnPreferenceClickListener, OnItemLongClickListener {
@@ -55,6 +56,9 @@ public class SpeedDialPreferenceActivity extends PreferenceActivity implements
     private String speed_dial_num;
     private Context mContext;
     private Preference tmpPref;
+
+    // Vibration (haptic feedback) for item longclick.
+    private final HapticFeedback mHaptic = new HapticFeedback();
 
     private int[] speedDialDrawable = {
             R.drawable.dial_num_2_wht,
@@ -73,6 +77,7 @@ public class SpeedDialPreferenceActivity extends PreferenceActivity implements
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
         mContext = this;
+        mHaptic.init(mContext, true);
         speedDialPrefs = getSharedPreferences(SPEED_DIAL, Context.MODE_PRIVATE);
         Intent intent = this.getIntent();
         String name = intent.getStringExtra("name");
@@ -129,6 +134,9 @@ public class SpeedDialPreferenceActivity extends PreferenceActivity implements
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position,
             long id) {
+        // Retrieve the haptic feedback setting.
+        mHaptic.checkSystemSetting();
+        mHaptic.vibrate();
         ListView listView = (ListView) parent;
         ListAdapter listAdapter = listView.getAdapter();
         tmpPref = (PreferenceScreen) listAdapter.getItem(position);
