@@ -14,8 +14,7 @@
      limitations under the License.
  -->
 
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <!-- IP Call -->
     <string name="dialer_ip_call_prefix_title">IP拨号前缀</string>
@@ -31,6 +30,11 @@
     <string name="speeddial_added">%1$s 的 %2$s 号码 %3$s 已成功添加到快速拨号设置中，快速拨号键为 %4$s 。</string>
     <string name="speeddial_undefined_title">未定义</string>
     <string name="speeddial_undefined_summary">长按进行修改</string>
+    <string name="speeddial_reset_title">重置</string>
+    <string name="speeddial_reset_message">您确定要删除目前的设置并还原为系统默认值？</string>
+    <string name="speeddial_reset_toast">快速拨号设置已还原为系统默认值</string>
+
     <!-- toast tips -->
     <string name="toast_no_google_search">请安装Google搜索</string>
+
 </resources>

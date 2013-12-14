@@ -21,7 +21,9 @@ import java.util.Set;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -33,6 +35,8 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnLongClickListener;
@@ -52,10 +56,12 @@ public class SpeedDialPreferenceActivity extends PreferenceActivity implements
 
     public static final String SPEED_DIAL = "speed_dial";
     private static final int PICK_CONTACT = 1;
+    private static final int MENU_RESET = Menu.FIRST;
     private SharedPreferences speedDialPrefs;
     private String speed_dial_num;
     private Context mContext;
     private Preference tmpPref;
+
 
     // Vibration (haptic feedback) for item longclick.
     private final HapticFeedback mHaptic = new HapticFeedback();
@@ -132,6 +138,47 @@ public class SpeedDialPreferenceActivity extends PreferenceActivity implements
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add(0, MENU_RESET, 0, R.string.speeddial_reset_title)
+        .setIcon(R.drawable.ic_menu_restore)
+        .setAlphabeticShortcut('r')
+        .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM |
+                MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        final int itemId = item.getItemId();
+        switch (itemId) {
+            case MENU_RESET:
+                new AlertDialog.Builder(mContext)
+                .setTitle(R.string.speeddial_reset_title)
+                .setIconAttribute(android.R.attr.alertDialogIcon)
+                .setMessage(R.string.speeddial_reset_message)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        resetSpeedDial();
+                        Toast.makeText(mContext, R.string.speeddial_reset_toast, Toast.LENGTH_LONG).show();
+                    }
+                }).setNegativeButton(android.R.string.cancel, null)
+                .create().show();
+                return true;
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void resetSpeedDial() {
+        for (int i = 2; i < 10; i++) {
+            speedDialPrefs.edit().remove(SPEED_DIAL + i).apply();
+        }
+        setPreferenceScreen(createPreferenceHierarchy(mContext));
+    }
+
+    @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position,
             long id) {
         // Retrieve the haptic feedback setting.
@@ -177,16 +224,6 @@ public class SpeedDialPreferenceActivity extends PreferenceActivity implements
                     }
                 }
         }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        final int itemId = item.getItemId();
-        if (itemId == android.R.id.home) { // See ActionBar#setDisplayHomeAsUpEnabled()
-            onBackPressed();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
 }
