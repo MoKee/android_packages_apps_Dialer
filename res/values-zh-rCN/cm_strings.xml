@@ -15,23 +15,23 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="call_log_stats_title">通话数据统计</string>
-    <string name="callStatsDetailTitle">通话统计数据详情</string>
+    <string name="call_log_stats_title">统计</string>
+    <string name="callStatsDetailTitle">通话统计详情</string>
 
-    <string name="call_stats">通话统计数据</string>
+    <string name="call_stats">通话统计</string>
     <string name="call_stats_refresh">刷新</string>
-    <string name="activity_title_call_stats">通话统计数据</string>
+    <string name="activity_title_call_stats">通话统计</string>
 
     <string name="call_stats_nav_all">全部</string>
     <string name="call_stats_nav_incoming">来电</string>
     <string name="call_stats_nav_outgoing">呼出</string>
     <string name="call_stats_nav_missed">未接</string>
-    <string name="call_stats_incoming">来电: <xliff:g id="percent">%d</xliff:g>%%</string>
-    <string name="call_stats_outgoing">呼出: <xliff:g id="percent">%d</xliff:g>%%</string>
+    <string name="call_stats_incoming">来电：<xliff:g id="percent">%d</xliff:g>%%</string>
+    <string name="call_stats_outgoing">呼出：<xliff:g id="percent">%d</xliff:g>%%</string>
     <string name="call_stats_missed">未接</string>
-    <string name="call_stats_missed_percent">未接: <xliff:g id="percent">%d</xliff:g>%%</string>
-    <string name="call_stats_header_total">总计: <xliff:g id="call_count">%s</xliff:g>, <xliff:g id="duration">%s</xliff:g></string>
-    <string name="call_stats_header_total_callsonly">总计: <xliff:g id="call_count">%s</xliff:g></string>
+    <string name="call_stats_missed_percent">未接：<xliff:g id="percent">%d</xliff:g>%%</string>
+    <string name="call_stats_header_total">总计：<xliff:g id="call_count">%s</xliff:g>，<xliff:g id="duration">%s</xliff:g></string>
+    <string name="call_stats_header_total_callsonly">总计：<xliff:g id="call_count">%s</xliff:g></string>
     <string name="call_stats_filter_from">开始日期</string>
     <string name="call_stats_filter_to">结束日期</string>
     <string name="call_stats_filter_picker_title">过滤范围</string>
@@ -51,5 +51,5 @@
     <string name="call_stats_sort_by_count">以通话次数排序</string>
 
     <string name="menu_add_to_blacklist">添加到黑名单</string>
-    <string name="toast_added_to_blacklist">%s 已添加到黑名单.</string>
+    <string name="toast_added_to_blacklist">%s 已添加到黑名单。</string>
 </resources>
