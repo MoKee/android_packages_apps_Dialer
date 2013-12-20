@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 The MoKee OpenSource Project
+ * Copyright (C) 2014 The MoKee OpenSource Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,11 +19,11 @@ package com.android.dialer.util;
 import java.util.HashSet;
 import java.util.Set;
 
-import net.sourceforge.pinyin4j.PinyinHelper;
-import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
-import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
-import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
-import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType;
+import org.chinese.pinyin.PinyinHelper;
+import org.chinese.pinyin.format.HanyuPinyinCaseType;
+import org.chinese.pinyin.format.HanyuPinyinOutputFormat;
+import org.chinese.pinyin.format.HanyuPinyinToneType;
+import org.chinese.pinyin.format.HanyuPinyinVCharType;
 
 /**
  * An object to convert Chinese character to its corresponding pinyin string.

@@ -19,7 +19,7 @@ LOCAL_AAPT_FLAGS := \
 
 LOCAL_JAVA_LIBRARIES := telephony-common
 LOCAL_STATIC_JAVA_LIBRARIES := \
-    pinyin4j \
+    pinyin \
     com.android.phone.shared \
     com.android.services.telephony.common \
     com.android.vcard \
@@ -44,6 +44,6 @@ include $(call all-makefiles-under,$(LOCAL_PATH))
 ##################################################
 include $(CLEAR_VARS)
 
-LOCAL_PREBUILT_STATIC_JAVA_LIBRARIES := pinyin4j:libs/pinyin4j.jar
+LOCAL_PREBUILT_STATIC_JAVA_LIBRARIES := pinyin:libs/pinyin.jar
 
 include $(BUILD_MULTI_PREBUILT)
