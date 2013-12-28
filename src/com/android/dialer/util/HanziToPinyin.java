@@ -93,7 +93,7 @@ public class HanziToPinyin {
 
     private static String[][] DoExchange(String[][] strJaggedArray) {
         int len = strJaggedArray.length;
-        if (len >= 2) {
+        if (len >= 2 && strJaggedArray[0] != null && strJaggedArray[1] != null) {
             int len1 = strJaggedArray[0].length;
             int len2 = strJaggedArray[1].length;
             int newlen = len1 * len2;
