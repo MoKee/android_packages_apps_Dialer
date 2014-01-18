@@ -453,28 +453,33 @@ public class SmartDialNameMatcher {
             if (isChinese(c)) {
                 Set<String> pinyins = HanziToPinyin.getPinyin(String.valueOf(c));
                 ArrayList<String> prefixs = new ArrayList<String>();
-                boolean isContinue = true;
                 for (Object pinyin : pinyins.toArray()) {
                         prefixs.addAll(SmartDialPrefix.generateNamePrefixes(pinyin.toString()));
                 }
                 for (String prefix : prefixs) {
-                    if (prefix.equals(query)) {//优先使用全字匹配
-                        matchList.add(new SmartDialMatchPosition(i, i + 1));
-                        return true;
+                    if (prefix.equals(query)) {//Match whole words priority
+                        if (i + 1 <= query.length()) {
+                            matchList.add(new SmartDialMatchPosition(i, i + 1));
+                            return true;
+                        }
                     }
                 }
-                for (String prefix : prefixs) {// 遍历T9映射
-                    if (query.contains(prefix)) {// 判断当前输入是否包含T9映射值
-                        matchList.add(new SmartDialMatchPosition(i, i + 1));// 只要包含即跳出
-                        break;
+                for (String prefix : prefixs) {// Traversal T9 mapping
+                    if (query.contains(prefix)) {// Determine the current value of the input contains T9 map
+                         if (i + 1 <= query.length()) {
+                            matchList.add(new SmartDialMatchPosition(i, i + 1));// That includes long jump
+                            break;
+                        }
                     }
                 }
             } else if (isEnglish(c)) {
                 ArrayList<String> prefixs = SmartDialPrefix.generateNamePrefixes(String.valueOf(c));
                 for (String prefix : prefixs) {
                     if (query.contains(prefix)) {
-                        matchList.add(new SmartDialMatchPosition(i, i + 1));
-                        break;
+                        if (i + 1 <= query.length()) {
+                            matchList.add(new SmartDialMatchPosition(i, i + 1));
+                            break;
+                        }
                     }
                 }
             }
