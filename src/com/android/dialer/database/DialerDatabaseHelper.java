@@ -694,12 +694,15 @@ public class DialerDatabaseHelper extends SQLiteOpenHelper {
 
             while (nameCursor.moveToNext()) {
                 /** Computes a list of prefixes of a given contact name. */
-                Object[] temp=new Object[]{1};
+                Object[] temp = null;
                 if (isChinese) {
                     temp = HanziToPinyin.getPinyin(nameCursor.getString(columnIndexName)).toArray();
+                    if(temp == null || temp.length == 0) {
+                       temp = new Object[]{nameCursor.getString(columnIndexName)};
+                    }
                 }
                 else{
-                    temp[0] = nameCursor.getString(columnIndexName);
+                    temp = new Object[]{nameCursor.getString(columnIndexName)};
                 }
                 for (Object name:temp) {
                     final ArrayList<String> namePrefixes =SmartDialPrefix.generateNamePrefixes(name.toString());
