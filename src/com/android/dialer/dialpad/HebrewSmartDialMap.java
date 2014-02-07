@@ -1,22 +1,6 @@
-/*
- * Copyright (C) 2014 The CyanogenMod Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.android.dialer.dialpad;
 
-public class RussianSmartDialMap implements SmartDialMap {
+public class HebrewSmartDialMap implements SmartDialMap {
 
     private static final char[] LATIN_LETTERS_TO_DIGITS = {
         '2', '2', '2', // A,B,C -> 2
@@ -29,20 +13,20 @@ public class RussianSmartDialMap implements SmartDialMap {
         '9', '9', '9', '9' // W,X,Y,Z -> 9
     };
 
-    private static final char[] RUSSIAN_LETTERS_TO_DIGITS = {
-        '2', '2', '2', '2', // абвг -> 2
-        '3', '3', '3', '3', // дежз -> 3
-        '4', '4', '4', '4', // ийкл -> 4
-        '5', '5', '5', '5', // мноп -> 5
-        '6', '6', '6', '6', // рсту -> 6
-        '7', '7', '7', '7', // фхцч -> 7
-        '8', '8', '8', '8', // шщъы -> 8
-        '9', '9', '9', '9'  // ьэюя -> 9
+    private static final char[] HEBREW_LETTERS_TO_DIGITS = {
+        '3', '3', '3',      // אבג -> 3
+        '2', '2', '2',      // דהו -> 2
+        '6', '6', '6',      // זחט -> 6
+        '5', '5', '5', '5', // יךכל -> 5
+        '4', '4', '4', '4', // םמןנ -> 4
+        '9', '9', '9', '9', // סעףפ -> 9
+        '8', '8', '8',      // ץצק -> 8
+        '7', '7', '7',      // רשת -> 7
     };
 
     @Override
     public boolean isValidDialpadAlphabeticChar(char ch) {
-        return (ch >= 'a' && ch <= 'z') || (ch >= 'а' && ch <= 'я');
+        return (ch >= 'a' && ch <= 'z') || (ch >= 'א' && ch <= 'ת');
     }
 
     @Override
@@ -55,23 +39,6 @@ public class RussianSmartDialMap implements SmartDialMap {
         return (isValidDialpadAlphabeticChar(ch) || isValidDialpadNumericChar(ch));
     }
 
-    /*
-     * The switch statement in this function was generated using the python code:
-     * from unidecode import unidecode
-     * for i in range(192, 564):
-     *     char = unichr(i)
-     *     decoded = unidecode(char)
-     *     # Unicode characters that decompose into multiple characters i.e.
-     *     #  into ss are not supported for now
-     *     if (len(decoded) == 1 and decoded.isalpha()):
-     *         print "case '" + char + "': return '" + unidecode(char) +  "';"
-     *
-     * This gives us a way to map characters containing accents/diacritics to their
-     * alphabetic equivalents. The unidecode library can be found at:
-     * http://pypi.python.org/pypi/Unidecode/0.04.1
-     *
-     * Also remaps all upper case latin characters to their lower case equivalents.
-     */
     @Override
     public char normalizeCharacter(char ch) {
         switch (ch) {
@@ -413,40 +380,12 @@ public class RussianSmartDialMap implements SmartDialMap {
             case 'X': return 'x';
             case 'Y': return 'y';
             case 'Z': return 'z';
-            case 'А': return 'а';
-            case 'Б': return 'б';
-            case 'В': return 'в';
-            case 'Г': return 'г';
-            case 'Д': return 'д';
-            case 'Е': return 'е';
-            case 'ё': return 'е';
-            case 'Ё': return 'е';
-            case 'Ж': return 'ж';
-            case 'З': return 'з';
-            case 'И': return 'и';
-            case 'Й': return 'й';
-            case 'К': return 'к';
-            case 'Л': return 'л';
-            case 'М': return 'м';
-            case 'Н': return 'н';
-            case 'О': return 'о';
-            case 'П': return 'п';
-            case 'Р': return 'р';
-            case 'С': return 'с';
-            case 'Т': return 'т';
-            case 'У': return 'у';
-            case 'Ф': return 'ф';
-            case 'Х': return 'х';
-            case 'Ц': return 'ц';
-            case 'Ч': return 'ч';
-            case 'Ш': return 'ш';
-            case 'Щ': return 'щ';
-            case 'Ъ': return 'ъ';
-            case 'Ы': return 'ы';
-            case 'Ь': return 'ь';
-            case 'Э': return 'э';
-            case 'Ю': return 'ю';
-            case 'Я': return 'я';
+            // ending letter in Hebrew (מןץףך)
+            case 'ך': return 'כ';
+            case 'ם': return 'מ';
+            case 'ן': return 'נ';
+            case 'ף': return 'פ';
+            case 'ץ': return 'צ';
             default:
                 return ch;
         }
@@ -458,8 +397,8 @@ public class RussianSmartDialMap implements SmartDialMap {
             return (byte) (ch - '0');
         } else if (ch >= 'a' && ch <= 'z') {
             return (byte) (LATIN_LETTERS_TO_DIGITS[ch - 'a'] - '0');
-        } else if (ch >= 'а' && ch <= 'я') {
-            return (byte) (RUSSIAN_LETTERS_TO_DIGITS[ch - 'а'] - '0');
+        } else if (ch >= 'א' && ch <= 'ת') {
+            return (byte) (HEBREW_LETTERS_TO_DIGITS[ch - 'א'] - '0');
         } else {
             return -1;
         }
@@ -470,8 +409,8 @@ public class RussianSmartDialMap implements SmartDialMap {
         if (ch >= 'a' && ch <= 'z') {
             return LATIN_LETTERS_TO_DIGITS[ch - 'a'];
         }
-        if (ch >= 'а' && ch <= 'я') {
-            return RUSSIAN_LETTERS_TO_DIGITS[ch - 'а'];
+        if (ch >= 'א' && ch <= 'ת') {
+            return HEBREW_LETTERS_TO_DIGITS[ch - 'א'];
         }
         return ch;
     }
