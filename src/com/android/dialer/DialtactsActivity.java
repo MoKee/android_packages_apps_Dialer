@@ -462,6 +462,7 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
                     final Intent voiceIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
                     startActivityForResult(voiceIntent, ACTIVITY_REQUEST_CODE_VOICE_SEARCH);
                 } catch (ActivityNotFoundException e) {
+                    Toast.makeText(DialtactsActivity.this, R.string.toast_no_google_search, Toast.LENGTH_SHORT).show();
                     Log.w(TAG, e.toString());
                 }
                 break;
