@@ -19,8 +19,6 @@ package com.android.dialer;
 
 import android.content.res.Resources;
 import android.graphics.Typeface;
-import android.mokee.util.MoKeeUtils;
-import android.mokee.location.PhoneLocation;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.telephony.PhoneNumberUtils;
@@ -38,6 +36,9 @@ import com.android.dialer.calllog.CallTypeHelper;
 import com.android.dialer.calllog.ContactInfo;
 import com.android.dialer.calllog.PhoneNumberHelper;
 import com.android.dialer.calllog.PhoneNumberUtilsWrapper;
+
+import org.mokee.util.MoKeeUtils;
+import org.mokee.location.PhoneLocation;
 
 /**
  * Helper class to fill in the views in {@link PhoneCallDetailsViews}.

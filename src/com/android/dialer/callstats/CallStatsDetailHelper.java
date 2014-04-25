@@ -19,8 +19,6 @@
 package com.android.dialer.callstats;
 
 import android.content.res.Resources;
-import android.mokee.util.MoKeeUtils;
-import android.mokee.location.PhoneLocation;
 import android.provider.CallLog.Calls;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.telephony.PhoneNumberUtils;
@@ -31,6 +29,9 @@ import android.widget.TextView;
 import com.android.dialer.R;
 import com.android.dialer.calllog.PhoneNumberHelper;
 import com.android.dialer.calllog.PhoneNumberUtilsWrapper;
+
+import org.mokee.util.MoKeeUtils;
+import org.mokee.location.PhoneLocation;
 
 /**
  * Class used to populate a detailed view for a callstats item

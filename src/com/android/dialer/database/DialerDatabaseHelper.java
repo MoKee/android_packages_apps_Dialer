@@ -25,7 +25,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
-import android.mokee.util.MoKeeUtils;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.BaseColumns;
@@ -46,6 +45,8 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
+
+import org.mokee.util.MoKeeUtils;
 
 import java.util.ArrayList;
 import java.util.HashSet;
