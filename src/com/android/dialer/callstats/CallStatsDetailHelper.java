@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
- * Copyright (C) 2013 The MoKee OpenSource Project
+ * Copyright (C) 2013 - 2014 The MoKee OpenSource Project
  * Copyright (C) 2013 Android Open Kang Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");

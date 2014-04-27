@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2009 The Android Open Source Project
- * Copyright (C) 2013 The MoKee OpenSource Project
+ * Copyright (C) 2013 - 2014 The MoKee OpenSource Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -574,7 +574,7 @@ public class CallDetailActivity extends Activity implements ProximitySensorAware
         String nNumber= mNumber;
         String ipNumber = "";
         String ip_call_prefix = IPCallPreferenceActivity.getIPCallPrefix(this);
-        if(TextUtils.isEmpty(ip_call_prefix)) {
+        if (TextUtils.isEmpty(ip_call_prefix)) {
         	new AlertDialog.Builder(this).setTitle(R.string.dialer_ipcall_title).setMessage(R.string.dialer_ipcall_msg).setPositiveButton(android.R.string.ok,
                     new DialogInterface.OnClickListener() {
                             @Override
@@ -590,13 +590,12 @@ public class CallDetailActivity extends Activity implements ProximitySensorAware
             try {
                 pNumber = PhoneNumberUtil.getInstance().parse(mNumber, IPCallPreferenceActivity.getCurrentCountryCode(this));
                 nNumber = String.valueOf(pNumber.getNationalNumber());
-                
-                if(nNumber.indexOf(ip_call_prefix) == 0 && ip_call_prefix.length() != 0) {
+
+                if (nNumber.indexOf(ip_call_prefix) == 0 && ip_call_prefix.length() != 0) {
                      nNumber = nNumber.replaceFirst(ip_call_prefix, "");
                 }
                 ipNumber = ip_call_prefix + nNumber;
                 } catch (NumberParseException e) {
-                     // TODO Auto-generated catch block
                      e.printStackTrace();
                 }
 	        Intent intent = new Intent(Intent.ACTION_CALL_PRIVILEGED);

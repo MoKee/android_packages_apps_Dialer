@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2013 The Android Open Source Project
+ * Copyright (C) 2013 - 2014 The MoKee OpenSource Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -701,11 +702,11 @@ public class DialerDatabaseHelper extends SQLiteOpenHelper {
                 Object[] temp = null;
                 if (isChinese) {
                     temp = HanziToPinyin.getPinyin(nameCursor.getString(columnIndexName)).toArray();
-                    if(temp == null || temp.length == 0) {
+                    if (temp == null || temp.length == 0) {
                        temp = new Object[]{nameCursor.getString(columnIndexName)};
                     }
                 }
-                else{
+                else {
                     temp = new Object[]{nameCursor.getString(columnIndexName)};
                 }
                 for (Object name:temp) {

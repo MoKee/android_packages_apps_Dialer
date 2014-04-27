@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2013 The Android Open Source Project
+ * Copyright (C) 2013 - 2014 The MoKee OpenSource Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -80,10 +81,8 @@ public class SmartDialNumberListAdapter extends DialerPhoneNumberListAdapter {
     protected void setHighlight(ContactListItemView view, Cursor cursor) {
         view.clearHighlightSequences();
         String query = cursor.getString(PhoneQuery.DISPLAY_NAME);
-        if(query.getBytes().length == query.length()?false:true)
-        {
-            if(mNameMatcher.matchesCN(query))
-            {
+        if (query.getBytes().length == query.length()?false:true) {
+            if (mNameMatcher.matchesCN(query)) {
                 final ArrayList<SmartDialMatchPosition> nameMatches = mNameMatcher.getMatchPositions();
                 for (SmartDialMatchPosition match:nameMatches) {
                     view.addNameHighlightSequence(match.start, match.end);
@@ -94,7 +93,7 @@ public class SmartDialNumberListAdapter extends DialerPhoneNumberListAdapter {
                 }
             }
         }
-        else{
+        else {
             if (mNameMatcher.matches(query)) {
                 final ArrayList<SmartDialMatchPosition> nameMatches = mNameMatcher.getMatchPositions();
                 for (SmartDialMatchPosition match:nameMatches) {
@@ -112,7 +111,7 @@ public class SmartDialNumberListAdapter extends DialerPhoneNumberListAdapter {
             view.addNumberHighlightSequence(numberMatch.start, numberMatch.end);
         }
     }
- 
+
     /**
      * Gets Uri for the list item at the given position.
      * @param position Location of the data of interest.
