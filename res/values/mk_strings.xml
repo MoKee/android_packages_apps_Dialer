@@ -34,7 +34,4 @@
     <string name="speeddial_reset_message">Delete all speed dial and restore to default?</string>
     <string name="speeddial_reset_toast">Speed dial reset to default</string>
 
-    <!-- toast tips -->
-    <string name="toast_no_google_search">Please install Google Search</string>
-
 </resources>
