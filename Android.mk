@@ -20,7 +20,7 @@ LOCAL_AAPT_FLAGS := \
 
 LOCAL_JAVA_LIBRARIES := telephony-common
 LOCAL_STATIC_JAVA_LIBRARIES := \
-    pinyin \
+    libMoKeePinYin \
     com.android.phone.shared \
     com.android.services.telephony.common \
     com.android.vcard \
@@ -42,9 +42,3 @@ include $(BUILD_PACKAGE)
 
 # Use the following include to make our test apk.
 include $(call all-makefiles-under,$(LOCAL_PATH))
-##################################################
-include $(CLEAR_VARS)
-
-LOCAL_PREBUILT_STATIC_JAVA_LIBRARIES := pinyin:libs/pinyin.jar
-
-include $(BUILD_MULTI_PREBUILT)
