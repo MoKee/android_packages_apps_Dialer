@@ -126,7 +126,7 @@ public class PhoneCallDetailsHelper {
                     numberFormattedLabel;
         }
 
-        if (MoKeeUtils.isChineseLanguage()) {
+        if (MoKeeUtils.isChineseLanguage() && !MoKeeUtils.isTWLanguage()) {
         	CharSequence PhoneLocationStr = PhoneLocation.getCityFromPhone(String.valueOf(details.number));
         	views.locationView.setText(PhoneLocationStr);
         	views.locationView.setVisibility(TextUtils.isEmpty(PhoneLocationStr) ? View.INVISIBLE : View.VISIBLE);
