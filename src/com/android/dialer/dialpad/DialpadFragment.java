@@ -254,6 +254,9 @@ public class DialpadFragment extends Fragment
     private static final int PICK_CONTACT = 1;
     private String speed_dial_num;
 
+    // IPCall
+    private MenuItem IPCallMenuItem;
+
     /**
      * Regular expression prohibiting manual phone call. Can be empty, which means "no rule".
      */
@@ -380,6 +383,10 @@ public class DialpadFragment extends Fragment
         if (mDialpadQueryListener != null) {
             mDialpadQueryListener.onDialpadQueryChanged(mDigits.getText().toString());
         }
+
+        // IPCall
+        IPCallMenuItem.setVisible(mDigits.getText().length() >= 3 ? true : false);
+
         updateDialAndDeleteButtonEnabledState();
     }
 
@@ -935,8 +942,7 @@ public class DialpadFragment extends Fragment
 
     private void setupMenuItems(Menu menu) {
         final MenuItem addToContactMenuItem = menu.findItem(R.id.menu_add_contacts);
-        final MenuItem IPCallMenuItem = menu.findItem(R.id.menu_ipcall);
-        final MenuItem SpeedDialMenuItem = menu.findItem(R.id.menu_speeddial);
+        IPCallMenuItem = menu.findItem(R.id.menu_ipcall);
 
         // We show "add to contacts" menu only when the user is
         // seeing usual dialpad and has typed at least one digit.
@@ -949,7 +955,6 @@ public class DialpadFragment extends Fragment
             // Put the current digits string into an intent
             addToContactMenuItem.setIntent(DialtactsActivity.getAddNumberToContactIntent(digits));
             addToContactMenuItem.setVisible(true);
-            IPCallMenuItem.setVisible(digits.length() >= 3 ? true : false);
         }
     }
 
