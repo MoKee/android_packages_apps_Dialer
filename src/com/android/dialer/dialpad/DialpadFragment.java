@@ -378,14 +378,14 @@ public class DialpadFragment extends Fragment
         if (isDigitsEmpty()) {
             mDigitsFilledByIntent = false;
             mDigits.setCursorVisible(false);
+        } else {
+            // IPCall
+            IPCallMenuItem.setVisible(mDigits.getText().length() >= 3 ? true : false);
         }
 
         if (mDialpadQueryListener != null) {
             mDialpadQueryListener.onDialpadQueryChanged(mDigits.getText().toString());
         }
-
-        // IPCall
-        IPCallMenuItem.setVisible(mDigits.getText().length() >= 3 ? true : false);
 
         updateDialAndDeleteButtonEnabledState();
     }

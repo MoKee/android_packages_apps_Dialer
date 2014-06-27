@@ -20,7 +20,8 @@
     <string name="dialer_ip_call_prefix_title">IP拨号前缀</string>
     <string name="dialer_ip_call_prefix_summary">点击设置IP拨号前缀</string>
     <string name="dialer_ipcall_title">IP拨号</string>
-    <string name="dialer_ipcall_msg">尚未设置IP拨号前缀。您想直接拨打此号码吗？</string>
+    <string name="dialer_ipcall_msg">尚未设置IP拨号前缀，您想直接拨打此号码吗？</string>
+    <string name="dialer_ipcall_toast">请先设置IP拨号前缀后再试。</string>
 
     <!-- Speed Dial -->
     <string name="speeddial_title">快速拨号</string>

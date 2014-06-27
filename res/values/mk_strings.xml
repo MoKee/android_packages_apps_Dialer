@@ -21,6 +21,7 @@
     <string name="dialer_ip_call_prefix_summary">Tap to set IP Prefix</string>
     <string name="dialer_ipcall_title">IPCall</string>
     <string name="dialer_ipcall_msg">IP prefix has not been set. Do you want to make the call without IP prefix</string>
+    <string name="dialer_ipcall_toast">IP prefix has not been set, set and try again。</string>
 
     <!-- Speed Dial -->
     <string name="speeddial_title">Speed Dial</string>
