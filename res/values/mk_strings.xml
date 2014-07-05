@@ -35,4 +35,6 @@
     <string name="speeddial_reset_message">Delete all speed dial and restore to default?</string>
     <string name="speeddial_reset_toast">Speed dial reset to default</string>
 
+    <!-- Ignore Non-intrusive -->
+    <string name="ignore_nonintrusive_toast">当前无法呼出，因为后台有一个被忽略的通话，请等待对方挂断！</string>
 </resources>

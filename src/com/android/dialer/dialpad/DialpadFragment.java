@@ -83,6 +83,7 @@ import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.contacts.common.CallUtil;
 import com.android.contacts.common.GeoUtil;
@@ -97,6 +98,7 @@ import com.android.dialer.preference.SpeedDialPreferenceActivity;
 import com.android.i18n.phonenumbers.NumberParseException;
 import com.android.i18n.phonenumbers.PhoneNumberUtil;
 import com.android.i18n.phonenumbers.Phonenumber.PhoneNumber;
+import com.android.incallui.CallCommandClient;
 import com.android.internal.telephony.ITelephony;
 import com.android.phone.common.CallLogAsync;
 import com.android.phone.common.HapticFeedback;
@@ -685,7 +687,16 @@ public class DialpadFragment extends Fragment
                     // If there's already an active call, bring up an intermediate UI to
                     // make the user confirm what they really want to do.
                     if (phoneIsInUse()) {
-                        needToShowDialpadChooser = true;
+                        try {
+                            ITelephony phone = ITelephony.Stub.asInterface(ServiceManager.checkService("phone"));
+                            if (phone != null && phone.getIgnoreCallState()) {
+                                Toast.makeText(getActivity(), R.string.ignore_nonintrusive_toast, Toast.LENGTH_LONG).show();
+                            } else {
+                                needToShowDialpadChooser = true;
+                            }
+                        } catch (RemoteException ex) {
+                            Log.w(TAG, "RemoteException from getPhoneInterface()" + ex.toString());
+                        }
                     }
                 }
 
