@@ -23,4 +23,21 @@
     <string name="dialer_ipcall_title">IP撥號</string>
     <string name="dialer_ipcall_msg">尚未設置IP撥號前綴。您想直接撥打此號碼嗎？</string>
 
+
+    <!-- Speed Dial -->
+    <string name="speeddial_title">快速撥號</string>
+    <string name="speeddial_dialog_title">指定快速撥號？</string>
+    <string name="alert_add_speeddial_title">%s 沒有設置為快速撥號。是否立即指定？</string>
+    <string name="dont_remind_me_title">不再提醒我。</string>
+    <string name="speeddial_added">%1$s 的 %2$s 號碼 %3$s 已成功添加到快速撥號設置中，快速撥號鍵為 %4$s 。</string>
+    <string name="speeddial_undefined_title">未定義</string>
+    <string name="speeddial_undefined_summary">長按進行修改</string>
+    <string name="speeddial_reset_title">重置</string>
+    <string name="speeddial_reset_message">您確定要刪除目前的設置並還原為系統預設值？</string>
+    <string name="speeddial_reset_toast">快速撥號設置已還原為系統預設值</string>
+
+    <!-- Ignore Non-intrusive -->
+    <string name="ignore_nonintrusive_toast">當前無法撥出，因為有一個被忽略的通話，請先等待對方掛斷！</string>
+
+
 </resources>
