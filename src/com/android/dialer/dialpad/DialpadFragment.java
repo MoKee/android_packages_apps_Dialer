@@ -83,7 +83,6 @@ import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.contacts.common.CallUtil;
 import com.android.contacts.common.GeoUtil;
@@ -98,7 +97,9 @@ import com.android.dialer.preference.SpeedDialPreferenceActivity;
 import com.android.i18n.phonenumbers.NumberParseException;
 import com.android.i18n.phonenumbers.PhoneNumberUtil;
 import com.android.i18n.phonenumbers.Phonenumber.PhoneNumber;
-import com.android.incallui.CallCommandClient;
+import com.android.incallui.InCallActivity;
+import com.android.incallui.InCallPresenter;
+import com.android.incallui.MSimInCallActivity;
 import com.android.internal.telephony.ITelephony;
 import com.android.phone.common.CallLogAsync;
 import com.android.phone.common.HapticFeedback;
@@ -687,16 +688,7 @@ public class DialpadFragment extends Fragment
                     // If there's already an active call, bring up an intermediate UI to
                     // make the user confirm what they really want to do.
                     if (phoneIsInUse()) {
-                        try {
-                            ITelephony phone = ITelephony.Stub.asInterface(ServiceManager.checkService("phone"));
-                            if (phone != null && phone.getIgnoreCallState()) {
-                                Toast.makeText(getActivity(), R.string.ignore_nonintrusive_toast, Toast.LENGTH_LONG).show();
-                            } else {
-                                needToShowDialpadChooser = true;
-                            }
-                        } catch (RemoteException ex) {
-                            Log.w(TAG, "RemoteException from getPhoneInterface()" + ex.toString());
-                        }
+                        needToShowDialpadChooser = true;
                     }
                 }
 
@@ -1747,8 +1739,10 @@ public class DialpadFragment extends Fragment
         static final int DIALPAD_CHOICE_USE_DTMF_DIALPAD = 101;
         static final int DIALPAD_CHOICE_RETURN_TO_CALL = 102;
         static final int DIALPAD_CHOICE_ADD_NEW_CALL = 103;
+        static final int DIALPAD_CHOICE_ANSWER_CALL = 104;
+        static final int DIALPAD_CHOICE_REJECT_CALL = 105;
 
-        private static final int NUM_ITEMS = 3;
+        private static int NUM_ITEMS = 3;
         private ChoiceItem mChoiceItems[] = new ChoiceItem[NUM_ITEMS];
 
         public DialpadChooserAdapter(Context context) {
@@ -1757,27 +1751,48 @@ public class DialpadFragment extends Fragment
 
             // Initialize the possible choices.
             // TODO: could this be specified entirely in XML?
+            // Ignore Non-intrusive
+            try {
+                ITelephony phone = ITelephony.Stub.asInterface(ServiceManager.checkService("phone"));
+                if (phone != null && phone.getIgnoreCallState()) {
+                    NUM_ITEMS = 2;
+                    mChoiceItems = new ChoiceItem[NUM_ITEMS];
+                    mChoiceItems[0] = new ChoiceItem(
+                            context.getString(R.string.dialer_returnToAnswer),
+                            BitmapFactory.decodeResource(context.getResources(),
+                                                         R.drawable.ic_dialer_fork_current_call),
+                            DIALPAD_CHOICE_ANSWER_CALL);
 
-            // - "Use touch tone keypad"
-            mChoiceItems[0] = new ChoiceItem(
-                    context.getString(R.string.dialer_useDtmfDialpad),
-                    BitmapFactory.decodeResource(context.getResources(),
-                                                 R.drawable.ic_dialer_fork_tt_keypad),
-                    DIALPAD_CHOICE_USE_DTMF_DIALPAD);
+                    mChoiceItems[1] = new ChoiceItem(
+                            context.getString(R.string.dialer_returnToReject),
+                            BitmapFactory.decodeResource(context.getResources(),
+                                                         R.drawable.ic_dialer_reject_current_call),
+                            DIALPAD_CHOICE_REJECT_CALL);
+                } else {
+                    // - "Use touch tone keypad"
+                    mChoiceItems[0] = new ChoiceItem(
+                            context.getString(R.string.dialer_useDtmfDialpad),
+                            BitmapFactory.decodeResource(context.getResources(),
+                                                         R.drawable.ic_dialer_fork_tt_keypad),
+                            DIALPAD_CHOICE_USE_DTMF_DIALPAD);
 
-            // - "Return to call in progress"
-            mChoiceItems[1] = new ChoiceItem(
-                    context.getString(R.string.dialer_returnToInCallScreen),
-                    BitmapFactory.decodeResource(context.getResources(),
-                                                 R.drawable.ic_dialer_fork_current_call),
-                    DIALPAD_CHOICE_RETURN_TO_CALL);
+                    // - "Return to call in progress"
+                    mChoiceItems[1] = new ChoiceItem(
+                            context.getString(R.string.dialer_returnToInCallScreen),
+                            BitmapFactory.decodeResource(context.getResources(),
+                                                         R.drawable.ic_dialer_fork_current_call),
+                            DIALPAD_CHOICE_RETURN_TO_CALL);
 
-            // - "Add call"
-            mChoiceItems[2] = new ChoiceItem(
-                    context.getString(R.string.dialer_addAnotherCall),
-                    BitmapFactory.decodeResource(context.getResources(),
-                                                 R.drawable.ic_dialer_fork_add_call),
-                    DIALPAD_CHOICE_ADD_NEW_CALL);
+                    // - "Add call"
+                    mChoiceItems[2] = new ChoiceItem(
+                            context.getString(R.string.dialer_addAnotherCall),
+                            BitmapFactory.decodeResource(context.getResources(),
+                                                         R.drawable.ic_dialer_fork_add_call),
+                            DIALPAD_CHOICE_ADD_NEW_CALL); 
+                }
+            } catch (RemoteException ex) {
+                Log.w(TAG, "RemoteException from getPhoneInterface()" + ex.toString());
+            }
         }
 
         @Override
@@ -1830,6 +1845,7 @@ public class DialpadFragment extends Fragment
         DialpadChooserAdapter.ChoiceItem item =
                 (DialpadChooserAdapter.ChoiceItem) parent.getItemAtPosition(position);
         int itemId = item.id;
+        ITelephony phone = ITelephony.Stub.asInterface(ServiceManager.checkService("phone"));
         switch (itemId) {
             case DialpadChooserAdapter.DIALPAD_CHOICE_USE_DTMF_DIALPAD:
                 // Log.i(TAG, "DIALPAD_CHOICE_USE_DTMF_DIALPAD");
@@ -1852,10 +1868,46 @@ public class DialpadFragment extends Fragment
                 showDialpadChooser(false);
                 break;
 
+            case DialpadChooserAdapter.DIALPAD_CHOICE_ANSWER_CALL:
+                if (phone != null)
+                    try {
+                        phone.answerRingingCall();
+                        returnToInCallScreen(false);
+                        startActivity(getInCallIntent());
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                break;
+
+            case DialpadChooserAdapter.DIALPAD_CHOICE_REJECT_CALL:
+                if (phone != null) {
+                    try {
+                        phone.endCall();
+                        returnToInCallScreen(false);
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+
             default:
                 Log.w(TAG, "onItemClick: unexpected itemId: " + itemId);
                 break;
         }
+    }
+
+    public Intent getInCallIntent() {
+        final Intent intent = new Intent(Intent.ACTION_MAIN, null);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS
+                | Intent.FLAG_ACTIVITY_NO_USER_ACTION);
+        if (MSimTelephonyManager.getDefault().getMultiSimConfiguration()
+                == MSimTelephonyManager.MultiSimVariants.DSDA) {
+            intent.setClass(getActivity(), MSimInCallActivity.class);
+        } else {
+            intent.setClass(getActivity(), InCallActivity.class);
+        }
+        return intent;
     }
 
     /**

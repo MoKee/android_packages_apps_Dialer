@@ -58,6 +58,9 @@
     <uses-permission android:name="com.qti.permission.DIAG" />
     <uses-permission android:name="com.qti.permission.IMS" />
 
+    <!-- Non intrusive -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
     <application
         android:name="DialerApplication"
         android:label="@string/applicationLabel"
@@ -379,6 +382,8 @@
                   android:exported="false"
                   android:process="com.android.incallui">
             <intent-filter>
+                <action android:name="com.android.incallui.ACTION_ANSWER_IGNORED_CALL" />
+                <action android:name="com.android.incallui.ACTION_REJECT_IGNORED_CALL" />
                 <action android:name="com.android.incallui.ACTION_HANG_UP_ONGOING_CALL" />
             </intent-filter>
         </receiver>
