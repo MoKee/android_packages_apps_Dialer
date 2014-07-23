@@ -34,4 +34,11 @@
         android:title="@string/call_log_delete_limit_title"
         android:dialogTitle="@string/call_log_delete_limit_title" />
 
+    <ListPreference
+        android:key="button_t9_search_input"
+        android:title="@string/t9_search_input_locale"
+        android:summary="%s"
+        android:defaultValue=""
+        android:persistent="false" />
+
 </PreferenceScreen>
