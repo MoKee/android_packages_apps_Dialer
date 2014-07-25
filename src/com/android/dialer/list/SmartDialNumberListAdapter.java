@@ -81,7 +81,7 @@ public class SmartDialNumberListAdapter extends DialerPhoneNumberListAdapter {
     protected void setHighlight(ContactListItemView view, Cursor cursor) {
         view.clearHighlightSequences();
         String query = cursor.getString(PhoneQuery.DISPLAY_NAME);
-        if (query.getBytes().length == query.length()?false:true) {
+        if (query.getBytes().length == query.length() ? false : true) {
             if (mNameMatcher.matchesCN(query)) {
                 final ArrayList<SmartDialMatchPosition> nameMatches = mNameMatcher.getMatchPositions();
                 for (SmartDialMatchPosition match:nameMatches) {
@@ -92,8 +92,7 @@ public class SmartDialNumberListAdapter extends DialerPhoneNumberListAdapter {
                     }
                 }
             }
-        }
-        else {
+        } else {
             if (mNameMatcher.matches(query)) {
                 final ArrayList<SmartDialMatchPosition> nameMatches = mNameMatcher.getMatchPositions();
                 for (SmartDialMatchPosition match:nameMatches) {
