@@ -82,6 +82,7 @@ public class SmartDialPrefix {
         languageToSmartDialMap.put("el", new GreekSmartDialMap());
         languageToSmartDialMap.put("ru", new RussianSmartDialMap());
         languageToSmartDialMap.put("he", new HebrewSmartDialMap());
+        languageToSmartDialMap.put("zh", new ChineseSmartDialMap());
     }
 
     private static final Map<String, SmartDialMap> countryToSmartDialMap = new HashMap<String, SmartDialMap>();
@@ -90,6 +91,7 @@ public class SmartDialPrefix {
         languageToSmartDialMap.put("GR", new GreekSmartDialMap());
         languageToSmartDialMap.put("RU", new RussianSmartDialMap());
         languageToSmartDialMap.put("IL", new HebrewSmartDialMap());
+        languageToSmartDialMap.put("CN", new ChineseSmartDialMap());
     }
 
     /** Initializes the Nanp settings, and finds out whether user is in a NANP region.*/
