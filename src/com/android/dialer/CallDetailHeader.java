@@ -55,7 +55,6 @@ import com.android.dialer.calllog.PhoneNumberDisplayHelper;
 import com.android.dialer.calllog.PhoneNumberUtilsWrapper;
 
 import android.provider.ContactsContract.DisplayNameSources;
-import com.android.dialer.cmstats.DialerStats;
 
 public class CallDetailHeader {
     private static final String TAG = "CallDetail";
@@ -102,11 +101,7 @@ public class CallDetailHeader {
             if (finishPhoneNumerSelectedActionModeIfShown()) {
                 return;
             }
-            Intent intent = ((ViewEntry) view.getTag()).primaryIntent;
-            if (TextUtils.equals(intent.getAction(), Intent.ACTION_CALL_PRIVILEGED)) {
-                DialerStats.sendEvent(mActivity, DialerStats.Categories.INITIATE_CALL, "call_from_detail_page");
-            }
-            mActivity.startActivity(intent);
+            mActivity.startActivity(((ViewEntry) view.getTag()).primaryIntent);
         }
     };
 

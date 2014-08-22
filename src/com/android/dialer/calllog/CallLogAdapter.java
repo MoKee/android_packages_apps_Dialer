@@ -40,7 +40,6 @@ import com.android.dialer.PhoneCallDetails;
 import com.android.dialer.PhoneCallDetailsHelper;
 import com.android.dialer.R;
 import com.android.dialer.calllog.CallLogAdapterHelper.NumberWithCountryIso;
-import com.android.dialer.cmstats.DialerStats;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Objects;
 
@@ -89,8 +88,6 @@ public class CallLogAdapter extends GroupingListAdapter
     private ImageView mBadgeImageView;
     private TextView mBadgeText;
 
-    private String mStatsLabel = null;
-
     /** Listener for the primary or secondary actions in the list.
      *  Primary opens the call details.
      *  Secondary calls or plays.
@@ -108,9 +105,6 @@ public class CallLogAdapter extends GroupingListAdapter
             final Intent intent = intentProvider.getIntent(mContext);
             // See IntentProvider.getCallDetailIntentProvider() for why this may be null.
             if (intent != null) {
-                if (mStatsLabel != null) {
-                    DialerStats.sendEvent(mContext, DialerStats.Categories.INITIATE_CALL, mStatsLabel);
-                }
                 mContext.startActivity(intent);
             }
         }
@@ -590,13 +584,5 @@ public class CallLogAdapter extends GroupingListAdapter
 
     public String getBetterNumberFromContacts(String number, String countryIso) {
         return mAdapterHelper.getBetterNumberFromContacts(number, countryIso);
-    }
-
-    public void setStatsLabel(String label) {
-        mStatsLabel = label;
-    }
-
-    public String getStatsLabel() {
-        return mStatsLabel;
     }
 }
