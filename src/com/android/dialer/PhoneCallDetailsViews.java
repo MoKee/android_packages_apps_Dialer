@@ -33,16 +33,18 @@ public final class PhoneCallDetailsViews {
     public final TextView callTypeAndDate;
     public final TextView labelView;
     public final TextView locationView;
+    public final ImageView subIconView;
 
     private PhoneCallDetailsViews(TextView nameView, View callTypeView,
             CallTypeIconsView callTypeIcons, TextView callTypeAndDate, TextView labelView,
-			TextView locationView) {
+			TextView locationView, ImageView subIconView) {
         this.nameView = nameView;
         this.callTypeView = callTypeView;
         this.callTypeIcons = callTypeIcons;
         this.callTypeAndDate = callTypeAndDate;
         this.labelView = labelView;
         this.locationView = locationView;
+        this.subIconView = subIconView;
     }
 
     /**
@@ -58,7 +60,8 @@ public final class PhoneCallDetailsViews {
                 (CallTypeIconsView) view.findViewById(R.id.call_type_icons),
                 (TextView) view.findViewById(R.id.call_count_and_date),
                 (TextView) view.findViewById(R.id.label),
-                (TextView) view.findViewById(R.id.location));
+                (TextView) view.findViewById(R.id.location),
+                (ImageView) view.findViewById(R.id.sub_icon));
     }
 
     public static PhoneCallDetailsViews createForTest(Context context) {
@@ -68,6 +71,7 @@ public final class PhoneCallDetailsViews {
                 new CallTypeIconsView(context),
                 new TextView(context),
                 new TextView(context),
-                new TextView(context));
+                new TextView(context),
+                new ImageView(context));
     }
 }
