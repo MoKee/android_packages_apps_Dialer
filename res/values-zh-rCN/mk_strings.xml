@@ -16,25 +16,6 @@
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-    <!-- IP Call -->
-    <string name="dialer_ip_call_prefix_title">IP拨号前缀</string>
-    <string name="dialer_ip_call_prefix_summary">点击设置IP拨号前缀</string>
-    <string name="dialer_ipcall_title">IP拨号</string>
-    <string name="dialer_ipcall_msg">尚未设置IP拨号前缀，您想直接拨打此号码吗？</string>
-    <string name="dialer_ipcall_toast">请先设置IP拨号前缀后再试。</string>
-
-    <!-- Speed Dial -->
-    <string name="speeddial_title">快速拨号</string>
-    <string name="speeddial_dialog_title">指定快速拨号？</string>
-    <string name="alert_add_speeddial_title">%s 没有设置为快速拨号。是否立即指定？</string>
-    <string name="dont_remind_me_title">不再提醒我。</string>
-    <string name="speeddial_added">%1$s 的 %2$s 号码 %3$s 已成功添加到快速拨号设置中，快速拨号键为 %4$s 。</string>
-    <string name="speeddial_undefined_title">未定义</string>
-    <string name="speeddial_undefined_summary">长按进行修改</string>
-    <string name="speeddial_reset_title">重置</string>
-    <string name="speeddial_reset_message">您确定要删除目前的设置并还原为系统默认值？</string>
-    <string name="speeddial_reset_toast">快速拨号设置已还原为系统默认值</string>
-
     <!-- Ignore Non-intrusive -->
     <string name="dialer_returnToAnswer">接听处于忽略状态的来电</string>
     <string name="dialer_returnToReject">挂断处于忽略状态的来电</string>

@@ -341,34 +341,6 @@
         </activity>
 
         <activity
-            android:name=".preference.IPCallPreferenceActivity"
-            android:label="@string/dialer_ipcall_title"
-            android:theme="@style/SettingsLight" >
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".IPCallActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".preference.SpeedDialPreferenceActivity"
-            android:label="@string/speeddial_title"
-            android:theme="@style/SettingsLight" >
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
-        <activity
             android:name="com.android.incallui.InCallCardActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:label="@string/phoneAppLabel"

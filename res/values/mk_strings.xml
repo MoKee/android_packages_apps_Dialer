@@ -16,25 +16,6 @@
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-    <!-- IP Call -->
-    <string name="dialer_ip_call_prefix_title">IP Prefix</string>
-    <string name="dialer_ip_call_prefix_summary">Tap to set IP Prefix</string>
-    <string name="dialer_ipcall_title">IPCall</string>
-    <string name="dialer_ipcall_msg">IP prefix has not been set. Do you want to make the call without IP prefix</string>
-    <string name="dialer_ipcall_toast">IP prefix has not been set, set and try again。</string>
-
-    <!-- Speed Dial -->
-    <string name="speeddial_title">Speed Dial</string>
-    <string name="speeddial_dialog_title">Assign speed dial?</string>
-    <string name="alert_add_speeddial_title">%s is not setup as a speed dial. Do you want to assign it now?</string>
-    <string name="dont_remind_me_title">Don \'t remind me again.</string>
-    <string name="speeddial_added">%1$s\'s %2$s number %3$s has been added to speed dial, shortcut is %4$s .</string>
-    <string name="speeddial_undefined_title">Undefined</string>
-    <string name="speeddial_undefined_summary">Long press to set</string>
-    <string name="speeddial_reset_title">Reset</string>
-    <string name="speeddial_reset_message">Delete all speed dial and restore to default?</string>
-    <string name="speeddial_reset_toast">Speed dial reset to default</string>
-
     <!-- Ignore Non-intrusive -->
     <string name="dialer_returnToAnswer">接听处于忽略状态的来电</string>
     <string name="dialer_returnToReject">挂断处于忽略状态的来电</string>

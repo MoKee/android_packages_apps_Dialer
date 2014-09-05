@@ -27,15 +27,12 @@ import android.app.Fragment;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -47,8 +44,6 @@ import android.os.Bundle;
 import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.os.SystemProperties;
-import android.preference.PreferenceManager;
-import android.provider.ContactsContract;
 import android.provider.Contacts.People;
 import android.provider.Contacts.Phones;
 import android.provider.Contacts.PhonesColumns;
@@ -76,7 +71,6 @@ import android.view.ViewTreeObserver;
 import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -94,13 +88,7 @@ import com.android.dialer.NeededForReflection;
 import com.android.dialer.DialtactsActivity;
 import com.android.dialer.R;
 import com.android.dialer.SpecialCharSequenceMgr;
-import com.android.dialer.preference.IPCallPreferenceActivity;
-import com.android.dialer.preference.SpeedDialPreferenceActivity;
-import com.android.i18n.phonenumbers.NumberParseException;
-import com.android.i18n.phonenumbers.PhoneNumberUtil;
-import com.android.i18n.phonenumbers.Phonenumber.PhoneNumber;
 import com.android.incallui.InCallActivity;
-import com.android.incallui.InCallPresenter;
 import com.android.incallui.MSimInCallActivity;
 import com.android.dialer.SpeedDialUtils;
 import com.android.dialer.SpeedDialListActivity;
@@ -117,7 +105,6 @@ import com.google.common.annotations.VisibleForTesting;
 
 import java.util.HashSet;
 import java.util.Locale;
-import java.util.Set;
 
 /**
  * Fragment that displays a twelve-key phone dialpad.
@@ -233,7 +220,7 @@ public class DialpadFragment extends Fragment
      * isn't enclosed by the container.
      */
     private View mDigitsContainer;
-    private static EditText mDigits;
+    private EditText mDigits;
 
     /** Remembers if we need to clear digits field when the screen is completely gone. */
     private boolean mClearDigitsOnStop;
@@ -261,16 +248,6 @@ public class DialpadFragment extends Fragment
     private int SensorProximity;
     private boolean initProx;
     private boolean proxChanged;
-
-    // Speed Dial
-    private SharedPreferences speedDialPrefs;
-    private static final String SPEED_DIAL = "speed_dial";
-    private static final String PREF_DONT_REMIND_ME_KEY = "pref_dont_remind_me_key";
-    private static final int PICK_CONTACT = 1;
-    private String speed_dial_num;
-
-    // IPCall
-    private MenuItem IPCallMenuItem;
 
     /**
      * Regular expression prohibiting manual phone call. Can be empty, which means "no rule".
@@ -393,15 +370,11 @@ public class DialpadFragment extends Fragment
         if (isDigitsEmpty()) {
             mDigitsFilledByIntent = false;
             mDigits.setCursorVisible(false);
-        } else {
-            // IPCall
-            IPCallMenuItem.setVisible(mDigits.getText().length() >= 3 ? true : false);
         }
 
         if (mDialpadQueryListener != null) {
             mDialpadQueryListener.onDialpadQueryChanged(mDigits.getText().toString());
         }
-
         updateDialAndDeleteButtonEnabledState();
     }
 
@@ -817,12 +790,6 @@ public class DialpadFragment extends Fragment
         fragmentView.findViewById(R.id.star).setOnLongClickListener(this);
         // Long-pressing pound button will enter ';'(wait) instead.
         fragmentView.findViewById(R.id.pound).setOnLongClickListener(this);
-
-        int[] speedButtonIds = new int[] { R.id.two, R.id.three, R.id.four, R.id.five,
-                R.id.six, R.id.seven, R.id.eight, R.id.nine};
-        for (int id : speedButtonIds) {
-            fragmentView.findViewById(id).setOnLongClickListener(this);
-        }
     }
 
     public void refreshKeypad() {
@@ -992,7 +959,6 @@ public class DialpadFragment extends Fragment
 
     public void setupMenuItems(Menu menu) {
         final MenuItem addToContactMenuItem = menu.findItem(R.id.menu_add_contacts);
-        IPCallMenuItem = menu.findItem(R.id.menu_ipcall);
         final MenuItem videocallMenuItem = menu.findItem(R.id.menu_video_call);
         final MenuItem videocallsettingsMenuItem = menu.findItem(R.id.menu_video_call_settings);
         final MenuItem ipCallBySlot1MenuItem = menu.findItem(R.id.menu_ip_call_by_slot1);
@@ -1007,7 +973,6 @@ public class DialpadFragment extends Fragment
         // We never show a menu if the "choose dialpad" UI is up.
         if (dialpadChooserVisible() || isDigitsEmpty()) {
             addToContactMenuItem.setVisible(false);
-            IPCallMenuItem.setVisible(false);
             videocallMenuItem.setVisible(false);
             ipCallBySlot1MenuItem.setVisible(false);
             ipCallBySlot2MenuItem.setVisible(false);
@@ -1281,70 +1246,30 @@ public class DialpadFragment extends Fragment
 
                 return true;
             }
-            case R.id.two: {
-                if (TextUtils.equals(mDigits.getText(), "2")) {
-                	removePreviousDigitIfPossible();
-                	callSpeedDial("2");
+            case R.id.two:
+            case R.id.three:
+            case R.id.four:
+            case R.id.five:
+            case R.id.six:
+            case R.id.seven:
+            case R.id.eight:
+            case R.id.nine:
+                if ((mDigits.length() == 1)) {
+                    removePreviousDigitIfPossible();
+                    final boolean isAirplaneModeOn =
+                            Settings.System.getInt(getActivity().getContentResolver(),
+                                    Settings.System.AIRPLANE_MODE_ON, 0) != 0;
+                    if (isAirplaneModeOn) {
+                        DialogFragment dialogFragment = ErrorDialogFragment.newInstance(
+                                R.string.dialog_speed_dial_airplane_mode_message);
+                        dialogFragment.show(getFragmentManager(),
+                                "speed_dial_request_during_airplane_mode");
+                    } else {
+                        callSpeedNumber(id);
+                    }
                     return true;
                 }
                 return false;
-            }
-            case R.id.three: {
-                if (TextUtils.equals(mDigits.getText(), "3")) {
-                	removePreviousDigitIfPossible();
-                	callSpeedDial("3");
-                    return true;
-                }
-                return false;
-            }
-            case R.id.four: {
-                if (TextUtils.equals(mDigits.getText(), "4")) {
-                	removePreviousDigitIfPossible();
-                	callSpeedDial("4");
-                    return true;
-                }
-                return false;
-            }
-            case R.id.five: {
-                if (TextUtils.equals(mDigits.getText(), "5")) {
-                	removePreviousDigitIfPossible();
-                	callSpeedDial("5");
-                    return true;
-                }
-                return false;
-            }
-            case R.id.six: {
-                if (TextUtils.equals(mDigits.getText(), "6")) {
-                	removePreviousDigitIfPossible();
-                	callSpeedDial("6");
-                    return true;
-                }
-                return false;
-            }
-            case R.id.seven: {
-                if (TextUtils.equals(mDigits.getText(), "7")) {
-                	removePreviousDigitIfPossible();
-                	callSpeedDial("7");
-                    return true;
-                }
-                return false;
-            }
-            case R.id.eight: {
-                if (TextUtils.equals(mDigits.getText(), "8")) {
-                	removePreviousDigitIfPossible();
-                	callSpeedDial("8");
-                    return true;
-                }
-                return false;
-            }
-            case R.id.nine: {
-                if (TextUtils.equals(mDigits.getText(), "9")) {
-                	removePreviousDigitIfPossible();
-                	callSpeedDial("9");
-                    return true;
-                }
-                return false;
-            }
             case R.id.digits: {
                 // Right now EditText does not show the "paste" option when cursor is not visible.
                 // To show that, make the cursor visible, and return false, letting the EditText
@@ -1378,84 +1303,6 @@ public class DialpadFragment extends Fragment
         return false;
     }
 
-	private void callSpeedDial(final String num) {
-		final Context mContext= getActivity();
-		speedDialPrefs = mContext.getSharedPreferences(SPEED_DIAL, Context.MODE_PRIVATE);
-		String value = speedDialPrefs.getString(SpeedDialPreferenceActivity.SPEED_DIAL + num, null);
-		if (value == null) {
-			boolean remindMe = speedDialPrefs.getBoolean(PREF_DONT_REMIND_ME_KEY, false);
-			if (!remindMe) {
-				LinearLayout viewLayout = new LinearLayout(mContext);
-				viewLayout.setOrientation(LinearLayout.VERTICAL);
-				TextView alertTextView = new TextView(mContext);
-				alertTextView.setText(getString(R.string.alert_add_speeddial_title, num));
-				alertTextView.setPadding(15, 15, 0, 0);
-				alertTextView.setTextColor(Color.BLACK);
-				alertTextView.setTextSize(16);
-				viewLayout.addView(alertTextView);
-				final CheckBox cbCheckBox = new CheckBox(mContext);
-				cbCheckBox.setText(R.string.dont_remind_me_title);
-				viewLayout.addView(cbCheckBox);
-				new AlertDialog.Builder(mContext).setTitle(R.string.speeddial_dialog_title)
-						.setView(viewLayout)
-						.setPositiveButton(android.R.string.ok, new OnClickListener() {
-
-							@Override
-							public void onClick(DialogInterface dialog, int which) {
-								if (cbCheckBox.isChecked()) {
-									speedDialPrefs.edit().putBoolean(PREF_DONT_REMIND_ME_KEY, true).apply();
-								}
-								speed_dial_num = num;
-								Intent intent = new Intent(Intent.ACTION_PICK,
-										ContactsContract.Contacts.CONTENT_URI);
-								intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
-								startActivityForResult(intent, PICK_CONTACT);
-							}
-						}).setNegativeButton(android.R.string.cancel, null).create()
-						.show();
-			} else {
-				speed_dial_num = num;
-				Intent intent = new Intent(Intent.ACTION_PICK,
-						ContactsContract.Contacts.CONTENT_URI);
-				intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
-				startActivityForResult(intent, PICK_CONTACT);
-			}
-		} else {
-			String valueArray[] = value.split("\n");
-			String number = valueArray[1].replaceAll(" ","");
-			Intent intent = CallUtil.getCallIntent(number, (getActivity() instanceof DialtactsActivity ?
-					((DialtactsActivity) getActivity()).getCallOrigin() : null));
-			startActivity(intent);
-		}
-
-	}
-
-    @Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-		switch (requestCode) {
-		case (PICK_CONTACT):
-			if (resultCode == Activity.RESULT_OK) {
-				Uri contactData = data.getData();
-				Cursor c = getActivity().getContentResolver().query(contactData, null, null, null, null);
-				if(c != null && c.moveToFirst()) {
-					String name = c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
-					String number = c.getString(c.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-					int typeID = c.getInt(c.getColumnIndex(ContactsContract.CommonDataKinds.Phone.TYPE));
-					String customLabel = c.getString(c.getColumnIndex(ContactsContract.CommonDataKinds.Phone.LABEL));
-					CharSequence type = ContactsContract.CommonDataKinds.Phone.getTypeLabel(getActivity().getResources(), typeID, customLabel);
-					c.close();
-					Intent intent = new Intent(getActivity(), SpeedDialPreferenceActivity.class);
-					intent.putExtra("name", name);
-					intent.putExtra("number", number);
-					intent.putExtra("type", type);
-					intent.putExtra("id", speed_dial_num);
-					startActivity(intent);
-				}
-			}
-		}
-    }
-
     /**
      * Remove the digit just before the current position. This can be used if we want to replace
      * the previous digit or cancel previously entered character.
@@ -1472,33 +1319,6 @@ public class DialpadFragment extends Fragment
     public void callVoicemail() {
         startActivity(getVoicemailIntent());
         hideAndClearDialpad(false);
-    }
-
-    public static class IPCallDialogFragment extends DialogFragment {
-
-        public static void show(DialpadFragment parent) {
-            if (!parent.isAdded()) return;
-
-            final IPCallDialogFragment dialog = new IPCallDialogFragment();
-            dialog.setTargetFragment(parent, 0);
-            dialog.show(parent.getFragmentManager(), "IPCallDialogFragment");
-        }
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setTitle(R.string.dialer_ipcall_title);
-            builder.setMessage(R.string.dialer_ipcall_msg);
-            builder.setPositiveButton(android.R.string.ok,
-                    new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            	final DialpadFragment target = (DialpadFragment) getTargetFragment();
-                            	target.dialButtonPressed();
-                            }
-                    }).setNegativeButton(android.R.string.cancel, null);
-            return builder.create();
-        }
     }
 
     private void hideAndClearDialpad(boolean animate) {
@@ -1601,51 +1421,6 @@ public class DialpadFragment extends Fragment
                 hideAndClearDialpad(false);
             }
         }
-    }
-
-    public void dialIPCallButtonPressed() {
-    	Context context = getActivity();
-            final String number = mDigits.getText().toString();
-
-            // "persist.radio.otaspdial" is a temporary hack needed for one carrier's automated
-            // test equipment.
-            // TODO: clean it up.
-            if (number != null
-                    && !TextUtils.isEmpty(mProhibitedPhoneNumberRegexp)
-                    && number.matches(mProhibitedPhoneNumberRegexp)
-                    && (SystemProperties.getInt("persist.radio.otaspdial", 0) != 1)) {
-                Log.i(TAG, "The phone number is prohibited explicitly by a rule.");
-                if (getActivity() != null) {
-                    DialogFragment dialogFragment = ErrorDialogFragment.newInstance(
-                            R.string.dialog_phone_call_prohibited_message);
-                    dialogFragment.show(getFragmentManager(), "phone_prohibited_dialog");
-                }
-
-                // Clear the digits just in case.
-                mDigits.getText().clear();
-            } else {
-                PhoneNumber pNumber;
-                String nNumber= number;
-                String ipNumber = "";
-            try {
-                pNumber = PhoneNumberUtil.getInstance().parse(number, IPCallPreferenceActivity.getCurrentCountryCode(context));
-                nNumber = String.valueOf(pNumber.getNationalNumber());
-                String ip_call_prefix = IPCallPreferenceActivity.getIPCallPrefix(context);
-                if(nNumber.indexOf(ip_call_prefix) == 0 && ip_call_prefix.length() != 0) {
-                    nNumber = nNumber.replaceFirst(ip_call_prefix, "");
-                }
-                ipNumber = ip_call_prefix + nNumber;
-                } catch (NumberParseException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-                final Intent intent = CallUtil.getCallIntent(ipNumber,
-                        (getActivity() instanceof DialtactsActivity ?
-                                ((DialtactsActivity)getActivity()).getCallOrigin() : null));
-                startActivity(intent);
-                mClearDigitsOnStop = true;
-                getActivity().finish();
-            }
     }
 
     public void clearDialpad() {
@@ -2067,19 +1842,6 @@ public class DialpadFragment extends Fragment
                 return true;
             case R.id.menu_add_wait:
                 updateDialString(WAIT);
-                return true;
-            case R.id.menu_ipcall:
-                Context context = getActivity();
-                if (TextUtils.isEmpty(IPCallPreferenceActivity.getIPCallPrefix(context))) {
-                    IPCallDialogFragment.show(this);
-                }
-                else {
-                    dialIPCallButtonPressed();
-                }
-                return true;
-            case R.id.menu_speeddial:
-                Intent intent = new Intent(getActivity(), SpeedDialPreferenceActivity.class);
-                startActivity(intent);
                 return true;
             case R.id.menu_video_call_settings:
                 startActivity(getVTCallSettingsIntent());

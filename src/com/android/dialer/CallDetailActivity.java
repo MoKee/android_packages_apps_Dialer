@@ -18,12 +18,10 @@
 package com.android.dialer;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -63,7 +61,6 @@ import com.android.dialer.calllog.ContactInfo;
 import com.android.dialer.calllog.ContactInfoHelper;
 import com.android.dialer.calllog.PhoneNumberDisplayHelper;
 import com.android.dialer.calllog.PhoneNumberUtilsWrapper;
-import com.android.dialer.preference.IPCallPreferenceActivity;
 import com.android.dialer.util.AsyncTaskExecutor;
 import com.android.dialer.util.AsyncTaskExecutors;
 import com.android.dialer.util.CallRecordingPlayer;
@@ -73,10 +70,6 @@ import com.android.dialer.voicemail.VoicemailStatusHelper.StatusMessage;
 import com.android.dialer.voicemail.VoicemailStatusHelperImpl;
 import com.android.services.callrecorder.CallRecordingDataStore;
 import com.android.internal.telephony.MSimConstants;
-
-import com.android.i18n.phonenumbers.NumberParseException;
-import com.android.i18n.phonenumbers.PhoneNumberUtil;
-import com.android.i18n.phonenumbers.Phonenumber.PhoneNumber;
 
 import java.util.List;
 
@@ -624,42 +617,6 @@ public class CallDetailActivity extends Activity implements ProximitySensorAware
 
     public void onMenuEditNumberBeforeCall(MenuItem menuItem) {
         startActivity(new Intent(Intent.ACTION_DIAL, CallUtil.getCallUri(mNumber)));
-    }
-
-    public void onMenuIPCall(MenuItem menuItem) {
-        PhoneNumber pNumber;
-        String nNumber= mNumber;
-        String ipNumber = "";
-        String ip_call_prefix = IPCallPreferenceActivity.getIPCallPrefix(this);
-        if (TextUtils.isEmpty(ip_call_prefix)) {
-        	new AlertDialog.Builder(this).setTitle(R.string.dialer_ipcall_title).setMessage(R.string.dialer_ipcall_msg).setPositiveButton(android.R.string.ok,
-                    new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            	Intent intent = new Intent(Intent.ACTION_CALL_PRIVILEGED);
-                    	        intent.setData(Uri.fromParts(CallUtil.SCHEME_TEL, mNumber, null));
-                    	        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    	        startActivity(intent);
-                            }
-                    }).setNegativeButton(android.R.string.cancel, null).create().show();
-    	}
-        else {
-            try {
-                pNumber = PhoneNumberUtil.getInstance().parse(mNumber, IPCallPreferenceActivity.getCurrentCountryCode(this));
-                nNumber = String.valueOf(pNumber.getNationalNumber());
-
-                if (nNumber.indexOf(ip_call_prefix) == 0 && ip_call_prefix.length() != 0) {
-                     nNumber = nNumber.replaceFirst(ip_call_prefix, "");
-                }
-                ipNumber = ip_call_prefix + nNumber;
-                } catch (NumberParseException e) {
-                     e.printStackTrace();
-                }
-	        Intent intent = new Intent(Intent.ACTION_CALL_PRIVILEGED);
-	        intent.setData(Uri.fromParts(CallUtil.SCHEME_TEL, ipNumber, null));
-	        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-	        startActivity(intent);
-        }
     }
 
     public void onMenuAddToBlacklist(MenuItem menuItem) {

@@ -49,14 +49,4 @@
         android:showAsAction="withText"
         android:orderInCategory="1" />
 <!-- add for CSVT -->
-    <item
-        android:id="@+id/menu_ipcall"
-        android:title="@string/dialer_ipcall_title"
-        android:showAsAction="withText"
-        android:orderInCategory="1" />
-    <item
-        android:id="@+id/menu_speeddial"
-        android:title="@string/speeddial_title"
-        android:showAsAction="withText"
-        android:orderInCategory="1" />
 </menu>

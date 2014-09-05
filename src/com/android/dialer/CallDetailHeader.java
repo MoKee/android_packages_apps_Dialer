@@ -108,7 +108,8 @@ public class CallDetailHeader {
             if (finishPhoneNumerSelectedActionModeIfShown()) {
                 return;
             }
-            mActivity.startActivity(((ViewEntry) view.getTag()).primaryIntent);
+            Intent intent = ((ViewEntry) view.getTag()).primaryIntent;
+            mActivity.startActivity(intent);
         }
     };
 
