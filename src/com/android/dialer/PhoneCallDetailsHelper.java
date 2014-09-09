@@ -33,6 +33,7 @@ import android.text.style.StyleSpan;
 import android.view.View;
 import android.widget.TextView;
 
+import com.android.contacts.common.format.TextHighlighter;
 import com.android.contacts.common.test.NeededForTesting;
 import com.android.dialer.calllog.CallTypeHelper;
 import com.android.dialer.calllog.ContactInfo;
@@ -57,6 +58,7 @@ public class PhoneCallDetailsHelper {
     private final CallTypeHelper mCallTypeHelper;
     private final PhoneNumberDisplayHelper mPhoneNumberHelper;
     private final PhoneNumberUtilsWrapper mPhoneNumberUtilsWrapper;
+    private final TextHighlighter mHighlighter;
 
     /**
      * Creates a new instance of the helper.
@@ -72,6 +74,8 @@ public class PhoneCallDetailsHelper {
         mCallTypeHelper = callTypeHelper;
         mPhoneNumberUtilsWrapper = phoneUtils;
         mPhoneNumberHelper = new PhoneNumberDisplayHelper(mPhoneNumberUtilsWrapper, mResources);
+        mHighlighter = new TextHighlighter(Typeface.BOLD,
+                mResources.getColor(R.color.text_highlight_color));
     }
 
     /** Fills the call details views with content. */
@@ -127,17 +131,6 @@ public class PhoneCallDetailsHelper {
             mPhoneNumberHelper.getDisplayNumber(details.number,
                     details.numberPresentation, details.formattedNumber);
 
-        String phoneNum = (String) details.number;
-        if (!TextUtils.isEmpty(filter) && phoneNum.contains(filter)) {
-            int start, end;
-            start = phoneNum.indexOf(filter);
-            end = start + filter.length();
-            SpannableString result = new SpannableString(phoneNum);
-            result.setSpan(new StyleSpan(Typeface.BOLD), start, end,
-                    Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-            displayNumber = result;
-        }
-
         if (TextUtils.isEmpty(details.name)) {
             nameText = displayNumber;
             if (TextUtils.isEmpty(details.geocode)
@@ -151,20 +144,17 @@ public class PhoneCallDetailsHelper {
             views.nameView.setTextDirection(View.TEXT_DIRECTION_LTR);
         } else {
             nameText = details.name;
-            if (!TextUtils.isEmpty(filter) && nameText.toString().contains(filter)) {
-                int start,end;
-                start = nameText.toString().indexOf(filter);
-                end = start + filter.length();
-                SpannableString style = new SpannableString(nameText);
-                style.setSpan(new StyleSpan(Typeface.BOLD), start, end,
-                        Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-                nameText = style;
-            }
             numberText = displayNumber;
             labelText = TextUtils.isEmpty(numberFormattedLabel) ? numberText :
                     numberFormattedLabel;
         }
 
+        if (filter != null) {
+            // TextHighlighter expects upper case prefix
+            filter = filter.toUpperCase();
+        }
+        mHighlighter.setPrefixText(views.nameView, nameText.toString(), filter);
+        mHighlighter.setPrefixText(views.labelView, labelText.toString(), filter);
         if (MoKeeUtils.isChineseLanguage() && !MoKeeUtils.isTWLanguage()) {
         	CharSequence PhoneLocationStr = PhoneLocation.getCityFromPhone(String.valueOf(details.number));
         	views.locationView.setText(PhoneLocationStr);
