@@ -24,6 +24,7 @@ import android.os.IBinder;
 import android.os.RemoteException;
 import android.os.SystemProperties;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.services.callrecorder.common.CallRecording;
 import com.android.services.callrecorder.common.ICallRecorderService;
@@ -66,7 +67,7 @@ public class CallRecorderService extends Service {
         @Override
         public boolean startRecording(String phoneNumber, long creationTime)
                 throws RemoteException {
-            String fileName = generateFilename();
+            String fileName = generateFilename(phoneNumber);
             mCurrentRecording = new CallRecording(phoneNumber, creationTime,
                     fileName, System.currentTimeMillis());
             return startRecordingInternal(mCurrentRecording.getFile());
@@ -159,6 +160,7 @@ public class CallRecorderService extends Service {
                     mMediaRecorder.stop();
                     mMediaRecorder.reset();
                     mMediaRecorder.release();
+                    Toast.makeText(this, getString(R.string.toast_call_recorder_success, mCurrentRecording.getFile().getAbsolutePath()), Toast.LENGTH_SHORT).show();
                 }
             } catch (IllegalStateException e) {
                 Log.e(TAG, "Exception closing media recorder", e);
@@ -178,9 +180,9 @@ public class CallRecorderService extends Service {
         return mState;
     }
 
-    private String generateFilename() {
+    private String generateFilename(String phoneNumber) {
         String timestamp = DATE_FORMAT.format(new Date());
-        return "callrecorder_" + timestamp + ".amr";
+        return "callrecorder_" + phoneNumber + "_" + timestamp + ".amr";
     }
 
     public static boolean isEnabled(Context context) {

@@ -19,4 +19,7 @@
     <!-- Ignore Non-intrusive -->
     <string name="dialer_returnToAnswer">接听处于忽略状态的来电</string>
     <string name="dialer_returnToReject">挂断处于忽略状态的来电</string>
+
+    <!-- Cal Recorder -->
+    <string name="toast_call_recorder_success">录音文件已保存至 %s</string>
 </resources>
