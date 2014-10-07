@@ -52,7 +52,7 @@ public class CallRecorderService extends Service {
     private static final String ENABLE_PROPERTY = "persist.call_recording.enabled";
     private static final String AUDIO_SOURCE_PROPERTY = "persist.call_recording.src";
 
-    private SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+    private SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyyMMddHHmmss");
 
     private final ICallRecorderService.Stub mBinder = new ICallRecorderService.Stub() {
         @Override
@@ -182,7 +182,7 @@ public class CallRecorderService extends Service {
 
     private String generateFilename(String phoneNumber) {
         String timestamp = DATE_FORMAT.format(new Date());
-        return "callrecorder_" + phoneNumber + "_" + timestamp + ".amr";
+        return phoneNumber + "_" + timestamp + ".amr";
     }
 
     public static boolean isEnabled(Context context) {
