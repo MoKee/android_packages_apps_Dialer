@@ -88,14 +88,19 @@ import com.android.dialer.list.SearchFragment;
 import com.android.dialer.list.SmartDialSearchFragment;
 import com.android.dialerbind.DatabaseHelperManager;
 import com.android.internal.telephony.ITelephony;
+import com.android.internal.telephony.MSimConstants;
+import static android.telephony.TelephonyManager.SIM_STATE_READY;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+
 //add for CSVT
 import android.content.ServiceConnection;
+
 import org.codeaurora.ims.csvt.ICsvtService;
+
 import android.content.ComponentName;
 import android.os.IBinder;
 import android.os.SystemProperties;
@@ -181,6 +186,8 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
     private View mCallHistoryButton;
     private View mDialpadButton;
     private View mDialButton;
+    private View mDialButton_1;
+    private View mDialButton_2;
     private PopupMenu mOverflowMenu;
     private PopupMenu mDialpadOverflowMenu;
 
@@ -384,7 +391,19 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
         final Intent intent = getIntent();
         fixIntent(intent);
 
-        setContentView(R.layout.dialtacts_activity);
+        MSimTelephonyManager mtm = MSimTelephonyManager.getDefault();
+        int mSub1Status = mtm.getSimState(MSimConstants.SUB1);
+        int mSub2Status = mtm.getSimState(MSimConstants.SUB2);
+        if (MSimTelephonyManager.getDefault().isMultiSimEnabled()) {
+            if (mSub1Status == SIM_STATE_READY && mSub2Status == SIM_STATE_READY) {
+                setContentView(R.layout.msim_dialtacts_activity);
+            } else {
+                setContentView(R.layout.dialtacts_activity);
+            }
+        } else {
+            setContentView(R.layout.dialtacts_activity);
+        }
+        
 
         // Add the favorites fragment, and the dialpad fragment, but only if savedInstanceState
         // is null. Otherwise the fragment manager takes care of recreating these fragments.
@@ -580,6 +599,14 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
                 // Dial button was pressed; tell the Dialpad fragment
                 mDialpadFragment.dialButtonPressed();
                 break;
+            case R.id.dial_button_1:
+                // Dial button was pressed; tell the Dialpad fragment
+                mDialpadFragment.dialButtonPressed(0);
+                break;
+            case R.id.dial_button_2:
+                // Dial button was pressed; tell the Dialpad fragment
+                mDialpadFragment.dialButtonPressed(1);
+                break;
             case R.id.call_history_button:
                 // Use explicit CallLogActivity intent instead of ACTION_VIEW +
                 // CONTENT_TYPE, so that we always open our call log from our dialer
@@ -616,6 +643,16 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
                 // Dial button was pressed; tell the Dialpad fragment
                 mDialpadFragment.dialButtonPressed();
                 return true;  // Consume the event
+            }
+            case R.id.dial_button_1: {
+                // Dial button was pressed; tell the Dialpad fragment
+                mDialpadFragment.dialButtonPressed(1);
+                return true;
+            }
+            case R.id.dial_button_2: {
+                // Dial button was pressed; tell the Dialpad fragment
+                mDialpadFragment.dialButtonPressed(2);
+                return true;
             }
             default: {
                 Log.wtf(TAG, "Unexpected onClick event from " + view);
@@ -654,7 +691,12 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
         }
         ft.show(mDialpadFragment);
         ft.commit();
+        if (mDialButton != null)
         mDialButton.setVisibility(shouldShowOnscreenDialButton() ? View.VISIBLE : View.GONE);
+        if (mDialButton_1 != null)
+        mDialButton_1.setVisibility(shouldShowOnscreenDialButton() ? View.VISIBLE : View.GONE);
+        if (mDialButton_2 != null)
+        mDialButton_2.setVisibility(shouldShowOnscreenDialButton() ? View.VISIBLE : View.GONE);
         mDialpadButton.setVisibility(View.GONE);
 
         if (mDialpadOverflowMenu == null) {
@@ -677,7 +719,9 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
         }
         ft.hide(mDialpadFragment);
         ft.commit();
-        mDialButton.setVisibility(View.GONE);
+        if (mDialButton != null) mDialButton.setVisibility(View.GONE);
+        if (mDialButton_1 != null) mDialButton_1.setVisibility(View.GONE);
+        if (mDialButton_2 != null) mDialButton_2.setVisibility(View.GONE);
         mDialpadButton.setVisibility(View.VISIBLE);
         mMenuButton.setOnTouchListener(mOverflowMenu.getDragToOpenListener());
     }
@@ -798,8 +842,20 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
         mCallHistoryButton.setOnClickListener(this);
 
         mDialButton = findViewById(R.id.dial_button);
-        mDialButton.setOnClickListener(this);
-        mDialButton.setOnLongClickListener(this);
+        if (mDialButton != null) {
+            mDialButton.setOnClickListener(this);
+            mDialButton.setOnLongClickListener(this);
+        }
+        mDialButton_1 = findViewById(R.id.dial_button_1);
+        if (mDialButton_1 != null) {
+            mDialButton_1.setOnClickListener(this);
+            mDialButton_1.setOnLongClickListener(this);
+        }
+        mDialButton_2 = findViewById(R.id.dial_button_2);
+        if (mDialButton_2 != null) {
+            mDialButton_2.setOnClickListener(this);
+            mDialButton_2.setOnLongClickListener(this);
+        }
 
         mDialpadButton = findViewById(R.id.dialpad_button);
         mDialpadButton.setOnClickListener(this);
@@ -1115,9 +1171,9 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
 
     @Override
     public void setDialButtonEnabled(boolean enabled) {
-        if (mDialButton != null) {
-            mDialButton.setEnabled(enabled);
-        }
+        if (mDialButton != null) mDialButton.setEnabled(enabled);
+        if (mDialButton_1 != null) mDialButton_1.setEnabled(enabled);
+        if (mDialButton_2 != null) mDialButton_2.setEnabled(enabled);
     }
 
     @Override

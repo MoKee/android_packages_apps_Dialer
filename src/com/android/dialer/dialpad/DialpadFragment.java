@@ -1172,6 +1172,11 @@ public class DialpadFragment extends Fragment
         handleDialButtonPressed();
     }
 
+    public void dialButtonPressed(int subscription) {
+        mHaptic.vibrate();
+        handleDialButtonPressed(subscription);
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -1417,6 +1422,39 @@ public class DialpadFragment extends Fragment
                 final Intent intent = CallUtil.getCallIntent(number,
                         (getActivity() instanceof DialtactsActivity ?
                                 ((DialtactsActivity) getActivity()).getCallOrigin() : null));
+                startActivity(intent);
+                hideAndClearDialpad(false);
+            }
+        }
+    }
+
+    private void handleDialButtonPressed(int subscription) {
+        if (isDigitsEmpty()) { // No number entered.
+            handleDialButtonClickWithEmptyDigits();
+        } else {
+            final String number = mDigits.getText().toString();
+
+            // "persist.radio.otaspdial" is a temporary hack needed for one carrier's automated
+            // test equipment.
+            // TODO: clean it up.
+            if (number != null
+                    && !TextUtils.isEmpty(mProhibitedPhoneNumberRegexp)
+                    && number.matches(mProhibitedPhoneNumberRegexp)
+                    && (SystemProperties.getInt("persist.radio.otaspdial", 0) != 1)) {
+                Log.i(TAG, "The phone number is prohibited explicitly by a rule.");
+                if (getActivity() != null) {
+                    DialogFragment dialogFragment = ErrorDialogFragment.newInstance(
+                            R.string.dialog_phone_call_prohibited_message);
+                    dialogFragment.show(getFragmentManager(), "phone_prohibited_dialog");
+                }
+
+                // Clear the digits just in case.
+                mDigits.getText().clear();
+            } else {
+                final Intent intent = CallUtil.getCallIntent(number,
+                        (getActivity() instanceof DialtactsActivity ?
+                                ((DialtactsActivity) getActivity()).getCallOrigin() : null));
+                intent.putExtra("subscription", subscription);
                 startActivity(intent);
                 hideAndClearDialpad(false);
             }
