@@ -17,8 +17,8 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <!-- Ignore Non-intrusive -->
-    <string name="dialer_returnToAnswer">接听处于忽略状态的来电</string>
-    <string name="dialer_returnToReject">挂断处于忽略状态的来电</string>
+    <string name="dialer_returnToAnswer">Answer ignored call</string>
+    <string name="dialer_returnToReject">Reject ignored call</string>
 
     <!-- Cal Recorder -->
     <string name="toast_call_recorder_success">Voice file saved in %s</string>
