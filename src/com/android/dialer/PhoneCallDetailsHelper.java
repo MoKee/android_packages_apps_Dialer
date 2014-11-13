@@ -17,6 +17,8 @@
 package com.android.dialer;
 
 import android.content.res.Resources;
+import android.mokee.location.PhoneLocation;
+import android.mokee.utils.MoKeeUtils;
 import android.provider.CallLog;
 import android.provider.CallLog.Calls;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
@@ -200,11 +202,15 @@ public class PhoneCallDetailsHelper {
                 && !PhoneNumberHelper.isUriNumber(details.number.toString())
                 && !mPhoneNumberUtilsWrapper.isVoicemailNumber(details.number)) {
 
+            CharSequence locationLabel = MoKeeUtils.isChineseLanguage(true) ? PhoneLocation.getCityFromPhone(details.number) : details.geocode;
             if (details.numberLabel == ContactInfo.GEOCODE_AS_LABEL) {
-                numberFormattedLabel = details.geocode;
+                numberFormattedLabel = locationLabel;
             } else {
                 numberFormattedLabel = Phone.getTypeLabel(mResources, details.numberType,
                         details.numberLabel);
+                if (!TextUtils.isEmpty(locationLabel)) {
+                    numberFormattedLabel = numberFormattedLabel + mResources.getString(R.string.list_delimeter) + locationLabel;               
+                }
             }
         }
 
