@@ -53,6 +53,7 @@
      presses home. -->
     <uses-permission android:name="android.permission.STOP_APP_SWITCHES" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="com.qualcomm.permission.USE_PHONE_SERVICE" />
 
     <application
         android:name="DialerApplication"
@@ -64,6 +65,8 @@
 
         <meta-data android:name="com.google.android.backup.api_key"
             android:value="AEdPqrEAAAAIBXgtCEKQ6W0PXVnW-ZVia2KmlV2AxsTw3GjAeQ" />
+
+        <uses-library android:name="com.qualcomm.qti.smartsearch" />
 
         <!-- The entrance point for Phone UI.
              stateAlwaysHidden is set to suppress keyboard show up on
@@ -160,6 +163,17 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".callstats.CallStatsDetailActivity"
+            android:label="@string/callStatsDetailTitle"
+            android:theme="@style/CallDetailActivityTheme"
+            android:screenOrientation="portrait"
+            android:icon="@mipmap/ic_launcher_phone" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
         <activity android:name="com.android.contacts.common.test.FragmentTestActivity">
             <intent-filter>
                 <category android:name="android.intent.category.TEST"/>
@@ -236,6 +250,14 @@
             </intent-filter>
         </receiver>
 
+        <activity android:name=".SpeedDialListActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden|uiMode"
+            android:label="@string/set_speed_dial" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
+
         <receiver android:name=".interactions.UndemoteOutgoingCallReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
@@ -290,5 +312,11 @@
                 <action android:name="android.telecom.InCallService"/>
             </intent-filter>
         </service>
+
+        <provider android:name="com.android.dialer.lookup.LookupProvider"
+                  android:authorities="com.android.dialer.provider"
+                  android:exported="false"
+                  android:multiprocess="false" />
+
     </application>
 </manifest>

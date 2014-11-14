@@ -48,7 +48,7 @@ public class SmartDialNumberListAdapter extends DialerPhoneNumberListAdapter {
 
     public SmartDialNumberListAdapter(Context context) {
         super(context);
-        mNameMatcher = new SmartDialNameMatcher("", SmartDialPrefix.getMap());
+        mNameMatcher = new SmartDialNameMatcher("", SmartDialPrefix.getMap(), context);
 
         if (DEBUG) {
             Log.v(TAG, "Constructing List Adapter");
@@ -120,8 +120,8 @@ public class SmartDialNumberListAdapter extends DialerPhoneNumberListAdapter {
         final boolean showNumberShortcuts = !TextUtils.isEmpty(getFormattedQueryString());
         boolean changed = false;
         changed |= setShortcutEnabled(SHORTCUT_ADD_NUMBER_TO_CONTACTS, showNumberShortcuts);
-        changed |= setShortcutEnabled(SHORTCUT_MAKE_VIDEO_CALL,
-                showNumberShortcuts && CallUtil.isVideoEnabled(getContext()));
+        changed |= setShortcutEnabled(SHORTCUT_MAKE_VIDEO_CALL, showNumberShortcuts
+            && (CallUtil.isVideoEnabled(getContext()) || CallUtil.isCSVTEnabled()));
         if (changed) {
             notifyDataSetChanged();
         }

@@ -14,6 +14,8 @@
 
 package com.android.dialer.calllog;
 
+import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
@@ -22,12 +24,18 @@ import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.provider.ContactsContract.Contacts;
 import android.provider.ContactsContract.DisplayNameSources;
 import android.provider.ContactsContract.PhoneLookup;
+import android.provider.ContactsContract.RawContacts;
+import android.provider.Settings;
+import android.provider.Telephony;
 import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import com.android.contacts.common.util.Constants;
 import com.android.contacts.common.util.PhoneNumberHelper;
 import com.android.contacts.common.util.UriUtils;
+import com.android.dialer.lookup.LookupCache;
+import com.android.dialer.R;
 import com.android.dialer.service.CachedNumberLookupService;
 import com.android.dialer.service.CachedNumberLookupService.CachedContactInfo;
 import com.android.dialerbind.ObjectFactory;
@@ -152,6 +160,7 @@ public class ContactInfoHelper {
         final ContactInfo info;
         Cursor phonesCursor =
                 mContext.getContentResolver().query(uri, PhoneQuery._PROJECTION, null, null, null);
+        long id = -1;
 
         if (phonesCursor != null) {
             try {
@@ -170,8 +179,22 @@ public class ContactInfoHelper {
                     info.photoUri =
                             UriUtils.parseUriOrNull(phonesCursor.getString(PhoneQuery.PHOTO_URI));
                     info.formattedNumber = null;
+                    id = contactId;
                 } else {
                     info = ContactInfo.EMPTY;
+                }
+                if (id != -1) {
+                    Uri contactUri = ContentUris.withAppendedId(
+                            Contacts.CONTENT_URI, id);
+                    Cursor cursor = mContext.getContentResolver().query(
+                            contactUri,
+                            new String[] { RawContacts.ACCOUNT_TYPE, RawContacts.ACCOUNT_NAME },
+                            null, null, null);
+                    if (cursor != null && cursor.getCount() > 0 && cursor.moveToFirst()) {
+                        info.accountType = cursor.getString(0);
+                        info.accountName = cursor.getString(1);
+                        cursor.close();
+                    }
                 }
             } finally {
                 phonesCursor.close();
@@ -228,6 +251,8 @@ public class ContactInfoHelper {
         ContactInfo info = lookupContactFromUri(uri);
         if (info != null && info != ContactInfo.EMPTY) {
             info.formattedNumber = formatPhoneNumber(number, null, countryIso);
+        } else if (LookupCache.hasCachedContact(mContext, number)) {
+            info = LookupCache.getCachedContact(mContext, number);
         } else if (mCachedNumberLookupService != null) {
             CachedContactInfo cacheInfo =
                     mCachedNumberLookupService.lookupCachedContactFromNumber(mContext, number);
@@ -304,7 +329,34 @@ public class ContactInfoHelper {
     public boolean canReportAsInvalid(int sourceType, String objectId) {
         return mCachedNumberLookupService != null
                 && mCachedNumberLookupService.canReportAsInvalid(sourceType, objectId);
+     }
+
+    /**
+     * Checks whether calls can be blacklisted; that is, whether the
+     * phone blacklist is enabled
+     */
+    public boolean canBlacklistCalls() {
+        return Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.PHONE_BLACKLIST_ENABLED, 1) != 0;
     }
 
+    /**
+     * Requests the given number to be added to the phone blacklist
+     *
+     * @param number the number to be blacklisted
+     */
+    public void addNumberToBlacklist(String number) {
+        ContentValues cv = new ContentValues();
+        cv.put(Telephony.Blacklist.PHONE_MODE, 1);
+
+        Uri uri = Uri.withAppendedPath(Telephony.Blacklist.CONTENT_FILTER_BYNUMBER_URI, number);
+        int count = mContext.getContentResolver().update(uri, cv, null, null);
+
+        if (count != 0) {
+            // Give the user some feedback
+            String message = mContext.getString(R.string.toast_added_to_blacklist, number);
+            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+        }
+    }
 
 }

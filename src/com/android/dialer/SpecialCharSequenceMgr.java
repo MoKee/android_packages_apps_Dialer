@@ -60,6 +60,10 @@ public class SpecialCharSequenceMgr {
     private static final String SECRET_CODE_ACTION = "android.provider.Telephony.SECRET_CODE";
     private static final String MMI_IMEI_DISPLAY = "*#06#";
     private static final String MMI_REGULATORY_INFO_DISPLAY = "*#07#";
+    private static final String MMI_OPEN_DIAG_MENU_DISPLAY = "*76278#";
+    private static final String MMI_FACTORY_MODE_DISPLAY = "#38378#";
+    private static final String MMI_ENGINEER_MODE_DISPLAY = "*#7548135*#";
+    private static final String PRL_VERSION_DISPLAY = "*#0000#";
 
     /**
      * Remembers the previous {@link QueryHandler} and cancel the operation when needed, to
@@ -96,14 +100,56 @@ public class SpecialCharSequenceMgr {
         //get rid of the separators so that the string gets parsed correctly
         String dialString = PhoneNumberUtils.stripSeparators(input);
 
-        if (handleIMEIDisplay(context, dialString, useSystemWindow)
-                || handleRegulatoryInfoDisplay(context, dialString)
-                || handlePinEntry(context, dialString)
-                || handleAdnEntry(context, dialString, textField)
-                || handleSecretCode(context, dialString)) {
-            return true;
+        if (context.getResources().getBoolean(R.bool.def_dialer_secretcode_enabled) ||
+                context.getResources().getBoolean(R.bool.def_dialer_settings_diagport_enabled)) {
+            if (handlePRLVersion(context, dialString)
+                    || handleIMEIDisplay(context, dialString, useSystemWindow)
+                    || handleRegulatoryInfoDisplay(context, dialString)
+                    || handleEngineerModeDisplay(context, dialString)
+                    || handlePinEntry(context, dialString)
+                    || handleAdnEntry(context, dialString, textField)
+                    || handleSecretCode(context, dialString)
+                    || handleFactorySetCode(context, dialString)
+                    || handleSetDiagPortCode(context, dialString)) {
+                return true;
+            }
+        } else {
+            if (handlePRLVersion(context, dialString)
+                    || handleIMEIDisplay(context, dialString, useSystemWindow)
+                    || handleRegulatoryInfoDisplay(context, dialString)
+                    || handleEngineerModeDisplay(context, dialString)
+                    || handlePinEntry(context, dialString)
+                    || handleAdnEntry(context, dialString, textField)
+                    || handleSecretCode(context, dialString)) {
+                return true;
+            }
         }
 
+        return false;
+    }
+
+    static private boolean handlePRLVersion(Context context, String input) {
+        if (input.equals(PRL_VERSION_DISPLAY)) {
+            try {
+                Intent intent = new Intent("android.intent.action.ENGINEER_MODE_DEVICEINFO");
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+                return true;
+            } catch (ActivityNotFoundException e) {
+                Log.d(TAG, "no activity to handle showing device info");
+            }
+        }
+        return false;
+    }
+
+    static private boolean handleSetDiagPortCode(Context context, String input) {
+        int len = input.length();
+        if (input.equals(MMI_OPEN_DIAG_MENU_DISPLAY)) {
+            Intent intent = new Intent(SECRET_CODE_ACTION,
+                    Uri.parse("android_secret_code://" + input.substring(1, len - 1)));
+            context.sendBroadcast(intent);
+            return true;
+        }
         return false;
     }
 
@@ -137,12 +183,26 @@ public class SpecialCharSequenceMgr {
         // Secret codes are in the form *#*#<code>#*#*
         int len = input.length();
         if (len > 8 && input.startsWith("*#*#") && input.endsWith("#*#*")) {
+            if ("4636".equals(input.substring(4, len - 4))) {
+                return false;
+            }
             final Intent intent = new Intent(SECRET_CODE_ACTION,
                     Uri.parse("android_secret_code://" + input.substring(4, len - 4)));
             context.sendBroadcast(intent);
             return true;
         }
 
+        return false;
+    }
+
+    static boolean handleFactorySetCode(Context context, String input) {
+        int len = input.length();
+        if (input.equals(MMI_FACTORY_MODE_DISPLAY)) {
+            Intent intent = new Intent(SECRET_CODE_ACTION,
+                    Uri.parse("android_secret_code://" + input.substring(1, len - 1)));
+            context.sendBroadcast(intent);
+            return true;
+        }
         return false;
     }
 
@@ -250,6 +310,10 @@ public class SpecialCharSequenceMgr {
             int phoneType;
             long subId = SubscriptionManager.getDefaultVoiceSubId();
             phoneType = telephonyManager.getCurrentPhoneType(subId);
+            if (telephonyManager.isMultiSimEnabled()) {
+                return handleMSimIMEIDisplay(context, telephonyManager);
+            }
+
             if (phoneType == TelephonyManager.PHONE_TYPE_GSM) {
                 showIMEIPanel(context, useSystemWindow, telephonyManager);
                 return true;
@@ -260,6 +324,35 @@ public class SpecialCharSequenceMgr {
         }
 
         return false;
+    }
+
+    private static boolean handleMSimIMEIDisplay(Context context,
+            TelephonyManager telephonyManager) {
+        StringBuffer deviceIds = new StringBuffer();
+        int titleId = R.string.device_id;
+        int count = telephonyManager.getPhoneCount();
+
+        for (int i = 0; i < count; i++) {
+            if (i != 0) {
+                deviceIds.append("\n");
+            }
+            int phoneType = telephonyManager.getCurrentPhoneType(i);
+            if (phoneType != TelephonyManager.PHONE_TYPE_GSM
+                    && phoneType != TelephonyManager.PHONE_TYPE_CDMA) {
+                return false;
+            }
+            deviceIds.append(context.getString(TelephonyManager.PHONE_TYPE_CDMA == phoneType
+                    ? R.string.meid : R.string.imei) + " ");
+            deviceIds.append(telephonyManager.getDeviceId(i));
+        }
+
+        AlertDialog alert = new AlertDialog.Builder(context)
+                .setTitle(titleId)
+                .setMessage(deviceIds.toString())
+                .setPositiveButton(android.R.string.ok, null)
+                .setCancelable(false)
+                .show();
+        return true;
     }
 
     private static boolean handleRegulatoryInfoDisplay(Context context, String input) {
@@ -310,6 +403,16 @@ public class SpecialCharSequenceMgr {
                 .setPositiveButton(android.R.string.ok, null)
                 .setCancelable(false)
                 .show();
+    }
+
+    static boolean handleEngineerModeDisplay(Context context, String input) {
+        if (input.equals(MMI_ENGINEER_MODE_DISPLAY)) {
+            Intent intent = new Intent(SECRET_CODE_ACTION,
+                    Uri.parse("android_secret_code://3878"));
+            context.sendBroadcast(intent);
+            return true;
+        }
+        return false;
     }
 
     /*******

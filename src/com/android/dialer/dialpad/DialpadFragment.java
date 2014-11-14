@@ -38,6 +38,7 @@ import android.provider.Contacts.Phones;
 import android.provider.Contacts.PhonesColumns;
 import android.provider.Settings;
 import android.telecom.PhoneAccount;
+import android.telecom.PhoneAccountHandle;
 import android.telecom.TelecomManager;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.PhoneStateListener;
@@ -70,6 +71,7 @@ import android.widget.TextView;
 import com.android.contacts.common.CallUtil;
 import com.android.contacts.common.ContactsUtils;
 import com.android.contacts.common.GeoUtil;
+import com.android.contacts.common.MoreContactUtils;
 import com.android.contacts.common.util.PhoneNumberFormatter;
 import com.android.contacts.common.util.StopWatch;
 import com.android.contacts.common.widget.FloatingActionButtonController;
@@ -77,8 +79,11 @@ import com.android.dialer.DialtactsActivity;
 import com.android.dialer.NeededForReflection;
 import com.android.dialer.R;
 import com.android.dialer.SpecialCharSequenceMgr;
+import com.android.dialer.SpeedDialListActivity;
+import com.android.dialer.SpeedDialUtils;
 import com.android.dialer.util.DialerUtils;
 import com.android.dialerbind.analytics.AnalyticsFragment;
+import com.android.internal.telephony.PhoneConstants;
 import com.android.internal.telephony.TelephonyProperties;
 import com.android.phone.common.CallLogAsync;
 import com.android.phone.common.HapticFeedback;
@@ -100,6 +105,8 @@ public class DialpadFragment extends AnalyticsFragment
         PopupMenu.OnMenuItemClickListener,
         DialpadKeyButton.OnPressedListener {
     private static final String TAG = DialpadFragment.class.getSimpleName();
+
+    private Context mContext;
 
     /**
      * This interface allows the DialpadFragment to tell its hosting Activity when and when not
@@ -259,7 +266,7 @@ public class DialpadFragment extends AnalyticsFragment
                 // onscreen, but useless...)
                 showDialpadChooser(false);
             }
-            if (state == TelephonyManager.CALL_STATE_IDLE) {
+            if (state == TelephonyManager.CALL_STATE_IDLE && getActivity() != null) {
                 ((HostInterface) getActivity()).setConferenceDialButtonVisibility(true);
             }
         }
@@ -589,6 +596,10 @@ public class DialpadFragment extends AnalyticsFragment
         for (int i = 0; i < buttonIds.length; i++) {
             dialpadKey = (DialpadKeyButton) fragmentView.findViewById(buttonIds[i]);
             dialpadKey.setOnPressedListener(this);
+            // Long-pressing button from two to nine will set up speed key dial.
+            if (i > 0 && i < buttonIds.length - 3) {
+                dialpadKey.setOnLongClickListener(this);
+            }
         }
 
         // Long-pressing one button will initiate Voicemail.
@@ -598,6 +609,14 @@ public class DialpadFragment extends AnalyticsFragment
         // Long-pressing zero button will enter '+' instead.
         final DialpadKeyButton zero = (DialpadKeyButton) fragmentView.findViewById(R.id.zero);
         zero.setOnLongClickListener(this);
+
+        // Long-pressing star button will enter ','(pause) instead.
+        final DialpadKeyButton star = (DialpadKeyButton) fragmentView.findViewById(R.id.star);
+        star.setOnLongClickListener(this);
+
+        // Long-pressing pound button will enter ';'(wait) instead.
+        final DialpadKeyButton pound = (DialpadKeyButton) fragmentView.findViewById(R.id.pound);
+        pound.setOnLongClickListener(this);
     }
 
     @Override
@@ -676,7 +695,6 @@ public class DialpadFragment extends AnalyticsFragment
             // Also, a sanity-check: the "dialpad chooser" UI should NEVER
             // be visible if the phone is idle!
             showDialpadChooser(false);
-            hideAndClearDialpad(true);
         }
 
         mFirstLaunch = false;
@@ -897,6 +915,30 @@ public class DialpadFragment extends AnalyticsFragment
                 final MenuItem sendMessage = menu.findItem(R.id.menu_send_message);
                 sendMessage.setVisible(mSmsPackageComponentName != null);
 
+                final MenuItem ipCallBySlot1 = menu.findItem(R.id.menu_ip_call_by_slot1);
+                final MenuItem ipCallBySlot2 = menu.findItem(R.id.menu_ip_call_by_slot2);
+                if (MoreContactUtils.isMultiSimEnable(mContext, PhoneConstants.SUB1)) {
+                    String sub1Name = MoreContactUtils.getMultiSimAliasesName(
+                            mContext, PhoneConstants.SUB1);
+                    ipCallBySlot1.setTitle(mContext.getString(
+                            com.android.contacts.common.R.string.ip_call_by_slot, sub1Name));
+                    ipCallBySlot1.setVisible(true);
+                } else {
+                    ipCallBySlot1.setVisible(false);
+                }
+                if (MoreContactUtils.isMultiSimEnable(mContext, PhoneConstants.SUB2)) {
+                    String sub2Name = MoreContactUtils.getMultiSimAliasesName(
+                            mContext, PhoneConstants.SUB2);
+                    ipCallBySlot2.setTitle(mContext.getString(
+                            com.android.contacts.common.R.string.ip_call_by_slot, sub2Name));
+                    ipCallBySlot2.setVisible(true);
+                } else {
+                    ipCallBySlot2.setVisible(false);
+                }
+
+                final MenuItem VideoCallOption = menu.findItem(R.id.menu_video_call);
+                VideoCallOption.setVisible(CallUtil.isCSVTEnabled());
+
                 boolean enable = !isDigitsEmpty();
                 for (int i = 0; i < menu.size(); i++) {
                     menu.getItem(i).setEnabled(enable);
@@ -1068,8 +1110,91 @@ public class DialpadFragment extends AnalyticsFragment
                 mDigits.setCursorVisible(true);
                 return false;
             }
+            case R.id.star: {
+                if (mDigits.length() > 1) {
+                    // Remove tentative input ('*') done by onTouch().
+                    removePreviousDigitIfPossible();
+                    keyPressed(KeyEvent.KEYCODE_COMMA);
+                    stopTone();
+                    mPressedDialpadKeys.remove(view);
+                    return true;
+                }
+                return false;
+            }
+            case R.id.pound: {
+                if (mDigits.length() > 1) {
+                    // Remove tentative input ('#') done by onTouch().
+                    removePreviousDigitIfPossible();
+                    keyPressed(KeyEvent.KEYCODE_SEMICOLON);
+                    stopTone();
+                    mPressedDialpadKeys.remove(view);
+                    return true;
+                }
+                return false;
+            }
+            case R.id.two:
+            case R.id.three:
+            case R.id.four:
+            case R.id.five:
+            case R.id.six:
+            case R.id.seven:
+            case R.id.eight:
+            case R.id.nine: {
+                if (mDigits.length() == 1) {
+                    removePreviousDigitIfPossible();
+                    final boolean isAirplaneModeOn =
+                            Settings.System.getInt(getActivity().getContentResolver(),
+                            Settings.System.AIRPLANE_MODE_ON, 0) != 0;
+                    if (isAirplaneModeOn) {
+                        DialogFragment dialogFragment = ErrorDialogFragment.newInstance(
+                                R.string.dialog_speed_dial_airplane_mode_message);
+                        dialogFragment.show(getFragmentManager(),
+                                "speed_dial_request_during_airplane_mode");
+                    } else {
+                        callSpeedNumber(id);
+                    }
+                    return true;
+                }
+                return false;
+            }
         }
         return false;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mContext = activity;
+    }
+
+    private void ipCallBySlot(int slotId) {
+        String prefix = MoreContactUtils.getIPCallPrefix(mContext, slotId);
+        if (!TextUtils.isEmpty(prefix)) {
+            long[] subId = SubscriptionManager.getSubId(slotId);
+            if (subId != null && subId.length >= 1) {
+                ComponentName serviceName =
+                        new ComponentName("com.android.phone",
+                        "com.android.services.telephony.TelephonyConnectionService");
+                PhoneAccountHandle account = new PhoneAccountHandle(serviceName,
+                        String.valueOf(subId[0]));
+                Intent callIntent = new Intent(CallUtil.getCallIntent(
+                        prefix + getValidDialNumber(), account));
+                startActivity(callIntent);
+            } else {
+                Intent callIntent = new Intent(CallUtil.getCallIntent(
+                        prefix + getValidDialNumber()));
+                startActivity(callIntent);
+            }
+        } else {
+            MoreContactUtils.showNoIPNumberDialog(mContext, slotId);
+        }
+    }
+
+    private String getValidDialNumber() {
+        if (mDigits != null)
+            return mDigits.getText().toString();
+        else
+            return "";
     }
 
     /**
@@ -1566,6 +1691,19 @@ public class DialpadFragment extends AnalyticsFragment
                 DialerUtils.startActivityWithErrorToast(getActivity(), smsIntent);
                 return true;
             }
+            case R.id.menu_ip_call_by_slot1:
+                ipCallBySlot(PhoneConstants.SUB1);
+                return true;
+            case R.id.menu_ip_call_by_slot2:
+                ipCallBySlot(PhoneConstants.SUB2);
+                return true;
+            case R.id.menu_video_call:
+                final String number = mDigits.getText().toString();
+                if (CallUtil.isCSVTEnabled()) {
+                    getActivity().startActivity(CallUtil.getCSVTCallIntent(number));
+                } else if (false) {
+                    //add support for ims video call;
+                }
             default:
                 return false;
         }
@@ -1643,7 +1781,7 @@ public class DialpadFragment extends AnalyticsFragment
     private boolean isVoicemailAvailable() {
         boolean promptEnabled = SubscriptionManager.isVoicePromptEnabled();
         if (promptEnabled) {
-            hasVMNumber();
+            return hasVMNumber();
         } else {
             long subId = SubscriptionManager.getDefaultVoiceSubId();
             try {
@@ -1787,5 +1925,70 @@ public class DialpadFragment extends AnalyticsFragment
 
     public void setYFraction(float yFraction) {
         ((DialpadSlidingRelativeLayout) getView()).setYFraction(yFraction);
+    }
+
+    private void callSpeedNumber(int id) {
+        int numId = 0;
+        SpeedDialUtils speedDialUtils = new SpeedDialUtils(getActivity());
+
+        switch (id) {
+            case R.id.two:
+                numId = speedDialUtils.NUM_TWO;
+                break;
+            case R.id.three:
+                numId = speedDialUtils.NUM_THREE;
+                break;
+            case R.id.four:
+                numId = speedDialUtils.NUM_FOUR;
+                break;
+            case R.id.five:
+                numId = speedDialUtils.NUM_FIVE;
+                break;
+            case R.id.six:
+                numId = speedDialUtils.NUM_SIX;
+                break;
+            case R.id.seven:
+                numId = speedDialUtils.NUM_SEVEN;
+                break;
+            case R.id.eight:
+                numId = speedDialUtils.NUM_EIGHT;
+                break;
+            case R.id.nine:
+                numId = speedDialUtils.NUM_NINE;
+                break;
+        }
+
+        String speedNumber = speedDialUtils.getContactDataNumber(numId);
+        if (speedNumber == null || speedNumber.length() == 0) {
+            showNoSpeedNumberDialog(numId);
+        } else {
+            Intent intent = new Intent(Intent.ACTION_CALL);
+            intent.setData(Uri.fromParts("tel", speedNumber, null));
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            getActivity().finish();
+        }
+    }
+
+    private void showNoSpeedNumberDialog(int numId) {
+        // numId's range is [0,7], but numKey's range is [2,9], so need to plus two.
+        int numKey = numId + 2;
+        String dialogTxt = getString(R.string.is_set_speed, String.valueOf(numKey));
+        final Activity thisActivity = getActivity();
+        new AlertDialog.Builder(thisActivity)
+            .setTitle(R.string.dialog_title)
+            .setMessage(dialogTxt)
+            .setPositiveButton(android.R.string.ok,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // TODO Auto-generated method stub
+                        // go to speed dial setting screen to set speed dial number.
+                        Intent intent = new Intent(thisActivity, SpeedDialListActivity.class);
+                        startActivity(intent);
+                    }
+                })
+            .setNegativeButton(android.R.string.cancel, null)
+            .show();
     }
 }
