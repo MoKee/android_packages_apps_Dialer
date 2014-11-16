@@ -180,7 +180,7 @@ public class SmartDialPrefixTest extends AndroidTestCase {
                 "12345678", 2, "abc def ghi jkl mno pqrs tuv wxyz");
 
         mTestHelper.insertUpdatedContactsAndNumberPrefix(db, contactCursor, Long.valueOf(0));
-        mTestHelper.insertNamePrefixes(db, nameCursor);
+        mTestHelper.insertNamePrefixes(db, nameCursor, true);
 
         nameCursor.close();
         contactCursor.close();
@@ -218,7 +218,7 @@ public class SmartDialPrefixTest extends AndroidTestCase {
                 "", 2, "Jason Smitt");
 
         mTestHelper.insertUpdatedContactsAndNumberPrefix(db, contactCursor, Long.valueOf(0));
-        mTestHelper.insertNamePrefixes(db, nameCursor);
+        mTestHelper.insertNamePrefixes(db, nameCursor, true);
 
         nameCursor.close();
         contactCursor.close();
@@ -249,7 +249,7 @@ public class SmartDialPrefixTest extends AndroidTestCase {
                 nameCursor, "", 0, "Jason F. Williams");
 
         mTestHelper.insertUpdatedContactsAndNumberPrefix(db, contactCursor, Long.valueOf(0));
-        mTestHelper.insertNamePrefixes(db, nameCursor);
+        mTestHelper.insertNamePrefixes(db, nameCursor, true);
 
         nameCursor.close();
         contactCursor.close();
@@ -270,7 +270,7 @@ public class SmartDialPrefixTest extends AndroidTestCase {
                 nameCursor, "", 0, "Martin Jr Harry");
 
         mTestHelper.insertUpdatedContactsAndNumberPrefix(db, contactCursor, Long.valueOf(0));
-        mTestHelper.insertNamePrefixes(db, nameCursor);
+        mTestHelper.insertNamePrefixes(db, nameCursor, true);
 
         nameCursor.close();
         contactCursor.close();
@@ -314,7 +314,7 @@ public class SmartDialPrefixTest extends AndroidTestCase {
                 "12345678", 0, "abc def ghi jkl mno pqrs tuv wxyz");
 
         mTestHelper.insertUpdatedContactsAndNumberPrefix(db, contactCursor, Long.valueOf(0));
-        mTestHelper.insertNamePrefixes(db, nameCursor);
+        mTestHelper.insertNamePrefixes(db, nameCursor, true);
 
         nameCursor.close();
         contactCursor.close();
@@ -348,7 +348,7 @@ public class SmartDialPrefixTest extends AndroidTestCase {
                 "ssssttttuuuuvvvvwwwwxxxxyyyyzzzz");
 
         mTestHelper.insertUpdatedContactsAndNumberPrefix(db, contactCursor, Long.valueOf(0));
-        mTestHelper.insertNamePrefixes(db, nameCursor);
+        mTestHelper.insertNamePrefixes(db, nameCursor, true);
 
         nameCursor.close();
         contactCursor.close();
@@ -368,7 +368,7 @@ public class SmartDialPrefixTest extends AndroidTestCase {
                 "0", 1, "Brontë");
 
         mTestHelper.insertUpdatedContactsAndNumberPrefix(db, contactCursor, Long.valueOf(0));
-        mTestHelper.insertNamePrefixes(db, nameCursor);
+        mTestHelper.insertNamePrefixes(db, nameCursor, true);
 
         nameCursor.close();
         contactCursor.close();
@@ -388,7 +388,7 @@ public class SmartDialPrefixTest extends AndroidTestCase {
                 "0", 1, "1st Grade Teacher");
 
         mTestHelper.insertUpdatedContactsAndNumberPrefix(db, contactCursor, Long.valueOf(0));
-        mTestHelper.insertNamePrefixes(db, nameCursor);
+        mTestHelper.insertNamePrefixes(db, nameCursor, true);
 
         nameCursor.close();
         contactCursor.close();
@@ -411,7 +411,7 @@ public class SmartDialPrefixTest extends AndroidTestCase {
                 "+13684976334", 2, "James");
 
         mTestHelper.insertUpdatedContactsAndNumberPrefix(db, contactCursor, Long.valueOf(0));
-        mTestHelper.insertNamePrefixes(db, nameCursor);
+        mTestHelper.insertNamePrefixes(db, nameCursor, true);
 
         nameCursor.close();
         contactCursor.close();
@@ -441,7 +441,7 @@ public class SmartDialPrefixTest extends AndroidTestCase {
                 "+852", 4, "Invalid");
 
         mTestHelper.insertUpdatedContactsAndNumberPrefix(db, contactCursor, Long.valueOf(0));
-        mTestHelper.insertNamePrefixes(db, nameCursor);
+        mTestHelper.insertNamePrefixes(db, nameCursor, true);
 
         nameCursor.close();
         contactCursor.close();
@@ -489,7 +489,7 @@ public class SmartDialPrefixTest extends AndroidTestCase {
                 "+857-510-284-9170", 8, "Inv");
 
         mTestHelper.insertUpdatedContactsAndNumberPrefix(db, contactCursor, Long.valueOf(0));
-        mTestHelper.insertNamePrefixes(db, nameCursor);
+        mTestHelper.insertNamePrefixes(db, nameCursor, true);
 
         nameCursor.close();
         contactCursor.close();
@@ -547,7 +547,7 @@ public class SmartDialPrefixTest extends AndroidTestCase {
 
 
         mTestHelper.insertUpdatedContactsAndNumberPrefix(db, contactCursor, Long.valueOf(0));
-        mTestHelper.insertNamePrefixes(db, nameCursor);
+        mTestHelper.insertNamePrefixes(db, nameCursor, true);
 
         nameCursor.close();
         contactCursor.close();
