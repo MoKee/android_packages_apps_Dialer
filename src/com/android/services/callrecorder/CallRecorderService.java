@@ -204,13 +204,13 @@ public class CallRecorderService extends Service {
         return mState;
     }
 
-    private String generateFilename(String phoneNumber) {
+    private String generateFilename(String number) {
         String timestamp = DATE_FORMAT.format(new Date());
         int audioFormat = getAudioFormat();
         if (audioFormat == MediaRecorder.OutputFormat.AMR_WB){
-            return phoneNumber + "_" + timestamp + ".amr";
+            return number + "_" + timestamp + ".amr";
         } else {
-            return phoneNumber + "_" + timestamp + ".m4a";
+            return number + "_" + timestamp + ".m4a ";
         }
     }
 
