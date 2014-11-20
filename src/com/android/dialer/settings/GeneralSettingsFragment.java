@@ -23,6 +23,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
 import android.preference.CheckBoxPreference;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
@@ -47,6 +48,7 @@ public class GeneralSettingsFragment extends PreferenceFragment
     private static final String BUTTON_VIBRATE_ON_RING = "button_vibrate_on_ring";
     private static final String BUTTON_PLAY_DTMF_TONE  = "button_play_dtmf_tone";
     private static final String BUTTON_RESPOND_VIA_SMS_KEY = "button_respond_via_sms_key";
+    private static final String BUTTON_CALL_LOG_DELETE_LIMIT = "button_call_log_delete_limit";
     private static final String BUTTON_SPEED_DIAL_KEY  = "speed_dial_settings";
 
     private static final int MSG_UPDATE_RINGTONE_SUMMARY = 1;
@@ -57,6 +59,7 @@ public class GeneralSettingsFragment extends PreferenceFragment
     private CheckBoxPreference mVibrateWhenRinging;
     private CheckBoxPreference mPlayDtmfTone;
     private Preference mRespondViaSms;
+    private ListPreference mCallLogDeleteLimit;
     private Preference mSpeedDialSettings;
 
     private Runnable mRingtoneLookupRunnable;
@@ -83,6 +86,7 @@ public class GeneralSettingsFragment extends PreferenceFragment
         mVibrateWhenRinging = (CheckBoxPreference) findPreference(BUTTON_VIBRATE_ON_RING);
         mPlayDtmfTone = (CheckBoxPreference) findPreference(BUTTON_PLAY_DTMF_TONE);
         mRespondViaSms = findPreference(BUTTON_RESPOND_VIA_SMS_KEY);
+        mCallLogDeleteLimit = (ListPreference) findPreference(BUTTON_CALL_LOG_DELETE_LIMIT);
         mSpeedDialSettings = findPreference(BUTTON_SPEED_DIAL_KEY);
 
         PreferenceCategory soundCategory = (PreferenceCategory) findPreference(CATEGORY_SOUNDS_KEY);
@@ -100,6 +104,14 @@ public class GeneralSettingsFragment extends PreferenceFragment
             mPlayDtmfTone.setOnPreferenceChangeListener(this);
             mPlayDtmfTone.setChecked(Settings.System.getInt(mContext.getContentResolver(),
                     Settings.System.DTMF_TONE_WHEN_DIALING, 1) != 0);
+        }
+
+        if (mCallLogDeleteLimit != null) {
+            int count = Settings.System.getInt(mContext.getContentResolver(),
+                    Settings.System.CALL_LOG_DELETE_LIMIT, 500);
+            mCallLogDeleteLimit.setOnPreferenceChangeListener(this);
+            mCallLogDeleteLimit.setValue(String.valueOf(count));
+            mCallLogDeleteLimit.setSummary(count == 0 ? getString(R.string.call_log_delete_limit_nolimit) : getString(R.string.call_log_delete_limit_summary, count));
         }
 
         mRingtoneLookupRunnable = new Runnable() {
@@ -129,6 +141,11 @@ public class GeneralSettingsFragment extends PreferenceFragment
             boolean doVibrate = (Boolean) objValue;
             Settings.System.putInt(mContext.getContentResolver(),
                     Settings.System.VIBRATE_WHEN_RINGING, doVibrate ? 1 : 0);
+        } else if (preference == mCallLogDeleteLimit) {
+            int count = Integer.valueOf((String) objValue);
+            Settings.System.putInt(mContext.getContentResolver(),
+                    Settings.System.CALL_LOG_DELETE_LIMIT, count);
+            mCallLogDeleteLimit.setSummary(count == 0 ? getString(R.string.call_log_delete_limit_nolimit) : getString(R.string.call_log_delete_limit_summary, (String) objValue));
         }
         return true;
     }
