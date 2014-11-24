@@ -202,7 +202,7 @@ public class PhoneCallDetailsHelper {
                 && !PhoneNumberHelper.isUriNumber(details.number.toString())
                 && !mPhoneNumberUtilsWrapper.isVoicemailNumber(details.number)) {
 
-            CharSequence locationLabel = MoKeeUtils.isChineseLanguage(true) ? PhoneLocation.getCityFromPhone(details.number) : details.geocode;
+            CharSequence locationLabel = MoKeeUtils.isSupportLanguage(true) ? PhoneLocation.getCityFromPhone(details.number) : details.geocode;
             if (details.numberLabel == ContactInfo.GEOCODE_AS_LABEL) {
                 numberFormattedLabel = locationLabel;
             } else {

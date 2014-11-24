@@ -887,7 +887,7 @@ public class DialerDatabaseHelper extends SQLiteOpenHelper {
                     }
 
                     /** Inserts prefixes of names into the prefix table.*/
-                    insertNamePrefixes(db, nameCursor, MoKeeUtils.isChineseLanguage(false));
+                    insertNamePrefixes(db, nameCursor, MoKeeUtils.isSupportLanguage(false));
                     if (DEBUG) {
                         stopWatch.lap("Finished building the name prefix table");
                     }
