@@ -67,10 +67,12 @@
 
         <CheckBoxPreference
             android:key="incall_vibrate_outgoing"
+            android:defaultValue="true"
             android:title="@string/incall_vibrate_outgoing_title" />
 
         <CheckBoxPreference
             android:key="incall_vibrate_hangup"
+            android:defaultValue="true"
             android:title="@string/incall_vibrate_hangup_title" />
 
         <CheckBoxPreference
