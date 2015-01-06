@@ -26,6 +26,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.android.dialer.R;
+import com.android.dialer.calllog.CallLogQueryHandler;
 import com.android.dialer.calllog.PhoneNumberDisplayHelper;
 import com.android.dialer.calllog.PhoneNumberUtilsWrapper;
 
@@ -77,16 +78,17 @@ public class CallStatsDetailHelper {
             labelText = numberFormattedLabel;
         }
 
-        float in = 0, out = 0, missed = 0;
+        float in = 0, out = 0, missed = 0, blacklist = 0;
         float ratio = getDetailValue(details, type, byDuration) /
                       getDetailValue(first, type, byDuration);
 
-        if (type == CallStatsQueryHandler.CALL_TYPE_ALL) {
+        if (type == CallLogQueryHandler.CALL_TYPE_ALL) {
             float full = getDetailValue(details, type, byDuration);
             in = getDetailValue(details, Calls.INCOMING_TYPE, byDuration) * ratio / full;
             out = getDetailValue(details, Calls.OUTGOING_TYPE, byDuration) * ratio / full;
             if (!byDuration) {
                 missed = getDetailValue(details, Calls.MISSED_TYPE, byDuration) * ratio / full;
+                blacklist = getDetailValue(details, Calls.BLACKLIST_TYPE, byDuration) * ratio / full;
             }
         } else if (type == Calls.INCOMING_TYPE) {
             in = ratio;
@@ -94,16 +96,22 @@ public class CallStatsDetailHelper {
             out = ratio;
         } else if (type == Calls.MISSED_TYPE) {
             missed = ratio;
+        } else if (type == Calls.BLACKLIST_TYPE) {
+            blacklist = ratio;
         }
 
-        views.barView.setRatios(in, out, missed);
+        views.barView.setRatios(in, out, missed, blacklist);
         views.nameView.setText(nameText);
         views.numberView.setText(numberText);
         views.labelView.setText(labelText);
         views.labelView.setVisibility(TextUtils.isEmpty(labelText) ? View.GONE : View.VISIBLE);
 
-        if (byDuration && type == Calls.MISSED_TYPE) {
-            views.percentView.setText(getCallCountString(mResources, details.missedCount));
+        if (byDuration) {
+            if (type == Calls.MISSED_TYPE) {
+                views.percentView.setText(getCallCountString(mResources, details.missedCount));
+            } else if (type == Calls.BLACKLIST_TYPE) {
+                views.percentView.setText(getCallCountString(mResources, details.blacklistCount));
+            }
         } else {
             float percent = getDetailValue(details, type, byDuration) * 100F /
                             getDetailValue(total, type, byDuration);
