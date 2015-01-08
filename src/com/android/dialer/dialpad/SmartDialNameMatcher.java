@@ -58,8 +58,6 @@ public class SmartDialNameMatcher {
 
     private final ArrayList<SmartDialMatchPosition> mMatchPositions = Lists.newArrayList();
 
-    public static final SmartDialMap LATIN_SMART_DIAL_MAP = new LatinSmartDialMap();
-
     private final SmartDialMap mMap;
 
     private String mNameMatchMask = "";
@@ -72,7 +70,7 @@ public class SmartDialNameMatcher {
 
     @VisibleForTesting
     public SmartDialNameMatcher(String query, Context context) {
-        this(query, LATIN_SMART_DIAL_MAP, context);
+        this(query, SmartDialPrefix.getMap(), context);
     }
 
     public SmartDialNameMatcher(String query, SmartDialMap map, Context context) {
@@ -424,7 +422,7 @@ public class SmartDialNameMatcher {
         if (mMultiMatchObject != null && mMultiMatchMethod != null) {
             return matchesMultiLanguage(displayName, mQuery, mMatchPositions);
         } else {
-            return matchesCombination(displayName, mQuery, mMatchPositions);
+            return mMap.matchesCombination(this, displayName, mQuery, mMatchPositions);
         }
     }
 

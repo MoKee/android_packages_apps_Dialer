@@ -30,6 +30,7 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
 
+import android.text.TextUtils;
 import com.android.dialer.R;
 import com.android.phone.common.util.SettingsUtil;
 
@@ -40,6 +41,7 @@ import java.lang.Override;
 import java.lang.Runnable;
 import java.lang.String;
 import java.lang.Thread;
+import java.util.Locale;
 
 public class GeneralSettingsFragment extends PreferenceFragment
         implements Preference.OnPreferenceChangeListener {
@@ -52,6 +54,7 @@ public class GeneralSettingsFragment extends PreferenceFragment
     private static final String BUTTON_RESPOND_VIA_SMS_KEY = "button_respond_via_sms_key";
     private static final String BUTTON_CALL_LOG_DELETE_LIMIT = "button_call_log_delete_limit";
     private static final String BUTTON_SPEED_DIAL_KEY  = "speed_dial_settings";
+    private static final String BUTTON_T9_SEARCH_INPUT_LOCALE = "button_t9_search_input";
 
     private static final int MSG_UPDATE_RINGTONE_SUMMARY = 1;
 
@@ -63,6 +66,13 @@ public class GeneralSettingsFragment extends PreferenceFragment
     private Preference mRespondViaSms;
     private ListPreference mCallLogDeleteLimit;
     private Preference mSpeedDialSettings;
+    private ListPreference mT9SearchInputLocale;
+
+    // t9 search input locales that we have a custom overlay for
+    private static final Locale[] T9_SEARCH_INPUT_LOCALES = new Locale[] {
+            new Locale("ko"), new Locale("el"), new Locale("ru"),
+            new Locale("he"), new Locale("zh")
+    };
 
     private Runnable mRingtoneLookupRunnable;
     private final Handler mRingtoneLookupComplete = new Handler() {
@@ -90,6 +100,7 @@ public class GeneralSettingsFragment extends PreferenceFragment
         mRespondViaSms = findPreference(BUTTON_RESPOND_VIA_SMS_KEY);
         mCallLogDeleteLimit = (ListPreference) findPreference(BUTTON_CALL_LOG_DELETE_LIMIT);
         mSpeedDialSettings = findPreference(BUTTON_SPEED_DIAL_KEY);
+        mT9SearchInputLocale = (ListPreference) findPreference(BUTTON_T9_SEARCH_INPUT_LOCALE);
 
         PreferenceCategory soundCategory = (PreferenceCategory) findPreference(CATEGORY_SOUNDS_KEY);
         Vibrator vibrator = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
@@ -119,6 +130,11 @@ public class GeneralSettingsFragment extends PreferenceFragment
             mCallLogDeleteLimit.setOnPreferenceChangeListener(this);
             mCallLogDeleteLimit.setValue(String.valueOf(count));
             mCallLogDeleteLimit.setSummary(count == 0 ? getString(R.string.call_log_delete_limit_nolimit) : getString(R.string.call_log_delete_limit_summary, count));
+        }
+
+        if (mT9SearchInputLocale != null) {
+            initT9SearchInputPreferenceList();
+            mT9SearchInputLocale.setOnPreferenceChangeListener(this);
         }
 
         mRingtoneLookupRunnable = new Runnable() {
@@ -153,6 +169,8 @@ public class GeneralSettingsFragment extends PreferenceFragment
             Settings.System.putInt(mContext.getContentResolver(),
                     Settings.System.CALL_LOG_DELETE_LIMIT, count);
             mCallLogDeleteLimit.setSummary(count == 0 ? getString(R.string.call_log_delete_limit_nolimit) : getString(R.string.call_log_delete_limit_summary, (String) objValue));
+        } else if (preference == mT9SearchInputLocale) {
+            saveT9SearchInputLocale(preference, (String) objValue);
         }
         return true;
     }
@@ -182,5 +200,41 @@ public class GeneralSettingsFragment extends PreferenceFragment
 
         // Lookup the ringtone name asynchronously.
         new Thread(mRingtoneLookupRunnable).start();
+    }
+
+    private void saveT9SearchInputLocale(Preference preference, String newT9Locale) {
+        String lastT9Locale = Settings.System.getString(mContext.getContentResolver(),
+                Settings.System.T9_SEARCH_INPUT_LOCALE);
+
+        if (!TextUtils.equals(lastT9Locale, newT9Locale)) {
+            Settings.System.putString(mContext.getContentResolver(),
+                    Settings.System.T9_SEARCH_INPUT_LOCALE, newT9Locale);
+        }
+    }
+
+    private void initT9SearchInputPreferenceList() {
+        int len = T9_SEARCH_INPUT_LOCALES.length + 1;
+        String[] entries = new String[len];
+        String[] values = new String[len];
+
+        entries[0] = getString(R.string.t9_search_input_locale_default);
+        values[0] = "";
+
+        // add locales programatically so we can use locale.getDisplayName
+        for (int i = 0; i < T9_SEARCH_INPUT_LOCALES.length; i++) {
+            Locale locale = T9_SEARCH_INPUT_LOCALES[i];
+            entries[i + 1] = locale.getDisplayName();
+            values[i + 1] = locale.toString();
+        }
+
+        // Set current entry from global system setting
+        String settingsT9Locale = Settings.System.getString(mContext.getContentResolver(),
+                Settings.System.T9_SEARCH_INPUT_LOCALE);
+        if (settingsT9Locale != null) {
+            mT9SearchInputLocale.setValue(settingsT9Locale);
+        }
+
+        mT9SearchInputLocale.setEntries(entries);
+        mT9SearchInputLocale.setEntryValues(values);
     }
 }
