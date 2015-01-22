@@ -17,24 +17,17 @@
 package com.android.dialer.dialpad;
 
 import android.content.Context;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.android.dialer.database.DialerDatabaseHelper;
 import com.android.dialer.dialpad.SmartDialPrefix.PhoneNumberTokens;
-import com.android.dialer.util.HanziToPinyin;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Lists;
 
-import org.chinese.pinyin.PinyinHelper;
-
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Set;
 
 /**
  * {@link #SmartDialNameMatcher} contains utility functions to remove accents from accented
@@ -424,59 +417,6 @@ public class SmartDialNameMatcher {
         } else {
             return mMap.matchesCombination(this, displayName, mQuery, mMatchPositions);
         }
-    }
-
-    public boolean matchesCN(String displayName) {
-        mMatchPositions.clear();
-        return isMatch(displayName, mQuery, mMatchPositions);
-    }
-
-    public static boolean isEnglish(char c) {
-        return String.valueOf(c).matches("[a-zA-Z]");
-    }
-
-    public boolean isMatch(String displayName, String query,ArrayList<SmartDialMatchPosition> matchList) {
-        int length = displayName.length();
-        for (int i = 0; i < length; i++) {
-            char c = displayName.charAt(i);
-            if (PinyinHelper.matchesCheck(c)) {
-                Set<String> pinyins = HanziToPinyin.getPinyin(String.valueOf(c));
-                ArrayList<String> prefixs = new ArrayList<String>();
-                for (Object pinyin : pinyins.toArray()) {
-                        prefixs.addAll(SmartDialPrefix.generateNamePrefixes(pinyin.toString()));
-                }
-                for (String prefix : prefixs) {
-                    if (prefix.equals(query)) {//Match whole words priority
-                        if (i + 1 <= query.length()) {
-                            matchList.add(new SmartDialMatchPosition(i, i + 1));
-                            return true;
-                        }
-                    }
-                }
-                for (String prefix : prefixs) {// Traversal T9 mapping
-                    if (query.contains(prefix)) {// Determine the current value of the input contains T9 map
-                         if (i + 1 <= query.length()) {
-                            matchList.add(new SmartDialMatchPosition(i, i + 1));// That includes long jump
-                            break;
-                        }
-                    }
-                }
-            } else if (isEnglish(c)) {
-                ArrayList<String> prefixs = SmartDialPrefix.generateNamePrefixes(String.valueOf(c));
-                for (String prefix : prefixs) {
-                    if (query.contains(prefix)) {
-                        if (i + 1 <= query.length()) {
-                            matchList.add(new SmartDialMatchPosition(i, i + 1));
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-        if (!matchList.isEmpty()) {
-            return true;
-        }
-        return false;
     }
 
     public ArrayList<SmartDialMatchPosition> getMatchPositions() {
