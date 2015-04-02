@@ -52,6 +52,7 @@ public class GeneralSettingsFragment extends PreferenceFragment
     private static final String BUTTON_VIBRATE_ON_RING = "button_vibrate_on_ring";
     private static final String BUTTON_PLAY_DTMF_TONE  = "button_play_dtmf_tone";
     private static final String BUTTON_RESPOND_VIA_SMS_KEY = "button_respond_via_sms_key";
+    private static final String BUTTON_CALL_LOG_DELETE_LIMIT = "button_call_log_delete_limit";
     private static final String BUTTON_SPEED_DIAL_KEY  = "speed_dial_settings";
     private static final String BUTTON_T9_SEARCH_INPUT_LOCALE = "button_t9_search_input";
 
@@ -63,6 +64,7 @@ public class GeneralSettingsFragment extends PreferenceFragment
     private SwitchPreference mVibrateWhenRinging;
     private SwitchPreference mPlayDtmfTone;
     private Preference mRespondViaSms;
+    private ListPreference mCallLogDeleteLimit;
     private Preference mSpeedDialSettings;
     private ListPreference mT9SearchInputLocale;
 
@@ -96,6 +98,7 @@ public class GeneralSettingsFragment extends PreferenceFragment
         mVibrateWhenRinging = (SwitchPreference) findPreference(BUTTON_VIBRATE_ON_RING);
         mPlayDtmfTone = (SwitchPreference) findPreference(BUTTON_PLAY_DTMF_TONE);
         mRespondViaSms = findPreference(BUTTON_RESPOND_VIA_SMS_KEY);
+        mCallLogDeleteLimit = (ListPreference) findPreference(BUTTON_CALL_LOG_DELETE_LIMIT);
         mSpeedDialSettings = findPreference(BUTTON_SPEED_DIAL_KEY);
         mT9SearchInputLocale = (ListPreference) findPreference(BUTTON_T9_SEARCH_INPUT_LOCALE);
 
@@ -119,6 +122,14 @@ public class GeneralSettingsFragment extends PreferenceFragment
             mPlayDtmfTone.setOnPreferenceChangeListener(this);
             mPlayDtmfTone.setChecked(Settings.System.getInt(mContext.getContentResolver(),
                     Settings.System.DTMF_TONE_WHEN_DIALING, 1) != 0);
+        }
+
+        if (mCallLogDeleteLimit != null) {
+            int count = Settings.System.getInt(mContext.getContentResolver(),
+                    Settings.System.CALL_LOG_DELETE_LIMIT, 500);
+            mCallLogDeleteLimit.setOnPreferenceChangeListener(this);
+            mCallLogDeleteLimit.setValue(String.valueOf(count));
+            mCallLogDeleteLimit.setSummary(count == 0 ? getString(R.string.call_log_delete_limit_nolimit) : getString(R.string.call_log_delete_limit_summary, count));
         }
 
         if (mT9SearchInputLocale != null) {
@@ -153,6 +164,11 @@ public class GeneralSettingsFragment extends PreferenceFragment
             boolean doVibrate = (Boolean) objValue;
             Settings.System.putInt(mContext.getContentResolver(),
                     Settings.System.VIBRATE_WHEN_RINGING, doVibrate ? 1 : 0);
+        } else if (preference == mCallLogDeleteLimit) {
+            int count = Integer.valueOf((String) objValue);
+            Settings.System.putInt(mContext.getContentResolver(),
+                    Settings.System.CALL_LOG_DELETE_LIMIT, count);
+            mCallLogDeleteLimit.setSummary(count == 0 ? getString(R.string.call_log_delete_limit_nolimit) : getString(R.string.call_log_delete_limit_summary, (String) objValue));
         } else if (preference == mT9SearchInputLocale) {
             saveT9SearchInputLocale(preference, (String) objValue);
         }
