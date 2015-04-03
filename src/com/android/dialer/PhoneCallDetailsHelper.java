@@ -19,8 +19,6 @@ package com.android.dialer;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
-import android.mokee.location.PhoneLocation;
-import android.mokee.utils.MoKeeUtils;
 import android.provider.CallLog;
 import android.provider.CallLog.Calls;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
@@ -219,14 +217,13 @@ public class PhoneCallDetailsHelper {
                 && !mPhoneNumberUtilsWrapper.isVoicemailNumber(details.accountHandle,
                         details.number)) {
 
-            CharSequence locationLabel = MoKeeUtils.isSupportLanguage(true) ? PhoneLocation.getPhoneLocation(String.valueOf(details.number)) : details.geocode;
             if (details.numberLabel == ContactInfo.GEOCODE_AS_LABEL) {
-                numberFormattedLabel = locationLabel;
+                numberFormattedLabel = details.geocode;
             } else {
                 numberFormattedLabel = Phone.getTypeLabel(mResources, details.numberType,
                         details.numberLabel);
-                if (!TextUtils.isEmpty(locationLabel)) {
-                    numberFormattedLabel = numberFormattedLabel + mResources.getString(R.string.list_delimeter) + locationLabel;               
+                if (!TextUtils.isEmpty(details.geocode)) {
+                    numberFormattedLabel = numberFormattedLabel + mResources.getString(R.string.list_delimeter) + details.geocode;
                 }
             }
         }
