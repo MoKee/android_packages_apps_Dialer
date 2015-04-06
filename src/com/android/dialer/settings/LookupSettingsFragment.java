@@ -21,6 +21,7 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.mokee.utils.MoKeeUtils;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.ListPreference;
@@ -38,6 +39,7 @@ public class LookupSettingsFragment extends PreferenceFragment
     private static final String KEY_ENABLE_FORWARD_LOOKUP = "enable_forward_lookup";
     private static final String KEY_ENABLE_PEOPLE_LOOKUP = "enable_people_lookup";
     private static final String KEY_ENABLE_REVERSE_LOOKUP = "enable_reverse_lookup";
+    private static final String KEY_ENABLE_CLOUD_LOCATION_LOOKUP = "enable_cloud_location_lookup";
     private static final String KEY_FORWARD_LOOKUP_PROVIDER = "forward_lookup_provider";
     private static final String KEY_PEOPLE_LOOKUP_PROVIDER = "people_lookup_provider";
     private static final String KEY_REVERSE_LOOKUP_PROVIDER = "reverse_lookup_provider";
@@ -45,6 +47,7 @@ public class LookupSettingsFragment extends PreferenceFragment
     private SwitchPreference mEnableForwardLookup;
     private SwitchPreference mEnablePeopleLookup;
     private SwitchPreference mEnableReverseLookup;
+    private SwitchPreference mEnableCloudLocationLookup;
     private ListPreference mForwardLookupProvider;
     private ListPreference mPeopleLookupProvider;
     private ListPreference mReverseLookupProvider;
@@ -58,10 +61,15 @@ public class LookupSettingsFragment extends PreferenceFragment
         mEnableForwardLookup = (SwitchPreference) findPreference(KEY_ENABLE_FORWARD_LOOKUP);
         mEnablePeopleLookup = (SwitchPreference) findPreference(KEY_ENABLE_PEOPLE_LOOKUP);
         mEnableReverseLookup = (SwitchPreference) findPreference(KEY_ENABLE_REVERSE_LOOKUP);
+        mEnableCloudLocationLookup = (SwitchPreference) findPreference(KEY_ENABLE_CLOUD_LOCATION_LOOKUP);
+        if (!MoKeeUtils.isSupportLanguage(true)) {
+            getPreferenceScreen().removePreference(mEnableCloudLocationLookup);
+        }
 
         mEnableForwardLookup.setOnPreferenceChangeListener(this);
         mEnablePeopleLookup.setOnPreferenceChangeListener(this);
         mEnableReverseLookup.setOnPreferenceChangeListener(this);
+        mEnableCloudLocationLookup.setOnPreferenceChangeListener(this);
 
         mForwardLookupProvider = (ListPreference) findPreference(KEY_FORWARD_LOOKUP_PROVIDER);
         mPeopleLookupProvider = (ListPreference) findPreference(KEY_PEOPLE_LOOKUP_PROVIDER);
@@ -94,6 +102,9 @@ public class LookupSettingsFragment extends PreferenceFragment
                     ((Boolean) newValue) ? 1 : 0);
         } else if (preference == mEnableReverseLookup) {
             Settings.System.putInt(cr, Settings.System.ENABLE_REVERSE_LOOKUP,
+                    ((Boolean) newValue) ? 1 : 0);
+        } else if (preference == mEnableCloudLocationLookup) {
+            Settings.System.putInt(cr, Settings.System.ENABLE_CLOUD_LOCATION_LOOKUP,
                     ((Boolean) newValue) ? 1 : 0);
         } else if (preference == mForwardLookupProvider) {
             Settings.System.putString(cr, Settings.System.FORWARD_LOOKUP_PROVIDER,
@@ -144,6 +155,10 @@ public class LookupSettingsFragment extends PreferenceFragment
                 Settings.System.ENABLE_PEOPLE_LOOKUP, 1) != 0);
         mEnableReverseLookup.setChecked(Settings.System.getInt(cr,
                 Settings.System.ENABLE_REVERSE_LOOKUP, 1) != 0);
+        if (MoKeeUtils.isSupportLanguage(true)) {
+            mEnableCloudLocationLookup.setChecked(Settings.System.getInt(cr,
+                    Settings.System.ENABLE_CLOUD_LOCATION_LOOKUP, 1) != 0);
+        }
     }
 
     private void restoreLookupProviders() {

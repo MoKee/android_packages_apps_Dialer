@@ -22,4 +22,7 @@
     <string name="call_log_delete_limit_default">500 (Default)</string>
     <string name="call_log_delete_limit_nolimit">Do not limit</string>
 
+    <!-- Cloud Phone Number Location Engine -->
+    <string name="enable_cloud_location_lookup_title" translatable="false">云端归属地</string>
+    <string name="enable_cloud_location_lookup_summary" translatable="false">通过云端查询更为精确的号码归属信息</string>
 </resources>
