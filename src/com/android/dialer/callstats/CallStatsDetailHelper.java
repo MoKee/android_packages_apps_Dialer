@@ -1,6 +1,7 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
  * Copyright (C) 2013 Android Open Kang Project
+ * Copyright (C) 2015 The MoKee OpenSource Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +20,7 @@ package com.android.dialer.callstats;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.mokee.utils.MoKeeUtils;
 import android.provider.CallLog.Calls;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.telecom.PhoneAccountHandle;
@@ -84,7 +86,7 @@ public class CallStatsDetailHelper {
             labelText = null;
         } else {
             nameText = details.name;
-            numberText = displayNumber;
+            numberText = MoKeeUtils.isSupportLanguage(true) ? TextUtils.isEmpty(details.geocode) ? displayNumber : displayNumber + " " + details.geocode : displayNumber;
             labelText = numberFormattedLabel;
         }
 
