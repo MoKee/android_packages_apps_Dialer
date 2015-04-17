@@ -21,9 +21,9 @@
   <string name="lookup_settings_label">Phone number lookup</string>
   <string name="lookup_settings_description">Lookup of unknown phone numbers</string>
   <string name="enable_forward_lookup_title">Forward lookup</string>
-  <string name="enable_forward_lookup_summary">Show nearby places when searching in the dialler</string>
+  <string name="enable_forward_lookup_summary">Show nearby places when searching in the dialer</string>
   <string name="enable_people_lookup_title">People lookup</string>
-  <string name="enable_people_lookup_summary">Show online results for people when searching in the dialler</string>
+  <string name="enable_people_lookup_summary">Show online results for people when searching in the dialer</string>
   <string name="enable_reverse_lookup_title">Reverse lookup</string>
   <string name="enable_reverse_lookup_summary">Look up information about the person or place for unknown numbers on incoming calls</string>
   <string name="forward_lookup_provider_title">Forward lookup provider</string>
@@ -74,7 +74,7 @@
   <string name="speed_dial_delete">Delete</string>
   <string name="speed_dial_unassigned_dialog_title">Key unassigned</string>
   <string name="speed_dial_unassigned_dialog_message">No speed dial action is assigned to number key \'<xliff:g id="number">%s</xliff:g>\'. Do you want to assign an action now?</string>
-  <string name="dialog_speed_dial_airplane_mode_message">To use speed dial, first turn off aeroplane mode.</string>
+  <string name="dialog_speed_dial_airplane_mode_message">To use speed dial, first turn off airplane mode.</string>
   <string name="yes">Yes</string>
   <string name="no">No</string>
   <string name="incall_vibration_category_title">In-call vibration</string>
