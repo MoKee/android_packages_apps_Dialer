@@ -21,20 +21,16 @@ import android.app.Application;
 import com.android.contacts.common.ContactPhotoManager;
 import com.android.contacts.common.extensions.ExtensionsFactory;
 import com.android.contacts.commonbind.analytics.AnalyticsUtil;
-import com.mokee.volley.RequestQueue;
-import com.mokee.volley.toolbox.Volley;
 
 public class DialerApplication extends Application {
 
     private ContactPhotoManager mContactPhotoManager;
-    private RequestQueue mRequestQueue;
 
     @Override
     public void onCreate() {
         super.onCreate();
         ExtensionsFactory.init(getApplicationContext());
         AnalyticsUtil.initialize(this);
-        mRequestQueue = Volley.newRequestQueue(this);
     }
 
     @Override
@@ -50,9 +46,4 @@ public class DialerApplication extends Application {
 
         return super.getSystemService(name);
     }
-
-    public RequestQueue getQueue() {
-        return mRequestQueue;
-    }
-
 }
