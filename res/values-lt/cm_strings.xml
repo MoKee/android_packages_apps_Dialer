@@ -96,6 +96,4 @@
   <string name="start_call_playback">Paleisti įrašą</string>
   <string name="stop_call_playback">Sustabdyti</string>
   <string name="call_playback_error_message">Nepavyko paleisti įrašo</string>
-  <string name="smart_dialer_title">Sumanusis skambutis</string>
-  <string name="smart_dialer_summary">Automatiškai skambinti kontaktui pridedant įrenginį prie ausies</string>
 </resources>
