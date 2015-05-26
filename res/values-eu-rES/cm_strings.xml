@@ -96,6 +96,4 @@
   <string name="start_call_playback">Erreproduzitu grabazioa</string>
   <string name="stop_call_playback">Gelditu</string>
   <string name="call_playback_error_message">Ezin izan da grabazioa erreproduzitu</string>
-  <string name="smart_dialer_title">Dei adimentsua</string>
-  <string name="smart_dialer_summary">Automatikoki deitu kontaktua gailua belarrira hurbilduz</string>
 </resources>
