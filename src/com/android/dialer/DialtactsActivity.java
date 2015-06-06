@@ -536,7 +536,7 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
             // will not cause an extra view to be sent out on rotation
             if (mIsDialpadShown) {
                 AnalyticsUtil.sendScreenView(mDialpadFragment, this);
-                mDialpadFragment.enableSmartCall(true);
+                mDialpadFragment.enableDirectCall(true);
             }
             mIsRestarting = false;
         }
@@ -758,7 +758,7 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
             enterSearchUi(true /* isSmartDial */, mSearchQuery);
         }
 
-        mDialpadFragment.enableSmartCall(true);
+        mDialpadFragment.enableDirectCall(true);
     }
 
     private void onFloatingActionButtonHidden() {
@@ -819,7 +819,7 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
             }
         }
 
-        mDialpadFragment.enableSmartCall(false);
+        mDialpadFragment.enableDirectCall(false);
     }
 
     /**

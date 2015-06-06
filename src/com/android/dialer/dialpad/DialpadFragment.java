@@ -284,6 +284,22 @@ public class DialpadFragment extends Fragment
 
     private static final String PREF_DIGITS_FILLED_BY_INTENT = "pref_digits_filled_by_intent";
 
+    private boolean isDirectCallEnabled() {
+        return Settings.System.getInt(contentResolver, Settings.System.DIRECT_CALL_FOR_DIALER, 0) == 1;
+    }
+
+    public void enableDirectCall(boolean enable) {
+        if (mProximitySensorManager == null || !isDirectCallEnabled || isPhoneInUse()) {
+            return;
+        }
+
+        if (enable) {
+            mProximitySensorManager.enable();
+        } else {
+            mProximitySensorManager.disable();
+        }
+    }
+
     private TelephonyManager getTelephonyManager() {
         return (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
     }
@@ -659,11 +675,6 @@ public class DialpadFragment extends Fragment
         stopWatch.lap("qloc");
 
         final ContentResolver contentResolver = activity.getContentResolver();
-
-        if (Settings.System.getInt(contentResolver, Settings.System.DIRECT_CALL_FOR_DIALER, 0) == 1
-              && !isPhoneInUse()) {
-            mProximitySensorManager.enable();
-        }
 
         // retrieve the DTMF tone play back setting.
         mDTMFToneEnabled = Settings.System.getInt(contentResolver,
