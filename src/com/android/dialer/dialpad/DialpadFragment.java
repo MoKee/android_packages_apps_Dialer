@@ -285,11 +285,11 @@ public class DialpadFragment extends Fragment
     private static final String PREF_DIGITS_FILLED_BY_INTENT = "pref_digits_filled_by_intent";
 
     private boolean isDirectCallEnabled() {
-        return Settings.System.getInt(contentResolver, Settings.System.DIRECT_CALL_FOR_DIALER, 0) == 1;
+        return Settings.System.getInt(getActivity().getContentResolver(), Settings.System.DIRECT_CALL_FOR_DIALER, 0) == 1;
     }
 
     public void enableDirectCall(boolean enable) {
-        if (mProximitySensorManager == null || !isDirectCallEnabled || isPhoneInUse()) {
+        if (mProximitySensorManager == null || !isDirectCallEnabled() || isPhoneInUse()) {
             return;
         }
 
