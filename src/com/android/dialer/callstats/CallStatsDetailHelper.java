@@ -50,7 +50,7 @@ public class CallStatsDetailHelper {
             PhoneNumberUtilsWrapper phoneUtils) {
         mContext = context;
         mResources = resources;
-        mPhoneNumberHelper = new PhoneNumberDisplayHelper(context, resources);
+        mPhoneNumberHelper = new PhoneNumberDisplayHelper(context, resources, phoneUtils);
         mPhoneNumberUtilsWrapper = phoneUtils;
     }
 

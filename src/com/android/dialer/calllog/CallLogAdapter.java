@@ -244,10 +244,11 @@ public class CallLogAdapter extends GroupingListAdapter
         mPhotoSize = resources.getDimensionPixelSize(R.dimen.contact_photo_size);
 
         mContactPhotoManager = ContactPhotoManager.getInstance(mContext);
-        mPhoneNumberHelper = new PhoneNumberDisplayHelper(mContext, resources);
-        mAdapterHelper = new CallLogAdapterHelper(context, this,
-                contactInfoHelper, mPhoneNumberHelper);
         mPhoneNumberUtilsWrapper = new PhoneNumberUtilsWrapper(mContext);
+        mPhoneNumberHelper = new PhoneNumberDisplayHelper(mContext,
+                resources, mPhoneNumberUtilsWrapper);
+        mAdapterHelper = new CallLogAdapterHelper(mContext, this,
+                contactInfoHelper, mPhoneNumberHelper, mPhoneNumberUtilsWrapper);
         PhoneCallDetailsHelper phoneCallDetailsHelper =
                 new PhoneCallDetailsHelper(mContext, resources, mPhoneNumberUtilsWrapper);
         mCallLogViewsHelper =
@@ -466,7 +467,7 @@ public class CallLogAdapter extends GroupingListAdapter
                     sourceType, accountHandle, features, dataUsage, transcription);
         }
 
-        mCallLogViewsHelper.setPhoneCallDetails(mContext, views, details);
+        mCallLogViewsHelper.setPhoneCallDetails(mContext, views, details, mFilterString);
 
         int contactType = ContactPhotoManager.TYPE_DEFAULT;
 
