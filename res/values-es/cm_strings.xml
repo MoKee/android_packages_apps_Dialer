@@ -96,4 +96,5 @@
   <string name="start_call_playback">Reproducir grabación</string>
   <string name="stop_call_playback">Detener</string>
   <string name="call_playback_error_message">Ocurrió un error al reproducir la grabación</string>
+  <string name="smart_dialer_title">Llamada inteligente</string>
 </resources>

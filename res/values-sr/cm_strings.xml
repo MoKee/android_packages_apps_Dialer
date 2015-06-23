@@ -99,4 +99,6 @@
   <string name="sensors_category_title">Опције сензора</string>
   <string name="smart_mute_title">Паметно утишавање</string>
   <string name="smart_mute_summary">Утишај долазећи позив окретањем уређаја</string>
+  <string name="smart_dialer_title">Паметни позив</string>
+  <string name="smart_dialer_summary">Аутоматски позови бирани број примицањем уређаја увету</string>
 </resources>
