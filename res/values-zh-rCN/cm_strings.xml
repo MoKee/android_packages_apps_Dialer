@@ -99,5 +99,4 @@
   <string name="sensors_category_title">传感器选项</string>
   <string name="smart_mute_title">智能静音</string>
   <string name="smart_mute_summary">通过翻转设备静音来电</string>
-  <string name="smart_dialer_title">智能呼叫</string>
 </resources>

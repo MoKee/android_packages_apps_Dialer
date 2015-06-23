@@ -90,5 +90,4 @@
   <string name="start_call_playback">Відтворення запису</string>
   <string name="stop_call_playback">Зупинити</string>
   <string name="call_playback_error_message">Не вдалося відтворити запис</string>
-  <string name="smart_dialer_title">Розумний виклик</string>
 </resources>

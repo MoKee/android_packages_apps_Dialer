@@ -99,5 +99,4 @@
   <string name="sensors_category_title">ตั้งค่าเซนเซอร์</string>
   <string name="smart_mute_title">ปิดเสียงอัจฉริยะ</string>
   <string name="smart_mute_summary">ปิดเสียงเรียกเข้าโดยการพลิกอุปกรณ์</string>
-  <string name="smart_dialer_title">การโทรอัจฉริยะ</string>
 </resources>

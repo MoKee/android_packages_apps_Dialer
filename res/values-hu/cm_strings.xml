@@ -99,5 +99,4 @@
   <string name="sensors_category_title">Szenzor beállítások</string>
   <string name="smart_mute_title">Intelligens némítás</string>
   <string name="smart_mute_summary">Elnémítja a bejövő hívást a készülék lefordításával</string>
-  <string name="smart_dialer_title">Intelligens hívás</string>
 </resources>
