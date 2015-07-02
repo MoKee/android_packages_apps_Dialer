@@ -99,6 +99,4 @@
   <string name="sensors_category_title">Параметри датчиків</string>
   <string name="smart_mute_title">Розумне заглушування</string>
   <string name="smart_mute_summary">Перегорніть пристрій, щоб вимкнути звук вхідного виклику</string>
-  <string name="smart_dialer_title">Розумний виклик</string>
-  <string name="smart_dialer_summary">Автоматично набирати номер при прикладанні пристрою до вуха</string>
 </resources>

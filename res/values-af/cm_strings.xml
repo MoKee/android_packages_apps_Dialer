@@ -99,6 +99,4 @@
   <string name="sensors_category_title">Sensor opsies</string>
   <string name="smart_mute_title">Slim demp</string>
   <string name="smart_mute_summary">Demp die inkomende oproep deur die toestel om te draai</string>
-  <string name="smart_dialer_title">Slim oproep</string>
-  <string name="smart_dialer_summary">Outomaties skakel die nommer deur die toestel na jou oor toe te beweeg</string>
 </resources>
