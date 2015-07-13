@@ -57,7 +57,6 @@ public class MiniMarkActivity extends Activity implements AdapterView.OnItemClic
     protected void onResume() {
         super.onResume();
         tvMarkNumber.setText(String.format(getString(R.string.cloud_location_lookup_mark_title), phoneNumber));
-        
     }
 
     public void updateUserMarkInfo(String number, String userMark, int phoneType) {
@@ -65,7 +64,7 @@ public class MiniMarkActivity extends Activity implements AdapterView.OnItemClic
         ContentValues values = new ContentValues();
         values.put(Calls.GEOCODED_LOCATION, userMark);
         getContentResolver().update(Calls.CONTENT_URI, values,
-                Calls.NUMBER + " = \"" + number + "\" OR PHONE_NUMBERS_EQUAL(number, ?, " +  
+                Calls.NUMBER + " = \"" + number + "\" OR PHONE_NUMBERS_EQUAL(number, ?, " +
                         (mUseStrictPhoneNumberComparation ? 1 : 0) + ")", null);
         finish();
     }
