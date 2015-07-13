@@ -92,5 +92,4 @@
   <string name="sensors_category_title">Sensoralternativ</string>
   <string name="smart_mute_title">Smart ljudavstängning</string>
   <string name="smart_mute_summary">Stäng av ljudet av det inkommande samtalet genom att vända på enheten</string>
-  <string name="smart_dialer_summary">Ring automatiskt det uppringda numret genom att flytta enheten till örat</string>
 </resources>
