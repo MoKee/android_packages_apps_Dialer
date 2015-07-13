@@ -50,6 +50,8 @@ public final class CallLogListItemViews {
     public TextView voicemailButtonView;
     /** The "details" action button - assigned only when the action section is expanded. */
     public TextView detailsButtonView;
+    /** The "usermark" action button - assigned only when the action section is expanded. */
+    public TextView usermarkButtonView;
     /** The "report" action button. */
     public TextView reportButtonView;
 
@@ -143,6 +145,7 @@ public final class CallLogListItemViews {
         views.callBackButtonView = new TextView(context);
         views.voicemailButtonView = new TextView(context);
         views.detailsButtonView = new TextView(context);
+        views.usermarkButtonView = new TextView(context);
         views.reportButtonView = new TextView(context);
         views.actionsView = new View(context);
         return views;

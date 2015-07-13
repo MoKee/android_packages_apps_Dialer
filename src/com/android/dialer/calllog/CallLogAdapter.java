@@ -54,6 +54,7 @@ import com.android.contacts.common.model.Contact;
 import com.android.contacts.common.model.ContactLoader;
 import com.android.contacts.common.util.UriUtils;
 import com.android.dialer.DialtactsActivity;
+import com.android.dialer.MiniMarkActivity;
 import com.android.dialer.PhoneCallDetails;
 import com.android.dialer.PhoneCallDetailsHelper;
 import com.android.dialer.R;
@@ -652,6 +653,10 @@ public class CallLogAdapter extends GroupingListAdapter
             views.detailsButtonView = (TextView)views.actionsView.findViewById(R.id.details_action);
         }
 
+        if (views.usermarkButtonView == null) {
+            views.usermarkButtonView = (TextView)views.actionsView.findViewById(R.id.user_mark_action);
+        }
+
         if (views.reportButtonView == null) {
             views.reportButtonView = (TextView)views.actionsView.findViewById(R.id.report_action);
             views.reportButtonView.setOnClickListener(new View.OnClickListener() {
@@ -673,7 +678,7 @@ public class CallLogAdapter extends GroupingListAdapter
      *
      * @param views  The call log item views.
      */
-    private void bindActionButtons(CallLogListItemViews views) {
+    private void bindActionButtons(final CallLogListItemViews views) {
         boolean canPlaceCallToNumber =
                 PhoneNumberUtilsWrapper.canPlaceCallsTo(views.number, views.numberPresentation);
         // Set return call intent, otherwise null.
@@ -738,6 +743,7 @@ public class CallLogAdapter extends GroupingListAdapter
             views.voicemailButtonView.setVisibility(View.VISIBLE);
 
             views.detailsButtonView.setVisibility(View.GONE);
+            views.usermarkButtonView.setVisibility(View.GONE);
         } else {
             views.voicemailButtonView.setTag(null);
             views.voicemailButtonView.setVisibility(View.GONE);
@@ -747,6 +753,15 @@ public class CallLogAdapter extends GroupingListAdapter
                     IntentProvider.getCallDetailIntentProvider(
                             views.rowId, views.callIds, null)
             );
+
+            views.usermarkButtonView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, MiniMarkActivity.class);
+                    intent.putExtra("number", views.number);
+                    DialerUtils.startActivityWithErrorToast(mContext, intent);
+                }
+            });
 
             if (views.canBeReportedAsInvalid && !views.reported) {
                 views.reportButtonView.setVisibility(View.VISIBLE);

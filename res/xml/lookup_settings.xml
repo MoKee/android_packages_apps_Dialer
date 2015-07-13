@@ -65,8 +65,8 @@
 
     <SwitchPreference
         android:key="enable_cloud_location_lookup"
-        android:title="@string/enable_cloud_location_lookup_title"
-        android:summary="@string/enable_cloud_location_lookup_summary"
+        android:title="@string/cloud_location_lookup_enable_title"
+        android:summary="@string/cloud_location_lookup_enable_summary"
         android:defaultValue="true"
         android:persistent="false" />
 
