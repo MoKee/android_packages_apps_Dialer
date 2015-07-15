@@ -23,7 +23,7 @@
     <string name="call_log_delete_limit_nolimit">Do not limit</string>
 
     <!-- Cloud Phone Number Location Engine -->
-    <string name="call_log_action_user_mark">Mark</string>
+    <string name="call_log_action_user_mark">MARK</string>
     <string name="description_user_mark_action">Mark for <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g></string>
     <string name="cloud_location_lookup_mark_title">Mark %s </string>
     <string name="cloud_location_lookup_mark_hint">Custom caller info</string>
