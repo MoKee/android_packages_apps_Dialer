@@ -31,12 +31,12 @@
     </string-array>
 
     <string-array name="cloud_location_lookup_mark_entries" translatable="false">
-        <item>@string/cloud_location_lookup_mark_harass</item>
+        <item>@string/cloud_location_lookup_mark_harassment</item>
         <item>@string/cloud_location_lookup_mark_fraud</item>
         <item>@string/cloud_location_lookup_mark_advertisement</item>
         <item>@string/cloud_location_lookup_mark_agency</item>
-        <item>@string/cloud_location_lookup_mark_takeout</item>
-        <item>@string/cloud_location_lookup_mark_deliver</item>
+        <item>@string/cloud_location_lookup_mark_takeaway</item>
+        <item>@string/cloud_location_lookup_mark_delivery</item>
         <item>@string/cloud_location_lookup_mark_service</item>
         <item>@string/cloud_location_lookup_mark_taxi</item>
     </string-array>
