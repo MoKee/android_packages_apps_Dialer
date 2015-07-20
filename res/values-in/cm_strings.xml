@@ -99,6 +99,4 @@
   <string name="sensors_category_title">Opsi sensor</string>
   <string name="smart_mute_title">Senyap Pintar</string>
   <string name="smart_mute_summary">Senyapkan telepon masuk dengan membalik perangkat</string>
-  <string name="smart_dialer_title">Panggilan pintar</string>
-  <string name="smart_dialer_summary">Otomatis telpon nomor yang dimasukkan dengan mendekatkan perangkat ke telinga</string>
 </resources>
