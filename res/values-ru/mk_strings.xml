@@ -18,5 +18,5 @@
   <string name="call_log_delete_limit_title">Ограничение записей в журнале вызовов</string>
   <string name="call_log_delete_limit_summary">Хранить <xliff:g id="count">%1$s</xliff:g> записей о вызовах</string>
   <string name="call_log_delete_limit_default">500 (по умолчанию)</string>
-  <string name="call_log_delete_limit_nolimit">Ограничение отсутствует</string>
+  <string name="call_log_delete_limit_nolimit">Не ограничивать</string>
 </resources>
