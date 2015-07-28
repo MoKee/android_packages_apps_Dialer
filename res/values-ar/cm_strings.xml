@@ -99,6 +99,4 @@
   <string name="sensors_category_title">خيارات المستشعر</string>
   <string name="smart_mute_title">الكتم الذكي</string>
   <string name="smart_mute_summary">كتم صوت المكالمة الواردة بقلب الجهاز</string>
-  <string name="smart_dialer_title">المكالمة الذكية</string>
-  <string name="smart_dialer_summary">يطلب جهة الاتصال تلقائياً بمجرد أن ترفع هاتفك إلى أذنك</string>
 </resources>

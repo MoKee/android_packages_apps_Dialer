@@ -99,6 +99,4 @@
   <string name="sensors_category_title">Možnosti tipala</string>
   <string name="smart_mute_title">Pametno utišanje</string>
   <string name="smart_mute_summary">Utišaj dohodne klice z obračanjem naprave</string>
-  <string name="smart_dialer_title">Pametni klic</string>
-  <string name="smart_dialer_summary">Samodejno pokliči klicano številko s pomikom telefona k ušesu</string>
 </resources>
