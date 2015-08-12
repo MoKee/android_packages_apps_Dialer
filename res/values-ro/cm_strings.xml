@@ -96,5 +96,4 @@
   <string name="call_playback_error_message">Nu s-a reușit redarea înregistrării</string>
   <string name="sensors_category_title">Opțiuni senzor</string>
   <string name="smart_mute_title">Mut inteligent</string>
-  <string name="smart_dialer_title">Apel inteligent</string>
 </resources>
