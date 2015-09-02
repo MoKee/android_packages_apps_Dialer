@@ -47,7 +47,7 @@ LOCAL_STATIC_JAVA_LIBRARIES := \
     com.android.vcard \
     guava \
     libphonenumber \
-    org.cyanogenmod.platform.sdk
+    org.mokee.platform.sdk
 
 LOCAL_PACKAGE_NAME := Dialer
 LOCAL_CERTIFICATE := shared
