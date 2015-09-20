@@ -27,7 +27,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.mokee.cloud.location.OfflineNumber;
+import com.mokee.cloud.location.LocationUtils;
 
 
 public class MiniMarkActivity extends Activity implements AdapterView.OnItemClickListener {
@@ -60,7 +60,7 @@ public class MiniMarkActivity extends Activity implements AdapterView.OnItemClic
     }
 
     public void updateUserMarkInfo(String number, String userMark, int phoneType) {
-        OfflineNumber.updateUserMarkInfo(getContentResolver(), number, userMark, phoneType);
+        LocationUtils.updateUserMarkInfo(getContentResolver(), number, userMark, phoneType);
         ContentValues values = new ContentValues();
         values.put(Calls.GEOCODED_LOCATION, userMark);
         getContentResolver().update(Calls.CONTENT_URI, values,
