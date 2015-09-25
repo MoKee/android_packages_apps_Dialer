@@ -22,7 +22,8 @@
   <string name="call_log_action_user_mark">标记</string>
   <string name="description_user_mark_action">为 <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> 标记</string>
   <string name="cloud_location_lookup_mark_title">标记 %s 为：</string>
-  <string name="cloud_location_lookup_mark_hint">自定义来电身份信息</string>
+  <string name="cloud_location_lookup_mark_as">标记该号码的身份信息</string>
+  <string name="cloud_location_lookup_mark_custom">自定义来电身份信息</string>
   <string name="cloud_location_lookup_mark_done">完成</string>
   <string name="cloud_location_lookup_mark_harassment">骚扰电话</string>
   <string name="cloud_location_lookup_mark_fraud">诈骗电话</string>

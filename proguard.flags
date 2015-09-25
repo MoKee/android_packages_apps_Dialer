@@ -17,6 +17,8 @@
   *;
 }
 
+-dontwarn mokee.support.widget.snackbar.**
+
 -dontwarn com.mokee.cloud.**
 -keep class com.mokee.cloud.** {*;}
 

@@ -26,7 +26,8 @@
     <string name="call_log_action_user_mark">MARK AS</string>
     <string name="description_user_mark_action">Mark <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> as</string>
     <string name="cloud_location_lookup_mark_title">Mark %s </string>
-    <string name="cloud_location_lookup_mark_hint">Custom caller info</string>
+    <string name="cloud_location_lookup_mark_as">Mark caller info</string>
+    <string name="cloud_location_lookup_mark_custom">Custom caller info</string>
     <string name="cloud_location_lookup_mark_done">Done</string>
     <string name="cloud_location_lookup_enable_title" translatable="false">云端归属地</string>
     <string name="cloud_location_lookup_enable_summary" translatable="false">通过云端查询更为精确的号码归属信息</string>

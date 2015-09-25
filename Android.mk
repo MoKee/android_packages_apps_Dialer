@@ -6,6 +6,7 @@ LOCAL_MODULE_TAGS := optional
 incallui_dir := ../InCallUI
 contacts_common_dir := ../ContactsCommon
 phone_common_dir := ../PhoneCommon
+mokeesupport_dir := ../../../frameworks/support/mk/widget
 
 src_dirs := src \
     $(incallui_dir)/src \
@@ -15,7 +16,8 @@ src_dirs := src \
 res_dirs := res \
     $(incallui_dir)/res \
     $(contacts_common_dir)/res \
-    $(phone_common_dir)/res
+    $(phone_common_dir)/res \
+    $(mokeesupport_dir)/res
 
 LOCAL_SRC_FILES := $(call all-java-files-under, $(src_dirs)) $(call all-Iaidl-files-under, $(src_dirs))
 LOCAL_SRC_FILES += ../../providers/ContactsProvider/src/com/android/providers/contacts/NameSplitter.java \
@@ -26,6 +28,7 @@ LOCAL_ASSET_DIR := $(LOCAL_PATH)/assets
 
 LOCAL_AAPT_FLAGS := \
     --auto-add-overlay \
+    --extra-packages mokee.support.widget \
     --extra-packages com.android.incallui \
     --extra-packages com.android.contacts.common \
     --extra-packages com.android.phone.common
@@ -41,6 +44,7 @@ LOCAL_STATIC_JAVA_LIBRARIES := \
     android-support-v13 \
     android-support-v4 \
     android-ex-variablespeed \
+    mokee-support-widget \
     libphonenumber \
     libgeocoding
 
