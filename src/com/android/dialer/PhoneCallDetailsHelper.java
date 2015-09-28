@@ -20,7 +20,6 @@ package com.android.dialer;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
-import android.mokee.utils.MoKeeUtils;
 import android.provider.CallLog;
 import android.provider.CallLog.Calls;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
@@ -213,7 +212,7 @@ public class PhoneCallDetailsHelper {
             } else {
                 numberFormattedLabel = Phone.getTypeLabel(mResources, details.numberType,
                         details.numberLabel);
-                if (!TextUtils.isEmpty(details.geocode) && MoKeeUtils.isSupportLanguage(true)) {
+                if (!TextUtils.isEmpty(details.geocode)) {
                     numberFormattedLabel = numberFormattedLabel + mResources.getString(R.string.list_delimeter) + details.geocode;
                 }
             }

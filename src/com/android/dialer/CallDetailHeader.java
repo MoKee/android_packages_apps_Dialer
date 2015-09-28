@@ -122,7 +122,7 @@ public class CallDetailHeader {
 
         if (!TextUtils.isEmpty(dataName)) {
             mCallerName.setText(dataName);
-            mCallerNumber.setText(callLocationOrType + " " + displayNumberStr);
+            mCallerNumber.setText(displayNumberStr + " " + callLocationOrType);
         } else {
             mCallerName.setText(displayNumberStr);
             if (!TextUtils.isEmpty(callLocationOrType)) {
@@ -143,8 +143,9 @@ public class CallDetailHeader {
 
     private CharSequence getNumberTypeOrLocation(Data data) {
         if (!TextUtils.isEmpty(data.getName())) {
-            return Phone.getTypeLabel(mResources, data.getNumberType(),
+            CharSequence label = Phone.getTypeLabel(mResources, data.getNumberType(),
                     data.getNumberLabel());
+            return TextUtils.isEmpty(data.getGeocode()) ? label : label + " " + data.getGeocode();
         } else {
             return data.getGeocode();
         }

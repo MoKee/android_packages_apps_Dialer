@@ -20,7 +20,6 @@ package com.android.dialer.callstats;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.mokee.utils.MoKeeUtils;
 import android.provider.CallLog.Calls;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.telecom.PhoneAccountHandle;
@@ -86,7 +85,7 @@ public class CallStatsDetailHelper {
             labelText = null;
         } else {
             nameText = details.name;
-            numberText = MoKeeUtils.isSupportLanguage(true) ? TextUtils.isEmpty(details.geocode) ? displayNumber : displayNumber + " " + details.geocode : displayNumber;
+            numberText = TextUtils.isEmpty(details.geocode) ? displayNumber : displayNumber + " " + details.geocode;
             labelText = numberFormattedLabel;
         }
 
