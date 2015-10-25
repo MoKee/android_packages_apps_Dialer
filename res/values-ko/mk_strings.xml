@@ -19,4 +19,18 @@
   <string name="call_log_delete_limit_summary"><xliff:g id="count">%1$s</xliff:g> 전화목록 유지</string>
   <string name="call_log_delete_limit_default">500 (디폴트)</string>
   <string name="call_log_delete_limit_nolimit">제한 하지 않습니다</string>
+  <string name="call_log_action_user_mark">마크로</string>
+  <string name="description_user_mark_action">마크 <xliff:g id="nameOrNumber" example="John Smith"> ^1 </xliff:g>로</string>
+  <string name="cloud_location_lookup_mark_title">마크 %s </string>
+  <string name="cloud_location_lookup_mark_as">발신자 정보 표시</string>
+  <string name="cloud_location_lookup_mark_custom">사용자 지정 호출자 정보</string>
+  <string name="cloud_location_lookup_mark_done">삭제 성공</string>
+  <string name="cloud_location_lookup_mark_harassment">성희롱</string>
+  <string name="cloud_location_lookup_mark_fraud">사기</string>
+  <string name="cloud_location_lookup_mark_advertisement">광고</string>
+  <string name="cloud_location_lookup_mark_agency">기관</string>
+  <string name="cloud_location_lookup_mark_takeaway">테이크 아웃</string>
+  <string name="cloud_location_lookup_mark_delivery">전달유지</string>
+  <string name="cloud_location_lookup_mark_service">고객 서비스</string>
+  <string name="cloud_location_lookup_mark_taxi">택시</string>
 </resources>

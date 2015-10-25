@@ -19,4 +19,16 @@
   <string name="call_log_delete_limit_summary">Mantener el registro <xliff:g id="count">%1$s</xliff:g></string>
   <string name="call_log_delete_limit_default">500 (por defecto)</string>
   <string name="call_log_delete_limit_nolimit">No limite</string>
+  <string name="call_log_action_user_mark">MARCAR COMO</string>
+  <string name="description_user_mark_action">Marcar <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> como</string>
+  <string name="cloud_location_lookup_mark_title">Marcar %s </string>
+  <string name="cloud_location_lookup_mark_done">Completado</string>
+  <string name="cloud_location_lookup_mark_harassment">Acoso</string>
+  <string name="cloud_location_lookup_mark_fraud">Fraude</string>
+  <string name="cloud_location_lookup_mark_advertisement">Anuncio</string>
+  <string name="cloud_location_lookup_mark_agency">Agencia</string>
+  <string name="cloud_location_lookup_mark_takeaway">Para llevar</string>
+  <string name="cloud_location_lookup_mark_delivery">Envío</string>
+  <string name="cloud_location_lookup_mark_service">Atención al cliente</string>
+  <string name="cloud_location_lookup_mark_taxi">Taxi</string>
 </resources>
