@@ -15,13 +15,15 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="call_log_delete_limit_title">Länge des Anrufprotokolls</string>
+  <string name="call_log_delete_limit_title">Grenze des Anrufprotokolls</string>
   <string name="call_log_delete_limit_summary">Behalten von <xliff:g id="count">%1$s</xliff:g> Anrufen</string>
   <string name="call_log_delete_limit_default">500 (Standard)</string>
   <string name="call_log_delete_limit_nolimit">Keine Beschränkung</string>
   <string name="call_log_action_user_mark">Markieren als</string>
   <string name="description_user_mark_action">Markieren <xliff:g id="nameOrNumber" example="John Smith"> ^ 1 </xliff:g> als</string>
   <string name="cloud_location_lookup_mark_title">Markiere %s </string>
+  <string name="cloud_location_lookup_mark_as">Mark Anrufer info</string>
+  <string name="cloud_location_lookup_mark_custom">Benutzerdefinierte Anrufer info</string>
   <string name="cloud_location_lookup_mark_done">Fertig</string>
   <string name="cloud_location_lookup_mark_harassment">Belästigung</string>
   <string name="cloud_location_lookup_mark_fraud">Betrug</string>
