@@ -62,7 +62,7 @@
      start requests, even if they happen immediately after the user
      presses home. -->
     <uses-permission android:name="android.permission.STOP_APP_SWITCHES" />
-    <uses-permission android:name="cyanogenmod.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="mokee.permission.WRITE_SETTINGS" />
 
     <application
         android:name="DialerApplication"
@@ -263,6 +263,16 @@
                  <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
+
+        <activity android:name=".SpeedDialListActivity"
+            android:theme="@style/DialtactsTheme"
+            android:label="@string/speed_dial_settings"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.android.phone.action.SPEED_DIAL_SETTINGS" />
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
 
         <receiver android:name=".interactions.UndemoteOutgoingCallReceiver">
             <intent-filter>
