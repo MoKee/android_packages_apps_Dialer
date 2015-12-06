@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2015 The Android Open Source Project
+ * Copyright (C) 2015-2016 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +22,7 @@ import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.provider.Settings;
 import android.text.TextUtils;
 
 import com.android.dialer.R;
@@ -32,8 +34,10 @@ import java.util.Locale;
 public class DisplayOptionsSettingsFragment extends PreferenceFragment
         implements Preference.OnPreferenceChangeListener {
 
+    private static final String BUTTON_CALL_LOG_DELETE_LIMIT = "button_call_log_delete_limit";
     private static final String BUTTON_T9_SEARCH_INPUT_LOCALE = "button_t9_search_input";
 
+    private ListPreference mCallLogDeleteLimit;
     private ListPreference mT9SearchInputLocale;
     private Context mContext;
 
@@ -50,6 +54,15 @@ public class DisplayOptionsSettingsFragment extends PreferenceFragment
 
         addPreferencesFromResource(R.xml.display_options_settings);
 
+        mCallLogDeleteLimit = (ListPreference) findPreference(BUTTON_CALL_LOG_DELETE_LIMIT);
+        if (mCallLogDeleteLimit != null) {
+            int limit = Settings.System.getInt(mContext.getContentResolver(),
+                    Settings.System.CALL_LOG_DELETE_LIMIT, 500);
+            mCallLogDeleteLimit.setOnPreferenceChangeListener(this);
+            mCallLogDeleteLimit.setValue(String.valueOf(limit));
+            mCallLogDeleteLimit.setSummary(limit == 0 ? getString(R.string.call_log_delete_limit_nolimit) : getString(R.string.call_log_delete_limit_summary, limit));
+        }
+
         mT9SearchInputLocale = (ListPreference) findPreference(BUTTON_T9_SEARCH_INPUT_LOCALE);
         if (mT9SearchInputLocale != null) {
             initT9SearchInputPreferenceList();
@@ -65,7 +78,12 @@ public class DisplayOptionsSettingsFragment extends PreferenceFragment
      */
     @Override
     public boolean onPreferenceChange(Preference preference, Object objValue) {
-        if (preference == mT9SearchInputLocale) {
+        if (preference == mCallLogDeleteLimit) {
+            int limit = Integer.valueOf((String) objValue);
+            Settings.System.putInt(mContext.getContentResolver(),
+                    Settings.System.CALL_LOG_DELETE_LIMIT, limit);
+            mCallLogDeleteLimit.setSummary(limit == 0 ? getString(R.string.call_log_delete_limit_nolimit) : getString(R.string.call_log_delete_limit_summary, (String) objValue));
+        } else if (preference == mT9SearchInputLocale) {
             saveT9SearchInputLocale(preference, (String) objValue);
         }
         return true;
