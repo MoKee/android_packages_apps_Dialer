@@ -26,6 +26,7 @@
 
     <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />
     <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE" />
+    <uses-permission android:name="android.permission.SEND_RESPOND_VIA_MESSAGE"/>
 
     <application>
 
