@@ -15,19 +15,21 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="call_log_delete_limit_title">Bel logboek limiet</string>
+  <string name="call_log_delete_limit_title">Limiet bel logboek</string>
   <string name="call_log_delete_limit_summary"><xliff:g id="count">%1$s</xliff:g> op de bellijst houden</string>
   <string name="call_log_delete_limit_default">500 (standaard)</string>
   <string name="call_log_delete_limit_nolimit">Geen limiet</string>
   <string name="call_log_action_user_mark">Markeren als</string>
   <string name="description_user_mark_action">Noteer <xliff:g id="nameOrNumber" example="John Smith"> ^ 1 </xliff:g> als</string>
   <string name="cloud_location_lookup_mark_title">Noteer %s </string>
+  <string name="cloud_location_lookup_mark_as">Selecteer beller informatie</string>
+  <string name="cloud_location_lookup_mark_custom">Gepersonaliseerde beller informatie</string>
   <string name="cloud_location_lookup_mark_done">Klaar</string>
-  <string name="cloud_location_lookup_mark_harassment">Lastig vallen</string>
+  <string name="cloud_location_lookup_mark_harassment">Lastigvallen</string>
   <string name="cloud_location_lookup_mark_fraud">Fraude</string>
   <string name="cloud_location_lookup_mark_advertisement">Advertentie</string>
   <string name="cloud_location_lookup_mark_agency">Bureau</string>
-  <string name="cloud_location_lookup_mark_takeaway">Weg halen</string>
+  <string name="cloud_location_lookup_mark_takeaway">Weghalen</string>
   <string name="cloud_location_lookup_mark_delivery">Bezorging</string>
   <string name="cloud_location_lookup_mark_service">Klantenservice</string>
   <string name="cloud_location_lookup_mark_taxi">Taxi</string>
