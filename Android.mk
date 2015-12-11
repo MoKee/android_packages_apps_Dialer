@@ -6,6 +6,7 @@ LOCAL_MODULE_TAGS := optional
 incallui_dir := ../InCallUI
 contacts_common_dir := ../ContactsCommon
 phone_common_dir := ../PhoneCommon
+mokee_support_dir := ../../../frameworks/support/mk/widget
 
 src_dirs := src \
     $(incallui_dir)/src \
@@ -15,7 +16,8 @@ src_dirs := src \
 res_dirs := res \
     $(incallui_dir)/res \
     $(contacts_common_dir)/res \
-    $(phone_common_dir)/res
+    $(phone_common_dir)/res \
+    $(mokee_support_dir)/res
 
 LOCAL_SRC_FILES := $(call all-java-files-under, $(src_dirs))
 LOCAL_SRC_FILES += ../../providers/ContactsProvider/src/com/android/providers/contacts/NameSplitter.java \
@@ -31,7 +33,8 @@ LOCAL_AAPT_FLAGS := \
     --extra-packages android.support.v7.recyclerview \
     --extra-packages com.android.incallui \
     --extra-packages com.android.contacts.common \
-    --extra-packages com.android.phone.common
+    --extra-packages com.android.phone.common \
+    --extra-packages mokee.support.widget
 
 LOCAL_JAVA_LIBRARIES := telephony-common
 
@@ -45,6 +48,7 @@ LOCAL_STATIC_JAVA_LIBRARIES := \
     com.android.vcard \
     guava \
     libphonenumber \
+    mokee-support-widget \
     org.mokee.platform.sdk
 
 LOCAL_PACKAGE_NAME := Dialer

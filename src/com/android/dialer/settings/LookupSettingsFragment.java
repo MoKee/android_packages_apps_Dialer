@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2014 The CyanogenMod Project
+ * Copyright (C) 2013-2016 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,11 +22,13 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.mokee.utils.MoKeeUtils;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.ListPreference;
 import android.preference.PreferenceFragment;
 import android.preference.SwitchPreference;
+import android.provider.Settings;
 
 import com.android.dialer.R;
 
@@ -39,6 +42,7 @@ public class LookupSettingsFragment extends PreferenceFragment
     private static final String KEY_ENABLE_FORWARD_LOOKUP = "enable_forward_lookup";
     private static final String KEY_ENABLE_PEOPLE_LOOKUP = "enable_people_lookup";
     private static final String KEY_ENABLE_REVERSE_LOOKUP = "enable_reverse_lookup";
+    private static final String KEY_ENABLE_CLOUD_LOCATION_LOOKUP = "enable_cloud_location_lookup";
     private static final String KEY_FORWARD_LOOKUP_PROVIDER = "forward_lookup_provider";
     private static final String KEY_PEOPLE_LOOKUP_PROVIDER = "people_lookup_provider";
     private static final String KEY_REVERSE_LOOKUP_PROVIDER = "reverse_lookup_provider";
@@ -46,6 +50,7 @@ public class LookupSettingsFragment extends PreferenceFragment
     private SwitchPreference mEnableForwardLookup;
     private SwitchPreference mEnablePeopleLookup;
     private SwitchPreference mEnableReverseLookup;
+    private SwitchPreference mEnableCloudLocationLookup;
     private ListPreference mForwardLookupProvider;
     private ListPreference mPeopleLookupProvider;
     private ListPreference mReverseLookupProvider;
@@ -59,10 +64,15 @@ public class LookupSettingsFragment extends PreferenceFragment
         mEnableForwardLookup = (SwitchPreference) findPreference(KEY_ENABLE_FORWARD_LOOKUP);
         mEnablePeopleLookup = (SwitchPreference) findPreference(KEY_ENABLE_PEOPLE_LOOKUP);
         mEnableReverseLookup = (SwitchPreference) findPreference(KEY_ENABLE_REVERSE_LOOKUP);
+        mEnableCloudLocationLookup = (SwitchPreference) findPreference(KEY_ENABLE_CLOUD_LOCATION_LOOKUP);
+        if (!MoKeeUtils.isSupportLanguage(true)) {
+            getPreferenceScreen().removePreference(mEnableCloudLocationLookup);
+        }
 
         mEnableForwardLookup.setOnPreferenceChangeListener(this);
         mEnablePeopleLookup.setOnPreferenceChangeListener(this);
         mEnableReverseLookup.setOnPreferenceChangeListener(this);
+        mEnableCloudLocationLookup.setOnPreferenceChangeListener(this);
 
         mForwardLookupProvider = (ListPreference) findPreference(KEY_FORWARD_LOOKUP_PROVIDER);
         mPeopleLookupProvider = (ListPreference) findPreference(KEY_PEOPLE_LOOKUP_PROVIDER);
@@ -95,6 +105,9 @@ public class LookupSettingsFragment extends PreferenceFragment
                     ((Boolean) newValue) ? 1 : 0);
         } else if (preference == mEnableReverseLookup) {
             MKSettings.System.putInt(cr, MKSettings.System.ENABLE_REVERSE_LOOKUP,
+                    ((Boolean) newValue) ? 1 : 0);
+        } else if (preference == mEnableCloudLocationLookup) {
+            Settings.System.putInt(cr, Settings.System.ENABLE_CLOUD_LOCATION_LOOKUP,
                     ((Boolean) newValue) ? 1 : 0);
         } else if (preference == mForwardLookupProvider) {
             MKSettings.System.putString(cr, MKSettings.System.FORWARD_LOOKUP_PROVIDER,
@@ -145,6 +158,10 @@ public class LookupSettingsFragment extends PreferenceFragment
                 MKSettings.System.ENABLE_PEOPLE_LOOKUP, 1) != 0);
         mEnableReverseLookup.setChecked(MKSettings.System.getInt(cr,
                 MKSettings.System.ENABLE_REVERSE_LOOKUP, 1) != 0);
+        if (MoKeeUtils.isSupportLanguage(true)) {
+            mEnableCloudLocationLookup.setChecked(Settings.System.getInt(cr,
+                    Settings.System.ENABLE_CLOUD_LOCATION_LOOKUP, 1) != 0);
+        }
     }
 
     private void restoreLookupProviders() {

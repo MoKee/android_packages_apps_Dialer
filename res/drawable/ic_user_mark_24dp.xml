@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2015-2016 The MoKee Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+        android:width="24dp"
+        android:height="24dp"
+        android:viewportWidth="24.0"
+        android:viewportHeight="24.0">
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="m20.00041,3.99964l-3.99373,0c-0.94138,0 -2.25619,0.54459 -2.92187,1.21027l-6.70798,6.70795c-0.66564,0.66564 -0.66564,1.7549 0,2.42057l4.99639,4.99625c0.66564,0.66568 1.7549,0.66568 2.42057,0l6.70788,-6.70785c0.66571,-0.66568 1.21034,-1.98052 1.21034,-2.9219l0,-3.9937c0,-0.94138 -0.77022,-1.7116 -1.7116,-1.7116zm-2.28214,5.7053c-0.94528,0 -1.71159,-0.76628 -1.71159,-1.7116c0,-0.94528 0.76632,-1.7116 1.71159,-1.7116s1.7116,0.76632 1.7116,1.7116c0,0.94532 -0.76632,1.7116 -1.7116,1.7116zm-13.85992,3.82658l6.1043,6.10427c-0.64657,0.3416 -1.47023,0.24144 -2.01266,-0.30111l-4.99635,-4.99625c-0.66564,-0.66568 -0.66564,-1.75493 0,-2.42057l6.70798,-6.70795c0.66567,-0.66568 1.98049,-1.21027 2.92186,-1.21027l-8.72513,8.72506c-0.22186,0.22189 -0.22186,0.58496 0,0.80682z"/>
+</vector>

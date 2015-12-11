@@ -64,6 +64,9 @@
     <uses-permission android:name="android.permission.STOP_APP_SWITCHES" />
     <uses-permission android:name="mokee.permission.WRITE_SETTINGS" />
 
+    <uses-permission android:name="mokee.permission.READ_PHONE_LOCATION" />
+    <uses-permission android:name="mokee.permission.WRITE_PHONE_LOCATION" />
+
     <application
         android:name="DialerApplication"
         android:label="@string/applicationLabel"
@@ -309,6 +312,11 @@
                   android:exported="false"
                   android:screenOrientation="nosensor" >
         </activity>
+
+        <activity
+                  android:name=".MiniMarkActivity"
+                  android:excludeFromRecents="true"
+                  android:theme="@style/MiniMarkActivityStyle" />
 
         <!-- BroadcastReceiver for receiving Intents from Notification mechanism. -->
         <receiver android:name="com.android.incallui.NotificationBroadcastReceiver"

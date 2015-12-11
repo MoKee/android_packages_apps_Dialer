@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2009 The Android Open Source Project
+ * Copyright (C) 2015-2016 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -131,7 +132,7 @@ public class CallDetailActivity extends Activity
 
             if (!TextUtils.isEmpty(firstDetails.name)) {
                 mCallerName.setText(firstDetails.name);
-                mCallerNumber.setText(callLocationOrType + " " + displayNumberStr);
+                mCallerNumber.setText(displayNumberStr + " " + callLocationOrType);
             } else {
                 mCallerName.setText(displayNumberStr);
                 if (!TextUtils.isEmpty(callLocationOrType)) {
@@ -193,8 +194,9 @@ public class CallDetailActivity extends Activity
          */
         private CharSequence getNumberTypeOrLocation(PhoneCallDetails details) {
             if (!TextUtils.isEmpty(details.name)) {
-                return Phone.getTypeLabel(mResources, details.numberType,
+                CharSequence label = Phone.getTypeLabel(mResources, details.numberType,
                         details.numberLabel);
+                return TextUtils.isEmpty(details.geocode) ? label : label + " " + details.geocode;
             } else {
                 return details.geocode;
             }

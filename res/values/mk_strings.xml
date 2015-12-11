@@ -14,6 +14,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
+
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <!-- Call Log Delete Limit  -->
@@ -21,5 +22,23 @@
     <string name="call_log_delete_limit_summary">Keep on <xliff:g id="count">%1$s</xliff:g> call log</string>
     <string name="call_log_delete_limit_default">500 (Default)</string>
     <string name="call_log_delete_limit_nolimit">Do not limit</string>
+
+    <!-- Cloud Phone Number Location Engine -->
+    <string name="call_log_action_user_mark">MARK AS</string>
+    <string name="description_user_mark_action">Mark <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> as</string>
+    <string name="cloud_location_lookup_mark_title">Mark %s </string>
+    <string name="cloud_location_lookup_mark_as">Mark caller info</string>
+    <string name="cloud_location_lookup_mark_custom">Custom caller info</string>
+    <string name="cloud_location_lookup_mark_done">Done</string>
+    <string name="cloud_location_lookup_enable_title" translatable="false">云端归属地</string>
+    <string name="cloud_location_lookup_enable_summary" translatable="false">通过云端查询更为精确的号码归属信息</string>
+    <string name="cloud_location_lookup_mark_harassment">Harassment</string>
+    <string name="cloud_location_lookup_mark_fraud">Fraud</string>
+    <string name="cloud_location_lookup_mark_advertisement">Advertisement</string>
+    <string name="cloud_location_lookup_mark_agency">Agency</string>
+    <string name="cloud_location_lookup_mark_takeaway">Takeaway</string>
+    <string name="cloud_location_lookup_mark_delivery">Delivery</string>
+    <string name="cloud_location_lookup_mark_service">Customer Service</string>
+    <string name="cloud_location_lookup_mark_taxi">Taxi</string>
 
 </resources>

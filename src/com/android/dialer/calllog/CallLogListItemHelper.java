@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
+ * Copyright (C) 2015-2016 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -108,6 +109,11 @@ import com.android.dialer.R;
         views.detailsButtonView.setContentDescription(
                 TextUtils.expandTemplate(
                         mResources.getString(R.string.description_details_action), nameOrNumber));
+
+        views.userMarkButtonView.setContentDescription(
+                TextUtils.expandTemplate(
+                        mResources.getString(R.string.description_user_mark_action), nameOrNumber));
+
     }
 
     /**
