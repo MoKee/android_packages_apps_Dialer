@@ -19,11 +19,11 @@
   <string name="call_log_delete_limit_summary">Хранить <xliff:g id="count">%1$s</xliff:g> записей о вызовах</string>
   <string name="call_log_delete_limit_default">500 (по умолчанию)</string>
   <string name="call_log_delete_limit_nolimit">Не ограничивать</string>
-  <string name="call_log_action_user_mark">ПОМЕТИТЬ</string>
+  <string name="call_log_action_user_mark">Пометить как</string>
   <string name="description_user_mark_action">Пометить <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> как</string>
   <string name="cloud_location_lookup_mark_title">Пометить %s </string>
   <string name="cloud_location_lookup_mark_as">Отметить информацию о звонящем</string>
-  <string name="cloud_location_lookup_mark_custom">Другое</string>
+  <string name="cloud_location_lookup_mark_custom">Дополнительная информация о звонящем</string>
   <string name="cloud_location_lookup_mark_done">Готово</string>
   <string name="cloud_location_lookup_mark_harassment">Вымогательстово</string>
   <string name="cloud_location_lookup_mark_fraud">Мошенничество</string>
