@@ -19,4 +19,12 @@
   <string name="call_log_delete_limit_summary">Zachovat <xliff:g id="count">%1$s</xliff:g> záznamů protokolu volání</string>
   <string name="call_log_delete_limit_default">500 (výchozí)</string>
   <string name="call_log_delete_limit_nolimit">Neomezovat</string>
+  <string name="cloud_location_lookup_mark_done">Hotovo</string>
+  <string name="cloud_location_lookup_mark_harassment">Obtěžování</string>
+  <string name="cloud_location_lookup_mark_fraud">Podvod</string>
+  <string name="cloud_location_lookup_mark_advertisement">Reklama</string>
+  <string name="cloud_location_lookup_mark_agency">Agentura</string>
+  <string name="cloud_location_lookup_mark_delivery">Dodávka</string>
+  <string name="cloud_location_lookup_mark_service">Zákaznický servis</string>
+  <string name="cloud_location_lookup_mark_taxi">Taxi</string>
 </resources>
