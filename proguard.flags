@@ -15,6 +15,9 @@
 # Keep ExtendedLookupDirectories for assets/contacts_extensions.properties
 -keep class com.android.dialer.lookup.ExtendedLookupDirectories { *; }
 
+# Keep behavior class needed by design library
+-keep class android.support.design.widget.AppBarLayout$ScrollingViewBehavior { *; }
+
 -dontwarn mokee.support.widget.snackbar.**
 
 -dontwarn com.mokee.cloud.**
