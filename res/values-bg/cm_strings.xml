@@ -99,6 +99,4 @@
   <string name="sensors_category_title">Сензор настройки</string>
   <string name="smart_mute_title">Smart заглушаване</string>
   <string name="smart_mute_summary">Заглушите входящо повикване чрез обръщане на устройството</string>
-  <string name="smart_dialer_title">Smart обаждане</string>
-  <string name="smart_dialer_summary">Автоматично да се обажда набран номер чрез преместване на устройството до ухото си</string>
 </resources>
