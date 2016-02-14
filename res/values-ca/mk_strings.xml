@@ -19,4 +19,18 @@
   <string name="call_log_delete_limit_summary">Mantenir el registre de trucades de <xliff:g id="count"> %1$s </xliff:g></string>
   <string name="call_log_delete_limit_default">500 (per defecte)</string>
   <string name="call_log_delete_limit_nolimit">No limitar</string>
+  <string name="call_log_action_user_mark">MARCA D\'AS</string>
+  <string name="description_user_mark_action">Marcada <xliff:g id="nameOrNumber" example="John Smith"> ^ 1 </xliff:g> com</string>
+  <string name="cloud_location_lookup_mark_title">Marcada %s </string>
+  <string name="cloud_location_lookup_mark_as">Marcada trucada informació</string>
+  <string name="cloud_location_lookup_mark_custom">Informació d\'usuaris de costum</string>
+  <string name="cloud_location_lookup_mark_done">Fet</string>
+  <string name="cloud_location_lookup_mark_harassment">L\'assetjament</string>
+  <string name="cloud_location_lookup_mark_fraud">Frau</string>
+  <string name="cloud_location_lookup_mark_advertisement">Anuncis</string>
+  <string name="cloud_location_lookup_mark_agency">Agència</string>
+  <string name="cloud_location_lookup_mark_takeaway">Per emportar</string>
+  <string name="cloud_location_lookup_mark_delivery">Entrega</string>
+  <string name="cloud_location_lookup_mark_service">Atenció al client</string>
+  <string name="cloud_location_lookup_mark_taxi">Taxi</string>
 </resources>
