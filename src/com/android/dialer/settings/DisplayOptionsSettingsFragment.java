@@ -25,7 +25,7 @@ import android.text.TextUtils;
 
 import com.android.dialer.R;
 
-import cyanogenmod.providers.CMSettings;
+import mokee.providers.MKSettings;
 
 import java.util.Locale;
 
@@ -72,12 +72,12 @@ public class DisplayOptionsSettingsFragment extends PreferenceFragment
     }
 
     private void saveT9SearchInputLocale(Preference preference, String newT9Locale) {
-        String lastT9Locale = CMSettings.System.getString(mContext.getContentResolver(),
-                CMSettings.System.T9_SEARCH_INPUT_LOCALE);
+        String lastT9Locale = MKSettings.System.getString(mContext.getContentResolver(),
+                MKSettings.System.T9_SEARCH_INPUT_LOCALE);
 
         if (!TextUtils.equals(lastT9Locale, newT9Locale)) {
-            CMSettings.System.putString(mContext.getContentResolver(),
-                    CMSettings.System.T9_SEARCH_INPUT_LOCALE, newT9Locale);
+            MKSettings.System.putString(mContext.getContentResolver(),
+                    MKSettings.System.T9_SEARCH_INPUT_LOCALE, newT9Locale);
         }
     }
 
@@ -97,8 +97,8 @@ public class DisplayOptionsSettingsFragment extends PreferenceFragment
         }
 
         // Set current entry from global system setting
-        String settingsT9Locale = CMSettings.System.getString(mContext.getContentResolver(),
-                CMSettings.System.T9_SEARCH_INPUT_LOCALE);
+        String settingsT9Locale = MKSettings.System.getString(mContext.getContentResolver(),
+                MKSettings.System.T9_SEARCH_INPUT_LOCALE);
         if (settingsT9Locale != null) {
             mT9SearchInputLocale.setValue(settingsT9Locale);
         }
