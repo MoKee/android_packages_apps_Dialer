@@ -16,10 +16,12 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- Call Log Delete Limit  -->
   <string name="call_log_delete_limit_title">通話記錄限制</string>
   <string name="call_log_delete_limit_summary">保留 <xliff:g id="count">%1$s</xliff:g> 條通話記錄</string>
   <string name="call_log_delete_limit_default">500（預設值）</string>
   <string name="call_log_delete_limit_nolimit">不限制</string>
+  <!-- Cloud Phone Number Location Engine -->
   <string name="call_log_action_user_mark">標記為</string>
   <string name="description_user_mark_action">把 <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> 標記為</string>
   <string name="cloud_location_lookup_mark_title">標記 %s </string>

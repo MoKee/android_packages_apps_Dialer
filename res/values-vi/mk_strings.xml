@@ -16,10 +16,12 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- Call Log Delete Limit  -->
   <string name="call_log_delete_limit_title">Giới hạn nhật ký gọi</string>
   <string name="call_log_delete_limit_summary">Giữ trên <xliff:g id="count">%1$s </xliff:g> nhật ký cuộc gọi</string>
   <string name="call_log_delete_limit_default">500 (mặc định)</string>
   <string name="call_log_delete_limit_nolimit">Không giới hạn</string>
+  <!-- Cloud Phone Number Location Engine -->
   <string name="call_log_action_user_mark">Đánh dấu như là</string>
   <string name="description_user_mark_action">Đánh dấu <xliff:g id="nameOrNumber" example="John Smith"> ^ 1 </xliff:g> như</string>
   <string name="cloud_location_lookup_mark_title">Đánh dấu %s </string>
