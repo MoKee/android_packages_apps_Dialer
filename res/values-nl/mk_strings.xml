@@ -15,10 +15,12 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- Call Log Delete Limit  -->
   <string name="call_log_delete_limit_title">Limiet bel logboek</string>
   <string name="call_log_delete_limit_summary"><xliff:g id="count">%1$s</xliff:g> op de bellijst houden</string>
   <string name="call_log_delete_limit_default">500 (standaard)</string>
   <string name="call_log_delete_limit_nolimit">Geen limiet</string>
+  <!-- Cloud Phone Number Location Engine -->
   <string name="call_log_action_user_mark">Markeren als</string>
   <string name="description_user_mark_action">Markeer <xliff:g id="nameOrNumber" example="John Smith"> ^ 1 </xliff:g> als</string>
   <string name="cloud_location_lookup_mark_title">Noteer %s </string>

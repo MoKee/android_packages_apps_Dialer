@@ -15,8 +15,20 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- Call Log Delete Limit  -->
   <string name="call_log_delete_limit_title">Όριο καταγραφής κλήσης</string>
   <string name="call_log_delete_limit_summary">Κράτησε το <xliff:g id="count">%1$s </xliff:g> στο αρχείο καταγραφής κλήσεων</string>
   <string name="call_log_delete_limit_default">500 (προεπιλογή)</string>
   <string name="call_log_delete_limit_nolimit">Δεν περιορίζουν</string>
+  <!-- Cloud Phone Number Location Engine -->
+  <string name="cloud_location_lookup_mark_custom">Πληροφορίες καλούντος</string>
+  <string name="cloud_location_lookup_mark_done">Έτοιμο</string>
+  <string name="cloud_location_lookup_mark_harassment">Παρενόχληση</string>
+  <string name="cloud_location_lookup_mark_fraud">Απάτη</string>
+  <string name="cloud_location_lookup_mark_advertisement">Διαφήμιση</string>
+  <string name="cloud_location_lookup_mark_agency">Πρακτορείο</string>
+  <string name="cloud_location_lookup_mark_takeaway">Takeaway</string>
+  <string name="cloud_location_lookup_mark_delivery">Διανομή</string>
+  <string name="cloud_location_lookup_mark_service">Εξυπηρέτηση Πελατών</string>
+  <string name="cloud_location_lookup_mark_taxi">Ταξί</string>
 </resources>

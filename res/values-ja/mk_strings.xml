@@ -15,7 +15,9 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- Call Log Delete Limit  -->
   <string name="call_log_delete_limit_title">呼び出しログの制限でした</string>
+  <!-- Cloud Phone Number Location Engine -->
   <string name="cloud_location_lookup_mark_advertisement">広告</string>
   <string name="cloud_location_lookup_mark_agency">代理店</string>
   <string name="cloud_location_lookup_mark_takeaway">テイクアウト</string>

@@ -15,13 +15,17 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- Call Log Delete Limit  -->
   <string name="call_log_delete_limit_title">Ліміт історії викликів</string>
   <string name="call_log_delete_limit_summary">Зберігати дані <xliff:g id="count">%1$s</xliff:g>  викликів</string>
   <string name="call_log_delete_limit_default">500 (за замовчуванням)</string>
   <string name="call_log_delete_limit_nolimit">Не обмежувати</string>
+  <!-- Cloud Phone Number Location Engine -->
   <string name="call_log_action_user_mark">ПОЗНАЧИТИ ЯК</string>
   <string name="description_user_mark_action">Позначити <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> як</string>
   <string name="cloud_location_lookup_mark_title">Позначити %s </string>
+  <string name="cloud_location_lookup_mark_as">Відмітити інформацію про абонента</string>
+  <string name="cloud_location_lookup_mark_custom">Додаткова інформація про абонента</string>
   <string name="cloud_location_lookup_mark_done">Готово</string>
   <string name="cloud_location_lookup_mark_harassment">Переслідування</string>
   <string name="cloud_location_lookup_mark_fraud">Шахрайство</string>

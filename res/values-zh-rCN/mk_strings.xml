@@ -15,15 +15,17 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- Call Log Delete Limit  -->
   <string name="call_log_delete_limit_title">通话记录限制</string>
-  <string name="call_log_delete_limit_summary">达到 <xliff:g id="count">%1$s</xliff:g> 条通话记录时删除旧记录</string>
+  <string name="call_log_delete_limit_summary">保存 <xliff:g id="count">%1$s</xliff:g> 条通话记录</string>
   <string name="call_log_delete_limit_default">500 (默认)</string>
   <string name="call_log_delete_limit_nolimit">无限制</string>
+  <!-- Cloud Phone Number Location Engine -->
   <string name="call_log_action_user_mark">标记为</string>
-  <string name="description_user_mark_action">将 <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> 标记为</string>
-  <string name="cloud_location_lookup_mark_title">将 %s 标记为： </string>
-  <string name="cloud_location_lookup_mark_as">标记该号码的身份信息</string>
-  <string name="cloud_location_lookup_mark_custom">自定义呼叫者信息</string>
+  <string name="description_user_mark_action">为 <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> 标记</string>
+  <string name="cloud_location_lookup_mark_title">标记 %s 为：</string>
+  <string name="cloud_location_lookup_mark_as">标记来电信息</string>
+  <string name="cloud_location_lookup_mark_custom">自定义来电信息</string>
   <string name="cloud_location_lookup_mark_done">完成</string>
   <string name="cloud_location_lookup_mark_harassment">骚扰电话</string>
   <string name="cloud_location_lookup_mark_fraud">诈骗电话</string>
@@ -31,6 +33,6 @@
   <string name="cloud_location_lookup_mark_agency">中介电话</string>
   <string name="cloud_location_lookup_mark_takeaway">外卖送餐</string>
   <string name="cloud_location_lookup_mark_delivery">物流快递</string>
-  <string name="cloud_location_lookup_mark_service">客服电话</string>
-  <string name="cloud_location_lookup_mark_taxi">出租车司机</string>
+  <string name="cloud_location_lookup_mark_service">客户服务</string>
+  <string name="cloud_location_lookup_mark_taxi">出租车</string>
 </resources>
