@@ -25,6 +25,7 @@
   <string name="cloud_location_lookup_mark_title">Pažymėti %s </string>
   <string name="cloud_location_lookup_mark_as">Pažymėti skambinančiojo informaciją</string>
   <string name="cloud_location_lookup_mark_custom">Speciali skambinančiojo informacija</string>
+  <string name="cloud_location_lookup_mark_done">Atlikta</string>
   <string name="cloud_location_lookup_mark_advertisement">Reklama</string>
   <string name="cloud_location_lookup_mark_agency">Agentūra</string>
   <string name="cloud_location_lookup_mark_takeaway">Atimti</string>
