@@ -24,3 +24,8 @@
 -keep class com.mokee.cloud.** {*;}
 
 -verbose
+
+-keep public class mokee.app.StatusBarPanelCustomTile
+-keep public class mokee.app.CustomTile
+
+-dontwarn mokee.app.*
