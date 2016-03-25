@@ -25,6 +25,7 @@
   <string name="description_user_mark_action"><xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> olarak işaretle</string>
   <string name="cloud_location_lookup_mark_title">%s\'i işaretle </string>
   <string name="cloud_location_lookup_mark_as">Arayan kişi bilgisini işaretle</string>
+  <string name="cloud_location_lookup_mark_custom">Düzenlenmiş arayan kişi bilgisi</string>
   <string name="cloud_location_lookup_mark_service">Müşteri Servisi</string>
   <string name="cloud_location_lookup_mark_taxi">Taksi</string>
 </resources>
