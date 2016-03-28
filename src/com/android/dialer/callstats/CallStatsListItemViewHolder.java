@@ -130,15 +130,19 @@ public final class CallStatsListItemViewHolder extends RecyclerView.ViewHolder
         if (TextUtils.isEmpty(details.name)) {
             nameText = details.displayNumber;
             if (TextUtils.isEmpty(details.geocode) || details.isVoicemailNumber) {
-                numberText = null;
+                labelText = null;
             } else {
-                numberText = details.geocode;
+                labelText = details.geocode;
             }
-            labelText = null;
+            numberText = null;
         } else {
             nameText = details.name;
             numberText = details.displayNumber;
-            labelText = numberFormattedLabel;
+            if (TextUtils.isEmpty(details.geocode)) {
+                labelText = numberFormattedLabel;
+            } else {
+                labelText = numberFormattedLabel + " " + details.geocode;
+            }
         }
 
         float in = 0, out = 0, missed = 0, blacklist = 0;
