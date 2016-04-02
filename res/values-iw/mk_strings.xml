@@ -21,4 +21,18 @@
   <string name="call_log_delete_limit_default">500 (ברירת מחדל)</string>
   <string name="call_log_delete_limit_nolimit">אל תגביל</string>
   <!-- Cloud Phone Number Location Engine -->
+  <string name="call_log_action_user_mark">סמן</string>
+  <string name="description_user_mark_action">סמן <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> כ</string>
+  <string name="cloud_location_lookup_mark_title">סמן %s </string>
+  <string name="cloud_location_lookup_mark_as">סמן פרטי המתקשר</string>
+  <string name="cloud_location_lookup_mark_custom">סימון מותאם אישית</string>
+  <string name="cloud_location_lookup_mark_done">בצע</string>
+  <string name="cloud_location_lookup_mark_harassment">הטרדה</string>
+  <string name="cloud_location_lookup_mark_fraud">הונאה</string>
+  <string name="cloud_location_lookup_mark_advertisement">פרסומת</string>
+  <string name="cloud_location_lookup_mark_agency">סוכנות ביטוח</string>
+  <string name="cloud_location_lookup_mark_takeaway">סלק</string>
+  <string name="cloud_location_lookup_mark_delivery">משלוחים</string>
+  <string name="cloud_location_lookup_mark_service">שירות לקוחות</string>
+  <string name="cloud_location_lookup_mark_taxi">מונית</string>
 </resources>
