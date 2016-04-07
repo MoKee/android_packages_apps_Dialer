@@ -16,5 +16,23 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- Call Log Delete Limit  -->
+  <string name="call_log_delete_limit_title">அழைப்பு பதிவு வரம்பு</string>
+  <string name="call_log_delete_limit_summary"><xliff:g id="count">%1$s</xliff:g> அழைப்பு பதிவு தக்க வைத்துக்கொள்</string>
+  <string name="call_log_delete_limit_default">500 (இயல்பிருப்பு)</string>
+  <string name="call_log_delete_limit_nolimit">நிறுத்திக் கொள்வதில்லை</string>
   <!-- Cloud Phone Number Location Engine -->
+  <string name="call_log_action_user_mark">குறிப்பிடவும்</string>
+  <string name="description_user_mark_action"><xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> என குறிப்பிடவும்</string>
+  <string name="cloud_location_lookup_mark_title">%s குறிப்பிடவும் </string>
+  <string name="cloud_location_lookup_mark_as">அழைப்பாளர் தகவல் குறிக்கவும்</string>
+  <string name="cloud_location_lookup_mark_custom">தனிப்பயன் அழைப்பாளர் தகவல்</string>
+  <string name="cloud_location_lookup_mark_done">முடிந்தது</string>
+  <string name="cloud_location_lookup_mark_harassment">துன்புறுத்தல்</string>
+  <string name="cloud_location_lookup_mark_fraud">மோசடி</string>
+  <string name="cloud_location_lookup_mark_advertisement">விளம்பரம்</string>
+  <string name="cloud_location_lookup_mark_agency">நிறுவனம்</string>
+  <string name="cloud_location_lookup_mark_takeaway">விட்டு எடுக்க</string>
+  <string name="cloud_location_lookup_mark_delivery">விநியோக</string>
+  <string name="cloud_location_lookup_mark_service">வாடிக்கையாளர் சேவை</string>
+  <string name="cloud_location_lookup_mark_taxi">டாக்ஸி</string>
 </resources>
