@@ -16,18 +16,17 @@
 
 package com.android.dialer.calllog;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
-import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.support.v7.widget.RecyclerView;
 import android.os.Bundle;
 import android.os.Trace;
-import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.provider.CallLog;
 import android.support.v7.widget.RecyclerView.ViewHolder;
@@ -35,7 +34,6 @@ import android.telecom.PhoneAccountHandle;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -43,7 +41,6 @@ import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
 import android.view.View.AccessibilityDelegate;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.accessibility.AccessibilityEvent;
 
@@ -59,6 +56,7 @@ import com.android.dialer.util.DialerUtils;
 import com.android.dialer.util.PhoneNumberUtil;
 import com.android.dialer.voicemail.VoicemailPlaybackPresenter;
 
+import com.cyanogen.ambient.incall.extension.OriginCodes;
 import com.google.common.annotations.VisibleForTesting;
 
 import java.util.HashMap;
@@ -96,6 +94,7 @@ public class CallLogAdapter extends GroupingListAdapter
     protected final Context mContext;
     private final ContactInfoHelper mContactInfoHelper;
     private final VoicemailPlaybackPresenter mVoicemailPlaybackPresenter;
+    private final BlockContactPresenter mBlockContactPresenter;
     private final CallFetcher mCallFetcher;
 
     protected ContactInfoCache mContactInfoCache;
@@ -248,7 +247,8 @@ public class CallLogAdapter extends GroupingListAdapter
                             final Intent intent = new Intent(Intent.ACTION_DIAL,
                                     CallUtil.getCallUri(vh.number));
                             intent.setClass(mContext, DialtactsActivity.class);
-                            DialerUtils.startActivityWithErrorToast(mContext, intent);
+                            DialerUtils.startActivityWithErrorToast(mContext, intent, OriginCodes
+                                    .CALL_LOG_CALL);
                             return true;
                         }
                     });
@@ -299,6 +299,7 @@ public class CallLogAdapter extends GroupingListAdapter
             CallFetcher callFetcher,
             ContactInfoHelper contactInfoHelper,
             VoicemailPlaybackPresenter voicemailPlaybackPresenter,
+            BlockContactPresenter blockContactPresenter,
             boolean isShowingRecentsTab) {
         super(context);
 
@@ -309,6 +310,7 @@ public class CallLogAdapter extends GroupingListAdapter
         if (mVoicemailPlaybackPresenter != null) {
             mVoicemailPlaybackPresenter.setOnVoicemailDeletedListener(this);
         }
+        mBlockContactPresenter = blockContactPresenter;
         mIsShowingRecentsTab = isShowingRecentsTab;
 
         mContactInfoCache = new ContactInfoCache(
@@ -323,8 +325,10 @@ public class CallLogAdapter extends GroupingListAdapter
         mTelecomCallLogCache = new TelecomCallLogCache(mContext);
         PhoneCallDetailsHelper phoneCallDetailsHelper =
                 new PhoneCallDetailsHelper(mContext, resources, mTelecomCallLogCache);
+        LookupInfoPresenter lookupInfoPresenter = new LookupInfoPresenter(mContext, resources);
         mCallLogListItemHelper =
-                new CallLogListItemHelper(phoneCallDetailsHelper, resources, mTelecomCallLogCache);
+                new CallLogListItemHelper(phoneCallDetailsHelper, lookupInfoPresenter,
+                        resources, mTelecomCallLogCache);
         mCallLogGroupBuilder = new CallLogGroupBuilder(this);
         mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
         maybeShowVoicemailPromoCard();
@@ -410,7 +414,9 @@ public class CallLogAdapter extends GroupingListAdapter
                 mExpandCollapseListener,
                 mTelecomCallLogCache,
                 mCallLogListItemHelper,
-                mVoicemailPlaybackPresenter);
+                mVoicemailPlaybackPresenter,
+                mBlockContactPresenter,
+                mContactInfoHelper);
 
         viewHolder.callLogEntryView.setTag(viewHolder);
         viewHolder.callLogEntryView.setAccessibilityDelegate(mAccessibilityDelegate);
@@ -538,8 +544,12 @@ public class CallLogAdapter extends GroupingListAdapter
         views.isBusiness = mContactInfoHelper.isBusiness(info.sourceType);
         views.numberType = (String) Phone.getTypeLabel(mContext.getResources(), details.numberType,
                 details.numberLabel);
-        // Default case: an item in the call log.
-        views.primaryActionView.setVisibility(View.VISIBLE);
+        String component = c.getString(CallLogQuery.PLUGIN_PACKAGE_NAME);
+        if (!TextUtils.isEmpty(component)) {
+            views.inCallComponentName = ComponentName.unflattenFromString(component);
+        } else {
+            views.inCallComponentName = null;
+        }
 
         // Check if the day group has changed and display a header if necessary.
         int currentGroup = getDayGroupForCall(views.rowId);
@@ -570,7 +580,10 @@ public class CallLogAdapter extends GroupingListAdapter
         views.setPhoto(info.photoId, info.photoUri, info.lookupUri, nameForDefaultImage,
                 isVoicemailNumber, views.isBusiness);
 
+        views.setAttributionImage(views.inCallComponentName);
+
         mCallLogListItemHelper.setPhoneCallDetails(views, details);
+        mCallLogListItemHelper.setLookupInfoDetails(views, info);
     }
 
     @Override
