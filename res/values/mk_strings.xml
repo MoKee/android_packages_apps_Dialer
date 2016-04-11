@@ -24,7 +24,7 @@
     <string name="call_log_delete_limit_nolimit">Do not limit</string>
 
     <!-- Cloud Phone Number Location Engine -->
-    <string name="call_log_action_user_mark">MARK AS</string>
+    <string name="call_log_action_user_mark">Mark as</string>
     <string name="description_user_mark_action">Mark <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> as</string>
     <string name="cloud_location_lookup_mark_title">Mark %s </string>
     <string name="cloud_location_lookup_mark_as">Mark caller info</string>
