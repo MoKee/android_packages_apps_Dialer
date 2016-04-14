@@ -68,7 +68,7 @@ public class InCallMetricsReceiver extends IntentService {
     }
 
     @VisibleForTesting
-    /* package */ static ArrayList<Event> lookupCallsSince(long time,
+    /* package */ static void lookupCallsSince(long time,
             ContentResolver contentResolver) {
 
         Uri uri = CallLogConstants.CONTENT_ALL_URI.buildUpon().build();
@@ -89,6 +89,11 @@ public class InCallMetricsReceiver extends IntentService {
         };
 
         Cursor c = contentResolver.query(uri, projection, where, args, null);
+
+        // Ensure that our ContentProvider was available to return a cursor
+        if (c == null) {
+            return;
+        }
 
         HashMap<String, HashMap<String, Object>> keys = new HashMap<>();
 
@@ -170,7 +175,6 @@ public class InCallMetricsReceiver extends IntentService {
 
         c.close();
 
-        ArrayList<Event> listOfEvents = new ArrayList<>();
         for (String key : keys.keySet()) {
             // Shippit
             HashMap<String, Object> value = keys.get(key);
@@ -208,14 +212,10 @@ public class InCallMetricsReceiver extends IntentService {
                 }
             }
 
-            Event sentEvent = InCallMetricsHelper.sendEvent(InCallMetricsHelper
-                    .Categories.CALLS, event, params,
+            InCallMetricsHelper.sendEvent(InCallMetricsHelper.Categories.CALLS, event, params,
                     ComponentName.unflattenFromString(pluginComponent));
 
-
-            listOfEvents.add(sentEvent);
         }
-        return listOfEvents;
     }
 }
 
