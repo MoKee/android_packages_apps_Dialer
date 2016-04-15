@@ -7,20 +7,19 @@ incallui_dir := ../InCallUI
 contacts_common_dir := ../ContactsCommon
 phone_common_dir := ../PhoneCommon
 uicommon_dir := ../../../external/uicommon
-mokee_support_dir := ../../../frameworks/support/mk/widget
 
 src_dirs := src \
     $(incallui_dir)/src \
     $(contacts_common_dir)/src \
     $(phone_common_dir)/src \
     $(phone_common_dir)/src-ambient \
-    $(mokee_support_dir)/res
+    $(uicommon_dir)/src
 
 res_dirs := res \
     $(incallui_dir)/res \
     $(contacts_common_dir)/res \
     $(phone_common_dir)/res \
-    $(mokee_support_dir)/res
+    $(uicommon_dir)/res
 
 LOCAL_SRC_FILES := $(call all-java-files-under, $(src_dirs)) $(call all-Iaidl-files-under, $(src_dirs))
 LOCAL_SRC_FILES += ../../providers/ContactsProvider/src/com/android/providers/contacts/NameSplitter.java \
@@ -30,7 +29,8 @@ LOCAL_RESOURCE_DIR := $(addprefix $(LOCAL_PATH)/, $(res_dirs)) \
     frameworks/support/v7/cardview/res \
     frameworks/support/v7/recyclerview/res \
     frameworks/support/v7/appcompat/res \
-    frameworks/support/design/res
+    frameworks/support/design/res \
+    frameworks/support/mk/widget/res
 
 LOCAL_ASSET_DIR += $(LOCAL_PATH)/assets
 
