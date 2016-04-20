@@ -140,17 +140,21 @@
     <string name="favorite_hidden_undo" msgid="2508998611039406474">"撤消"</string>
     <string name="search_shortcut_call_number" msgid="7277194656832895870">"拨打<xliff:g id="NUMBER">%s</xliff:g>"</string>
     <string name="search_shortcut_create_new_contact" msgid="1679917465521554093">"新建联系人"</string>
+    <string name="search_shortcut_add_to_contact" msgid="4327842393369915751">"添加到联系人"</string>
     <string name="search_shortcut_add_to_existing_contact" msgid="4403132207405813444">"添加到现有联系人"</string>
     <string name="search_shortcut_send_sms_message" msgid="2569304043345025525">"发送短信"</string>
     <string name="search_shortcut_make_video_call" msgid="1265971685034465166">"发起视频通话"</string>
     <string name="recents_footer_text" msgid="7315554578957453359">"查看全部通话记录"</string>
     <string name="num_missed_calls" msgid="8081736535604293886">"<xliff:g id="NUMBER">%s</xliff:g>个新的未接电话"</string>
     <string name="speed_dial_empty" msgid="1931474498966072849">"使用快速拨号功能，只需轻轻一点即可拨打收藏联系人的电话号码以及经常拨打的电话号码。"</string>
+    <string name="speed_dial_empty_add_favorite_action" msgid="7944893641496695770">"添加常用联系人"</string>
     <string name="all_contacts_empty" msgid="2299508125100209367">"没有联系人"</string>
+    <string name="all_contacts_empty_add_contact_action" msgid="1515782853819374618">"添加联系人"</string>
     <string name="contact_tooltip" msgid="2019777545923635266">"触摸图片可查看所有号码，触摸并按住可重新排序"</string>
     <string name="remove_contact" msgid="1080555335283662961">"移除"</string>
     <string name="favorites_menu_all_contacts" msgid="992506284449891186">"所有联系人"</string>
     <string name="call_log_action_video_call" msgid="7724301709041128296">"视频通话"</string>
+    <string name="call_log_action_send_message" msgid="2826466379787846163">"发送短信"</string>
     <string name="call_log_action_voicemail" msgid="4978620572562925654">"听取"</string>
     <string name="call_log_action_details" msgid="7957138590190911171">"查看详情"</string>
     <string name="description_incoming_missed_call" msgid="2381085098795943627">"<xliff:g id="PHONEACCOUNT">^4</xliff:g> 上 <xliff:g id="TIMEOFCALL">^3</xliff:g>来自<xliff:g id="NAMEORNUMBER">^1</xliff:g>（<xliff:g id="TYPEORLOCATION">^2</xliff:g>）的未接电话。"</string>
