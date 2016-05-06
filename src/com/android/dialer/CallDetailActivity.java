@@ -43,6 +43,7 @@ import android.widget.Toast;
 
 import com.android.contacts.common.ContactPhotoManager;
 import com.android.contacts.common.ContactPhotoManager.DefaultImageRequest;
+import com.android.contacts.common.util.ContactDisplayUtils;
 import com.android.contacts.common.GeoUtil;
 import com.android.contacts.common.CallUtil;
 import com.android.contacts.common.activity.fragment.BlockContactDialogFragment;
@@ -197,8 +198,18 @@ public class CallDetailActivity extends Activity
          */
         private CharSequence getNumberTypeOrLocation(PhoneCallDetails details) {
             if (!TextUtils.isEmpty(details.name)) {
-                CharSequence label = Phone.getTypeLabel(mResources, details.numberType,
-                        details.numberLabel);
+                String callMethodName = null;
+                if (details.inCallComponentName != null) {
+                    CallMethodInfo cmi = DialerDataSubscription.get(mContext)
+                            .getPluginIfExists(details.inCallComponentName);
+                    if (cmi != null) {
+                        callMethodName = cmi.mName;
+                    }
+                }
+
+                CharSequence label = ContactDisplayUtils.getLabelForCall(getApplicationContext(),
+                        details.number.toString(), details.numberType,
+                        details.numberLabel, callMethodName);
                 return TextUtils.isEmpty(details.geocode) ? label : label + " " + details.geocode;
             } else {
                 return details.geocode;
