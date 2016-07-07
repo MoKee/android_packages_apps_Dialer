@@ -19,5 +19,9 @@
   <!-- Call Log Delete Limit  -->
   <string name="call_log_delete_limit_title">Call log limit</string>
   <string name="call_log_delete_limit_summary">Keep on <xliff:g id="count">%1$s</xliff:g> call log</string>
+  <string name="call_log_delete_limit_default">500 (Default)</string>
+  <string name="call_log_delete_limit_nolimit">Do not limit</string>
   <!-- Cloud Phone Number Location Engine -->
+  <string name="cloud_location_lookup_mark_title">Mark %s </string>
+  <string name="cloud_location_lookup_mark_taxi">Taxi</string>
 </resources>
