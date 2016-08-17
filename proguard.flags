@@ -29,3 +29,4 @@
 -keep public class mokee.app.CustomTile
 
 -dontwarn mokee.app.*
+-dontwarn com.squareup.okhttp.*
