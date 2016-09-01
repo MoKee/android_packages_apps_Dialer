@@ -35,5 +35,5 @@
   <string name="cloud_location_lookup_mark_takeaway">Take-Away</string>
   <string name="cloud_location_lookup_mark_delivery">Levering</string>
   <string name="cloud_location_lookup_mark_service">Kundeservice</string>
-  <string name="cloud_location_lookup_mark_taxi">Taxi</string>
+  <string name="cloud_location_lookup_mark_taxi">Taxa</string>
 </resources>
