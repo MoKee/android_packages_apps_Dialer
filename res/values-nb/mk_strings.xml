@@ -17,5 +17,13 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- Call Log Delete Limit  -->
+  <string name="call_log_delete_limit_default">500 (Standard)</string>
   <!-- Cloud Phone Number Location Engine -->
+  <string name="cloud_location_lookup_mark_done">Ferdig</string>
+  <string name="cloud_location_lookup_mark_harassment">Trakassering</string>
+  <string name="cloud_location_lookup_mark_fraud">Svindel</string>
+  <string name="cloud_location_lookup_mark_advertisement">Reklame</string>
+  <string name="cloud_location_lookup_mark_takeaway">Takeaway</string>
+  <string name="cloud_location_lookup_mark_service">Kundeservice</string>
+  <string name="cloud_location_lookup_mark_taxi">Taxi</string>
 </resources>
