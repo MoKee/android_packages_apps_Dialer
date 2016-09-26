@@ -30,7 +30,7 @@
   <string name="cloud_location_lookup_mark_done">Udført</string>
   <string name="cloud_location_lookup_mark_harassment">Chikane</string>
   <string name="cloud_location_lookup_mark_fraud">Svindel</string>
-  <string name="cloud_location_lookup_mark_advertisement">Reklamer</string>
+  <string name="cloud_location_lookup_mark_advertisement">Telefonsælger</string>
   <string name="cloud_location_lookup_mark_agency">Agentur</string>
   <string name="cloud_location_lookup_mark_takeaway">Take-Away</string>
   <string name="cloud_location_lookup_mark_delivery">Levering</string>
