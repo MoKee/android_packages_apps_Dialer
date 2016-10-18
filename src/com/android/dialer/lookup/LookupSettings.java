@@ -22,7 +22,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.provider.Settings;
 
-import cyanogenmod.providers.CMSettings;
+import mokee.providers.MKSettings;
 
 import java.util.List;
 
@@ -56,41 +56,41 @@ public final class LookupSettings {
     }
 
     public static boolean isForwardLookupEnabled(Context context) {
-        return CMSettings.System.getInt(context.getContentResolver(),
-                CMSettings.System.ENABLE_FORWARD_LOOKUP, 1) != 0;
+        return MKSettings.System.getInt(context.getContentResolver(),
+                MKSettings.System.ENABLE_FORWARD_LOOKUP, 1) != 0;
     }
 
     public static boolean isPeopleLookupEnabled(Context context) {
-        return CMSettings.System.getInt(context.getContentResolver(),
-                CMSettings.System.ENABLE_PEOPLE_LOOKUP, 1) != 0;
+        return MKSettings.System.getInt(context.getContentResolver(),
+                MKSettings.System.ENABLE_PEOPLE_LOOKUP, 1) != 0;
     }
 
     public static boolean isReverseLookupEnabled(Context context) {
-        return CMSettings.System.getInt(context.getContentResolver(),
-                CMSettings.System.ENABLE_REVERSE_LOOKUP, 1) != 0;
+        return MKSettings.System.getInt(context.getContentResolver(),
+                MKSettings.System.ENABLE_REVERSE_LOOKUP, 1) != 0;
     }
 
     public static String getForwardLookupProvider(Context context) {
         String provider = getLookupProvider(context,
-                CMSettings.System.FORWARD_LOOKUP_PROVIDER, FLP_DEFAULT);
+                MKSettings.System.FORWARD_LOOKUP_PROVIDER, FLP_DEFAULT);
 
         return provider;
     }
 
     public static String getPeopleLookupProvider(Context context) {
         String provider = getLookupProvider(context,
-                CMSettings.System.PEOPLE_LOOKUP_PROVIDER, PLP_DEFAULT);
+                MKSettings.System.PEOPLE_LOOKUP_PROVIDER, PLP_DEFAULT);
 
         return provider;
     }
 
     public static String getReverseLookupProvider(Context context) {
         String provider = getLookupProvider(context,
-                CMSettings.System.REVERSE_LOOKUP_PROVIDER, RLP_DEFAULT);
+                MKSettings.System.REVERSE_LOOKUP_PROVIDER, RLP_DEFAULT);
 
         if ("Google".equals(provider)) {
-            CMSettings.System.putString(context.getContentResolver(),
-                    CMSettings.System.REVERSE_LOOKUP_PROVIDER, RLP_DEFAULT);
+            MKSettings.System.putString(context.getContentResolver(),
+                    MKSettings.System.REVERSE_LOOKUP_PROVIDER, RLP_DEFAULT);
             provider = RLP_DEFAULT;
         }
 
@@ -100,10 +100,10 @@ public final class LookupSettings {
     private static String getLookupProvider(Context context,
             String key, String defaultValue) {
         ContentResolver cr = context.getContentResolver();
-        String provider = CMSettings.System.getString(cr, key);
+        String provider = MKSettings.System.getString(cr, key);
 
         if (provider == null) {
-            CMSettings.System.putString(cr, key, defaultValue);
+            MKSettings.System.putString(cr, key, defaultValue);
             return defaultValue;
         }
 
