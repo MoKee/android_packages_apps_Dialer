@@ -17,5 +17,12 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- Call Log Delete Limit  -->
+  <string name="call_log_delete_limit_nolimit">Não limitar</string>
   <!-- Cloud Phone Number Location Engine -->
+  <string name="call_log_action_user_mark">Marcar como</string>
+  <string name="cloud_location_lookup_mark_done">Concluído</string>
+  <string name="cloud_location_lookup_mark_fraud">Fraude</string>
+  <string name="cloud_location_lookup_mark_advertisement">Anúncio</string>
+  <string name="cloud_location_lookup_mark_agency">Agência</string>
+  <string name="cloud_location_lookup_mark_taxi">Táxi</string>
 </resources>
