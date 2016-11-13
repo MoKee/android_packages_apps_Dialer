@@ -126,6 +126,7 @@ public class CircularRevealFragment extends Fragment {
             view.findViewById(R.id.outgoing_call_animation_circle).setBackgroundColor(
                     palette.mPrimaryColor);
             activity.getWindow().setStatusBarColor(palette.mSecondaryColor);
+            activity.getWindow().setNavigationBarColor(palette.mSecondaryColor);
         }
 
         view.getViewTreeObserver().addOnPreDrawListener(new OnPreDrawListener() {
