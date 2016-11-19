@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2013 The Android Open Source Project
+ * Copyright (C) 2015-2016 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -63,6 +64,8 @@ import com.android.incallui.InCallPresenter.IncomingCallListener;
 import com.android.incalluibind.ObjectFactory;
 
 import java.lang.ref.WeakReference;
+
+import mokee.support.widget.snackbar.Snackbar;
 
 import static com.android.contacts.common.compat.CallSdkCompat.Details.PROPERTY_ENTERPRISE_CALL;
 /**
@@ -337,9 +340,17 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi> i
             Log.d(this, "Starting the calltime timer");
             mPrimary.triggerCalcBaseChronometerTime();
             mCallTimer.start(CALL_TIME_UPDATE_INTERVAL_MS);
+            if (ui.getMarkSnackBar() == null && mPrimaryContactInfo != null) {
+                String name = getNameForCall(mPrimaryContactInfo);
+                boolean nameIsNumber = name != null && name.equals(mPrimaryContactInfo.number);
+                if (nameIsNumber) {
+                    ui.setMarkSnackBar(mPrimaryContactInfo.number);
+                }
+            }
         } else {
             Log.d(this, "Canceling the calltime timer");
             mCallTimer.cancel();
+            ui.setMarkSnackBar(null);
             ui.setPrimaryCallElapsedTime(false, 0);
         }
 
@@ -963,7 +974,9 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi> i
                     number,
                     name,
                     nameIsNumber,
-                    isChildNumberShown || isCallSubjectShown ? null : mPrimaryContactInfo.label,
+                    isChildNumberShown || isCallSubjectShown ? null : TextUtils.isEmpty(mPrimaryContactInfo.label) ?
+                            mPrimaryContactInfo.location : TextUtils.isEmpty(mPrimaryContactInfo.location) ?
+                            mPrimaryContactInfo.label : mPrimaryContactInfo.label + " " + mPrimaryContactInfo.location,
                     mPrimaryContactInfo.photo,
                     mPrimaryContactInfo.isSipCall,
                     isForwarded,
@@ -1154,7 +1167,7 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi> i
                     contactInfo.nameAlternative,
                     mContactsPreferences);
         if (TextUtils.isEmpty(preferredName)) {
-            return contactInfo.location;
+            return "";
         }
         return contactInfo.number;
     }
@@ -1393,6 +1406,8 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi> i
         void showManageConferenceCallButton(boolean visible);
         boolean isManageConferenceVisible();
         boolean isCallSubjectVisible();
+        void setMarkSnackBar(String number);
+        Snackbar getMarkSnackBar();
         void animateForNewOutgoingCall();
         void sendAccessibilityAnnouncement();
         void showNoteSentToast();

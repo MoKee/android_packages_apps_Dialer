@@ -82,6 +82,7 @@
         <item name="dialpad_key_button_touch_tint">@color/incall_dialpad_touch_tint</item>
         <item name="android:textColorPrimary">@color/incall_call_banner_text_color</item>
         <item name="android:colorPrimaryDark">@color/dialer_theme_color_dark</item>
+        <item name="android:navigationBarColor">@color/dialer_theme_color_dark</item>
         <item name="android:popupMenuStyle">@style/InCallPopupMenuStyle</item>
         <item name="android:actionBarStyle">@style/InCallActionBarStyle</item>
         <item name="android:buttonStyleToggle">@style/InCallCompoundButton</item>

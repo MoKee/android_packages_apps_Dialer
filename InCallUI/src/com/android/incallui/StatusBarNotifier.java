@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2013 The Android Open Source Project
+ * Copyright (C) 2013-2016 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -536,7 +537,7 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener,
         if (TextUtils.isEmpty(contactInfo.namePrimary)) {
             String contactNumberDisplayed = TextUtils.isEmpty(contactInfo.number) ?
                     "" : contactInfo.number.toString();
-            String location_info = GeoUtil.getGeocodedLocationFor(mContext, contactNumberDisplayed);
+            String location_info = contactInfo.location;
             if (!TextUtils.isEmpty(location_info)){
                 contactNumberDisplayed =  contactNumberDisplayed + " " + location_info;
             }
@@ -545,7 +546,8 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener,
                     contactNumberDisplayed, TextDirectionHeuristics.LTR);
         }
 
-        return contactInfo.namePrimary;
+        return TextUtils.isEmpty(contactInfo.location) ?
+                contactInfo.namePrimary : contactInfo.namePrimary + " " + contactInfo.location;
     }
 
     private void addPersonReference(Notification.Builder builder, ContactCacheEntry contactInfo,

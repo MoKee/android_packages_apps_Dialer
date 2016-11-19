@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
+ * Copyright (C) 2015-2016 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -99,6 +100,7 @@ import com.android.phone.common.CallLogAsync;
 import com.android.phone.common.animation.AnimUtils;
 import com.android.phone.common.dialpad.DialpadKeyButton;
 import com.android.phone.common.dialpad.DialpadView;
+import com.mokee.cloud.location.OfflineNumber;
 
 import static android.Manifest.permission.READ_CALL_LOG;
 import static android.Manifest.permission.WRITE_CALL_LOG;
@@ -204,6 +206,7 @@ public class DialpadFragment extends Fragment
 
     private DialpadView mDialpadView;
     private EditText mDigits;
+    private TextView mLocation;
     private EditText mRecipients;
     private View mDigitsContainer;
     private View mDialpad;
@@ -373,7 +376,13 @@ public class DialpadFragment extends Fragment
         }
 
         if (mDialpadQueryListener != null) {
-            mDialpadQueryListener.onDialpadQueryChanged(mDigits.getText().toString());
+            String number = mDigits.getText().toString();
+            mDialpadQueryListener.onDialpadQueryChanged(number);
+            if (number.length() >= 3) {
+                mLocation.setText(OfflineNumber.detect(number, getActivity()));
+            } else {
+                mLocation.setText("");
+            }
         }
 
         updateDeleteButtonEnabledState();
@@ -452,6 +461,7 @@ public class DialpadFragment extends Fragment
         mDigits.addTextChangedListener(this);
         mDigits.setElegantTextHeight(false);
         PhoneNumberFormatter.setPhoneNumberFormattingTextWatcher(getActivity(), mDigits);
+        mLocation = mDialpadView.getLocation();
         // Check for the presence of the keypad
         View oneButton = fragmentView.findViewById(R.id.one);
         if (oneButton != null) {
@@ -1440,6 +1450,9 @@ public class DialpadFragment extends Fragment
     public void clearDialpad() {
         if (mDigits != null) {
             mDigits.getText().clear();
+        }
+        if (mLocation != null) {
+            mLocation.setText("");
         }
     }
 

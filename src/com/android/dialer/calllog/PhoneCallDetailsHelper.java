@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
+ * Copyright (C) 2015-2016 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -252,6 +253,9 @@ public class PhoneCallDetailsHelper {
                 // Get type label only if it will not be "Custom" because of an empty number label.
                 numberFormattedLabel = MoreObjects.firstNonNull(mPhoneTypeLabelForTest,
                         Phone.getTypeLabel(mResources, details.numberType, details.numberLabel));
+                if (!TextUtils.isEmpty(details.geocode)) {
+                    numberFormattedLabel = numberFormattedLabel + mResources.getString(R.string.list_delimeter) + details.geocode;
+                }
             }
         }
 

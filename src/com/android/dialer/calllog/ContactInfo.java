@@ -103,6 +103,6 @@ public class ContactInfo {
                 .add("number", number).add("formattedNumber",formattedNumber)
                 .add("normalizedNumber", normalizedNumber).add("photoId", photoId)
                 .add("photoUri", photoUri).add("objectId", objectId)
-                .add("userType",userType).toString();
+                .add("userType", userType).toString();
     }
 }

@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2013 The Android Open Source Project
+ * Copyright (C) 2013-2016 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -157,6 +158,7 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
 
         @Override
         public void onQueryComplete(int token, Object cookie, CallerInfo callerInfo) {
+
             findInfoQueryComplete((Call) cookie, callerInfo, mIsIncoming, true);
         }
     }
@@ -277,7 +279,6 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
                 clearCallbacks(mCallId);
                 return;
             }
-
             ContactCacheEntry entry = new ContactCacheEntry();
             entry.namePrimary = info.getDisplayName();
             entry.number = info.getNumber();
@@ -446,6 +447,9 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
         if (cce.contactRingtoneUri == null || cce.contactRingtoneUri == Uri.EMPTY) {
             cce.contactRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
         }
+        if (!TextUtils.isEmpty(info.geoDescription)) {
+            cce.location = info.geoDescription;
+        }
 
         return cce;
     }
@@ -526,13 +530,13 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
 
                     // Display a geographical description string if available
                     // (but only for incoming calls.)
-                    if (isIncoming) {
+                    // if (isIncoming) {
                         // TODO (CallerInfoAsyncQuery cleanup): Fix the CallerInfo
                         // query to only do the geoDescription lookup in the first
                         // place for incoming calls.
                         displayLocation = info.geoDescription; // may be null
                         Log.d(TAG, "Geodescrption: " + info.geoDescription);
-                    }
+                    // }
 
                     Log.d(TAG, "  ==>  no name; falling back to number:"
                             + " displayNumber '" + Log.pii(displayNumber)
@@ -554,15 +558,18 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
                     displayName = info.name;
                     cce.nameAlternative = info.nameAlternative;
                     displayNumber = number;
+                    displayLocation = info.geoDescription;
                     label = info.phoneLabel;
                     Log.d(TAG, "  ==>  name is present in CallerInfo: displayName '" + displayName
-                            + "', displayNumber '" + displayNumber + "'");
+                            + "', displayNumber '" + displayNumber + "'" + "', displayLocation '" + displayLocation + "'");
                 }
             }
 
         cce.namePrimary = displayName;
         cce.number = displayNumber;
-        cce.location = displayLocation;
+        if (!TextUtils.isEmpty(info.geoDescription)) {
+            cce.location = info.geoDescription;
+        }
         cce.label = label;
         cce.isSipCall = isSipCall;
         cce.userType = info.userType;

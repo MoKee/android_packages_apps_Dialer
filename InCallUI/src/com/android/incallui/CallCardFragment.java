@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2013 The Android Open Source Project
+ * Copyright (C) 2013-2016 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +23,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -66,10 +68,19 @@ import com.android.contacts.common.compat.PhoneNumberUtilsCompat;
 
 import com.android.contacts.common.util.MaterialColorMapUtils.MaterialPalette;
 import com.android.contacts.common.widget.FloatingActionButtonController;
+import com.android.dialer.MiniMarkActivity;
 import com.android.dialer.R;
+import com.android.dialer.util.DialerUtils;
 import com.android.phone.common.animation.AnimUtils;
+import com.mokee.cloud.location.LocationInfo;
+import com.mokee.cloud.location.LocationUtils;
+import com.mokee.cloud.misc.CloudUtils;
 
 import java.util.List;
+
+import mokee.support.widget.snackbar.Snackbar;
+import mokee.support.widget.snackbar.SnackbarManager;
+import mokee.support.widget.snackbar.listeners.ActionClickListener;
 
 /**
  * Fragment for call card.
@@ -571,6 +582,34 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
             }
             return getView().getHeight() - callCardHeight;
         }
+    }
+
+    @Override
+    public void setMarkSnackBar(final String number) {
+        if (!TextUtils.isEmpty(number)) {
+            final String formatNumber = CloudUtils.formatNumber(number);
+            LocationInfo locationInfo = LocationUtils.getLocationInfo(getActivity().getContentResolver(), formatNumber);
+            if (locationInfo != null && TextUtils.isEmpty(locationInfo.getUserMark()) && locationInfo.getEngineType() == 1) {
+                SnackbarManager.show(Snackbar.with(getActivity()).position(Snackbar.SnackbarPosition.TOP).duration(8000L)
+                        .actionLabel(R.string.call_log_action_user_mark).actionListener(new ActionClickListener() {
+                            @Override
+                            public void onActionClicked(Snackbar snackbar) {
+                                Intent intent = new Intent(getActivity(), MiniMarkActivity.class);
+                                intent.putExtra("number", formatNumber);
+                                DialerUtils.startActivityWithErrorToast(getActivity(), intent);
+                            }})
+                        .text(R.string.cloud_location_lookup_mark_as));
+            }
+        } else {
+            if (getMarkSnackBar() != null) {
+                getMarkSnackBar().dismiss();
+            }
+        }
+    }
+
+    @Override
+    public Snackbar getMarkSnackBar() {
+        return SnackbarManager.getCurrentSnackbar();
     }
 
     @Override

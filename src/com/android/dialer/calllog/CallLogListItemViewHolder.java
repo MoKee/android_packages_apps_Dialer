@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
+ * Copyright (C) 2015-2016 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,6 +52,7 @@ import com.android.contacts.common.dialog.CallSubjectDialog;
 import com.android.contacts.common.testing.NeededForTesting;
 import com.android.contacts.common.util.UriUtils;
 import com.android.dialer.DialtactsActivity;
+import com.android.dialer.MiniMarkActivity;
 import com.android.dialer.R;
 import com.android.dialer.calllog.calllogcache.CallLogCache;
 import com.android.dialer.compat.FilteredNumberCompat;
@@ -109,6 +111,7 @@ public final class CallLogListItemViewHolder extends RecyclerView.ViewHolder
     public View sendMessageView;
     public View detailsButtonView;
     public View callWithNoteButtonView;
+    public View userMarkButtonView;
     public ImageView workIconView;
     public ImageView videoCallIconView;
 
@@ -443,6 +446,9 @@ public final class CallLogListItemViewHolder extends RecyclerView.ViewHolder
             callWithNoteButtonView = actionsView.findViewById(R.id.call_with_note_action);
             callWithNoteButtonView.setOnClickListener(this);
 
+            userMarkButtonView = actionsView.findViewById(R.id.user_mark_action);
+            userMarkButtonView.setOnClickListener(this);
+
             mExtendedBlockingViewStub =
                     (ViewStub) actionsView.findViewById(R.id.extended_blocking_actions_container);
         }
@@ -546,6 +552,7 @@ public final class CallLogListItemViewHolder extends RecyclerView.ViewHolder
             if (!isArchiveTab) {
                 CallLogAsyncTaskUtil.markVoicemailAsRead(mContext, uri);
             }
+            userMarkButtonView.setVisibility(View.GONE);
         } else {
             voicemailPlaybackView.setVisibility(View.GONE);
         }
@@ -705,6 +712,10 @@ public final class CallLogListItemViewHolder extends RecyclerView.ViewHolder
                                                                            view in dialog. */
                     numberType, /* phone number type (e.g. mobile) in second line of contact view */
                     accountHandle);
+        } else if (view.getId() == R.id.user_mark_action) {
+            Intent intent = new Intent(mContext, MiniMarkActivity.class);
+            intent.putExtra("number", number);
+            DialerUtils.startActivityWithErrorToast(mContext, intent);
         } else {
             final IntentProvider intentProvider = (IntentProvider) view.getTag();
             if (intentProvider != null) {
@@ -749,6 +760,7 @@ public final class CallLogListItemViewHolder extends RecyclerView.ViewHolder
         viewHolder.actionsView = new View(context);
         viewHolder.voicemailPlaybackView = new VoicemailPlaybackLayout(context);
         viewHolder.workIconView = new ImageButton(context);
+        viewHolder.userMarkButtonView = new TextView(context);
         return viewHolder;
     }
 }

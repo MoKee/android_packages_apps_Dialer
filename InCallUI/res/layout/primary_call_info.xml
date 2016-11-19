@@ -187,7 +187,7 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="@color/incall_call_banner_subtext_color"
                 android:textSize="@dimen/call_label_text_size"
-                android:singleLine="false"
+                android:singleLine="true"
                 android:visibility="gone" />
 
         </LinearLayout>

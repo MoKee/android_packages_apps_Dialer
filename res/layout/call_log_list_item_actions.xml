@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright (C) 2014 The Android Open Source Project
+  ~ Copyright (C) 2015-2016 The MoKee Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -134,6 +135,20 @@
         android:id="@+id/extended_blocking_actions_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:id="@+id/user_mark_action"
+        style="@style/CallLogActionStyle">
+
+        <ImageView
+            style="@style/CallLogActionIconStyle"
+            android:src="@drawable/ic_user_mark_24dp" />
+
+        <TextView
+            style="@style/CallLogActionTextStyle"
+            android:text="@string/call_log_action_user_mark" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/details_action"

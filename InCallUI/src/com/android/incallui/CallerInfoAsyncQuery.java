@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2006 The Android Open Source Project
+ * Copyright (C) 2013-2016 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +17,7 @@
 
 package com.android.incallui;
 
+import com.android.contacts.common.util.PhoneNumberHelper;
 import com.google.common.primitives.Longs;
 
 import android.Manifest;
@@ -24,6 +26,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
+import android.mokee.utils.MoKeeUtils;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
@@ -42,6 +45,10 @@ import com.android.dialer.calllog.ContactInfoHelper;
 import com.android.dialer.service.CachedNumberLookupService;
 import com.android.dialer.service.CachedNumberLookupService.CachedContactInfo;
 import com.android.dialerbind.ObjectFactory;
+import com.mokee.cloud.location.LocationInfo;
+import com.mokee.cloud.location.LocationUtils;
+import com.mokee.cloud.location.OfflineNumber;
+import com.mokee.cloud.misc.CloudUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -296,13 +303,21 @@ public class CallerInfoAsyncQuery {
                             // new parameter to CallerInfoAsyncQuery.startQuery() to force
                             // the geoDescription field to be populated.)
 
-                            if (TextUtils.isEmpty(mCallerInfo.name)) {
+                            // if (TextUtils.isEmpty(mCallerInfo.name)) {
                                 // Actually when no contacts match the incoming phone number,
                                 // the CallerInfo object is totally blank here (i.e. no name
                                 // *or* phoneNumber).  So we need to pass in cw.number as
                                 // a fallback number.
-                                mCallerInfo.updateGeoDescription(mQueryContext, cw.number);
+                            if (!PhoneNumberHelper.isUriNumber(cw.number)) {
+                                LocationInfo locationInfo = LocationUtils.getLocationInfo(
+                                        mQueryContext.getContentResolver(), CloudUtils.formatNumber(cw.number));
+                                if (locationInfo != null) {
+                                    mCallerInfo.geoDescription = locationInfo.getLocation();
+                                } else {
+                                    mCallerInfo.geoDescription = OfflineNumber.detect(cw.number, mQueryContext);
+                                }
                             }
+
                         }
 
                         // Use the number entered by the user for display.

@@ -37,7 +37,8 @@ LOCAL_RESOURCE_DIR := $(addprefix $(LOCAL_PATH)/, $(res_dirs)) \
     $(support_library_root_dir)/v7/cardview/res \
     $(support_library_root_dir)/v7/recyclerview/res \
     $(support_library_root_dir)/v7/appcompat/res \
-    $(support_library_root_dir)/design/res
+    $(support_library_root_dir)/design/res \
+    $(support_library_root_dir)/widget/snackbar/res
 
 LOCAL_ASSET_DIR += $(LOCAL_PATH)/assets
 
@@ -53,7 +54,8 @@ LOCAL_AAPT_FLAGS := \
     --extra-packages android.support.design \
     --extra-packages com.android.incallui \
     --extra-packages com.android.contacts.common \
-    --extra-packages com.android.phone.common
+    --extra-packages com.android.phone.common \
+    --extra-packages mokee.support.widget.snackbar
 
 LOCAL_STATIC_JAVA_LIBRARIES := \
     android-common \
@@ -66,6 +68,7 @@ LOCAL_STATIC_JAVA_LIBRARIES := \
     com.android.vcard \
     guava \
     libphonenumber \
+    mokee-support-widget-snackbar \
     ims-ext-common \
     phonebook_wrapper \
     telephony-common \
