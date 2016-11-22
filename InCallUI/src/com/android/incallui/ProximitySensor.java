@@ -26,6 +26,7 @@ import android.os.PowerManager;
 import cyanogenmod.providers.CMSettings;
 import android.telecom.CallAudioState;
 import android.view.Display;
+import android.provider.Settings;
 
 import com.android.incallui.AudioModeProvider.AudioModeListener;
 import com.android.incallui.InCallPresenter.InCallState;
@@ -43,6 +44,7 @@ import com.android.incallui.InCallPresenter.InCallStateListener;
 public class ProximitySensor implements AccelerometerListener.OrientationListener,
         InCallStateListener, AudioModeListener {
     private static final String TAG = ProximitySensor.class.getSimpleName();
+    private static final String PROXIMITY_SENSOR = "proximity_sensor";
 
     private final PowerManager mPowerManager;
     private final PowerManager.WakeLock mProximityWakeLock;
@@ -241,6 +243,8 @@ public class ProximitySensor implements AccelerometerListener.OrientationListene
                     || CallAudioState.ROUTE_SPEAKER == audioMode
                     || CallAudioState.ROUTE_BLUETOOTH == audioMode
                     || mIsHardKeyboardOpen);
+            screenOnImmediately |= Settings.System.getInt(mContext.getContentResolver(),
+                    PROXIMITY_SENSOR, 1) == 0;
 
             // We do not keep the screen off when the user is outside in-call screen and we are
             // horizontal, but we do not force it on when we become horizontal until the
