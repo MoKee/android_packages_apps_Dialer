@@ -153,10 +153,20 @@ public class CallButtonFragment
     private boolean mIsEnabled;
     private MaterialPalette mCurrentThemeColors;
 
+    private static CallButtonPresenter sCallButtonPresenter;
+
+    public static synchronized CallButtonPresenter getInstance() {
+        if (sCallButtonPresenter == null) {
+            sCallButtonPresenter = new CallButtonPresenter();
+        }
+        return sCallButtonPresenter;
+    }
+
     @Override
     public CallButtonPresenter createPresenter() {
         // TODO: find a cleaner way to include audio mode provider than having a singleton instance.
-        return new CallButtonPresenter();
+        sCallButtonPresenter = new CallButtonPresenter();
+        return sCallButtonPresenter;
     }
 
     @Override

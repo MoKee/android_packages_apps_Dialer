@@ -28,6 +28,7 @@ import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.telecom.Call.Details;
@@ -108,6 +109,7 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi> i
     private boolean mHasShownToast = false;
     private InCallContactInteractions mInCallContactInteractions;
     private boolean mIsFullscreen = false;
+    private boolean mIsRecording = false;
 
     public static class ContactLookupCallback implements ContactInfoCacheCallback {
         private final WeakReference<CallCardPresenter> mCallCardPresenter;
@@ -335,6 +337,9 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi> i
             maybeClearSessionModificationState(mSecondary);
         }
 
+        CallRecorder recorder = CallRecorder.getInstance();
+        boolean isVideo = VideoUtils.isVideoCall(mPrimary);
+        boolean isEnabled = getPrefs(mContext).getBoolean(mContext.getString(R.string.call_recording_automatically_key), false);
         // Start/stop timers.
         if (isPrimaryCallActive()) {
             Log.d(this, "Starting the calltime timer");
@@ -347,11 +352,25 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi> i
                     ui.setMarkSnackBar(mPrimaryContactInfo.number);
                 }
             }
+            if (!mIsRecording && isEnabled && !isVideo && CallButtonFragment.getInstance() != null) {
+                mIsRecording = true;
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        CallButtonFragment.getInstance().callRecordClicked(true);
+                    }
+                }, 500);
+            }
         } else {
             Log.d(this, "Canceling the calltime timer");
             mCallTimer.cancel();
             ui.setMarkSnackBar(null);
             ui.setPrimaryCallElapsedTime(false, 0);
+            if (isEnabled && !isVideo) {
+                if (recorder.isRecording()) {
+                    recorder.finishRecording();
+                }
+            }
         }
 
         // Set the call state

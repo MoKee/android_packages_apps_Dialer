@@ -33,4 +33,8 @@
     <string name="cloud_location_lookup_mark_service">Customer Service</string>
     <string name="cloud_location_lookup_mark_taxi">Taxi</string>
 
+    <!-- Automatically call recording -->
+    <string name="call_recording_automatically_key" translatable="false">call_recording_automatically</string>
+    <string name="call_recording_automatically_title">Recording automatically</string>
+    <string name="call_recording_automatically_summary">Recording automatically after call</string>
 </resources>
