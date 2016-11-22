@@ -26,6 +26,11 @@
   <string name="description_user_mark_action">Mark <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> as</string>
   <string name="cloud_location_lookup_mark_title">Mark %s </string>
   <string name="cloud_location_lookup_mark_as">Mark caller info</string>
+  <string name="cloud_location_lookup_mark_custom">কলার তথ্য কাস্টমাইজ করুন</string>
+  <string name="cloud_location_lookup_mark_done">সম্পন্ন হয়েছে</string>
   <string name="cloud_location_lookup_mark_harassment">Harassment</string>
   <string name="cloud_location_lookup_mark_fraud">Fraud</string>
+  <string name="cloud_location_lookup_mark_advertisement">বিজ্ঞাপন</string>
+  <string name="cloud_location_lookup_mark_agency">এজেন্সি</string>
+  <string name="cloud_location_lookup_mark_takeaway">মূল কথা</string>
 </resources>
