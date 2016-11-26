@@ -32,4 +32,6 @@
   <string name="cloud_location_lookup_mark_service">客戶服務</string>
   <string name="cloud_location_lookup_mark_taxi">計程車</string>
   <!-- Automatically call recording -->
+  <string name="call_recording_automatically_title">自動錄音</string>
+  <string name="call_recording_automatically_summary">通話後自動錄音</string>
 </resources>

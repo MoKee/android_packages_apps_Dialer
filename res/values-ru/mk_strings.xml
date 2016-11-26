@@ -32,4 +32,6 @@
   <string name="cloud_location_lookup_mark_service">Центр поддержки</string>
   <string name="cloud_location_lookup_mark_taxi">Такси</string>
   <!-- Automatically call recording -->
+  <string name="call_recording_automatically_title">Автоматическая запись</string>
+  <string name="call_recording_automatically_summary">Записывать автоматически после звонка</string>
 </resources>

@@ -32,4 +32,6 @@
   <string name="cloud_location_lookup_mark_service">Atendimento ao cliente</string>
   <string name="cloud_location_lookup_mark_taxi">Táxi</string>
   <!-- Automatically call recording -->
+  <string name="call_recording_automatically_title">Gravar automaticamente</string>
+  <string name="call_recording_automatically_summary">Gravação automaticamente após a chamada</string>
 </resources>

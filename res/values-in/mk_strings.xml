@@ -32,4 +32,6 @@
   <string name="cloud_location_lookup_mark_service">Layanan pelanggan</string>
   <string name="cloud_location_lookup_mark_taxi">Taksi</string>
   <!-- Automatically call recording -->
+  <string name="call_recording_automatically_title">Merekam otomatis</string>
+  <string name="call_recording_automatically_summary">Merekam otomatis setelah panggilan</string>
 </resources>
