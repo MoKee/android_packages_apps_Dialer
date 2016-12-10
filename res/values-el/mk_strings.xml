@@ -32,4 +32,6 @@
   <string name="cloud_location_lookup_mark_service">Εξυπηρέτηση Πελατών</string>
   <string name="cloud_location_lookup_mark_taxi">Ταξί</string>
   <!-- Automatically call recording -->
+  <string name="call_recording_automatically_title">Αυτόματη εγγραφή</string>
+  <string name="call_recording_automatically_summary">Αυτόματη καταγραφή μετά από κλήση</string>
 </resources>

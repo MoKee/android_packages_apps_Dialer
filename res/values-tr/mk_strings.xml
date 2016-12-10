@@ -27,8 +27,11 @@
   <string name="cloud_location_lookup_mark_fraud">Dolandırıcılık</string>
   <string name="cloud_location_lookup_mark_advertisement">Reklam</string>
   <string name="cloud_location_lookup_mark_agency">Ajans</string>
+  <string name="cloud_location_lookup_mark_takeaway">Paket </string>
   <string name="cloud_location_lookup_mark_delivery">Teslimat Adresi</string>
   <string name="cloud_location_lookup_mark_service">Müşteri Servisi</string>
   <string name="cloud_location_lookup_mark_taxi">Taksi</string>
   <!-- Automatically call recording -->
+  <string name="call_recording_automatically_title">Otomatik olarak kayıt</string>
+  <string name="call_recording_automatically_summary">Otomatik olarak aramadan sonra kayıt</string>
 </resources>
