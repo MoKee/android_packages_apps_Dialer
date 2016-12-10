@@ -32,6 +32,7 @@
   <string name="cloud_location_lookup_mark_fraud">Dolandırıcılık</string>
   <string name="cloud_location_lookup_mark_advertisement">Reklam</string>
   <string name="cloud_location_lookup_mark_agency">Ajans</string>
+  <string name="cloud_location_lookup_mark_takeaway">Paket </string>
   <string name="cloud_location_lookup_mark_delivery">Teslimat Adresi</string>
   <string name="cloud_location_lookup_mark_service">Müşteri Servisi</string>
   <string name="cloud_location_lookup_mark_taxi">Taksi</string>
