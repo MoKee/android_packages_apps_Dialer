@@ -21,7 +21,7 @@
   <string name="description_user_mark_action">Маркирай <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> като</string>
   <string name="cloud_location_lookup_mark_title">Маркирай %s </string>
   <string name="cloud_location_lookup_mark_as">Маркирай инфо за повикващия</string>
-  <string name="cloud_location_lookup_mark_custom">Информация повикващ</string>
+  <string name="cloud_location_lookup_mark_custom">Инфо за позвъняващия</string>
   <string name="cloud_location_lookup_mark_done">Готово</string>
   <string name="cloud_location_lookup_mark_harassment">Тормоз</string>
   <string name="cloud_location_lookup_mark_fraud">Измама</string>
@@ -32,4 +32,6 @@
   <string name="cloud_location_lookup_mark_service">Обслужване клиенти</string>
   <string name="cloud_location_lookup_mark_taxi">Такси</string>
   <!-- Automatically call recording -->
+  <string name="call_recording_automatically_title">Автоматичен запис</string>
+  <string name="call_recording_automatically_summary">Автоматичен запис след позвъняване</string>
 </resources>
