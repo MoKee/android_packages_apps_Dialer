@@ -25,6 +25,9 @@ import android.text.TextUtils;
 
 import com.android.dialer.R;
 
+import com.android.contacts.common.preference.SortOrderPreference;
+import com.android.contacts.common.preference.DisplayOrderPreference;
+
 import mokee.providers.MKSettings;
 
 import java.util.Locale;
@@ -33,8 +36,12 @@ public class DisplayOptionsSettingsFragment extends PreferenceFragment
         implements Preference.OnPreferenceChangeListener {
 
     private static final String BUTTON_T9_SEARCH_INPUT_LOCALE = "button_t9_search_input";
+    private static final String BUTTON_SORT_ORDER = "sortOrder";
+    private static final String BUTTON_DISPLAY_ORDER = "displayOrder";
 
     private ListPreference mT9SearchInputLocale;
+    private SortOrderPreference mSortOrder;
+    private DisplayOrderPreference mDisplayOrder;
     private Context mContext;
 
     // t9 search input locales that we have a custom overlay for
@@ -55,6 +62,26 @@ public class DisplayOptionsSettingsFragment extends PreferenceFragment
             initT9SearchInputPreferenceList();
             mT9SearchInputLocale.setOnPreferenceChangeListener(this);
         }
+        mSortOrder = (SortOrderPreference) findPreference(BUTTON_SORT_ORDER);
+        if (mSortOrder != null) {
+            getPreferenceScreen().removePreference(mSortOrder);
+        }
+        mDisplayOrder = (DisplayOrderPreference) findPreference(BUTTON_DISPLAY_ORDER);
+        if (mDisplayOrder != null) {
+            getPreferenceScreen().removePreference(mDisplayOrder);
+        }
+    }
+
+    /**
+    * Returns {@code true} or {@code false} based on whether the display options setting should be
+    * shown. For languages such as Chinese, Japanese, or Korean, display options aren't useful
+    * since contacts are sorted and displayed family name first by default.
+    *
+    * @return {@code true} if the display options should be shown, {@code false} otherwise.
+    */
+    private boolean showDisplayOptions() {
+        return getResources().getBoolean(R.bool.config_display_order_user_changeable)
+                && getResources().getBoolean(R.bool.config_sort_order_user_changeable);
     }
 
     /**
