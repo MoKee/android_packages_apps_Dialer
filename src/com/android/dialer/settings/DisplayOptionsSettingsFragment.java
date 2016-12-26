@@ -62,13 +62,15 @@ public class DisplayOptionsSettingsFragment extends PreferenceFragment
             initT9SearchInputPreferenceList();
             mT9SearchInputLocale.setOnPreferenceChangeListener(this);
         }
-        mSortOrder = (SortOrderPreference) findPreference(BUTTON_SORT_ORDER);
-        if (mSortOrder != null) {
-            getPreferenceScreen().removePreference(mSortOrder);
-        }
-        mDisplayOrder = (DisplayOrderPreference) findPreference(BUTTON_DISPLAY_ORDER);
-        if (mDisplayOrder != null) {
-            getPreferenceScreen().removePreference(mDisplayOrder);
+        if (!showDisplayOptions()) {
+            mSortOrder = (SortOrderPreference) findPreference(BUTTON_SORT_ORDER);
+            if (mSortOrder != null) {
+                getPreferenceScreen().removePreference(mSortOrder);
+            }
+            mDisplayOrder = (DisplayOrderPreference) findPreference(BUTTON_DISPLAY_ORDER);
+            if (mDisplayOrder != null) {
+                getPreferenceScreen().removePreference(mDisplayOrder);
+            }
         }
     }
 
