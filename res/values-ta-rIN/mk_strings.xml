@@ -16,6 +16,8 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- dialpad t9 search -->
+  <string name="t9_search_input_locale_default">இயல்புநிலை</string>
   <!-- Cloud Phone Number Location Engine -->
   <string name="call_log_action_user_mark">குறிப்பிடவும்</string>
   <string name="description_user_mark_action"><xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> என குறிப்பிடவும்</string>
