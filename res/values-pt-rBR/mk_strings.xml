@@ -17,6 +17,8 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- dialpad t9 search -->
+  <string name="preference_category_t9_dialpad_search">Pesquisa de teclado T9</string>
+  <string name="t9_search_input_locale">Entrada de pesquisa T9</string>
   <string name="t9_search_input_locale_default">Padrão</string>
   <!-- Cloud Phone Number Location Engine -->
   <string name="call_log_action_user_mark">MARCAR COMO</string>
