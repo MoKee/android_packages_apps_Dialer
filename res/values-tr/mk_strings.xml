@@ -22,7 +22,7 @@
   <string name="call_log_delete_limit_default">500 (Varsayılan)</string>
   <string name="call_log_delete_limit_nolimit">Sınır koyma</string>
   <!-- Cloud Phone Number Location Engine -->
-  <string name="call_log_action_user_mark">마크로</string>
+  <string name="call_log_action_user_mark">Olarak işaretle</string>
   <string name="description_user_mark_action"><xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> olarak işaretle</string>
   <string name="cloud_location_lookup_mark_title">%s\'i işaretle </string>
   <string name="cloud_location_lookup_mark_as">Arayan kişi bilgisini işaretle</string>
