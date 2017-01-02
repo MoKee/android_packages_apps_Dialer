@@ -17,6 +17,7 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- dialpad t9 search -->
+  <string name="preference_category_t9_dialpad_search">Tuş takımı T9 arama</string>
   <string name="t9_search_input_locale">T9 arama girişi</string>
   <string name="t9_search_input_locale_default">Varsayılan</string>
   <!-- Cloud Phone Number Location Engine -->
