@@ -17,6 +17,7 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- dialpad t9 search -->
+  <string name="preference_category_t9_dialpad_search">T9-поиск в номеронабирателе</string>
   <string name="t9_search_input_locale">Язык ввода Т9</string>
   <string name="t9_search_input_locale_default">По умолчанию</string>
   <!-- Cloud Phone Number Location Engine -->

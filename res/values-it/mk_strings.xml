@@ -24,14 +24,14 @@
   <string name="call_log_action_user_mark">Contrassegna come</string>
   <string name="description_user_mark_action">Contrassegna<xliff:g id="nameOrNumber" example="John Smith"> ^ 1 </xliff:g> come</string>
   <string name="cloud_location_lookup_mark_title">Contrassegna %s </string>
-  <string name="cloud_location_lookup_mark_as">Contrassegnare info chiamante</string>
+  <string name="cloud_location_lookup_mark_as">Contrassegna info chiamante</string>
   <string name="cloud_location_lookup_mark_custom">Info del chiamante personalizzate</string>
   <string name="cloud_location_lookup_mark_done">Fatto</string>
   <string name="cloud_location_lookup_mark_harassment">Molestie</string>
   <string name="cloud_location_lookup_mark_fraud">Frode</string>
   <string name="cloud_location_lookup_mark_advertisement">Pubblicità</string>
   <string name="cloud_location_lookup_mark_agency">Agenzia</string>
-  <string name="cloud_location_lookup_mark_takeaway">A portar via</string>
+  <string name="cloud_location_lookup_mark_takeaway">Takeaway</string>
   <string name="cloud_location_lookup_mark_delivery">Consegna</string>
   <string name="cloud_location_lookup_mark_service">Servizio Clienti</string>
   <string name="cloud_location_lookup_mark_taxi">Taxi</string>
