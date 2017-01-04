@@ -32,7 +32,7 @@
   <string name="cloud_location_lookup_mark_fraud">Penipuan</string>
   <string name="cloud_location_lookup_mark_advertisement">Iklan</string>
   <string name="cloud_location_lookup_mark_agency">Agen</string>
-  <string name="cloud_location_lookup_mark_takeaway">Bawa Pergi</string>
+  <string name="cloud_location_lookup_mark_takeaway">Takeaway</string>
   <string name="cloud_location_lookup_mark_delivery">Pengiriman</string>
   <string name="cloud_location_lookup_mark_service">Layanan pelanggan</string>
   <string name="cloud_location_lookup_mark_taxi">Taksi</string>
