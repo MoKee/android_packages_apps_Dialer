@@ -28,7 +28,7 @@
   <string name="cloud_location_lookup_mark_custom">自訂來電者資訊</string>
   <string name="cloud_location_lookup_mark_done">完成</string>
   <string name="cloud_location_lookup_mark_harassment">騷擾電話</string>
-  <string name="cloud_location_lookup_mark_fraud">欺詐電話</string>
+  <string name="cloud_location_lookup_mark_fraud">詐騙電話</string>
   <string name="cloud_location_lookup_mark_advertisement">廣告推銷</string>
   <string name="cloud_location_lookup_mark_agency">機構</string>
   <string name="cloud_location_lookup_mark_takeaway">外送</string>
