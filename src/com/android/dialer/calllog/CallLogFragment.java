@@ -32,6 +32,7 @@ import android.provider.CallLog;
 import android.provider.CallLog.Calls;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.v13.app.FragmentCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -86,6 +87,7 @@ public class CallLogFragment extends Fragment implements CallLogQueryHandler.Lis
 
     private static final long MILLIS_IN_MINUTE = 60 * 1000;
 
+    private AppBarLayout mAppBarLayout;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
     protected CallLogAdapter mAdapter;
@@ -344,6 +346,7 @@ public class CallLogFragment extends Fragment implements CallLogQueryHandler.Lis
 
     protected void setupView(
             View view, @Nullable VoicemailPlaybackPresenter voicemailPlaybackPresenter) {
+        mAppBarLayout = (AppBarLayout) view.findViewById(R.id.app_bar_layout);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());
@@ -638,6 +641,10 @@ public class CallLogFragment extends Fragment implements CallLogQueryHandler.Lis
             mFilterStatusSpinnerView.setAdapter(filterStatusAdapter);
             mFilterStatusSpinnerView.setOnItemSelectedListener(mStatusSelectedListener);
             SpinnerContent.setSpinnerContentValue(mFilterStatusSpinnerView, mCallTypeFilter);
+        }
+        if (mFilterSubSpinnerView.getVisibility() == View.GONE &&
+                mFilterStatusSpinnerView.getVisibility() == View.GONE) {
+            mAppBarLayout.setVisibility(View.GONE);
         }
     }
 

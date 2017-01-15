@@ -26,6 +26,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.CallLog;
 import android.provider.ContactsContract;
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.telephony.TelephonyManager;
@@ -68,6 +69,7 @@ public class CallStatsFragment extends Fragment implements
     private boolean mSortByDuration = true;
     private boolean mDataLoaded = false;
 
+    private AppBarLayout mAppBarLayout;
     private RecyclerView mRecyclerView;
     private EmptyContentView mEmptyListView;
     private LinearLayoutManager mLayoutManager;
@@ -112,6 +114,7 @@ public class CallStatsFragment extends Fragment implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedState) {
         View view = inflater.inflate(R.layout.call_stats_fragment, container, false);
 
+        mAppBarLayout = (AppBarLayout) view.findViewById(R.id.app_bar_layout);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());
@@ -160,6 +163,9 @@ public class CallStatsFragment extends Fragment implements
             }
         }
 
+        if (mFilterSubSpinnerView.getVisibility() == View.GONE) {
+            mAppBarLayout.setVisibility(View.GONE);
+        }
 
         // Update the status filter's content.
         ArrayAdapter<SpinnerContent> filterStatusAdapter = new ArrayAdapter<SpinnerContent>(
