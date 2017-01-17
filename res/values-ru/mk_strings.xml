@@ -31,11 +31,11 @@
   <string name="cloud_location_lookup_mark_fraud">Мошенничество</string>
   <string name="cloud_location_lookup_mark_advertisement">Реклама</string>
   <string name="cloud_location_lookup_mark_agency">Агенство</string>
-  <string name="cloud_location_lookup_mark_takeaway">Еда на вынос</string>
+  <string name="cloud_location_lookup_mark_takeaway">С собой</string>
   <string name="cloud_location_lookup_mark_delivery">Доставка</string>
   <string name="cloud_location_lookup_mark_service">Центр поддержки</string>
   <string name="cloud_location_lookup_mark_taxi">Такси</string>
   <!-- Automatically call recording -->
   <string name="call_recording_automatically_title">Автоматическая запись</string>
-  <string name="call_recording_automatically_summary">Записывать автоматически после звонка</string>
+  <string name="call_recording_automatically_summary">Автоматически записывать после звонка</string>
 </resources>
