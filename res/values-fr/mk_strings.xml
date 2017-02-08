@@ -27,7 +27,7 @@
   <string name="cloud_location_lookup_mark_title">Marquer %s </string>
   <string name="cloud_location_lookup_mark_as">Marquer informations de l\'appelant</string>
   <string name="cloud_location_lookup_mark_custom">Info appelant personnalisé</string>
-  <string name="cloud_location_lookup_mark_done">Vu</string>
+  <string name="cloud_location_lookup_mark_done">Terminé</string>
   <string name="cloud_location_lookup_mark_harassment">Harcèlement</string>
   <string name="cloud_location_lookup_mark_fraud">Fraude</string>
   <string name="cloud_location_lookup_mark_advertisement">Annonce publicitaire</string>
