@@ -30,4 +30,5 @@
   <string name="cloud_location_lookup_mark_service">Kundtjänst</string>
   <string name="cloud_location_lookup_mark_taxi">Taxi</string>
   <!-- Automatically call recording -->
+  <string name="call_recording_automatically_title">Spelar in automatiskt</string>
 </resources>
