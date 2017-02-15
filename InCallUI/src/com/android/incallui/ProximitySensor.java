@@ -23,7 +23,7 @@ import android.content.res.Configuration;
 import android.hardware.display.DisplayManager;
 import android.hardware.display.DisplayManager.DisplayListener;
 import android.os.PowerManager;
-import cyanogenmod.providers.CMSettings;
+import mokee.providers.MKSettings;
 import android.telecom.CallAudioState;
 import android.view.Display;
 import android.provider.Settings;
@@ -270,8 +270,8 @@ public class ProximitySensor implements AccelerometerListener.OrientationListene
                     .add("aud", CallAudioState.audioRouteToString(audioMode))
                     .toString());
 
-            final boolean proximityOnWake = CMSettings.System.getInt(mContext.getContentResolver(),
-                    CMSettings.System.PROXIMITY_ON_WAKE, 1) == 1;
+            final boolean proximityOnWake = MKSettings.System.getInt(mContext.getContentResolver(),
+                    MKSettings.System.PROXIMITY_ON_WAKE, 1) == 1;
 
             if ((mIsPhoneOffhook || (mHasIncomingCall && proximityOnWake))
                     && !screenOnImmediately) {
