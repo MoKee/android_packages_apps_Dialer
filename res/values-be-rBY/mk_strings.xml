@@ -26,7 +26,7 @@
   <string name="cloud_location_lookup_mark_title">Пазнычыць %s </string>
   <string name="cloud_location_lookup_mark_as">Пазначыць інфармацыю аб тым, хто тэлефануе</string>
   <string name="cloud_location_lookup_mark_custom">Iншае</string>
-  <string name="cloud_location_lookup_mark_done">Гатова</string>
+  <string name="cloud_location_lookup_mark_done">Зроблена</string>
   <string name="cloud_location_lookup_mark_harassment">Вымагальніцтва</string>
   <string name="cloud_location_lookup_mark_fraud">Махлярства</string>
   <string name="cloud_location_lookup_mark_advertisement">Рэклама</string>
