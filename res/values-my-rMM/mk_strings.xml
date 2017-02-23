@@ -18,6 +18,7 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- dialpad t9 search -->
   <!-- Cloud Phone Number Location Engine -->
+  <string name="call_log_action_user_mark">မှတ်ပါ</string>
   <string name="cloud_location_lookup_mark_done">ရပြီ</string>
   <string name="cloud_location_lookup_mark_advertisement">ကြော်ငြာ</string>
   <string name="cloud_location_lookup_mark_service">ဝယ်သူအတွက် ဝန်ဆောင်မှု့</string>
