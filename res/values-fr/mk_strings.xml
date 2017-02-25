@@ -18,15 +18,15 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- Call Log Delete Limit  -->
   <string name="call_log_delete_limit_title">Limite du journal d\'appel</string>
-  <string name="call_log_delete_limit_summary">Enregistrer <xliff:g id="count">%1$s</xliff:g> appels</string>
+  <string name="call_log_delete_limit_summary">Enregistrer <xliff:g id="count">%1$s</xliff:g> journal d\'appel</string>
   <string name="call_log_delete_limit_default">500 (par défaut)</string>
   <string name="call_log_delete_limit_nolimit">Pas de limite</string>
   <!-- Cloud Phone Number Location Engine -->
-  <string name="call_log_action_user_mark">MARQUER COMME</string>
+  <string name="call_log_action_user_mark">Marquer comme</string>
   <string name="description_user_mark_action">Marquer <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> comme</string>
   <string name="cloud_location_lookup_mark_title">Marquer %s </string>
-  <string name="cloud_location_lookup_mark_as">Marquer informations de l\'appelant</string>
-  <string name="cloud_location_lookup_mark_custom">Info appelant personnalisé</string>
+  <string name="cloud_location_lookup_mark_as">Marquer les informations de l\'appelant</string>
+  <string name="cloud_location_lookup_mark_custom">Informations personnalisé sur l\'appelant</string>
   <string name="cloud_location_lookup_mark_done">Terminé</string>
   <string name="cloud_location_lookup_mark_harassment">Harcèlement</string>
   <string name="cloud_location_lookup_mark_fraud">Fraude</string>

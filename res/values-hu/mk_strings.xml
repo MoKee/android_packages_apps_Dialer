@@ -17,7 +17,7 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- Call Log Delete Limit  -->
-  <string name="call_log_delete_limit_title">koszi</string>
+  <string name="call_log_delete_limit_title">Hívásnapló korlát</string>
   <string name="call_log_delete_limit_summary"><xliff:g id="count">%1$s</xliff:g> korábbi hívás megtartása</string>
   <string name="call_log_delete_limit_default">500 (alapértelmezett)</string>
   <string name="call_log_delete_limit_nolimit">Nincs korlátozva</string>
@@ -25,7 +25,7 @@
   <string name="call_log_action_user_mark">Megjelöl mint</string>
   <string name="description_user_mark_action">Megjelöl <xliff:g id="nameOrNumber" example="John Smith"> ^ 1 </xliff:g> mint</string>
   <string name="cloud_location_lookup_mark_title">Megjelölés %s </string>
-  <string name="cloud_location_lookup_mark_as">Hívésinfó megjelölése</string>
+  <string name="cloud_location_lookup_mark_as">Hívásinfó megjelölése</string>
   <string name="cloud_location_lookup_mark_custom">Egyedi hívásinfó</string>
   <string name="cloud_location_lookup_mark_done">Kész</string>
   <string name="cloud_location_lookup_mark_harassment">Zaklatás</string>
