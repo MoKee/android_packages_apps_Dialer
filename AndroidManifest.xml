@@ -77,7 +77,7 @@
         android:name="DialerApplication"
         android:label="@string/applicationLabel"
         android:icon="@mipmap/ic_launcher_phone"
-        android:roundIcon="@mipmap/ic_launcher_phone_round" >
+        android:roundIcon="@mipmap/ic_launcher_phone_round"
         android:hardwareAccelerated="true"
         android:supportsRtl="true"
         android:backupAgent='com.android.dialer.DialerBackupAgent'
@@ -96,7 +96,7 @@
             android:launchMode="singleTask"
             android:clearTaskOnLaunch="true"
             android:icon="@mipmap/ic_launcher_phone"
-            android:roundIcon="@mipmap/ic_launcher_phone_round" >
+            android:roundIcon="@mipmap/ic_launcher_phone_round"
             android:windowSoftInputMode="stateAlwaysHidden|adjustNothing"
             android:resizeableActivity="true"
             android:directBootAware="true">
@@ -181,15 +181,15 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/call_log_activity_title"
             android:theme="@style/DialtactsThemeWithoutActionBarOverlay"
-            android:icon="@mipmap/ic_launcher_phone">
-            android:roundIcon="@mipmap/ic_launcher_phone_round" >
+            android:icon="@mipmap/ic_launcher_phone"
+            android:roundIcon="@mipmap/ic_launcher_phone_round">
         </activity>
 
         <activity android:name="com.android.dialer.CallDetailActivity"
             android:label="@string/callDetailTitle"
             android:theme="@style/CallDetailActivityTheme"
             android:parentActivityName="com.android.dialer.calllog.CallLogActivity"
-            android:icon="@mipmap/ic_launcher_phone">
+            android:icon="@mipmap/ic_launcher_phone"
             android:roundIcon="@mipmap/ic_launcher_phone_round">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
@@ -202,8 +202,8 @@
             android:label="@string/callStatsDetailTitle"
             android:theme="@style/CallDetailActivityTheme"
             android:screenOrientation="portrait"
-            android:icon="@mipmap/ic_launcher_phone" >
-            android:roundIcon="@mipmap/ic_launcher_phone_round" >
+            android:icon="@mipmap/ic_launcher_phone"
+            android:roundIcon="@mipmap/ic_launcher_phone_round">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
