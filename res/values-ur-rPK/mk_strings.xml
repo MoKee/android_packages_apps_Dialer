@@ -16,7 +16,16 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- dialpad t9 search -->
-  <!-- Cloud Phone Number Location Engine -->
-  <!-- Automatically call recording -->
+  <plurals name="minute">
+    <item quantity="one">1 min</item>
+    <item quantity="other">%d mins</item>
+  </plurals>
+  <plurals name="second">
+    <item quantity="one">1 seg</item>
+    <item quantity="other">%d segs</item>
+  </plurals>
+  <plurals name="call">
+    <item quantity="one">1 llamada</item>
+    <item quantity="other">%d llamaes</item>
+  </plurals>
 </resources>
