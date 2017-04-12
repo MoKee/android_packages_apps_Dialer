@@ -17,8 +17,8 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- Call Log Delete Limit  -->
-  <string name="call_log_delete_limit_title">Лимит регистър-повиквания</string>
-  <string name="call_log_delete_limit_summary">Задръжте <xliff:g id="count">%1$s</xliff:g> регистър-повиквания</string>
+  <string name="call_log_delete_limit_title">Лимит на регистъра за повиквания</string>
+  <string name="call_log_delete_limit_summary">Запази <xliff:g id="count">%1$s</xliff:g> повиквания в регистъра</string>
   <string name="call_log_delete_limit_default">500 (по подразбиране)</string>
   <string name="call_log_delete_limit_nolimit">Няма лимит</string>
   <!-- Cloud Phone Number Location Engine -->
@@ -26,7 +26,7 @@
   <string name="description_user_mark_action">Маркирай <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> като</string>
   <string name="cloud_location_lookup_mark_title">Маркирай %s </string>
   <string name="cloud_location_lookup_mark_as">Маркирай инфо за повикващия</string>
-  <string name="cloud_location_lookup_mark_custom">Информация повикващ</string>
+  <string name="cloud_location_lookup_mark_custom">Информация за повикващия</string>
   <string name="cloud_location_lookup_mark_done">Готово</string>
   <string name="cloud_location_lookup_mark_harassment">Тормоз</string>
   <string name="cloud_location_lookup_mark_fraud">Измама</string>
@@ -34,6 +34,6 @@
   <string name="cloud_location_lookup_mark_agency">Агенция</string>
   <string name="cloud_location_lookup_mark_takeaway">Храна за вкъщи</string>
   <string name="cloud_location_lookup_mark_delivery">Доставка</string>
-  <string name="cloud_location_lookup_mark_service">Обслужване клиенти</string>
+  <string name="cloud_location_lookup_mark_service">Обслужване на клиенти</string>
   <string name="cloud_location_lookup_mark_taxi">Такси</string>
 </resources>
