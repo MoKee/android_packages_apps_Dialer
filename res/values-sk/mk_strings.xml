@@ -31,7 +31,7 @@
   <string name="cloud_location_lookup_mark_fraud">Podvod</string>
   <string name="cloud_location_lookup_mark_advertisement">Reklama</string>
   <string name="cloud_location_lookup_mark_agency">Agentúra</string>
-  <string name="cloud_location_lookup_mark_takeaway">Zo sebou</string>
+  <string name="cloud_location_lookup_mark_takeaway">So sebou</string>
   <string name="cloud_location_lookup_mark_delivery">Donáška</string>
   <string name="cloud_location_lookup_mark_service">Zákaznícky servis</string>
   <string name="cloud_location_lookup_mark_taxi">Taxi</string>
