@@ -17,5 +17,23 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- Call Log Delete Limit  -->
+  <string name="call_log_delete_limit_title">Puhelulokin raja</string>
+  <string name="call_log_delete_limit_summary">Pidä <xliff:g id="count">%1$s</xliff:g> puhelulokissa</string>
+  <string name="call_log_delete_limit_default">500 (oletus)</string>
+  <string name="call_log_delete_limit_nolimit">Älä rajoita</string>
   <!-- Cloud Phone Number Location Engine -->
+  <string name="call_log_action_user_mark">Merkitse</string>
+  <string name="description_user_mark_action">Merkitse <xliff:g id="nameOrNumber" esimerkki="John Smith">^1</xliff:g> kuin</string>
+  <string name="cloud_location_lookup_mark_title">Merkitse %s </string>
+  <string name="cloud_location_lookup_mark_as">Merkitse soittajan tiedot</string>
+  <string name="cloud_location_lookup_mark_custom">Mukautetun soittajan tiedot</string>
+  <string name="cloud_location_lookup_mark_done">Valmis</string>
+  <string name="cloud_location_lookup_mark_harassment">Häirintä</string>
+  <string name="cloud_location_lookup_mark_fraud">Petos</string>
+  <string name="cloud_location_lookup_mark_advertisement">Mainostus</string>
+  <string name="cloud_location_lookup_mark_agency">Virasto</string>
+  <string name="cloud_location_lookup_mark_takeaway">Nouto</string>
+  <string name="cloud_location_lookup_mark_delivery">Toimitus</string>
+  <string name="cloud_location_lookup_mark_service">Asiakaspalvelu</string>
+  <string name="cloud_location_lookup_mark_taxi">Taksi</string>
 </resources>
