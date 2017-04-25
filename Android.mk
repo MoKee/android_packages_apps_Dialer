@@ -75,6 +75,7 @@ LOCAL_STATIC_JAVA_LIBRARIES := \
     ims-ext-common \
     phonebook_wrapper \
     telephony-common \
+    org.mokee.platform.internal \
     org.mokee.platform.sdk
 
 LOCAL_PACKAGE_NAME := Dialer
