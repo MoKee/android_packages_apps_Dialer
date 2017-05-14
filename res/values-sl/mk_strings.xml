@@ -35,4 +35,5 @@
   <string name="cloud_location_lookup_mark_taxi">Taksi</string>
   <!-- Automatically call recording -->
   <string name="call_recording_automatically_title">Samodejno snemanje</string>
+  <string name="call_recording_automatically_summary">Samodejno snemanje po klicu</string>
 </resources>
