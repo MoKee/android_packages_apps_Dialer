@@ -36,4 +36,6 @@
   <string name="cloud_location_lookup_mark_service">خدمة العملاء</string>
   <string name="cloud_location_lookup_mark_taxi">سيارة أجرة</string>
   <!-- Automatically call recording -->
+  <string name="call_recording_automatically_title">التسجيل تلقائياً</string>
+  <string name="call_recording_automatically_summary">التسجيل تلقائياً بعد المكالمة</string>
 </resources>
