@@ -36,4 +36,6 @@
   <string name="cloud_location_lookup_mark_service">カスタマーサービス</string>
   <string name="cloud_location_lookup_mark_taxi">タクシー</string>
   <!-- Automatically call recording -->
+  <string name="call_recording_automatically_title">自動的に記録する</string>
+  <string name="call_recording_automatically_summary">通話後自動的に録音する</string>
 </resources>
