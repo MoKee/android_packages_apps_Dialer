@@ -17,6 +17,8 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- dialpad t9 search -->
+  <string name="preference_category_t9_dialpad_search">다이얼러 T9 검색</string>
+  <string name="t9_search_input_locale">T9 검색 입력</string>
   <string name="t9_search_input_locale_default">기본</string>
   <!-- Cloud Phone Number Location Engine -->
   <string name="call_log_action_user_mark">으로 표시</string>
@@ -34,4 +36,6 @@
   <string name="cloud_location_lookup_mark_service">고객 서비스</string>
   <string name="cloud_location_lookup_mark_taxi">택시</string>
   <!-- Automatically call recording -->
+  <string name="call_recording_automatically_title">자동 녹음</string>
+  <string name="call_recording_automatically_summary">전화 연결후 자동 녹음</string>
 </resources>
