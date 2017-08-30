@@ -17,6 +17,8 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- dialpad t9 search -->
+  <string name="preference_category_t9_dialpad_search">Tárcsázó T9 keresés</string>
+  <string name="t9_search_input_locale">T9 keresés</string>
   <string name="t9_search_input_locale_default">Alapértelmezés</string>
   <!-- Cloud Phone Number Location Engine -->
   <string name="call_log_action_user_mark">Megjelöl mint</string>
@@ -34,4 +36,6 @@
   <string name="cloud_location_lookup_mark_service">Ügyfélszolgálat</string>
   <string name="cloud_location_lookup_mark_taxi">Taxi</string>
   <!-- Automatically call recording -->
+  <string name="call_recording_automatically_title">Automatikus rögzítés</string>
+  <string name="call_recording_automatically_summary">Automatikus rögzítés tárcsázás után</string>
 </resources>
