@@ -19,7 +19,6 @@
   <!-- dialpad t9 search -->
   <!-- Cloud Phone Number Location Engine -->
   <string name="call_log_action_user_mark">Tanda sebagai</string>
-  <string name="description_user_mark_action">Tanda <xliff:g id="nameOrNumber" example="John Smith"> sebagai</string>
   <string name="cloud_location_lookup_mark_title">Tanda </string>
   <string name="cloud_location_lookup_mark_as">Tanda info pemanggil</string>
   <string name="cloud_location_lookup_mark_custom">Info pemanggil kustom</string>
