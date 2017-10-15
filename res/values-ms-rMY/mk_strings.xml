@@ -18,5 +18,19 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- dialpad t9 search -->
   <!-- Cloud Phone Number Location Engine -->
+  <string name="call_log_action_user_mark">Tanda sebagai</string>
+  <string name="description_user_mark_action">Tanda <xliff:g id="nameOrNumber" example="John Smith"> sebagai</string>
+  <string name="cloud_location_lookup_mark_title">Tanda </string>
+  <string name="cloud_location_lookup_mark_as">Tanda info pemanggil</string>
+  <string name="cloud_location_lookup_mark_custom">Info pemanggil kustom</string>
+  <string name="cloud_location_lookup_mark_done">Selesai</string>
+  <string name="cloud_location_lookup_mark_harassment">Gangguan</string>
+  <string name="cloud_location_lookup_mark_fraud">Penipuan</string>
+  <string name="cloud_location_lookup_mark_advertisement">Iklan</string>
+  <string name="cloud_location_lookup_mark_agency">Agensi</string>
+  <string name="cloud_location_lookup_mark_takeaway">Bawa keluar</string>
+  <string name="cloud_location_lookup_mark_delivery">Penghantaran</string>
+  <string name="cloud_location_lookup_mark_service">Khidmat Pelanggan</string>
+  <string name="cloud_location_lookup_mark_taxi">Teksi</string>
   <!-- Automatically call recording -->
 </resources>
