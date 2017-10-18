@@ -17,8 +17,10 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- dialpad t9 search -->
+  <string name="t9_search_input_locale_default">Asal</string>
   <!-- Cloud Phone Number Location Engine -->
   <string name="call_log_action_user_mark">Tanda sebagai</string>
+  <string name="description_user_mark_action">Tanda <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> sebagai</string>
   <string name="cloud_location_lookup_mark_title">Tanda </string>
   <string name="cloud_location_lookup_mark_as">Tanda info pemanggil</string>
   <string name="cloud_location_lookup_mark_custom">Info pemanggil kustom</string>
