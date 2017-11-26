@@ -18,5 +18,18 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- dialpad t9 search -->
   <!-- Cloud Phone Number Location Engine -->
+  <string name="call_log_action_user_mark">മാര്‍ക്ക്‌ ചെയ്യേണ്ടത്</string>
+  <string name="cloud_location_lookup_mark_title">മാര്‍ക്ക്‌ ചെയ്യേണ്ടത് </string>
+  <string name="cloud_location_lookup_mark_as">വിളിക്കുന്ന ആളിന്റെ വിവരം ചേർക്കുക</string>
+  <string name="cloud_location_lookup_mark_custom">ഇഷ്ടമുള്ള കോളർ ഇൻഫോ</string>
+  <string name="cloud_location_lookup_mark_done">പൂർത്തിയായി</string>
+  <string name="cloud_location_lookup_mark_harassment">ശല്യപ്പെടുതുന്നത്</string>
+  <string name="cloud_location_lookup_mark_fraud">തട്ടിപ്പ്</string>
+  <string name="cloud_location_lookup_mark_advertisement">പരസ്യങ്ങൾ</string>
+  <string name="cloud_location_lookup_mark_agency">ഏജൻസി</string>
+  <string name="cloud_location_lookup_mark_takeaway">എടുത്ത്മാറ്റുക</string>
+  <string name="cloud_location_lookup_mark_delivery">എത്തിക്കൽ</string>
+  <string name="cloud_location_lookup_mark_service">കസ്റ്റമർ സേവനം</string>
+  <string name="cloud_location_lookup_mark_taxi">ടാക്സി</string>
   <!-- Automatically call recording -->
 </resources>

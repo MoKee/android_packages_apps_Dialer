@@ -18,5 +18,14 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- dialpad t9 search -->
   <!-- Cloud Phone Number Location Engine -->
+  <string name="cloud_location_lookup_mark_as">Tatakan ang impormasyon ng tumatawag</string>
+  <string name="cloud_location_lookup_mark_custom">Sinadyang impormasyon ng tumatawag</string>
+  <string name="cloud_location_lookup_mark_done">Natapos</string>
+  <string name="cloud_location_lookup_mark_harassment">Pang-haharass</string>
+  <string name="cloud_location_lookup_mark_fraud">Pandaraya</string>
+  <string name="cloud_location_lookup_mark_advertisement">Palatastas</string>
+  <string name="cloud_location_lookup_mark_agency">Ahensya</string>
+  <string name="cloud_location_lookup_mark_delivery">Paghahatid</string>
+  <string name="cloud_location_lookup_mark_taxi">Taksi</string>
   <!-- Automatically call recording -->
 </resources>
