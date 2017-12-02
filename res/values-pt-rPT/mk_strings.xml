@@ -20,10 +20,14 @@
   <string name="t9_search_input_locale_default">Predefinição</string>
   <!-- Cloud Phone Number Location Engine -->
   <string name="call_log_action_user_mark">Marcar como</string>
+  <string name="cloud_location_lookup_mark_custom">Informação do chamador personalizado</string>
   <string name="cloud_location_lookup_mark_done">Concluído</string>
+  <string name="cloud_location_lookup_mark_harassment">Assédio</string>
   <string name="cloud_location_lookup_mark_fraud">Fraude</string>
   <string name="cloud_location_lookup_mark_advertisement">Anúncio</string>
   <string name="cloud_location_lookup_mark_agency">Agência</string>
+  <string name="cloud_location_lookup_mark_delivery">Entrega</string>
+  <string name="cloud_location_lookup_mark_service">Serviço de apoio a clientes</string>
   <string name="cloud_location_lookup_mark_taxi">Táxi</string>
   <!-- Automatically call recording -->
 </resources>
