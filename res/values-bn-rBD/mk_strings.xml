@@ -19,16 +19,21 @@
   <!-- dialpad t9 search -->
   <string name="t9_search_input_locale_default">Default</string>
   <!-- Cloud Phone Number Location Engine -->
-  <string name="call_log_action_user_mark">Mark as</string>
-  <string name="description_user_mark_action">Mark <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> as</string>
-  <string name="cloud_location_lookup_mark_title">Mark %s </string>
-  <string name="cloud_location_lookup_mark_as">Mark caller info</string>
+  <string name="call_log_action_user_mark">চিহ্ন হীসাবে
+</string>
+  <string name="description_user_mark_action">চিহ্ন <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> হীসাবে</string>
+  <string name="cloud_location_lookup_mark_title">সাতান্স % চিনো
+</string>
+  <string name="cloud_location_lookup_mark_as">কল কলকারী তথ্য মার্ক</string>
   <string name="cloud_location_lookup_mark_custom">কলার তথ্য কাস্টমাইজ করুন</string>
   <string name="cloud_location_lookup_mark_done">সম্পন্ন হয়েছে</string>
-  <string name="cloud_location_lookup_mark_harassment">Harassment</string>
-  <string name="cloud_location_lookup_mark_fraud">Fraud</string>
+  <string name="cloud_location_lookup_mark_harassment">আপদস্ত</string>
+  <string name="cloud_location_lookup_mark_fraud">প্রতারানা</string>
   <string name="cloud_location_lookup_mark_advertisement">বিজ্ঞাপন</string>
   <string name="cloud_location_lookup_mark_agency">এজেন্সি</string>
   <string name="cloud_location_lookup_mark_takeaway">মূল কথা</string>
+  <string name="cloud_location_lookup_mark_delivery">বিলি</string>
+  <string name="cloud_location_lookup_mark_service">গ্রাহাক পরিশেবা</string>
+  <string name="cloud_location_lookup_mark_taxi">ট্যাক্সি</string>
   <!-- Automatically call recording -->
 </resources>
