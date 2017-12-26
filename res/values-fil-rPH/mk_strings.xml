@@ -17,6 +17,7 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- dialpad t9 search -->
+  <string name="t9_search_input_locale_default">Pangunahin</string>
   <!-- Cloud Phone Number Location Engine -->
   <string name="cloud_location_lookup_mark_as">Tatakan ang impormasyon ng tumatawag</string>
   <string name="cloud_location_lookup_mark_custom">Sinadyang impormasyon ng tumatawag</string>
