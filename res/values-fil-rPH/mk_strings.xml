@@ -19,6 +19,9 @@
   <!-- dialpad t9 search -->
   <string name="t9_search_input_locale_default">Pangunahin</string>
   <!-- Cloud Phone Number Location Engine -->
+  <string name="call_log_action_user_mark">Markahan bilang</string>
+  <string name="description_user_mark_action">Marka <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> bilang</string>
+  <string name="cloud_location_lookup_mark_title">Markahan %s </string>
   <string name="cloud_location_lookup_mark_as">Tatakan ang impormasyon ng tumatawag</string>
   <string name="cloud_location_lookup_mark_custom">Sinadyang impormasyon ng tumatawag</string>
   <string name="cloud_location_lookup_mark_done">Natapos</string>
@@ -26,7 +29,9 @@
   <string name="cloud_location_lookup_mark_fraud">Pandaraya</string>
   <string name="cloud_location_lookup_mark_advertisement">Palatastas</string>
   <string name="cloud_location_lookup_mark_agency">Ahensya</string>
+  <string name="cloud_location_lookup_mark_takeaway">Pagmamana</string>
   <string name="cloud_location_lookup_mark_delivery">Paghahatid</string>
+  <string name="cloud_location_lookup_mark_service">Customer Service</string>
   <string name="cloud_location_lookup_mark_taxi">Taksi</string>
   <!-- Automatically call recording -->
 </resources>
