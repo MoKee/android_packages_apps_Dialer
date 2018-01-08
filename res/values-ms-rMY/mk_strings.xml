@@ -17,6 +17,8 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- dialpad t9 search -->
+  <string name="preference_category_t9_dialpad_search">Pad dial T9 mencari</string>
+  <string name="t9_search_input_locale">T9 mencari input</string>
   <string name="t9_search_input_locale_default">Asal</string>
   <!-- Cloud Phone Number Location Engine -->
   <string name="call_log_action_user_mark">Tanda sebagai</string>
@@ -34,4 +36,6 @@
   <string name="cloud_location_lookup_mark_service">Khidmat Pelanggan</string>
   <string name="cloud_location_lookup_mark_taxi">Teksi</string>
   <!-- Automatically call recording -->
+  <string name="call_recording_automatically_title">Merakam secara automatik</string>
+  <string name="call_recording_automatically_summary">Merakam secara automatik selepas panggilan</string>
 </resources>
