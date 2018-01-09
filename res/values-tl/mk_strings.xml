@@ -17,6 +17,7 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- dialpad t9 search -->
+  <string name="t9_search_input_locale_default">Pangunahin</string>
   <!-- Cloud Phone Number Location Engine -->
   <string name="call_log_action_user_mark">Markahan bilang</string>
   <string name="description_user_mark_action">Marka <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> bilang</string>
