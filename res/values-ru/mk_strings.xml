@@ -25,17 +25,17 @@
   <string name="description_user_mark_action">Пометить <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> как</string>
   <string name="cloud_location_lookup_mark_title">Пометить %s </string>
   <string name="cloud_location_lookup_mark_as">Отметить информацию о звонящем</string>
-  <string name="cloud_location_lookup_mark_custom">Дополнительная информация о звонящем</string>
+  <string name="cloud_location_lookup_mark_custom">Доп. информация о звонящем</string>
   <string name="cloud_location_lookup_mark_done">Готово</string>
   <string name="cloud_location_lookup_mark_harassment">Вымогательстово</string>
   <string name="cloud_location_lookup_mark_fraud">Мошенничество</string>
   <string name="cloud_location_lookup_mark_advertisement">Реклама</string>
   <string name="cloud_location_lookup_mark_agency">Агенство</string>
-  <string name="cloud_location_lookup_mark_takeaway">С собой</string>
+  <string name="cloud_location_lookup_mark_takeaway">Еда на вынос</string>
   <string name="cloud_location_lookup_mark_delivery">Доставка</string>
-  <string name="cloud_location_lookup_mark_service">Центр поддержки</string>
+  <string name="cloud_location_lookup_mark_service">Служба поддержки</string>
   <string name="cloud_location_lookup_mark_taxi">Такси</string>
   <!-- Automatically call recording -->
   <string name="call_recording_automatically_title">Автоматическая запись</string>
-  <string name="call_recording_automatically_summary">Автоматическая запись после звонка</string>
+  <string name="call_recording_automatically_summary">Автоматически записывать звонок после вызова</string>
 </resources>
