@@ -223,7 +223,7 @@ LOCAL_AAPT_FLAGS := \
 	--extra-packages com.android.dialer.calllog.ui \
 	--extra-packages com.android.dialer.calllogutils \
 	--extra-packages com.android.dialer.common \
-        --extra-packages com.android.dialer.contactactions \
+	--extra-packages com.android.dialer.contactactions \
 	--extra-packages com.android.dialer.contactsfragment \
 	--extra-packages com.android.dialer.dialpadview \
 	--extra-packages com.android.dialer.enrichedcall.simulator \
@@ -271,7 +271,7 @@ LOCAL_AAPT_FLAGS := \
 	--extra-packages com.android.voicemail.impl.fetch \
 	--extra-packages com.android.voicemail.impl.settings \
 	--extra-packages com.android.voicemail.settings \
-	--extra-packages me.leolin.shortcutbadger \
+	--extra-packages me.leolin.shortcutbadger
 
 
 LOCAL_STATIC_JAVA_LIBRARIES := \
@@ -283,12 +283,12 @@ LOCAL_STATIC_JAVA_LIBRARIES := \
 	dialer-disklrucache-target \
 	dialer-gifdecoder-target \
 	dialer-glide-target \
-        dialer-grpc-all-target \
-        dialer-grpc-context-target \
-        dialer-grpc-core-target \
+	dialer-grpc-all-target \
+	dialer-grpc-context-target \
+	dialer-grpc-core-target \
 	dialer-grpc-okhttp-target \
 	dialer-grpc-protobuf-lite-target \
-        dialer-grpc-stub-target \
+	dialer-grpc-stub-target \
 	dialer-guava-target \
 	dialer-javax-annotation-api-target \
 	dialer-javax-inject-target \
@@ -311,7 +311,7 @@ LOCAL_STATIC_ANDROID_LIBRARIES := \
 
 LOCAL_JAVA_LIBRARIES := \
 	dialer-auto-value \
-	org.apache.http.legacy \
+	org.apache.http.legacy
 
 # Libraries needed by the compiler (JACK) to generate code.
 PROCESSOR_LIBRARIES_TARGET := \
@@ -352,7 +352,7 @@ endif
 
 # End Bug: 37077388
 
-LOCAL_SDK_VERSION := system_current
+# LOCAL_SDK_VERSION := system_current
 LOCAL_MODULE_TAGS := optional
 LOCAL_PACKAGE_NAME := Dialer
 LOCAL_CERTIFICATE := shared

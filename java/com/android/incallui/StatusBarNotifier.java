@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2013 The Android Open Source Project
+ * Copyright (C) 2013-2018 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -583,9 +584,11 @@ public class StatusBarNotifier
       return TextUtils.isEmpty(contactInfo.number)
           ? null
           : BidiFormatter.getInstance()
-              .unicodeWrap(contactInfo.number, TextDirectionHeuristics.LTR);
+              .unicodeWrap(TextUtils.isEmpty(contactInfo.location) ? contactInfo.number
+                  : contactInfo.number + " " + contactInfo.location, TextDirectionHeuristics.LTR);
     }
-    return preferredName;
+    return TextUtils.isEmpty(contactInfo.location)
+        ? preferredName : preferredName + " " + contactInfo.location;
   }
 
   private void addPersonReference(

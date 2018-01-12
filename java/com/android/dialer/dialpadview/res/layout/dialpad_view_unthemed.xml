@@ -101,27 +101,51 @@
         android:tintMode="src_in"
         android:visibility="gone"/>
 
-    <view xmlns:ex="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/digits"
-        class="com.android.dialer.dialpadview.DigitsEditText"
-        android:textStyle="normal"
+    <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="@android:color/transparent"
-        android:cursorVisible="false"
-        android:focusableInTouchMode="true"
-        android:fontFamily="sans-serif"
-        android:freezesText="true"
-        android:gravity="center"
-        android:importantForAutofill="no"
-        android:maxLines="1"
-        android:scrollHorizontally="true"
-        android:singleLine="true"
-        android:textColor="?attr/dialpad_text_color"
-        android:textCursorDrawable="@null"
-        android:textSize="?attr/dialpad_digits_adjustable_text_size"
-        ex:resizing_text_min_size="@dimen/dialpad_digits_text_min_size"/>
+        android:layout_weight="1" >
+
+      <TextView xmlns:ex="http://schemas.android.com/apk/res-auto"
+          android:id="@+id/location"
+          android:textStyle="normal"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:layout_centerHorizontal="true"
+          android:layout_alignParentTop="true"
+          android:background="@android:color/transparent"
+          android:fontFamily="sans-serif"
+          android:gravity="center"
+          android:maxLines="1"
+          android:scrollHorizontally="true"
+          android:singleLine="true"
+          android:textSize="?attr/dialpad_location_adjustable_text_size"
+          ex:resizing_text_min_size="@dimen/dialpad_location_text_min_size"/>
+
+      <view xmlns:ex="http://schemas.android.com/apk/res-auto"
+          android:id="@+id/digits"
+          class="com.android.dialer.dialpadview.DigitsEditText"
+          android:textStyle="normal"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_centerInParent="true"
+          android:background="@android:color/transparent"
+          android:cursorVisible="false"
+          android:focusableInTouchMode="true"
+          android:fontFamily="sans-serif"
+          android:freezesText="true"
+          android:gravity="center"
+          android:importantForAutofill="no"
+          android:maxLines="1"
+          android:scrollHorizontally="true"
+          android:singleLine="true"
+          android:textColor="?attr/dialpad_text_color"
+          android:textCursorDrawable="@null"
+          android:textSize="?attr/dialpad_digits_adjustable_text_size"
+          ex:resizing_text_min_size="@dimen/dialpad_digits_text_min_size"/>
+
+    </RelativeLayout>
 
     <ImageButton
         android:id="@+id/deleteButton"

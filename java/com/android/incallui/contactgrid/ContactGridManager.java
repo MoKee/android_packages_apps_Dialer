@@ -70,6 +70,7 @@ public class ContactGridManager {
   private final ImageView forwardIconImageView;
   private final TextView forwardedNumberView;
   private final ImageView spamIconImageView;
+  private final TextView bottomLocationView;
   private final ViewAnimator bottomTextSwitcher;
   private final TextView bottomTextView;
   private final Chronometer bottomTimerView;
@@ -99,6 +100,7 @@ public class ContactGridManager {
     forwardIconImageView = view.findViewById(R.id.contactgrid_forwardIcon);
     forwardedNumberView = view.findViewById(R.id.contactgrid_forwardNumber);
     spamIconImageView = view.findViewById(R.id.contactgrid_spamIcon);
+    bottomLocationView = view.findViewById(R.id.contactgrid_bottom_location);
     bottomTextSwitcher = view.findViewById(R.id.contactgrid_bottom_text_switcher);
     bottomTextView = view.findViewById(R.id.contactgrid_bottom_text);
     bottomTimerView = view.findViewById(R.id.contactgrid_bottom_timer);
@@ -349,6 +351,10 @@ public class ContactGridManager {
 
     if (info.isTimerVisible) {
       bottomTextSwitcher.setDisplayedChild(1);
+      if (!TextUtils.isEmpty(info.label)) {
+        bottomLocationView.setText(TextUtils.concat(info.label, " "));
+        bottomLocationView.setVisibility(View.VISIBLE);
+      }
       bottomTimerView.setBase(
           primaryCallState.connectTimeMillis
               - System.currentTimeMillis()
@@ -363,6 +369,7 @@ public class ContactGridManager {
       }
     } else {
       bottomTextSwitcher.setDisplayedChild(0);
+      bottomLocationView.setVisibility(View.GONE);
       bottomTimerView.stop();
       isTimerStarted = false;
     }

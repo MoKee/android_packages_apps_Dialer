@@ -49,6 +49,10 @@
   <uses-permission android:name="android.permission.BROADCAST_STICKY"/>
   <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
+  <uses-permission android:name="mokee.permission.WRITE_SETTINGS" />
+  <uses-permission android:name="mokee.permission.READ_PHONE_LOCATION" />
+  <uses-permission android:name="mokee.permission.WRITE_PHONE_LOCATION" />
+
   <!-- This tells the activity manager to not delay any of our activity
    start requests, even if they happen immediately after the user
    presses home. -->
@@ -77,6 +81,11 @@
       android:name="com.android.dialer.app.calllog.CallLogActivity"
       android:theme="@style/DialtactsThemeWithoutActionBarOverlay">
     </activity>
+
+    <activity
+        android:name="com.android.dialer.app.calllog.MiniMarkActivity"
+        android:excludeFromRecents="true"
+        android:theme="@style/MiniMarkActivityStyle" />
 
     <receiver android:name="com.android.dialer.app.calllog.CallLogReceiver">
       <intent-filter>

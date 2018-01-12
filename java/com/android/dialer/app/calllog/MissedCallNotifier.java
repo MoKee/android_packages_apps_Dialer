@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2016 The Android Open Source Project
+ * Copyright (C) 2016-2018 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,6 +54,8 @@ import com.android.dialer.phonenumbercache.ContactInfo;
 import com.android.dialer.phonenumberutil.PhoneNumberHelper;
 import com.android.dialer.util.DialerUtils;
 import com.android.dialer.util.IntentUtil;
+import com.mokee.cloud.location.LocationUtils;
+
 import java.util.List;
 import java.util.Set;
 
@@ -155,14 +158,15 @@ public class MissedCallNotifier implements Worker<Pair<Integer, String>, Void> {
               ? R.string.notification_missedWorkCallTitle
               : R.string.notification_missedCallTitle;
 
+      String location = LocationUtils.getLocationInfo(context.getContentResolver(), contactInfo.number).getLocation();
       if (TextUtils.equals(contactInfo.name, contactInfo.formattedNumber)
           || TextUtils.equals(contactInfo.name, contactInfo.number)) {
         expandedText =
             PhoneNumberUtilsCompat.createTtsSpannable(
                 BidiFormatter.getInstance()
-                    .unicodeWrap(contactInfo.name, TextDirectionHeuristics.LTR));
+                    .unicodeWrap(TextUtils.isEmpty(location) ? contactInfo.name : contactInfo.name + " " + location, TextDirectionHeuristics.LTR));
       } else {
-        expandedText = contactInfo.name;
+        expandedText = TextUtils.isEmpty(location) ? contactInfo.name : contactInfo.name + " " + location;
       }
 
       ContactPhotoLoader loader = new ContactPhotoLoader(context, contactInfo);
@@ -308,14 +312,15 @@ public class MissedCallNotifier implements Worker<Pair<Integer, String>, Void> {
 
     Notification.Builder builder = createNotificationBuilder(call);
     CharSequence expandedText;
+    String location = LocationUtils.getLocationInfo(context.getContentResolver(), contactInfo.number).getLocation();
     if (TextUtils.equals(contactInfo.name, contactInfo.formattedNumber)
         || TextUtils.equals(contactInfo.name, contactInfo.number)) {
       expandedText =
           PhoneNumberUtilsCompat.createTtsSpannable(
               BidiFormatter.getInstance()
-                  .unicodeWrap(contactInfo.name, TextDirectionHeuristics.LTR));
+                  .unicodeWrap(TextUtils.isEmpty(location) ? contactInfo.name : contactInfo.name + " " + location, TextDirectionHeuristics.LTR));
     } else {
-      expandedText = contactInfo.name;
+      expandedText = TextUtils.isEmpty(location) ? contactInfo.name : contactInfo.name + " " + location;
     }
 
     if (postCallMessage != null) {

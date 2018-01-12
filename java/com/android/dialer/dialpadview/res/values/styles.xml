@@ -92,6 +92,7 @@
     <item name="dialpad_key_numbers_size">@dimen/dialpad_key_numbers_default_size</item>
     <item name="dialpad_key_number_margin_bottom">@dimen/dialpad_key_number_default_margin_bottom
     </item>
+    <item name="dialpad_location_adjustable_text_size">@dimen/dialpad_location_text_size</item>
     <item name="dialpad_zero_key_number_margin_bottom">
       @dimen/dialpad_zero_key_number_default_margin_bottom
     </item>

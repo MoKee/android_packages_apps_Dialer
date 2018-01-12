@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
+ * Copyright (C) 2015-2018 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -60,6 +61,7 @@ import com.android.dialer.app.DialtactsActivity;
 import com.android.dialer.app.R;
 import com.android.dialer.app.calllog.CallLogAdapter.OnActionModeStateChangedListener;
 import com.android.dialer.app.calllog.calllogcache.CallLogCache;
+import com.android.dialer.app.calllog.MiniMarkActivity;
 import com.android.dialer.app.voicemail.VoicemailPlaybackLayout;
 import com.android.dialer.app.voicemail.VoicemailPlaybackPresenter;
 import com.android.dialer.blocking.BlockedNumbersMigrator;
@@ -148,6 +150,7 @@ public final class CallLogListItemViewHolder extends RecyclerView.ViewHolder
   public View callWithNoteButtonView;
   public View callComposeButtonView;
   public View sendVoicemailButtonView;
+  public View userMarkButtonView;
   public ImageView workIconView;
   public ImageView checkBoxView;
   /**
@@ -485,6 +488,9 @@ public final class CallLogListItemViewHolder extends RecyclerView.ViewHolder
 
       sendVoicemailButtonView = actionsView.findViewById(R.id.share_voicemail);
       sendVoicemailButtonView.setOnClickListener(this);
+
+      userMarkButtonView = actionsView.findViewById(R.id.user_mark_action);
+      userMarkButtonView.setOnClickListener(this);
     }
   }
 
@@ -569,6 +575,7 @@ public final class CallLogListItemViewHolder extends RecyclerView.ViewHolder
       blockReportView.setVisibility(View.GONE);
       blockView.setVisibility(View.GONE);
       unblockView.setVisibility(View.GONE);
+      userMarkButtonView.setVisibility(View.GONE);
       reportNotSpamView.setVisibility(View.GONE);
 
       voicemailPlaybackView.setVisibility(View.VISIBLE);
@@ -872,6 +879,10 @@ public final class CallLogListItemViewHolder extends RecyclerView.ViewHolder
     } else if (view.getId() == R.id.share_voicemail) {
       Logger.get(mContext).logImpression(DialerImpression.Type.VVM_SHARE_PRESSED);
       mVoicemailPlaybackPresenter.shareVoicemail();
+    } else if (view.getId() == R.id.user_mark_action) {
+      Intent intent = new Intent(mContext, MiniMarkActivity.class);
+      intent.putExtra("number", number);
+      DialerUtils.startActivityWithErrorToast(mContext, intent);
     } else {
       logCallLogAction(view.getId());
 

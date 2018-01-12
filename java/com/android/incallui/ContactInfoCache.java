@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2013 The Android Open Source Project
+ * Copyright (C) 2013-2018 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -260,7 +261,9 @@ public class ContactInfoCache implements OnImageLoadCompleteListener {
 
     cce.namePrimary = displayName;
     cce.number = displayNumber;
-    cce.location = info.geoDescription;
+    if (!TextUtils.isEmpty(info.geoDescription)) {
+      cce.location = info.geoDescription;
+    }
     cce.label = label;
     cce.isSipCall = isSipCall;
     cce.userType = info.userType;
@@ -637,6 +640,10 @@ public class ContactInfoCache implements OnImageLoadCompleteListener {
     cce.contactRingtoneUri = info.contactRingtoneUri;
     if (cce.contactRingtoneUri == null || Uri.EMPTY.equals(cce.contactRingtoneUri)) {
       cce.contactRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+    }
+
+    if (!TextUtils.isEmpty(info.geoDescription)) {
+      cce.location = info.geoDescription;
     }
 
     return cce;

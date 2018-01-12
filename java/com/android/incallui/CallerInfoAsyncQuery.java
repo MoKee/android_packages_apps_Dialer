@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2006 The Android Open Source Project
+ * Copyright (C) 2013-2018 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,6 +42,7 @@ import com.android.dialer.phonenumbercache.CachedNumberLookupService;
 import com.android.dialer.phonenumbercache.CachedNumberLookupService.CachedContactInfo;
 import com.android.dialer.phonenumbercache.ContactInfoHelper;
 import com.android.dialer.phonenumbercache.PhoneNumberCache;
+import com.android.dialer.phonenumberutil.PhoneNumberHelper;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -506,7 +508,8 @@ public class CallerInfoAsyncQuery {
               // new parameter to CallerInfoAsyncQuery.startQuery() to force
               // the geoDescription field to be populated.)
 
-              if (TextUtils.isEmpty(mCallerInfo.name)) {
+              // if (TextUtils.isEmpty(mCallerInfo.name)) {
+              if (!PhoneNumberHelper.isUriNumber(cw.number)) {
                 // Actually when no contacts match the incoming phone number,
                 // the CallerInfo object is totally blank here (i.e. no name
                 // *or* phoneNumber).  So we need to pass in cw.number as

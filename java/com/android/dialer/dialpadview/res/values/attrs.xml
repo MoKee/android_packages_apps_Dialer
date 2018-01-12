@@ -25,6 +25,7 @@
     <attr format="dimension" name="dialpad_digits_adjustable_height"/>
     <attr format="dimension" name="dialpad_key_numbers_size"/>
     <attr format="dimension" name="dialpad_key_number_margin_bottom"/>
+    <attr format="dimension" name="dialpad_location_adjustable_text_size"/>
     <attr format="dimension" name="dialpad_zero_key_number_margin_bottom"/>
   </declare-styleable>
 

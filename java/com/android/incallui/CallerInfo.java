@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2006 The Android Open Source Project
+ * Copyright (C) 2018 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -523,7 +524,10 @@ public class CallerInfo {
    */
   public void updateGeoDescription(Context context, String fallbackNumber) {
     String number = TextUtils.isEmpty(phoneNumber) ? fallbackNumber : phoneNumber;
-    geoDescription = PhoneNumberHelper.getGeoDescription(context, number);
+    geoDescription = PhoneNumberHelper.getLocation(context, number);
+    if (!TextUtils.isEmpty(geoDescription)) {
+      shouldShowGeoDescription = true;
+    }
   }
 
   /** @return a string debug representation of this instance. */

@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
+ * Copyright (C) 2015-2018 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -93,6 +94,9 @@ import com.android.dialer.telecom.TelecomUtil;
 import com.android.dialer.util.CallUtil;
 import com.android.dialer.util.DialerUtils;
 import com.android.dialer.util.PermissionsUtil;
+
+import com.mokee.cloud.location.OfflineNumber;
+
 import java.util.HashSet;
 import java.util.List;
 
@@ -144,6 +148,7 @@ public class DialpadFragment extends Fragment
   private OnDialpadQueryChangedListener mDialpadQueryListener;
   private DialpadView mDialpadView;
   private EditText mDigits;
+  private TextView mLocation;
   private int mDialpadSlideInDuration;
   /** Remembers if we need to clear digits field when the screen is completely gone. */
   private boolean mClearDigitsOnStop;
@@ -316,7 +321,13 @@ public class DialpadFragment extends Fragment
     }
 
     if (mDialpadQueryListener != null) {
-      mDialpadQueryListener.onDialpadQueryChanged(mDigits.getText().toString());
+      String number = mDigits.getText().toString();
+      mDialpadQueryListener.onDialpadQueryChanged(number);
+      if (number.length() >= 3) {
+        mLocation.setText(OfflineNumber.detect(number, getActivity()));
+      } else {
+        mLocation.setText("");
+      }
     }
 
     updateDeleteButtonEnabledState();
@@ -370,6 +381,7 @@ public class DialpadFragment extends Fragment
     mDigits.setOnLongClickListener(this);
     mDigits.addTextChangedListener(this);
     mDigits.setElegantTextHeight(false);
+    mLocation = mDialpadView.getLocation();
 
     PhoneNumberFormattingTextWatcher watcher =
         new PhoneNumberFormattingTextWatcher(GeoUtil.getCurrentCountryIso(getActivity()));
@@ -1053,6 +1065,9 @@ public class DialpadFragment extends Fragment
   public void clearDialpad() {
     if (mDigits != null) {
       mDigits.getText().clear();
+    }
+    if (mLocation != null) {
+      mLocation.setText("");
     }
   }
 
