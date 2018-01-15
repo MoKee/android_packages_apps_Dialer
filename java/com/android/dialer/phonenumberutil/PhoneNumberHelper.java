@@ -101,6 +101,9 @@ public class PhoneNumberHelper {
   }
 
   public static String getLocation(Context context, String number) {
+    if (TextUtils.isEmpty(number)) {
+      return null;
+    }
     LocationInfo locationInfo = LocationUtils.getLocationInfo(context.getContentResolver(),
             CloudUtils.formatNumber(number));
     if (locationInfo != null) {
