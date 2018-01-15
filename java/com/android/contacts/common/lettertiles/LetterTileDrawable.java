@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2013 The Android Open Source Project
+ * Copyright (C) 2015-2018 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -112,6 +113,7 @@ public class LetterTileDrawable extends Drawable {
 
   private int mColor;
   private Character mLetter = null;
+  private boolean mIsChineseLetter = false;
 
   private String mDisplayName;
 
@@ -214,7 +216,7 @@ public class LetterTileDrawable extends Drawable {
       mFirstChar[0] = mLetter;
 
       // Scale text by canvas bounds and user selected scaling factor
-      mPaint.setTextSize(mScale * mLetterToTileRatio * minDimension);
+      mPaint.setTextSize(mScale * mLetterToTileRatio * minDimension * (mIsChineseLetter ? 0.75f : 1f));
       mPaint.getTextBounds(mFirstChar, 0, 1, mRect);
       mPaint.setTypeface(Typeface.create("sans-serif", Typeface.NORMAL));
       mPaint.setColor(mTileFontColor);
@@ -337,6 +339,9 @@ public class LetterTileDrawable extends Drawable {
       final String displayName, final String identifier) {
     if (!TextUtils.isEmpty(displayName) && isEnglishLetter(displayName.charAt(0))) {
       mLetter = Character.toUpperCase(displayName.charAt(0));
+    } else if (!TextUtils.isEmpty(displayName) && com.mokee.text.TextUtils.isChineseLetter(displayName.charAt(0))) {
+      mLetter = Character.toUpperCase(displayName.charAt(0));
+      mIsChineseLetter = true;
     } else {
       mLetter = null;
     }
