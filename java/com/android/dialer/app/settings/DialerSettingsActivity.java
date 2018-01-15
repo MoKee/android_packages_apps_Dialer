@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2013 The Android Open Source Project
+ * Copyright (C) 2018 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -69,12 +70,10 @@ public class DialerSettingsActivity extends AppCompatPreferenceActivity {
 
   @Override
   public void onBuildHeaders(List<Header> target) {
-    if (showDisplayOptions()) {
-      Header displayOptionsHeader = new Header();
-      displayOptionsHeader.titleRes = R.string.display_options_title;
-      displayOptionsHeader.fragment = DisplayOptionsSettingsFragment.class.getName();
-      target.add(displayOptionsHeader);
-    }
+    Header displayOptionsHeader = new Header();
+    displayOptionsHeader.titleRes = R.string.display_options_title;
+    displayOptionsHeader.fragment = DisplayOptionsSettingsFragment.class.getName();
+    target.add(displayOptionsHeader);
 
     Header soundSettingsHeader = new Header();
     soundSettingsHeader.titleRes = R.string.sounds_and_vibration_title;
@@ -206,18 +205,6 @@ public class DialerSettingsActivity extends AppCompatPreferenceActivity {
       }
     }
     return result;
-  }
-
-  /**
-   * Returns {@code true} or {@code false} based on whether the display options setting should be
-   * shown. For languages such as Chinese, Japanese, or Korean, display options aren't useful since
-   * contacts are sorted and displayed family name first by default.
-   *
-   * @return {@code true} if the display options should be shown, {@code false} otherwise.
-   */
-  private boolean showDisplayOptions() {
-    return getResources().getBoolean(R.bool.config_display_order_user_changeable)
-        && getResources().getBoolean(R.bool.config_sort_order_user_changeable);
   }
 
   @Override

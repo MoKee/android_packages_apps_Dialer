@@ -28,4 +28,9 @@
     android:key="displayOrder"
     android:title="@string/display_options_view_names_as"/>
 
+  <com.android.contacts.common.preference.CallLogDeleteLimitPreference
+    android:key="button_call_log_delete_limit"
+    android:title="@string/call_log_delete_limit_title"
+    android:dialogTitle="@string/call_log_delete_limit_title" />
+
 </PreferenceScreen>

@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2010 The Android Open Source Project
+ * Copyright (C) 2016-2018 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -97,6 +98,16 @@ public class ContactsPreferences implements OnSharedPreferenceChangeListener {
       mSortOrder = mPreferences.getInt(SORT_ORDER_KEY, getDefaultSortOrder());
     }
     return mSortOrder;
+  }
+
+  public int getCallLogDeleteLimit() {
+    return Settings.System.getInt(mContext.getContentResolver(),
+            Settings.System.CALL_LOG_DELETE_LIMIT, 500);
+  }
+
+  public void setCallLogDeleteLimit(int limit) {
+    Settings.System.putInt(mContext.getContentResolver(),
+            Settings.System.CALL_LOG_DELETE_LIMIT, limit);
   }
 
   public void setSortOrder(int sortOrder) {
