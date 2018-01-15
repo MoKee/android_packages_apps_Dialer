@@ -49,7 +49,8 @@
 
     <CheckBoxPreference
       android:key="incall_vibrate_outgoing"
-      android:title="@string/incall_vibrate_outgoing_title" />
+      android:title="@string/incall_vibrate_outgoing_title"
+      android:defaultValue="true" />
 
     <CheckBoxPreference
       android:key="incall_vibrate_call_waiting"
@@ -57,7 +58,8 @@
 
     <CheckBoxPreference
       android:key="incall_vibrate_hangup"
-      android:title="@string/incall_vibrate_hangup_title" />
+      android:title="@string/incall_vibrate_hangup_title"
+      android:defaultValue="true" />
 
     <CheckBoxPreference
       android:key="incall_vibrate_45secs"
