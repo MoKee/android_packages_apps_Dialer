@@ -17,6 +17,7 @@
 package com.android.contacts.common.model.account;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.util.Log;
 import com.android.contacts.common.R;
 import com.android.contacts.common.model.dataitem.DataKind;
@@ -29,7 +30,11 @@ public class FallbackAccountType extends BaseAccountType {
     this.accountType = null;
     this.dataSet = null;
     this.titleRes = R.string.account_phone;
-    this.iconRes = R.mipmap.ic_contacts_launcher;
+    if (Resources.getSystem().getBoolean(com.android.internal.R.bool.config_useRoundIcon)) {
+      this.iconRes = R.mipmap.ic_contacts_launcher_round;
+    } else {
+      this.iconRes = R.mipmap.ic_contacts_launcher;
+    }
 
     // Note those are only set for unit tests.
     this.resourcePackageName = resPackageName;
