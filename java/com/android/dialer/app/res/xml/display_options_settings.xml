@@ -2,6 +2,7 @@
 
 <!--
   ~ Copyright (C) 2015 The Android Open Source Project
+  ~ Copyright (C) 2015-2019 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -35,5 +36,10 @@
       android:entryValues="@array/contact_display_order_values"
       android:title="@string/display_options_view_names_as"
       android:defaultValue="@string/display_options_view_given_name_first_value"/>
+
+  <com.android.dialer.calllog.preference.CallLogLimitPreference
+    android:key="@string/display_options_call_log_limit_key"
+    android:title="@string/display_options_call_log_limit_title"
+    android:dialogTitle="@string/display_options_call_log_limit_title" />
 
 </PreferenceScreen>
