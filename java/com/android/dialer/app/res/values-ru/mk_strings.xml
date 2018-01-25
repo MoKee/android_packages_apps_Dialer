@@ -19,7 +19,7 @@
   <!-- Cloud Phone Number Location Engine -->
   <string name="call_log_action_user_mark">Пометить как</string>
   <string name="description_user_mark_action">Пометить <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> как</string>
-  <string name="cloud_location_lookup_mark_title">Пометить %s </string>
+  <string name="cloud_location_lookup_mark_title">Пометить %s как</string>
   <string name="cloud_location_lookup_mark_as">Отметить информацию о звонящем</string>
   <string name="cloud_location_lookup_mark_custom">Доп. информация о звонящем</string>
   <string name="cloud_location_lookup_mark_done">Готово</string>
