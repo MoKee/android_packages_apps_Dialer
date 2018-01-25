@@ -27,6 +27,7 @@
     <item name="android:textColorSecondary">#DDFFFFFF</item>
     <item name="android:colorPrimary">@color/dialer_theme_color</item>
     <item name="android:colorPrimaryDark">@color/dialer_theme_color_dark</item>
+    <item name="android:navigationBarColor">@color/dialer_theme_color_dark</item>
 
     <item name="android:statusBarColor">@android:color/transparent</item>
     <item name="android:navigationBarColor">@android:color/transparent</item>

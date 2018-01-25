@@ -18,6 +18,7 @@
   <style name="NuiMainActivityTheme" parent="Theme.AppCompat.Light.NoActionBar">
     <item name="android:colorPrimary">@color/dialtacts_theme_color</item>
     <item name="android:colorPrimaryDark">@color/dialer_theme_color_dark</item>
+    <item name="android:navigationBarColor">@color/dialer_theme_color_dark</item>
     <item name="android:colorAccent">@color/dialer_secondary_color</item>
   </style>
 

@@ -17,6 +17,7 @@
 <resources>
   <style name="Theme.AppCompat.CallComposer" parent="DialerThemeBase.NoActionBar">
     <item name="android:colorPrimaryDark">@color/dialer_theme_color_dark</item>
+    <item name="android:navigationBarColor">@color/dialer_theme_color_dark</item>
     <item name="android:windowBackground">@android:color/transparent</item>
     <item name="android:colorBackgroundCacheHint">@null</item>
     <item name="android:windowFrame">@null</item>
