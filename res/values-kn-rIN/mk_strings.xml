@@ -17,6 +17,22 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- dialpad t9 search -->
+  <string name="t9_search_input_locale">T9 ಒಳಪದ ಹುಡುಕಿ </string>
+  <string name="t9_search_input_locale_default">ಪೂರ್ವನಿಯೋಜಿತ</string>
   <!-- Cloud Phone Number Location Engine -->
+  <string name="call_log_action_user_mark">ಹೀಗೆ ಗುರುತಿಸಿ</string>
+  <string name="cloud_location_lookup_mark_title">ಗುರುತಿಸಿ %s</string>
+  <string name="cloud_location_lookup_mark_as">ಕರೆ ಮಾಡಿದವರ ಮಾಹಿತಿ ಗುರುತಿಸಿ</string>
+  <string name="cloud_location_lookup_mark_custom">ಕರೆ ಮಾಡಿದವರ ಮಾಹಿತಿ ಬದಲಾಯಿಸಿ</string>
+  <string name="cloud_location_lookup_mark_done">ಮುಗಿಯಿತು</string>
+  <string name="cloud_location_lookup_mark_harassment">ಶೋಷಣೆ</string>
+  <string name="cloud_location_lookup_mark_fraud">ಮೋಸ</string>
+  <string name="cloud_location_lookup_mark_advertisement">ಜಾಹೀರಾತು</string>
+  <string name="cloud_location_lookup_mark_agency">ಸಂಸ್ಥೆ</string>
+  <string name="cloud_location_lookup_mark_delivery">ವಿತರಣೆ</string>
+  <string name="cloud_location_lookup_mark_service">ಗ್ರಾಹಕ ಸೇವೆ</string>
+  <string name="cloud_location_lookup_mark_taxi">ಟ್ಯಾಕ್ಸಿ</string>
   <!-- Automatically call recording -->
+  <string name="call_recording_automatically_title">ಸ್ವಯಂಚಾಲಿತ ಮುದ್ರಣ</string>
+  <string name="call_recording_automatically_summary">ಕರೆ ನಂತರ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ದಾಖಲಿಸಲಾಗುತ್ತಿದೆ</string>
 </resources>
