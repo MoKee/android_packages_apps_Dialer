@@ -17,6 +17,8 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- dialpad t9 search -->
+  <string name="preference_category_t9_dialpad_search">Căutare predictivă Dialpad T9</string>
+  <string name="t9_search_input_locale">Introducere căutare T9</string>
   <string name="t9_search_input_locale_default">Implicit</string>
   <!-- Cloud Phone Number Location Engine -->
   <string name="call_log_action_user_mark">Marchează ca</string>
@@ -34,4 +36,6 @@
   <string name="cloud_location_lookup_mark_service">Serviciul de relații cu clienții</string>
   <string name="cloud_location_lookup_mark_taxi">Taxi</string>
   <!-- Automatically call recording -->
+  <string name="call_recording_automatically_title">Înregistrare automată</string>
+  <string name="call_recording_automatically_summary">Înregistrare automată după apel</string>
 </resources>
