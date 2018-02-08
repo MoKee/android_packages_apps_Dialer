@@ -85,6 +85,7 @@ RES_DIRS := \
 	$(BASE_DIR)/dialer/dialpadview/res \
 	$(BASE_DIR)/dialer/enrichedcall/simulator/res \
 	$(BASE_DIR)/dialer/interactions/res \
+	$(BASE_DIR)/dialer/lookup/res \
 	$(BASE_DIR)/dialer/main/impl/res \
 	$(BASE_DIR)/dialer/notification/res \
 	$(BASE_DIR)/dialer/oem/res \
@@ -145,6 +146,7 @@ DIALER_MANIFEST_FILES += \
 	$(BASE_DIR)/dialer/dialpadview/AndroidManifest.xml \
 	$(BASE_DIR)/dialer/enrichedcall/simulator/AndroidManifest.xml \
 	$(BASE_DIR)/dialer/interactions/AndroidManifest.xml \
+	$(BASE_DIR)/dialer/lookup/AndroidManifest.xml \
 	$(BASE_DIR)/dialer/main/impl/AndroidManifest.xml \
 	$(BASE_DIR)/dialer/notification/AndroidManifest.xml \
 	$(BASE_DIR)/dialer/oem/AndroidManifest.xml \
@@ -296,9 +298,11 @@ LOCAL_STATIC_JAVA_LIBRARIES := \
 	dialer-mime4j-core-target \
 	dialer-mime4j-dom-target \
 	jsr305 \
+	legacy-test \
 	libphonenumber \
 	okhttp \
 	volley \
+	org.mokee.platform.sdk
 
 LOCAL_STATIC_ANDROID_LIBRARIES := \
 	android-support-design \
@@ -352,7 +356,6 @@ endif
 
 # End Bug: 37077388
 
-# LOCAL_SDK_VERSION := system_current
 LOCAL_MODULE_TAGS := optional
 LOCAL_PACKAGE_NAME := Dialer
 LOCAL_CERTIFICATE := shared
