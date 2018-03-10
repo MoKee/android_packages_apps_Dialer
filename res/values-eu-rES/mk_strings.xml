@@ -19,5 +19,7 @@
   <!-- dialpad t9 search -->
   <string name="t9_search_input_locale_default">Lehenetsia</string>
   <!-- Cloud Phone Number Location Engine -->
+  <string name="call_log_action_user_mark">Markatu honela</string>
+  <string name="cloud_location_lookup_mark_done">Eginda</string>
   <!-- Automatically call recording -->
 </resources>

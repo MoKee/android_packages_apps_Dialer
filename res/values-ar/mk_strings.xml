@@ -18,7 +18,7 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- dialpad t9 search -->
   <string name="preference_category_t9_dialpad_search">لوحة الاتصال وضع T9 للبحث</string>
-  <string name="t9_search_input_locale">وضع T9 للبحث و لادخال</string>
+  <string name="t9_search_input_locale">وضع T9 للبحث و الادخال</string>
   <string name="t9_search_input_locale_default">الإفتراضي</string>
   <!-- Cloud Phone Number Location Engine -->
   <string name="call_log_action_user_mark">حدد كـ</string>
