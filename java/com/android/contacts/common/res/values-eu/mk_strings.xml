@@ -17,4 +17,6 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- Call Log Delete Limit  -->
+  <string name="call_log_delete_limit_default">500 (Lehenetsia)</string>
+  <string name="call_log_delete_limit_nolimit">Mugarik ez</string>
 </resources>

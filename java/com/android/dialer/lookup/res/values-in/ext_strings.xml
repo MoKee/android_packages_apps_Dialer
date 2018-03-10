@@ -18,6 +18,17 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- Forward lookup -->
+  <string name="nearby_places">Tempat terdekat</string>
   <string name="people">Orang</string>
   <!-- Number lookup -->
+  <string name="lookup_settings_label">Lihat buku telepon</string>
+  <string name="enable_forward_lookup_title">Pencarian maju</string>
+  <string name="enable_forward_lookup_summary">Tampilkan tempat terdekat ketika mencari di dialer</string>
+  <string name="enable_people_lookup_title">Pencarian orang</string>
+  <string name="enable_people_lookup_summary">Tampilkan hasil online untuk orang-orang saat melakukan pencarian pada dialer</string>
+  <string name="enable_reverse_lookup_title">Pencarian mundur</string>
+  <string name="enable_reverse_lookup_summary">Mencari informasi tentang orang atau tempat untuk panggilan masuk dari nomor tak diketahui</string>
+  <string name="forward_lookup_provider_title">Penyedia pencarian maju</string>
+  <string name="people_lookup_provider_title">Penyedia pencarian orang</string>
+  <string name="reverse_lookup_provider_title">Penyedia pencarian mundur</string>
 </resources>

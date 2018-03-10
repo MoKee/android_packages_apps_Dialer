@@ -17,10 +17,10 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="incall_vibration_category_title">Vibrar durante a chamada</string>
-  <string name="incall_vibrate_outgoing_title">Vibrar ao atender</string>
-  <string name="incall_vibrate_call_waiting_title">Vibrar com chamada em espera</string>
-  <string name="incall_vibrate_hangup_title">Vibrar ao terminar a chamada</string>
-  <string name="incall_vibrate_45_title">Vibrar a cada minuto</string>
-  <string name="incall_vibrate_45_summary">Vibrar aos 45 segundos de cada minuto durante chamadas efetuadas</string>
+  <string name="incall_vibration_category_title">Вібрацыя падчас выкліку</string>
+  <string name="incall_vibrate_outgoing_title">Вібрацыя пры адказе</string>
+  <string name="incall_vibrate_call_waiting_title">Вібрацыя падчас чакання выкліку</string>
+  <string name="incall_vibrate_hangup_title">Вібрацыя пасля раз\'яднання</string>
+  <string name="incall_vibrate_45_title">Вібрацыя штохвіліну</string>
+  <string name="incall_vibrate_45_summary">Вібрацыя штохвілінна на 45 секундзе падчас уваходнаго выкліку</string>
 </resources>
