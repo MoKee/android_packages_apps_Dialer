@@ -25,4 +25,10 @@
   <string name="enable_forward_lookup_title">Пошук уперад</string>
   <string name="enable_forward_lookup_summary">Паказваць месца непадалёк пры пошуку ў нумаранабіральніку</string>
   <string name="enable_people_lookup_title">Пошук асобаў</string>
+  <string name="enable_people_lookup_summary">Паказваць вынікі анлайн для пошуку людзей у нумаранабіральніку</string>
+  <string name="enable_reverse_lookup_title">Зваротны пошук</string>
+  <string name="enable_reverse_lookup_summary">Шукаць інфармацыю аб чалавеку/месцу для невядомых уваходзячых нумароў</string>
+  <string name="forward_lookup_provider_title">Пастаўшчык прамога пошуку</string>
+  <string name="people_lookup_provider_title">Пастаўшчык пошуку людзей</string>
+  <string name="reverse_lookup_provider_title">Пастаўшчык зваротнага пошуку</string>
 </resources>

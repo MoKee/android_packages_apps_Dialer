@@ -17,12 +17,10 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- Forward lookup -->
-  <string name="nearby_places">Közeli helyek</string>
-  <string name="people">Személyek</string>
-  <!-- Number lookup -->
-  <string name="lookup_settings_label">Telefonszám lekérdezés</string>
-  <string name="enable_forward_lookup_summary">Közeli helyek megjelenítése a tárcsázóban történő kereséskor</string>
-  <string name="enable_people_lookup_title">Személy lekérdezés</string>
-  <string name="enable_people_lookup_summary">Mutassa az online elérhető személyeket a tárcsázóban történő kereséskor</string>
+  <string name="incall_vibration_category_title">Hívás közbeni rezgés</string>
+  <string name="incall_vibrate_outgoing_title">Hívásfogadáskor rezeg</string>
+  <string name="incall_vibrate_call_waiting_title">Hívásvárakoztatáskor rezeg</string>
+  <string name="incall_vibrate_hangup_title">Hívás bontásakor rezeg</string>
+  <string name="incall_vibrate_45_title">Minden percben rezeg</string>
+  <string name="incall_vibrate_45_summary">45 másodpercenként rezeg kimenőhívások közben</string>
 </resources>
