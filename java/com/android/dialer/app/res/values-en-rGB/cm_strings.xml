@@ -16,10 +16,10 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="incall_vibration_category_title">Δόνηση κατά την κλήση</string>
-  <string name="incall_vibrate_outgoing_title">Δόνηση στην απάντηση</string>
-  <string name="incall_vibrate_call_waiting_title">Δόνηση στην αναμονή</string>
-  <string name="incall_vibrate_hangup_title">Δόνηση στο κλείσιμο</string>
-  <string name="incall_vibrate_45_title">Δόνηση κάθε 1 λεπτό</string>
-  <string name="incall_vibrate_45_summary">Δόνηση στο 45ο δευτερόλεπτο κάθε λεπτού κατά τη διάρκεια εξερχόμενων κλήσεων</string>
+  <string name="incall_vibration_category_title">In-call vibration</string>
+  <string name="incall_vibrate_outgoing_title">Vibrate on answer</string>
+  <string name="incall_vibrate_call_waiting_title">Vibrate on call waiting</string>
+  <string name="incall_vibrate_hangup_title">Vibrate on hang up</string>
+  <string name="incall_vibrate_45_title">Vibrate every minute</string>
+  <string name="incall_vibrate_45_summary">Vibrates at the 45 second mark of every minute during outgoing calls</string>
 </resources>
