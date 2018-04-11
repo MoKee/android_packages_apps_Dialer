@@ -22,8 +22,15 @@
   <string name="people">Személyek</string>
   <!-- Number lookup -->
   <string name="lookup_settings_label">Telefonszám lekérdezés</string>
+  <string name="enable_forward_lookup_title">Címkeresés</string>
   <string name="enable_forward_lookup_summary">Közeli helyek megjelenítése a tárcsázóban történő kereséskor</string>
   <string name="enable_people_lookup_title">Személy lekérdezés</string>
   <string name="enable_people_lookup_summary">Mutassa az online elérhető személyeket a tárcsázóban történő kereséskor</string>
+  <string name="enable_reverse_lookup_title">Névkeresés</string>
+  <string name="enable_reverse_lookup_summary">Információ kikeresése személyekről vagy helyekről ismeretlen számról érkező bejövő hívásoknál</string>
+  <string name="forward_lookup_provider_title">Címkeresési szolgáltató</string>
+  <string name="people_lookup_provider_title">Személykeresési szolgáltató</string>
+  <string name="reverse_lookup_provider_title">Névkeresési szolgáltató</string>
   <!-- Disclaimer -->
+  <string name="lookup_disclaimer">A kikeresések lekérdezhetnek egy biztonságos (https) protokollon keresztül távoli webhelyeket az információk összegyűjtésének érdekében. A tudakozódás tartalmazhatja a másik fél telefonszámát vagy lekérdezési keresőkifejezést</string>
 </resources>
