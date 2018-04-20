@@ -140,11 +140,11 @@ public class LookupSettingsFragment extends PreferenceFragment
     private void restoreLookupProviderSwitches() {
         final ContentResolver cr = getActivity().getContentResolver();
         mEnableForwardLookup.setChecked(MKSettings.System.getInt(cr,
-                MKSettings.System.ENABLE_FORWARD_LOOKUP, 1) != 0);
+                MKSettings.System.ENABLE_FORWARD_LOOKUP, 0) != 0);
         mEnablePeopleLookup.setChecked(MKSettings.System.getInt(cr,
-                MKSettings.System.ENABLE_PEOPLE_LOOKUP, 1) != 0);
+                MKSettings.System.ENABLE_PEOPLE_LOOKUP, 0) != 0);
         mEnableReverseLookup.setChecked(MKSettings.System.getInt(cr,
-                MKSettings.System.ENABLE_REVERSE_LOOKUP, 1) != 0);
+                MKSettings.System.ENABLE_REVERSE_LOOKUP, 0) != 0);
     }
 
     private void restoreLookupProviders() {
