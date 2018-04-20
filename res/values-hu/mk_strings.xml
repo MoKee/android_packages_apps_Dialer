@@ -21,8 +21,8 @@
   <string name="t9_search_input_locale">T9 keresés</string>
   <string name="t9_search_input_locale_default">Alapértelmezés</string>
   <!-- Cloud Phone Number Location Engine -->
-  <string name="call_log_action_user_mark">Megjelöl mint</string>
-  <string name="description_user_mark_action">Megjelöl <xliff:g id="nameOrNumber" example="John Smith"> ^ 1 </xliff:g> mint</string>
+  <string name="call_log_action_user_mark">Megjelölés mint</string>
+  <string name="description_user_mark_action"><xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> megjelölése, mint</string>
   <string name="cloud_location_lookup_mark_title">Megjelölés %s </string>
   <string name="cloud_location_lookup_mark_as">Hívésinfó megjelölése</string>
   <string name="cloud_location_lookup_mark_custom">Egyedi hívásinfó</string>
