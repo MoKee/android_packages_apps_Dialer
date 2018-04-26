@@ -27,7 +27,7 @@
   <string name="cloud_location_lookup_mark_fraud">Frode</string>
   <string name="cloud_location_lookup_mark_advertisement">Pubblicità</string>
   <string name="cloud_location_lookup_mark_agency">Agenzia</string>
-  <string name="cloud_location_lookup_mark_takeaway">Takeaway</string>
+  <string name="cloud_location_lookup_mark_takeaway">Asporto</string>
   <string name="cloud_location_lookup_mark_delivery">Consegna</string>
   <string name="cloud_location_lookup_mark_service">Servizio Clienti</string>
   <string name="cloud_location_lookup_mark_taxi">Taxi</string>
