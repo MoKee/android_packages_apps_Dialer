@@ -16,8 +16,10 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- Forward lookup -->
-  <!-- Number lookup -->
-  <!-- Disclaimer -->
-  <string name="lookup_disclaimer">Sas chircas diant pòdere imbiare sos datos de chirca pro mèdiu de unu protocollu seguru (https) a sitos remotos pro otènnere sas informatziones. Sos datos diant pòdere incluire su nùmeru de telèfonu de s\'àtera persone o sos tèrmines de chirca</string>
+  <string name="incall_vibration_category_title">通話中のバイブレーション</string>
+  <string name="incall_vibrate_outgoing_title">応答時に振動</string>
+  <string name="incall_vibrate_call_waiting_title">割込通話時に振動</string>
+  <string name="incall_vibrate_hangup_title">通話終了時に振動</string>
+  <string name="incall_vibrate_45_title">1分ごとに振動する</string>
+  <string name="incall_vibrate_45_summary">発信中に45秒ごとに振動する</string>
 </resources>
