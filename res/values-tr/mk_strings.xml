@@ -21,7 +21,7 @@
   <string name="t9_search_input_locale">T9 arama girişi</string>
   <string name="t9_search_input_locale_default">Varsayılan</string>
   <!-- Cloud Phone Number Location Engine -->
-  <string name="call_log_action_user_mark">Şöyle İşaretle</string>
+  <string name="call_log_action_user_mark">Olarak işaretle</string>
   <string name="description_user_mark_action"><xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> olarak işaretle</string>
   <string name="cloud_location_lookup_mark_title">%s\'i işaretle </string>
   <string name="cloud_location_lookup_mark_as">Arayan kişi bilgisini işaretle</string>
