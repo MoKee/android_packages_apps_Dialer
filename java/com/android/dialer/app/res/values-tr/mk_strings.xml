@@ -20,8 +20,8 @@
   <string name="call_log_action_user_mark">Şöyle İşaretle</string>
   <string name="description_user_mark_action"><xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> olarak işaretle</string>
   <string name="cloud_location_lookup_mark_title">%s\'i işaretle </string>
-  <string name="cloud_location_lookup_mark_as">Arayan kişi bilgisini işaretle</string>
-  <string name="cloud_location_lookup_mark_custom">Düzenlenmiş arayan kişi bilgisi</string>
+  <string name="cloud_location_lookup_mark_as">Arayan bilgisini işaretle</string>
+  <string name="cloud_location_lookup_mark_custom">Özel arayan bilgisi</string>
   <string name="cloud_location_lookup_mark_done">Tamam</string>
   <string name="cloud_location_lookup_mark_harassment">Taciz</string>
   <string name="cloud_location_lookup_mark_fraud">Dolandırıcılık</string>

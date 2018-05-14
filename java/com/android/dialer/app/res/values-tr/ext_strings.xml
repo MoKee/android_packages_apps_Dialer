@@ -17,9 +17,9 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="incall_vibration_category_title">Arama sırasında titreşim</string>
+  <string name="incall_vibration_category_title">Arama titreşimi</string>
   <string name="incall_vibrate_outgoing_title">Cevaplandığında titret</string>
-  <string name="incall_vibrate_call_waiting_title">Arama bekletildiğinde titret</string>
+  <string name="incall_vibrate_call_waiting_title">Çağrı bekletildiğinde titret</string>
   <string name="incall_vibrate_hangup_title">Kapatıldığında titret</string>
   <string name="incall_vibrate_45_title">Her dakika titret</string>
   <string name="incall_vibrate_45_summary">Giden aramaların her dakikasının 45. saniyesinde titrer</string>

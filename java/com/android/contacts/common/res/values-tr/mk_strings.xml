@@ -20,5 +20,5 @@
   <string name="call_log_delete_limit_title">Çağrı günlüğü sınırı</string>
   <string name="call_log_delete_limit_summary"><xliff:g id="count">%1$s</xliff:g> arama kaydını tut</string>
   <string name="call_log_delete_limit_default">500 (Varsayılan)</string>
-  <string name="call_log_delete_limit_nolimit">Sınır koyma</string>
+  <string name="call_log_delete_limit_nolimit">Sınır yok</string>
 </resources>
