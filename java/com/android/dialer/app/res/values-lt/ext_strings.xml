@@ -18,14 +18,5 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="incall_category_title">Arama</string>
-  <string name="incall_enable_dnd_title">Arama sırasında Rahatsız Etmeyin\'i Etkinleştir</string>
-  <string name="incall_vibrate_outgoing_title">Cevaplandığında titret</string>
-  <string name="incall_vibrate_call_waiting_title">Çağrı bekletildiğinde titret</string>
-  <string name="incall_vibrate_hangup_title">Kapatıldığında titret</string>
-  <string name="incall_vibrate_45_title">Her dakika titret</string>
-  <string name="incall_vibrate_45_summary">Giden aramaların her dakikasının 45. saniyesinde titrer</string>
-  <string name="incall_dnd_dialog_message">Rahatsız Etmeyin\'i etkinleştirmek için, Telefon uygulamasının Rahatsız Etmeyin durumunu kontrol etme iznine sahip olması gerekir.\nLütfen buna izin verin.</string>
-  <string name="allow">İzin ver</string>
-  <string name="deny">Reddet</string>
+  <string name="allow">Leisti</string>
 </resources>

@@ -3,6 +3,7 @@
 <!--
      Copyright (C) 2013-2014 The CyanogenMod Project
      Copyright (C) 2013-2018 The MoKee Open Source Project
+     Copyright (C) 2018 The LineageOS Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -20,4 +21,5 @@
   <string name="incall_vibrate_outgoing_title">Vibrera vid svar</string>
   <string name="incall_vibrate_call_waiting_title">Vibrera vid samtal väntar</string>
   <string name="incall_vibrate_45_title">Vibrera varje minut</string>
+  <string name="allow">Tillåt</string>
 </resources>

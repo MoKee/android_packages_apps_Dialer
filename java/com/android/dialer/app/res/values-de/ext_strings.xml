@@ -3,6 +3,7 @@
 <!--
      Copyright (C) 2013-2014 The CyanogenMod Project
      Copyright (C) 2013-2018 The MoKee Open Source Project
+     Copyright (C) 2018 The LineageOS Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -17,10 +18,10 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="incall_vibration_category_title">Vibration während eines Anrufes</string>
   <string name="incall_vibrate_outgoing_title">Bei Annahme vibrieren</string>
   <string name="incall_vibrate_call_waiting_title">Beim Anklopfen vibrieren</string>
   <string name="incall_vibrate_hangup_title">Beim Auflegen vibrieren</string>
   <string name="incall_vibrate_45_title">Jede Minute vibrieren</string>
   <string name="incall_vibrate_45_summary">Während ausgehender Anrufe 15 Sekunden vor dem Ende jeder vollen Minute vibrieren</string>
+  <string name="allow">Erlauben</string>
 </resources>
