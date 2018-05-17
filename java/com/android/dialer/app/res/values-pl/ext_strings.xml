@@ -18,10 +18,14 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="incall_category_title">Podczas rozmowy</string>
+  <string name="incall_enable_dnd_title">Włącz DND(nie przeszkadzaj) podczas połączeń</string>
   <string name="incall_vibrate_outgoing_title">Wibracja przy odebraniu</string>
   <string name="incall_vibrate_call_waiting_title">Wibracja przy połączeniu oczekującym</string>
   <string name="incall_vibrate_hangup_title">Wibracja przy zawieszeniu</string>
   <string name="incall_vibrate_45_title">Wibracja co minutę</string>
   <string name="incall_vibrate_45_summary">Wibracja co 45 sekund każdej minuty połączenia wychodzącego</string>
+  <string name="incall_dnd_dialog_message">Aby włączyć opcję DND(Nie przeszkadzać), aplikacja \"Telefon\" musi mieć uprawnienia do kontrolowania jej statusu. \nProszę na to zezwolić.</string>
   <string name="allow">Zezwól</string>
+  <string name="deny">Odmów</string>
 </resources>

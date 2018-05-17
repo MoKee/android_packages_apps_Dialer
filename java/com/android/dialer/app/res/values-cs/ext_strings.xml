@@ -25,5 +25,7 @@
   <string name="incall_vibrate_hangup_title">Vibrace po zavěšení</string>
   <string name="incall_vibrate_45_title">Vibrace každou minutu</string>
   <string name="incall_vibrate_45_summary">Vibrace každou 45. sekundu každé minuty při odchozím volání</string>
+  <string name="incall_dnd_dialog_message">Chcete-li povolit režim Nerušit, musí být telefonní aplikaci udělena oprávnění k ovládání stavu režimu Nerušit.\nPovolte to.</string>
   <string name="allow">Povolit</string>
+  <string name="deny">Zamítnout</string>
 </resources>
