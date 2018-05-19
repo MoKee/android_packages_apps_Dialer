@@ -24,4 +24,5 @@
   <string name="incall_vibrate_45_title">Vibrer chaque minute</string>
   <string name="incall_vibrate_45_summary">Vibre à la 45ème seconde de chaque minute durant un appel sortant</string>
   <string name="allow">Autoriser</string>
+  <string name="deny">Rejeter</string>
 </resources>
