@@ -18,9 +18,12 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="incall_category_title">Med klicem</string>
   <string name="incall_vibrate_outgoing_title">Vibriraj ob odgovoru</string>
   <string name="incall_vibrate_call_waiting_title">Vibriraj ob čakajočem klicu</string>
   <string name="incall_vibrate_hangup_title">Vibriraj ob prekinitvi</string>
   <string name="incall_vibrate_45_title">Vibriraj vsako minuto</string>
   <string name="incall_vibrate_45_summary">Vibrira ob preteklih 45 sekundah vsake minute med odhodnimi klici</string>
+  <string name="allow">Dovoli</string>
+  <string name="deny">Zavrni</string>
 </resources>
