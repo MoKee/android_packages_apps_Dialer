@@ -18,10 +18,14 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="incall_category_title">Trong cuộc gọi</string>
+  <string name="incall_enable_dnd_title">Sử không làm phiền trong thời gian cuộc gọi</string>
   <string name="incall_vibrate_outgoing_title">Rung khi trả lời</string>
   <string name="incall_vibrate_call_waiting_title">Rung khi chờ cuộc gọi</string>
   <string name="incall_vibrate_hangup_title">Rung khi gác máy</string>
   <string name="incall_vibrate_45_title">Rung mỗi phút</string>
   <string name="incall_vibrate_45_summary">Rung tại giây 45 mỗi phút trong khi gọi đi</string>
+  <string name="incall_dnd_dialog_message">Để kích hoạt không Disturb, ứng dụng điện thoại cần được cấp phép để kiểm soát tình trạng. \nPlease không phiền cho phép nó.</string>
   <string name="allow">Cho phép</string>
+  <string name="deny">Từ chối</string>
 </resources>
