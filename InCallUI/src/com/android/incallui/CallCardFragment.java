@@ -25,6 +25,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.AnimationDrawable;
@@ -689,13 +690,17 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         Log.d(this, "Setting primary call");
         // set the name field.
         setPrimaryName(name, nameIsNumber);
+        boolean elapsedTimeSingleLine = getResources().getBoolean(
+                  R.bool.caller_name_and_elapsed_time_in_one_line);
 
         if (TextUtils.isEmpty(number) && TextUtils.isEmpty(label)) {
             mCallNumberAndLabel.setVisibility(View.GONE);
             mElapsedTime.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
         } else {
             mCallNumberAndLabel.setVisibility(View.VISIBLE);
-            mElapsedTime.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
+            if (elapsedTimeSingleLine) {
+                mElapsedTime.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
+            }
         }
 
         setPrimaryPhoneNumber(number);
