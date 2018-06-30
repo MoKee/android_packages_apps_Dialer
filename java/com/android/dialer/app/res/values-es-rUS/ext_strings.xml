@@ -18,10 +18,14 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="incall_category_title">Llamada entrante</string>
+  <string name="incall_enable_dnd_title">Activar «No molestar» durante las llamadas</string>
   <string name="incall_vibrate_outgoing_title">Vibrar al contestar</string>
   <string name="incall_vibrate_call_waiting_title">Vibrar en llamada en espera</string>
   <string name="incall_vibrate_hangup_title">Vibrar al colgar</string>
   <string name="incall_vibrate_45_title">Vibrar cada minuto</string>
   <string name="incall_vibrate_45_summary">Vibrar en el segundo 45 de cada minuto de una llamada saliente</string>
+  <string name="incall_dnd_dialog_message">Para activar «No molestar», la aplicación de teléfono debe tener permiso para controlar el estado de «No molestar». \nPermite esto.</string>
   <string name="allow">Permitir</string>
+  <string name="deny">Denegar</string>
 </resources>
