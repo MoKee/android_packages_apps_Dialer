@@ -28,4 +28,5 @@
   <string name="incall_dnd_dialog_message">Per abilitare la funzione Non disturbare, l\'app Telefono deve essere autorizzata a controllare lo stato Non disturbare.\nSi prega di autorizzare.</string>
   <string name="allow">Permetti</string>
   <string name="deny">Nega</string>
+  <string name="call_recording_format">Formato audio</string>
 </resources>
