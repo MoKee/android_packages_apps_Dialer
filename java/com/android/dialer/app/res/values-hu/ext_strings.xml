@@ -28,4 +28,6 @@
   <string name="incall_dnd_dialog_message">Ennek az engedélyezéséhez a Telefon-alkalmazásnak rendelkeznie kell a DND státuszának vezérlésére.\nKérjük, engedélyezze azt!</string>
   <string name="allow">Engedélyezés</string>
   <string name="deny">Elutasítás</string>
+  <string name="call_recording_category_title">Hívásrögzítés</string>
+  <string name="call_recording_format">Audióformátum</string>
 </resources>

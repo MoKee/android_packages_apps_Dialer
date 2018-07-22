@@ -28,4 +28,6 @@
   <string name="incall_dnd_dialog_message">Aby włączyć opcję DND(Nie przeszkadzać), aplikacja \"Telefon\" musi mieć uprawnienia do kontrolowania jej statusu. \nProszę na to zezwolić.</string>
   <string name="allow">Zezwól</string>
   <string name="deny">Odmów</string>
+  <string name="call_recording_category_title">Nagrywanie połączenia</string>
+  <string name="call_recording_format">Format audio</string>
 </resources>
