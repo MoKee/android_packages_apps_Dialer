@@ -16,11 +16,9 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="call_recording_failed_message">Arama ses kaydı başlatılamadı</string>
-  <string name="call_recording_file_location">Arama kaydı şuraya kaydedildi <xliff:g id="filename">%s</xliff:g></string>
-  <string name="onscreenCallRecordText">Aramayı kaydet</string>
-  <string name="onscreenStopCallRecordText">Kaydı durdur</string>
-  <string name="recording_time_text">Kaydediliyor</string>
-  <string name="recording_warning_title">Arama kaydı etkinleştirilsin mi?</string>
-  <string name="recording_warning_text">Dikkat: Arama kayıt işlevselliğinin kullanımı ve bu kayıtların kullanımı veya dağıtımı için geçerli olan herhangi bir yasa, yönetmelik ve kurallara uymaktan siz sorumlusunuz.</string>
+  <plurals name="play_recordings">
+    <item quantity="one">Kaydı oynat</item>
+    <item quantity="other">Kaydı oynat</item>
+  </plurals>
+  <string name="call_playback_no_app_found_toast">Seçilen kaydı yürütmek için hiçbir uygulama bulunamadı.</string>
 </resources>
