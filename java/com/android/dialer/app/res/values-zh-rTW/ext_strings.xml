@@ -28,4 +28,6 @@
   <string name="incall_dnd_dialog_message">為了啟用免打擾功能，電話應用程式需要啟用權限。\n請允許。</string>
   <string name="allow">允許</string>
   <string name="deny">拒絕</string>
+  <string name="call_recording_category_title">通話錄音</string>
+  <string name="call_recording_format">音訊格式</string>
 </resources>
