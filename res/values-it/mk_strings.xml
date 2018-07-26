@@ -33,7 +33,7 @@
   <string name="cloud_location_lookup_mark_agency">Agenzia</string>
   <string name="cloud_location_lookup_mark_takeaway">Asporto</string>
   <string name="cloud_location_lookup_mark_delivery">Consegna</string>
-  <string name="cloud_location_lookup_mark_service">Servizio Clienti</string>
+  <string name="cloud_location_lookup_mark_service">Servizio clienti</string>
   <string name="cloud_location_lookup_mark_taxi">Taxi</string>
   <!-- Automatically call recording -->
   <string name="call_recording_automatically_title">Registra automaticamente</string>
