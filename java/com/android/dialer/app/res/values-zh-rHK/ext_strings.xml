@@ -30,4 +30,5 @@
   <string name="deny">拒絕</string>
   <string name="call_recording_category_title">通話錄音</string>
   <string name="call_recording_format">音訊格式</string>
+  <string name="call_log_stats_title">統計</string>
 </resources>
