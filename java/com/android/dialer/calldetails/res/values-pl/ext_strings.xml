@@ -19,8 +19,8 @@
   <plurals name="play_recordings">
     <item quantity="one">Odtwórz nagranie</item>
     <item quantity="few">Odtwórz nagrania</item>
-    <item quantity="many">Odtwórz nagranie</item>
+    <item quantity="many">Odtwórz nagrania</item>
     <item quantity="other">Odtwórz nagrania</item>
   </plurals>
-  <string name="call_playback_no_app_found_toast">Nie można znaleźć żadnej aplikacji do odtworzenia wybranego nagrania.</string>
+  <string name="call_playback_no_app_found_toast">Brak aplikacji, do odtworzenia wybranej rozmowy.</string>
 </resources>

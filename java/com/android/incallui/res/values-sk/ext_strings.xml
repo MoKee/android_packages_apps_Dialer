@@ -15,13 +15,4 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="call_recording_failed_message">Spustenie nahrávania hovoru zlyhalo</string>
-  <string name="call_recording_file_location">Nahrávanie hovorov uložené do <xliff:g id="filename">%s </xliff:g></string>
-  <string name="onscreenCallRecordText">Nahrať hovor</string>
-  <string name="onscreenCallRecordingText">Nahrávanie hovoru - <xliff:g id="duration" example="00:10">%1$s</xliff:g></string>
-  <string name="onscreenStopCallRecordText">Zastaviť nahrávanie</string>
-  <string name="recording_time_text">Nahrávanie</string>
-  <string name="recording_warning_title">Povoliť nahrávanie hovorov?</string>
-  <string name="recording_warning_text">Poznámka: Ste zodpovední za dodržiavanie zákonov, predpisov a pravidiel, ktoré sa vzťahujú na použitie funkcie nahrávania alebo distribúcie týchto nahrávok.</string>
-</resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2"></resources>

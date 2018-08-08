@@ -17,11 +17,11 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="call_recording_failed_message">Nie udało się rozpocząć nagrywania rozmowy</string>
-  <string name="call_recording_file_location">Nagranie zapisano w <xliff:g id="filename">%s</xliff:g></string>
+  <string name="call_recording_file_location">Zapisano nagranie rozmowy do <xliff:g id="filename">%s</xliff:g></string>
   <string name="onscreenCallRecordText">Nagraj rozmowę</string>
-  <string name="onscreenCallRecordingText">Nagrywanie połączenia - <xliff:g id="duration" example="00:10">%1$s</xliff:g></string>
-  <string name="onscreenStopCallRecordText">Zatrzymaj nagranie</string>
+  <string name="onscreenCallRecordingText">Nagrywanie rozmowy - <xliff:g id="duration" example="00:10">%1$s</xliff:g></string>
+  <string name="onscreenStopCallRecordText">Zatrzymaj nagrywanie</string>
   <string name="recording_time_text">Nagrywanie</string>
   <string name="recording_warning_title">Włączyć nagrywanie rozmów?</string>
-  <string name="recording_warning_text">Uwaga: Jesteś odpowiedzialny za przestrzeganie wszelkich ustawowych, wykonawczych i przepisów, które mają zastosowanie do korzystania z funkcji nagrywania i używania lub rozpowszechniania tych nagrań.</string>
+  <string name="recording_warning_text">Uwaga: Ponosisz odpowiedzialność za wszelkie komplikacje z prawem związane z nagrywaniem rozmów i ich udostępnianiem bądź rozpowszechnianiem tych nagrań.</string>
 </resources>
