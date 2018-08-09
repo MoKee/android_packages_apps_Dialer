@@ -22,7 +22,6 @@
   <string name="call_stats_outgoing">Εξερχόμενες: <xliff:g id="value">%s</xliff:g></string>
   <string name="call_stats_missed">Αναπάντητες: <xliff:g id="value">%s</xliff:g></string>
   <string name="call_stats_blocked">Αποκλεισμένες: <xliff:g id="value">%s</xliff:g></string>
-  <string name="call_stats_percent"><xliff:g id="percent">%d</xliff:g>%%</string>
   <string name="call_stats_header_total">Σύνολο: <xliff:g id="call_count">%s</xliff:g>, <xliff:g id="duration">%s</xliff:g></string>
   <string name="call_stats_header_total_callsonly">Σύνολο: <xliff:g id="call_count">%s</xliff:g></string>
   <string name="call_stats_filter_from">Ημερομηνία έναρξης</string>

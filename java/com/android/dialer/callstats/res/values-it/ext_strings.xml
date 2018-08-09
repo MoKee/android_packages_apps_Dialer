@@ -22,7 +22,6 @@
   <string name="call_stats_outgoing">In uscita: <xliff:g id="value">%s</xliff:g></string>
   <string name="call_stats_missed">Perse: <xliff:g id="value">%s</xliff:g></string>
   <string name="call_stats_blocked">Bloccate: <xliff:g id="value">%s</xliff:g></string>
-  <string name="call_stats_percent"><xliff:g id="percent">%d</xliff:g>%%</string>
   <string name="call_stats_header_total">Totale: <xliff:g id="call_count">%s</xliff:g>, <xliff:g id="duration">%s</xliff:g></string>
   <string name="call_stats_header_total_callsonly">Totale: <xliff:g id="call_count">%s</xliff:g></string>
   <string name="call_stats_filter_from">Da data</string>

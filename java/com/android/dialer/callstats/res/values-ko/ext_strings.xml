@@ -22,7 +22,6 @@
   <string name="call_stats_outgoing">발신: <xliff:g id="value">%s</xliff:g></string>
   <string name="call_stats_missed">부재중: <xliff:g id="value">%s</xliff:g></string>
   <string name="call_stats_blocked">차단됨: <xliff:g id="value">%s</xliff:g></string>
-  <string name="call_stats_percent"><xliff:g id="percent">%d</xliff:g>%%</string>
   <string name="call_stats_header_total">합계: <xliff:g id="call_count">%s</xliff:g>, <xliff:g id="duration">%s</xliff:g></string>
   <string name="call_stats_header_total_callsonly">합계: <xliff:g id="call_count">%s</xliff:g></string>
   <string name="call_stats_filter_from">시작 날짜</string>

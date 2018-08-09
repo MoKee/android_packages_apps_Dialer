@@ -22,7 +22,6 @@
   <string name="call_stats_outgoing">去电：<xliff:g id="value">%s</xliff:g> 次</string>
   <string name="call_stats_missed">未接：<xliff:g id="value">%s</xliff:g> 次</string>
   <string name="call_stats_blocked">拦截：<xliff:g id="value">%s</xliff:g> 次</string>
-  <string name="call_stats_percent"><xliff:g id="percent">%d</xliff:g>%%</string>
   <string name="call_stats_header_total">总计：<xliff:g id="call_count">%s</xliff:g>，<xliff:g id="duration">%s</xliff:g></string>
   <string name="call_stats_header_total_callsonly">总计：<xliff:g id="call_count">%s</xliff:g></string>
   <string name="call_stats_filter_from">开始日期</string>

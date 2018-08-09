@@ -22,7 +22,6 @@
   <string name="call_stats_outgoing">Giden: <xliff:g id="value">%s</xliff:g></string>
   <string name="call_stats_missed">Cevapsız: <xliff:g id="value">%s</xliff:g></string>
   <string name="call_stats_blocked">Engellenen: <xliff:g id="value">%s</xliff:g></string>
-  <string name="call_stats_percent"><xliff:g id="percent">%d</xliff:g>%%</string>
   <string name="call_stats_header_total">Toplam:<xliff:g id="call_count">%s</xliff:g>,<xliff:g id="duration">%s</xliff:g></string>
   <string name="call_stats_header_total_callsonly">Toplam: <xliff:g id="call_count">%s</xliff:g></string>
   <string name="call_stats_filter_from">Başlangıç tarihi</string>
