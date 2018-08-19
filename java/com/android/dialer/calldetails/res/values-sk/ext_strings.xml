@@ -22,5 +22,5 @@
     <item quantity="many">Prehrať nahrávok</item>
     <item quantity="other">Prehrať nahrávok</item>
   </plurals>
-  <string name="call_playback_no_app_found_toast">Nenašli sa žiadne aplikácie pre prehrávanie zvolenej nahrávky.</string>
+  <string name="call_playback_no_app_found_toast">Nenašla sa žiadna aplikácia pre prehrávanie záznamu.</string>
 </resources>
