@@ -21,5 +21,6 @@
   <string name="onscreenCallRecordText">Enregistrer l\'appel</string>
   <string name="onscreenCallRecordingText">Enregistrement de l\'appel - <xliff:g id="duration" example="00:10">%1$s</xliff:g></string>
   <string name="onscreenStopCallRecordText">Arrêter l\'enregistrement</string>
+  <string name="recording_time_text">Enregistrement en cours</string>
   <string name="recording_warning_title">Activer l\'enregistrement d\'appel ?</string>
 </resources>

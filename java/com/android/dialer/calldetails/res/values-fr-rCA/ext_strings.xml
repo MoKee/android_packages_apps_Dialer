@@ -17,10 +17,8 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <plurals name="play_recordings">
-    <item quantity="one">Prehrať nahrávku</item>
-    <item quantity="few">Prehrať nahrávky</item>
-    <item quantity="many">Prehrať nahrávok</item>
-    <item quantity="other">Prehrať nahrávok</item>
+    <item quantity="one">Lire l\'enregistrement</item>
+    <item quantity="other">Lire les enregistrements</item>
   </plurals>
-  <string name="call_playback_no_app_found_toast">Nenašli sa žiadne aplikácie pre prehrávanie zvolenej nahrávky.</string>
+  <string name="call_playback_no_app_found_toast">Aucune application n\'a été trouvée pour la lecture de l\'enregistrement sélectionné.</string>
 </resources>

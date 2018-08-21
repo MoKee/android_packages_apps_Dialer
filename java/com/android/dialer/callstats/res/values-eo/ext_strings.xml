@@ -21,9 +21,6 @@
   <string name="call_stats_outgoing">Discadas: <xliff:g id="value">%s</xliff:g></string>
   <string name="call_stats_missed">Perdidas: <xliff:g id="value">%s</xliff:g></string>
   <string name="call_stats_blocked">Bloqueadas: <xliff:g id="value">%s</xliff:g></string>
-  <string name="call_stats_percent"><xliff:g id="percent">%d</xliff:g>%%</string>
-  <string name="call_stats_header_total">Total: <xliff:g id="call_count">%s</xliff:g>, <xliff:g id="duration">%s</xliff:g></string>
-  <string name="call_stats_header_total_callsonly">Total: <xliff:g id="call_count">%s</xliff:g></string>
   <string name="call_stats_filter_from">Data inicial</string>
   <string name="call_stats_filter_to">Data final</string>
   <string name="call_stats_filter_picker_title">Intervalo do filtro</string>
