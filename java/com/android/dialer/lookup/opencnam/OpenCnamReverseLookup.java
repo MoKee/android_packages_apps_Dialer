@@ -27,7 +27,7 @@ import com.android.dialer.lookup.ContactBuilder;
 import com.android.dialer.lookup.LookupUtils;
 import com.android.dialer.lookup.ReverseLookup;
 
-import lineageos.providers.LineageSettings;
+import mokee.providers.MKSettings;
 
 import java.io.IOException;
 
@@ -90,12 +90,12 @@ public class OpenCnamReverseLookup extends ReverseLookup {
         Uri.Builder builder = Uri.parse(LOOKUP_URL + number).buildUpon();
 
         // Paid account
-        String accountSid = LineageSettings.System.getString(
+        String accountSid = MKSettings.System.getString(
                 context.getContentResolver(),
-                LineageSettings.System.DIALER_OPENCNAM_ACCOUNT_SID);
-        String authToken = LineageSettings.System.getString(
+                MKSettings.System.DIALER_OPENCNAM_ACCOUNT_SID);
+        String authToken = MKSettings.System.getString(
                 context.getContentResolver(),
-                LineageSettings.System.DIALER_OPENCNAM_AUTH_TOKEN);
+                MKSettings.System.DIALER_OPENCNAM_AUTH_TOKEN);
 
         if (!TextUtils.isEmpty(accountSid) && !TextUtils.isEmpty(authToken)) {
             Log.d(TAG, "Using paid account");
