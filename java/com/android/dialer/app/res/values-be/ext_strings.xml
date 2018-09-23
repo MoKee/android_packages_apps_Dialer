@@ -25,4 +25,12 @@
   <string name="incall_vibrate_hangup_title">Вібрацыя пасля раз\'яднання</string>
   <string name="incall_vibrate_45_title">Вібрацыя штохвіліну</string>
   <string name="incall_vibrate_45_summary">Вібрацыя штохвілінна на 45 секундзе падчас уваходнаго выкліку</string>
+  <string name="incall_dnd_dialog_message">Для ўключэння рэжыму «Не турбаваць», у праграме «Тэлефон» павінен быць прадастаўлены дазвол на кіраванне статусам рэжыму «Не турбаваць».\nКалі ласка, падайце дазвол.</string>
+  <string name="allow">Дазволіць</string>
+  <string name="deny">Адхiлiць</string>
+  <string name="call_recording_category_title">Запіс выкліка</string>
+  <string name="call_recording_format">Аўдыё фармат</string>
+  <string name="call_via">Патэлефанаваць праз</string>
+  <string name="call_via_dialog_title">Патэлефанаваць праз\u2026</string>
+  <string name="call_log_stats_title">Статыстыка</string>
 </resources>
