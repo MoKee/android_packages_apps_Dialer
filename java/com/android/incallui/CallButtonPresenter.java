@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2013 The Android Open Source Project
+ * Copyright (C) 2018-2019 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +22,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Trace;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -79,6 +81,8 @@ public class CallButtonPresenter
   private boolean isInCallButtonUiReady;
   private PhoneAccountHandle otherAccount;
 
+  private boolean isRecording = false;
+
   private CallRecorder.RecordingProgressListener recordingProgressListener =
       new CallRecorder.RecordingProgressListener() {
     @Override
@@ -118,6 +122,7 @@ public class CallButtonPresenter
 
     CallRecorder recorder = CallRecorder.getInstance();
     recorder.addRecordingProgressListener(recordingProgressListener);
+    inCallButtonUi.setCallRecordingState(recorder.isRecording());
 
     // Update the buttons state immediately for the current call
     onStateChange(InCallState.NO_CALLS, inCallPresenter.getInCallState(), CallList.getInstance());
@@ -144,10 +149,25 @@ public class CallButtonPresenter
   @Override
   public void onStateChange(InCallState oldState, InCallState newState, CallList callList) {
     Trace.beginSection("CallButtonPresenter.onStateChange");
+
+    CallRecorder recorder = CallRecorder.getInstance();
+    boolean isEnabled = PreferenceManager.getDefaultSharedPreferences(context)
+        .getBoolean(context.getString(R.string.auto_call_recording_key), false);
+
     if (newState == InCallState.OUTGOING) {
       call = callList.getOutgoingCall();
     } else if (newState == InCallState.INCALL) {
       call = callList.getActiveOrBackgroundCall();
+
+      // Call recording automatically
+      if (isPrimaryCallActive()) {
+        if (isEnabled && !call.isVideoCall() && !isRecording) {
+          isRecording = true;
+          new Handler().postDelayed( ()-> {
+            callRecordClicked(true);
+          }, 500);
+        }
+      }
 
       // When connected to voice mail, automatically shows the dialpad.
       // (On previous releases we showed it when in-call shows up, before waiting for
@@ -164,10 +184,17 @@ public class CallButtonPresenter
       }
       call = callList.getIncomingCall();
     } else {
+      if (isEnabled && recorder.isRecording()) {
+        recorder.finishRecording();
+      }
       call = null;
     }
     updateUi(newState, call);
     Trace.endSection();
+  }
+
+  private boolean isPrimaryCallActive() {
+    return call != null && call.getState() == DialerCallState.ACTIVE;
   }
 
   /**

@@ -17,4 +17,8 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="call_recording_notification_with_label_title">已保存与 %s 的通话录音</string>
     <string name="call_recording_notification_with_no_label_title">通话录音已保存</string>
+  <!-- Automatically call recording -->
+  <string name="auto_call_recording_title">自动录音</string>
+  <string name="auto_call_recording_summary">接通电话后自动录音</string>
+
 </resources>
