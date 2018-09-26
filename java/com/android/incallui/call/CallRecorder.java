@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2014 The CyanogenMod Project
+ * Copyright (C) 2018 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,17 +17,23 @@
 
 package com.android.incallui.call;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.RemoteException;
 import android.os.SystemProperties;
+import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.util.Log;
+import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
 import com.android.dialer.R;
@@ -34,6 +41,8 @@ import com.android.dialer.callrecord.CallRecordingDataStore;
 import com.android.dialer.callrecord.CallRecording;
 import com.android.dialer.callrecord.ICallRecorderService;
 import com.android.dialer.callrecord.impl.CallRecorderService;
+import com.android.dialer.constants.Constants;
+import com.android.dialer.notification.NotificationChannelId;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -57,6 +66,8 @@ public class CallRecorder implements CallList.Listener {
   private Context mContext;
   private boolean mInitialized = false;
   private ICallRecorderService mService = null;
+
+  private static final int NOTIFICATION_ID = 60;
 
   private HashSet<RecordingProgressListener> mProgressListeners =
       new HashSet<RecordingProgressListener>();
@@ -162,7 +173,13 @@ public class CallRecorder implements CallList.Listener {
       try {
         final CallRecording recording = mService.stopRecording();
         if (recording != null) {
+          String msg = mContext.getResources().getString(
+                  R.string.call_recording_file_location, recording.getFile().getAbsolutePath());
+          Notification.Builder builder = new Notification.Builder(mContext);
+          String title;
           if (!TextUtils.isEmpty(recording.phoneNumber)) {
+            title = mContext.getResources().getString(
+                    R.string.call_recording_notification_with_label_title, recording.phoneNumber);
             new Thread(() -> {
               CallRecordingDataStore dataStore = new CallRecordingDataStore();
               dataStore.open(mContext);
@@ -170,13 +187,40 @@ public class CallRecorder implements CallList.Listener {
               dataStore.close();
             }).start();
           } else {
+            title = mContext.getResources().getString(
+                    R.string.call_recording_notification_with_no_label_title);
             // Data store is an index by number so that we can link recordings in the
             // call detail page.  If phone number is not available (conference call or
             // unknown number) then just display a toast.
-            String msg = mContext.getResources().getString(
-                R.string.call_recording_file_location, recording.fileName);
             Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
           }
+
+          Uri uri = FileProvider.getUriForFile(mContext,
+                  Constants.get().getFileProviderAuthority(), recording.getFile());
+          String extension = MimeTypeMap.getFileExtensionFromUrl(uri.toString());
+          String mime = !TextUtils.isEmpty(extension)
+                  ? MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension) : "audio/*";
+
+          // Create the intent to play call record
+          Intent launchIntent = new Intent(Intent.ACTION_VIEW)
+                  .setDataAndType(uri, mime)
+                  .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+          builder.setTicker(title)
+                  .setContentTitle(title)
+                  .setContentText(msg)
+                  .setStyle(new Notification.BigTextStyle().bigText(msg))
+                  .setContentIntent(PendingIntent.getActivity(mContext, 0, launchIntent, 0))
+                  .setSmallIcon(R.drawable.recording_playback_button)
+                  .setWhen(System.currentTimeMillis())
+                  .setAutoCancel(true)
+                  .setShowWhen(true)
+                  .setChannelId(NotificationChannelId.DEFAULT)
+                  .setColor(mContext.getResources().getColor(com.android.internal.R.color.system_notification_accent_color));
+          NotificationManager mNotificationManager =
+                  (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+          mNotificationManager.notify(NOTIFICATION_ID, builder.build());
+
         }
       } catch (RemoteException e) {
         Log.w(TAG, "Failed to stop recording", e);
