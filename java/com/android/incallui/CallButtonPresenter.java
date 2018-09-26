@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2013 The Android Open Source Project
+ * Copyright (C) 2018-2019 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +22,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Trace;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -77,6 +79,10 @@ public class CallButtonPresenter
   private boolean isInCallButtonUiReady;
   private PhoneAccountHandle otherAccount;
 
+  private SharedPreferences prefs;
+  private boolean isEnableAutomaticallyRecording = false;
+  private boolean automaticallyRecording = false;
+
   private CallRecorder.RecordingProgressListener recordingProgressListener =
       new CallRecorder.RecordingProgressListener() {
     @Override
@@ -116,6 +122,10 @@ public class CallButtonPresenter
 
     CallRecorder recorder = CallRecorder.getInstance();
     recorder.addRecordingProgressListener(recordingProgressListener);
+
+    final String prefName = context.getPackageName() + "_preferences";
+    prefs = context.getSharedPreferences(prefName, Context.MODE_MULTI_PROCESS);
+    isEnableAutomaticallyRecording = prefs.getBoolean(context.getString(R.string.call_recording_automatically_key), isEnableAutomaticallyRecording);
 
     // Update the buttons state immediately for the current call
     onStateChange(InCallState.NO_CALLS, inCallPresenter.getInCallState(), CallList.getInstance());
@@ -166,6 +176,21 @@ public class CallButtonPresenter
     }
     updateUi(newState, call);
     Trace.endSection();
+
+    // Call recording automatically
+    if (isPrimaryCallActive()) {
+      if (isEnableAutomaticallyRecording && !call.isVideoCall() && !automaticallyRecording) {
+        automaticallyRecording = true;
+        new Handler().postDelayed( ()-> {
+          callRecordClicked(true);
+        }, 500);
+      }
+    }
+
+  }
+
+  private boolean isPrimaryCallActive() {
+    return call != null && call.getState() == DialerCall.State.ACTIVE;
   }
 
   /**
