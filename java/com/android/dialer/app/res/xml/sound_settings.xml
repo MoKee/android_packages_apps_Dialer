@@ -2,6 +2,7 @@
 
 <!--
   ~ Copyright (C) 2014 The Android Open Source Project
+  ~ Copyright (C) 2018-2019 The MoKee Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -84,6 +85,12 @@
       android:entries="@array/call_recording_encoder_entries"
       android:entryValues="@array/call_recording_encoder_values"
       android:defaultValue="0" />
+
+    <SwitchPreference
+      android:defaultValue="false"
+      android:key="@string/auto_call_recording_key"
+      android:title="@string/auto_call_recording_title"
+      android:summary="@string/auto_call_recording_summary" />
 
   </PreferenceCategory>
 

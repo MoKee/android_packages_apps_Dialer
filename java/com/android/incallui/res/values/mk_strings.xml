@@ -15,6 +15,14 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <!-- Saved call recording notification -->
     <string name="call_recording_notification_with_label_title">Saved call recording with %s</string>
     <string name="call_recording_notification_with_no_label_title">Saved call recording</string>
+
+    <!-- Automatically call recording -->
+    <string name="auto_call_recording_key" translatable="false">auto_call_recording</string>
+    <string name="auto_call_recording_title">Recording automatically</string>
+    <string name="auto_call_recording_summary">Recording automatically after call</string>
+
 </resources>
