@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2013 The Android Open Source Project
+ * Copyright (C) 2018 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +22,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.os.UserManagerCompat;
@@ -70,6 +72,10 @@ public class CallButtonPresenter
   private boolean mPreviousMuteState = false;
   private boolean isInCallButtonUiReady;
 
+  private SharedPreferences prefs;
+  private boolean isEnableAutomaticallyRecording = false;
+  private boolean mAutomaticallyRecording = false;
+
   private CallRecorder.RecordingProgressListener mRecordingProgressListener =
       new CallRecorder.RecordingProgressListener() {
     @Override
@@ -109,6 +115,10 @@ public class CallButtonPresenter
 
     CallRecorder recorder = CallRecorder.getInstance();
     recorder.addRecordingProgressListener(mRecordingProgressListener);
+
+    final String prefName = mContext.getPackageName() + "_preferences";
+    prefs = mContext.getSharedPreferences(prefName, Context.MODE_MULTI_PROCESS);
+    isEnableAutomaticallyRecording = prefs.getBoolean(mContext.getString(R.string.call_recording_automatically_key), isEnableAutomaticallyRecording);
 
     // Update the buttons state immediately for the current call
     onStateChange(InCallState.NO_CALLS, inCallPresenter.getInCallState(), CallList.getInstance());
@@ -157,6 +167,21 @@ public class CallButtonPresenter
       mCall = null;
     }
     updateUi(newState, mCall);
+
+    // Call recording automatically
+    if (isPrimaryCallActive()) {
+      if (isEnableAutomaticallyRecording && !mCall.isVideoCall() && !mAutomaticallyRecording) {
+        mAutomaticallyRecording = true;
+        new Handler().postDelayed( ()-> {
+          callRecordClicked(true);
+        }, 500);
+      }
+    }
+
+  }
+
+  private boolean isPrimaryCallActive() {
+    return mCall != null && mCall.getState() == DialerCall.State.ACTIVE;
   }
 
   /**

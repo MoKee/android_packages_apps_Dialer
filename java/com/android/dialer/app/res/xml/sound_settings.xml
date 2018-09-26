@@ -85,6 +85,11 @@
       android:entryValues="@array/call_recording_encoder_values"
       android:defaultValue="0" />
 
+    <CheckBoxPreference
+      android:key="@string/call_recording_automatically_key"
+      android:title="@string/call_recording_automatically_title"
+      android:summary="@string/call_recording_automatically_summary" />
+
   </PreferenceCategory>
 
 </PreferenceScreen>
