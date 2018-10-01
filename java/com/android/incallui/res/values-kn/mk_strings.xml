@@ -17,9 +17,7 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- Saved call recording notification -->
-  <string name="call_recording_notification_with_label_title">已保存与 %s 的通话录音</string>
-  <string name="call_recording_notification_with_no_label_title">通话录音已保存</string>
   <!-- Automatically call recording -->
-  <string name="call_recording_automatically_title">自动录音</string>
-  <string name="call_recording_automatically_summary">接通电话后自动录音</string>
+  <string name="call_recording_automatically_title">ಸ್ವಯಂಚಾಲಿತ ಮುದ್ರಣ</string>
+  <string name="call_recording_automatically_summary">ಕರೆ ನಂತರ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ದಾಖಲಿಸಲಾಗುತ್ತಿದೆ</string>
 </resources>
