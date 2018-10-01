@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2013 The Android Open Source Project
+ * Copyright (C) 2018 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +26,13 @@ import android.text.TextUtils;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Locale;
+import java.util.Map;
+import java.util.HashMap;
+
+import android.util.Log;
+
+import com.android.dialer.util.SettingsUtil;
 
 /**
  * Smart Dial utility class to find prefixes of contacts. It contains both methods to find supported
@@ -53,7 +61,7 @@ public class SmartDialPrefix {
 
   private static final String PREF_USER_SIM_COUNTRY_CODE_DEFAULT = null;
   /** Dialpad mapping. */
-  private static final SmartDialMap mMap = new LatinSmartDialMap();
+  private static SmartDialMap mMap = null;
 
   private static String sUserSimCountryCode = PREF_USER_SIM_COUNTRY_CODE_DEFAULT;
   /** Indicates whether user is in NANP regions. */
@@ -64,6 +72,29 @@ public class SmartDialPrefix {
   private static Set<String> sCountryCodes = null;
 
   private static boolean sNanpInitialized = false;
+
+  private static final Map<String, SmartDialMap> languageToSmartDialMap = new HashMap<String, SmartDialMap>();
+  static {
+    languageToSmartDialMap.put("ko", new KoreanSmartDialMap());
+    languageToSmartDialMap.put("el", new GreekSmartDialMap());
+    languageToSmartDialMap.put("ru", new RussianSmartDialMap());
+    languageToSmartDialMap.put("uk", new UkrainianSmartDialMap());
+    // Per Locale.java documentation:
+    // Note that Java uses several deprecated two-letter codes. The Hebrew ("he") language
+    // code is rewritten as "iw"
+    languageToSmartDialMap.put("iw", new HebrewSmartDialMap());
+    languageToSmartDialMap.put("zh", new ChineseSmartDialMap());
+  }
+
+  private static final Map<String, SmartDialMap> countryToSmartDialMap = new HashMap<String, SmartDialMap>();
+  static {
+    languageToSmartDialMap.put("KR", new KoreanSmartDialMap());
+    languageToSmartDialMap.put("GR", new GreekSmartDialMap());
+    languageToSmartDialMap.put("RU", new RussianSmartDialMap());
+    languageToSmartDialMap.put("UA", new UkrainianSmartDialMap());
+    languageToSmartDialMap.put("IL", new HebrewSmartDialMap());
+    languageToSmartDialMap.put("CN", new ChineseSmartDialMap());
+  }
 
   /** Initializes the Nanp settings, and finds out whether user is in a NANP region. */
   public static void initializeNanpSettings(Context context) {
@@ -85,7 +116,22 @@ public class SmartDialPrefix {
     }
     /** Queries the NANP country list to find out whether user is in a NANP region. */
     sUserInNanpRegion = isCountryNanp(sUserSimCountryCode);
+
+    /** Sets a layout for SmartDial based on locale.  Lookup by language first and fallback to country */
+    Locale locale = SettingsUtil.getT9SearchInputLocale(context);
+    mMap = languageToSmartDialMap.get(locale.getLanguage());
+    if (mMap == null)
+      mMap = countryToSmartDialMap.get(locale.getCountry());
+    if (mMap == null)
+      mMap = new LatinSmartDialMap();
+
     sNanpInitialized = true;
+  }
+
+  // for testing only
+  @VisibleForTesting
+  static void setSmartDialMap(SmartDialMap map) {
+    mMap = map;
   }
 
   /**
@@ -133,6 +179,7 @@ public class SmartDialPrefix {
    */
   public static ArrayList<String> generateNamePrefixes(String index) {
     final ArrayList<String> result = new ArrayList<>();
+    index = mMap.transliterateName(index);
 
     /** Parses the name into a list of tokens. */
     final ArrayList<String> indexTokens = parseToIndexTokens(index);
@@ -252,10 +299,9 @@ public class SmartDialPrefix {
          * If the number does not start with '+', finds out whether it is in NANP format and has '1'
          * preceding the number.
          */
-        if ((normalizedNumber.length() == 11)
-            && (normalizedNumber.charAt(0) == '1')
-            && (sUserInNanpRegion)) {
-          countryCode = "1";
+        if ((normalizedNumber.length() == 11) && (normalizedNumber.charAt(0) == '1'
+                || normalizedNumber.charAt(0) == '7') && (sUserInNanpRegion)) {
+          countryCode = normalizedNumber.substring(0, 1);
           countryCodeOffset = number.indexOf(normalizedNumber.charAt(1));
           if (countryCodeOffset == -1) {
             countryCodeOffset = 0;
@@ -272,7 +318,8 @@ public class SmartDialPrefix {
            * code, and finds out offset of the local number.
            */
           areaCode = normalizedNumber.substring(0, 3);
-        } else if (countryCode.equals("1") && normalizedNumber.length() == 11) {
+        } else if ((countryCode.equals("1") || countryCode.equals("7")) &&
+                normalizedNumber.length() == 11) {
           /**
            * If the number has country code '1', finds out area code and offset of the local number.
            */
@@ -566,6 +613,8 @@ public class SmartDialPrefix {
     result.add("TT"); // Trinidad and Tobago
     result.add("TC"); // Turks and Caicos Islands
     result.add("VI"); // U.S. Virgin Islands
+    result.add("RU"); // Russia
+    result.add("UA"); // Ukraine
     return result;
   }
 

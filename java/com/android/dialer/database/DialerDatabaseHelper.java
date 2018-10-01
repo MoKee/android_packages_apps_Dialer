@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2013 The Android Open Source Project
+ * Copyright (C) 2018 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +21,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -33,9 +35,12 @@ import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.provider.ContactsContract.Contacts;
 import android.provider.ContactsContract.Data;
 import android.provider.ContactsContract.Directory;
+import android.provider.ContactsContract.RawContacts;
 import android.support.annotation.VisibleForTesting;
 import android.support.annotation.WorkerThread;
 import android.text.TextUtils;
+import android.util.Log;
+
 import com.android.contacts.common.R;
 import com.android.contacts.common.util.StopWatch;
 import com.android.dialer.common.LogUtil;
@@ -43,6 +48,9 @@ import com.android.dialer.database.FilteredNumberContract.FilteredNumberColumns;
 import com.android.dialer.smartdial.SmartDialNameMatcher;
 import com.android.dialer.smartdial.SmartDialPrefix;
 import com.android.dialer.util.PermissionsUtil;
+
+import com.google.common.collect.Lists;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
@@ -74,7 +82,7 @@ public class DialerDatabaseHelper extends SQLiteOpenHelper {
 
   private static final String LAST_UPDATED_MILLIS = "last_updated_millis";
   private static final String DATABASE_VERSION_PROPERTY = "database_version";
-  private static final int MAX_ENTRIES = 20;
+  private static final int MAX_ENTRIES = 40;
 
   private final Context mContext;
   private boolean mIsTestInstance = false;
@@ -337,6 +345,47 @@ public class DialerDatabaseHelper extends SQLiteOpenHelper {
   }
 
   /**
+   * Deletes all smart dial data and recreates it from contacts
+   */
+  public void recreateSmartDialDatabaseInBackground() { new SmartDialRecreateAsyncTask().execute(); }
+
+  private class SmartDialRecreateAsyncTask extends AsyncTask {
+    @Override
+    protected Object doInBackground(Object[] objects) {
+      if (DEBUG) {
+        Log.v(TAG, "Recreating database");
+      }
+
+      // reset last updated so that we query for all contacts
+      resetSmartDialLastUpdatedTime();
+
+      // clear all contacts
+      final SQLiteDatabase db = getWritableDatabase();
+      removeAllContacts(db);
+
+      // repopulate
+      updateSmartDialDatabase();
+      return null;
+    }
+
+    @Override
+    protected void onCancelled() {
+      if (DEBUG) {
+        Log.v(TAG, "Recreate Cancelled");
+      }
+      super.onCancelled();
+    }
+
+    @Override
+    protected void onPostExecute(Object o) {
+      if (DEBUG) {
+        Log.v(TAG, "Recreate Finished");
+      }
+      super.onPostExecute(o);
+    }
+  }
+
+  /**
    * Removes rows in the smartdial database that matches the contacts that have been deleted by
    * other apps since last update.
    *
@@ -404,6 +453,15 @@ public class DialerDatabaseHelper extends SQLiteOpenHelper {
         Tables.SMARTDIAL_TABLE,
         SmartDialDbColumns.LAST_SMARTDIAL_UPDATE_TIME + " > " + last_update_time,
         null);
+  }
+
+  /**
+   * Removes all entries in the smartdial contact database.
+   */
+  @VisibleForTesting
+  void removeAllContacts(SQLiteDatabase db) {
+    db.delete(Tables.SMARTDIAL_TABLE, null, null);
+    db.delete(Tables.PREFIX_TABLE, null, null);
   }
 
   /**
@@ -812,10 +870,18 @@ public class DialerDatabaseHelper extends SQLiteOpenHelper {
   @WorkerThread
   public synchronized ArrayList<ContactNumber> getLooseMatches(
       String query, SmartDialNameMatcher nameMatcher) {
+    if (query.length() == 0) {
+      return Lists.newArrayList();
+    }
     final SQLiteDatabase db = getReadableDatabase();
 
     /** Uses SQL query wildcard '%' to represent prefix matching. */
-    final String looseQuery = query + "%";
+    StringBuilder looseQuery = new StringBuilder(query);
+    for (int i = 0; i < looseQuery.toString().length();) {
+      looseQuery.insert(i, "%");
+      i = i + 2;
+    }
+    looseQuery.append("%");
 
     final ArrayList<ContactNumber> result = new ArrayList<>();
 

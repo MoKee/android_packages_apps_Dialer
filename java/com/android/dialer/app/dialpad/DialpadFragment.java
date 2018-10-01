@@ -613,6 +613,12 @@ public class DialpadFragment extends Fragment
     zero.setOnLongClickListener(this);
   }
 
+  public void refreshKeypad() {
+    if (mDialpadView != null) {
+      mDialpadView.refreshKeypad();
+    }
+  }
+
   @Override
   public void onStart() {
     LogUtil.d("DialpadFragment.onStart", "first launch: %b", mFirstLaunch);

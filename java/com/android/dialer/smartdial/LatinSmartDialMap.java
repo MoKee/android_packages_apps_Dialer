@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2016 The Android Open Source Project
+ * Copyright (C) 2018 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +16,8 @@
  */
 
 package com.android.dialer.smartdial;
+
+import java.util.ArrayList;
 
 public class LatinSmartDialMap implements SmartDialMap {
 
@@ -780,5 +783,16 @@ public class LatinSmartDialMap implements SmartDialMap {
       return LATIN_LETTERS_TO_DIGITS[ch - 'a'];
     }
     return ch;
+  }
+
+  @Override
+  public String transliterateName(String index) {
+    return index;
+  }
+
+  @Override
+  public boolean matchesCombination(SmartDialNameMatcher smartDialNameMatcher,
+                                    String displayName, String query, ArrayList<SmartDialMatchPosition> matchList) {
+    return smartDialNameMatcher.matchesCombination(displayName, query, matchList);
   }
 }

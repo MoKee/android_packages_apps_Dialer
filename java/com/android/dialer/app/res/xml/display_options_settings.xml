@@ -2,6 +2,7 @@
 
 <!--
   ~ Copyright (C) 2015 The Android Open Source Project
+  ~ Copyright (C) 2018 The MoKee Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -33,4 +34,10 @@
     android:title="@string/call_log_delete_limit_title"
     android:dialogTitle="@string/call_log_delete_limit_title" />
 
+  <ListPreference
+    android:key="button_t9_search_input"
+    android:title="@string/t9_search_input_locale"
+    android:summary="%s"
+    android:defaultValue=""
+    android:persistent="false" />
 </PreferenceScreen>

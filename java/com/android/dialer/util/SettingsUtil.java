@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2014 The Android Open Source Project
+ * Copyright (C) 2018 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +27,8 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.text.TextUtils;
+
+import java.util.Locale;
 
 public class SettingsUtil {
 
@@ -100,5 +103,10 @@ public class SettingsUtil {
       summary = context.getString(R.string.default_notification_description, summary);
     }
     handler.sendMessage(handler.obtainMessage(msg, summary));
+  }
+
+  public static Locale getT9SearchInputLocale(Context context) {
+    // Use system locale by default
+    return context.getResources().getConfiguration().locale;
   }
 }

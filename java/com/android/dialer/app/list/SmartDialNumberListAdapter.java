@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2013 The Android Open Source Project
+ * Copyright (C) 2018 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,10 +36,13 @@ public class SmartDialNumberListAdapter extends DialerPhoneNumberListAdapter {
   private static final String TAG = SmartDialNumberListAdapter.class.getSimpleName();
   private static final boolean DEBUG = false;
 
-  @NonNull private final SmartDialNameMatcher mNameMatcher;
+  private final Context mContext;
+
+  @NonNull private SmartDialNameMatcher mNameMatcher;
 
   public SmartDialNumberListAdapter(Context context) {
     super(context);
+    mContext = context;
     mNameMatcher = new SmartDialNameMatcher("", SmartDialPrefix.getMap());
     setShortcutEnabled(SmartDialNumberListAdapter.SHORTCUT_DIRECT_CALL, false);
 
@@ -52,6 +56,8 @@ public class SmartDialNumberListAdapter extends DialerPhoneNumberListAdapter {
     if (DEBUG) {
       Log.v(TAG, "Configure Loader with query" + getQueryString());
     }
+
+    mNameMatcher = new SmartDialNameMatcher("", SmartDialPrefix.getMap());
 
     if (getQueryString() == null) {
       loader.configureQuery("");

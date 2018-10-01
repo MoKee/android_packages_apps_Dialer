@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright (C) 2006 The Android Open Source Project
+     Copyright (C) 2018 The MoKee Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -19,9 +20,12 @@
   style="@style/DialpadKeyButtonStyle">
   <LinearLayout
     style="@style/DialpadKeyInternalLayoutStyle">
-    <com.android.dialer.dialpadview.DialpadTextView
+    <TextView
       android:id="@+id/dialpad_key_number"
       style="@style/DialpadKeyNumberStyle"/>
+    <TextView
+      android:id="@+id/dialpad_key_labels"
+      style="@style/DialpadKeyLettersStyle"/>
     <RelativeLayout
       android:layout_width="wrap_content"
       android:layout_height="wrap_content">

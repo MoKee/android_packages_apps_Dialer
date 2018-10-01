@@ -16,6 +16,10 @@
 
 <resources>
 
+    <dimen name="dialpad_key_letters_small_size">10sp</dimen>
+    <dimen name="dialpad_key_margin_right">9dp</dimen>
+    <dimen name="dialpad_key_number_left_margin">26dp</dimen>
+    <dimen name="dialpad_special_char_left_margin">48dp</dimen>
     <dimen name="dialpad_location_adjustable_text_size">@dimen/dialpad_location_text_size</dimen>
     <dimen name="dialpad_location_text_size">13sp</dimen>
     <dimen name="dialpad_location_text_min_size">9sp</dimen>

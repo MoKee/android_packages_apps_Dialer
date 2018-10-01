@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2006 The Android Open Source Project
+<!--
+     Copyright (C) 2013 The CyanogenMod Project
      Copyright (C) 2018 The MoKee Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,14 +15,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<com.android.dialer.dialpadview.DialpadKeyButton
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:id="@+id/pound"
-  style="@style/DialpadKeyButtonStyle">
-  <LinearLayout
-    style="@style/SpecialCharInternalLayoutStyle">
-    <TextView
-      android:id="@id/dialpad_key_number"
-      style="@style/DialpadKeyPoundStyle"/>
-  </LinearLayout>
-</com.android.dialer.dialpadview.DialpadKeyButton>
+<resources>
+    <dimen name="dialpad_key_number_left_margin">20dp</dimen>
+    <dimen name="dialpad_special_char_left_margin">45dp</dimen>
+</resources>
