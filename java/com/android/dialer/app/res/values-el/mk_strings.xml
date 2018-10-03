@@ -31,4 +31,8 @@
   <string name="cloud_location_lookup_mark_delivery">Διανομή</string>
   <string name="cloud_location_lookup_mark_service">Εξυπηρέτηση Πελατών</string>
   <string name="cloud_location_lookup_mark_taxi">Ταξί</string>
+  <!-- dialpad t9 search -->
+  <string name="preference_category_t9_dialpad_search">Αναζήτηση πληκτρολογίου T9</string>
+  <string name="t9_search_input_locale">Είσοδος αναζήτησης T9</string>
+  <string name="t9_search_input_locale_default">Προεπιλογή</string>
 </resources>

@@ -29,4 +29,6 @@
   <string name="cloud_location_lookup_mark_delivery">Испорука</string>
   <string name="cloud_location_lookup_mark_service">Кориснички сервис</string>
   <string name="cloud_location_lookup_mark_taxi">Такси</string>
+  <!-- dialpad t9 search -->
+  <string name="t9_search_input_locale_default">Подразумевано</string>
 </resources>

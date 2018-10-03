@@ -30,4 +30,5 @@
   <string name="cloud_location_lookup_mark_delivery">എത്തിക്കൽ</string>
   <string name="cloud_location_lookup_mark_service">കസ്റ്റമർ സേവനം</string>
   <string name="cloud_location_lookup_mark_taxi">ടാക്സി</string>
+  <!-- dialpad t9 search -->
 </resources>

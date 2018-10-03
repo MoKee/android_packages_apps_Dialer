@@ -31,4 +31,6 @@
   <string name="cloud_location_lookup_mark_delivery">משלוחים</string>
   <string name="cloud_location_lookup_mark_service">שירות לקוחות</string>
   <string name="cloud_location_lookup_mark_taxi">מונית</string>
+  <!-- dialpad t9 search -->
+  <string name="t9_search_input_locale_default">ברירת מחדל</string>
 </resources>

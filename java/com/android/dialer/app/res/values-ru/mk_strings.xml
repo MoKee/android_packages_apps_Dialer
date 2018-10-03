@@ -31,4 +31,8 @@
   <string name="cloud_location_lookup_mark_delivery">Доставка</string>
   <string name="cloud_location_lookup_mark_service">Служба поддержки</string>
   <string name="cloud_location_lookup_mark_taxi">Такси</string>
+  <!-- dialpad t9 search -->
+  <string name="preference_category_t9_dialpad_search">Поиск контактов с помощью номеронабирателя</string>
+  <string name="t9_search_input_locale">Язык ввода Т9</string>
+  <string name="t9_search_input_locale_default">По умолчанию</string>
 </resources>

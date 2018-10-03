@@ -31,4 +31,8 @@
   <string name="cloud_location_lookup_mark_delivery">Dostava</string>
   <string name="cloud_location_lookup_mark_service">Podpora uporabnikom</string>
   <string name="cloud_location_lookup_mark_taxi">Taksi</string>
+  <!-- dialpad t9 search -->
+  <string name="preference_category_t9_dialpad_search">Številčnica, iskanje T9</string>
+  <string name="t9_search_input_locale">Iskalni vnos T9</string>
+  <string name="t9_search_input_locale_default">Privzeto</string>
 </resources>

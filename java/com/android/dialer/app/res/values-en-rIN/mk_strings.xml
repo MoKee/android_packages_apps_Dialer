@@ -19,4 +19,6 @@
   <!-- Cloud Phone Number Location Engine -->
   <string name="cloud_location_lookup_mark_title">Mark %s </string>
   <string name="cloud_location_lookup_mark_taxi">Taxi</string>
+  <!-- dialpad t9 search -->
+  <string name="t9_search_input_locale_default">Default</string>
 </resources>

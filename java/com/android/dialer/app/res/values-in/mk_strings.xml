@@ -31,4 +31,8 @@
   <string name="cloud_location_lookup_mark_delivery">Pengiriman</string>
   <string name="cloud_location_lookup_mark_service">Layanan pelanggan</string>
   <string name="cloud_location_lookup_mark_taxi">Taksi</string>
+  <!-- dialpad t9 search -->
+  <string name="preference_category_t9_dialpad_search">Pencarian dialpad T9</string>
+  <string name="t9_search_input_locale">Masukan pencarian T9</string>
+  <string name="t9_search_input_locale_default">Bawaan</string>
 </resources>

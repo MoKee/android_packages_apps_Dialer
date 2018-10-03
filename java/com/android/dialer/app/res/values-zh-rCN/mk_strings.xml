@@ -31,4 +31,8 @@
   <string name="cloud_location_lookup_mark_delivery">物流快递</string>
   <string name="cloud_location_lookup_mark_service">客服电话</string>
   <string name="cloud_location_lookup_mark_taxi">出租车司机</string>
+  <!-- dialpad t9 search -->
+  <string name="preference_category_t9_dialpad_search">拨号盘 T9 搜索</string>
+  <string name="t9_search_input_locale">T9 搜索输入</string>
+  <string name="t9_search_input_locale_default">默认</string>
 </resources>

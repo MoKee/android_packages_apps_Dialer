@@ -31,4 +31,8 @@
   <string name="cloud_location_lookup_mark_delivery">Toimitus</string>
   <string name="cloud_location_lookup_mark_service">Asiakaspalvelu</string>
   <string name="cloud_location_lookup_mark_taxi">Taksi</string>
+  <!-- dialpad t9 search -->
+  <string name="preference_category_t9_dialpad_search">Numeronäppäimistön T9-haku</string>
+  <string name="t9_search_input_locale">T9-haun syöttötapa</string>
+  <string name="t9_search_input_locale_default">Oletus</string>
 </resources>

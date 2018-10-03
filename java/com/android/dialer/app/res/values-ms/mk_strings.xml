@@ -31,4 +31,8 @@
   <string name="cloud_location_lookup_mark_delivery">Penghantaran</string>
   <string name="cloud_location_lookup_mark_service">Khidmat Pelanggan</string>
   <string name="cloud_location_lookup_mark_taxi">Teksi</string>
+  <!-- dialpad t9 search -->
+  <string name="preference_category_t9_dialpad_search">Pad dial T9 mencari</string>
+  <string name="t9_search_input_locale">T9 mencari input</string>
+  <string name="t9_search_input_locale_default">Asal</string>
 </resources>

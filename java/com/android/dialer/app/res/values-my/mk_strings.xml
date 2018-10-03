@@ -26,4 +26,5 @@
   <string name="cloud_location_lookup_mark_delivery">သယ်ယူပို့ဆောင်ရေး</string>
   <string name="cloud_location_lookup_mark_service">ဝယ်သူအတွက် ဝန်ဆောင်မှု့</string>
   <string name="cloud_location_lookup_mark_taxi">တက္ကစီ</string>
+  <!-- dialpad t9 search -->
 </resources>

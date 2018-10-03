@@ -27,4 +27,6 @@
   <string name="cloud_location_lookup_mark_delivery">Leverans</string>
   <string name="cloud_location_lookup_mark_service">Kundtjänst</string>
   <string name="cloud_location_lookup_mark_taxi">Taxi</string>
+  <!-- dialpad t9 search -->
+  <string name="t9_search_input_locale_default">Standard</string>
 </resources>

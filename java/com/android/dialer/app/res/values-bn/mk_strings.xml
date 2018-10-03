@@ -33,4 +33,6 @@
   <string name="cloud_location_lookup_mark_delivery">বিলি</string>
   <string name="cloud_location_lookup_mark_service">গ্রাহাক পরিশেবা</string>
   <string name="cloud_location_lookup_mark_taxi">ট্যাক্সি</string>
+  <!-- dialpad t9 search -->
+  <string name="t9_search_input_locale_default">Default</string>
 </resources>

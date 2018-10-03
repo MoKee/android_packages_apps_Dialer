@@ -31,4 +31,6 @@
   <string name="cloud_location_lookup_mark_delivery">விநியோக</string>
   <string name="cloud_location_lookup_mark_service">வாடிக்கையாளர் சேவை</string>
   <string name="cloud_location_lookup_mark_taxi">டாக்ஸி</string>
+  <!-- dialpad t9 search -->
+  <string name="t9_search_input_locale_default">இயல்புநிலை</string>
 </resources>

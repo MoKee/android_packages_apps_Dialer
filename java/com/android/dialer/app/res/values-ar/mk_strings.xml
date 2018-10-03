@@ -31,4 +31,8 @@
   <string name="cloud_location_lookup_mark_delivery">التوصيل</string>
   <string name="cloud_location_lookup_mark_service">خدمة العملاء</string>
   <string name="cloud_location_lookup_mark_taxi">سيارة أجرة</string>
+  <!-- dialpad t9 search -->
+  <string name="preference_category_t9_dialpad_search">لوحة الاتصال وضع T9 للبحث</string>
+  <string name="t9_search_input_locale">وضع T9 للبحث و الادخال</string>
+  <string name="t9_search_input_locale_default">الإفتراضي</string>
 </resources>

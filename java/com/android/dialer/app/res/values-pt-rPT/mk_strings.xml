@@ -31,4 +31,8 @@
   <string name="cloud_location_lookup_mark_delivery">Entrega</string>
   <string name="cloud_location_lookup_mark_service">Serviço de apoio a clientes</string>
   <string name="cloud_location_lookup_mark_taxi">Táxi</string>
+  <!-- dialpad t9 search -->
+  <string name="preference_category_t9_dialpad_search">Pesquisa no teclado T9</string>
+  <string name="t9_search_input_locale">Pesquisar entrada no teclado T9</string>
+  <string name="t9_search_input_locale_default">Predefinição</string>
 </resources>

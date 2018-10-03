@@ -29,4 +29,6 @@
   <string name="cloud_location_lookup_mark_delivery">Pristatymas</string>
   <string name="cloud_location_lookup_mark_service">Klientų aptarnavimas</string>
   <string name="cloud_location_lookup_mark_taxi">Taksi</string>
+  <!-- dialpad t9 search -->
+  <string name="t9_search_input_locale_default">Numatytas</string>
 </resources>

@@ -31,4 +31,8 @@
   <string name="cloud_location_lookup_mark_delivery">Teslimat Adresi</string>
   <string name="cloud_location_lookup_mark_service">Müşteri Servisi</string>
   <string name="cloud_location_lookup_mark_taxi">Taksi</string>
+  <!-- dialpad t9 search -->
+  <string name="preference_category_t9_dialpad_search">Tuş takımı T9 arama</string>
+  <string name="t9_search_input_locale">T9 arama girişi</string>
+  <string name="t9_search_input_locale_default">Varsayılan</string>
 </resources>

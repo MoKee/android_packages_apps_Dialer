@@ -31,4 +31,8 @@
   <string name="cloud_location_lookup_mark_delivery">Donáška</string>
   <string name="cloud_location_lookup_mark_service">Zákaznícky servis</string>
   <string name="cloud_location_lookup_mark_taxi">Taxi</string>
+  <!-- dialpad t9 search -->
+  <string name="preference_category_t9_dialpad_search">Vyhľadávanie T9 v číselníku</string>
+  <string name="t9_search_input_locale">Vstup T9 vyhľadávania</string>
+  <string name="t9_search_input_locale_default">Predvolený</string>
 </resources>

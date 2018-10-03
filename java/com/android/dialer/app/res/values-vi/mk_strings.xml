@@ -31,4 +31,8 @@
   <string name="cloud_location_lookup_mark_delivery">Giao hàng</string>
   <string name="cloud_location_lookup_mark_service">Dịch vụ khách hàng</string>
   <string name="cloud_location_lookup_mark_taxi">Xe taxi</string>
+  <!-- dialpad t9 search -->
+  <string name="preference_category_t9_dialpad_search">Tìm kiếm bằng phím số T9</string>
+  <string name="t9_search_input_locale">Nhập tìm kiếm T9</string>
+  <string name="t9_search_input_locale_default">Mặc định</string>
 </resources>
