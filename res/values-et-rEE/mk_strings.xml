@@ -19,5 +19,15 @@
   <!-- dialpad t9 search -->
   <string name="t9_search_input_locale_default">Vaikimisi</string>
   <!-- Cloud Phone Number Location Engine -->
+  <string name="call_log_action_user_mark">Märgi kui</string>
+  <string name="cloud_location_lookup_mark_title">Märgi %s </string>
+  <string name="cloud_location_lookup_mark_as">Märgi helistaja info</string>
+  <string name="cloud_location_lookup_mark_custom">Kohandatud helistaja info</string>
+  <string name="cloud_location_lookup_mark_done">Valmis</string>
+  <string name="cloud_location_lookup_mark_harassment">Ahistamine</string>
+  <string name="cloud_location_lookup_mark_fraud">Pettus</string>
+  <string name="cloud_location_lookup_mark_advertisement">Reklaam</string>
+  <string name="cloud_location_lookup_mark_agency">Agentuur</string>
+  <string name="cloud_location_lookup_mark_taxi">Takso</string>
   <!-- Automatically call recording -->
 </resources>
