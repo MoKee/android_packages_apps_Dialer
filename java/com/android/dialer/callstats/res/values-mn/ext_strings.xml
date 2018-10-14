@@ -22,9 +22,6 @@
   <string name="call_stats_outgoing">Feitas: <xliff:g id="value">%s </xliff:g></string>
   <string name="call_stats_missed">Perdidas: <xliff:g id="value">%s </xliff:g></string>
   <string name="call_stats_blocked">Bloqueadas: <xliff:g id="value">%s </xliff:g></string>
-  <string name="call_stats_percent"><xliff:g id="percent">%d</xliff:g>%%</string>
-  <string name="call_stats_header_total">Total: <xliff:g id="call_count">%s</xliff:g>, <xliff:g id="duration">%s</xliff:g></string>
-  <string name="call_stats_header_total_callsonly">Total: <xliff:g id="call_count">%s</xliff:g></string>
   <string name="call_stats_filter_from">Data de inicio</string>
   <string name="call_stats_filter_to">Data de finalización</string>
   <string name="call_stats_filter_picker_title">Filtrar intervalo</string>
