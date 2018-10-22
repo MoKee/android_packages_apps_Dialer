@@ -33,7 +33,6 @@ import com.google.i18n.phonenumbers.geocoding.PhoneNumberOfflineGeocoder;
 import com.mokee.cloud.location.LocationInfo;
 import com.mokee.cloud.location.LocationUtils;
 import com.mokee.cloud.location.OfflineNumber;
-import com.mokee.cloud.misc.CloudUtils;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -105,7 +104,7 @@ public class PhoneNumberHelper {
       return null;
     }
     LocationInfo locationInfo = LocationUtils.getLocationInfo(context.getContentResolver(),
-            CloudUtils.formatNumber(number));
+            com.mokee.utils.PhoneNumberUtils.formatNumber(number));
     if (locationInfo != null) {
       return locationInfo.getLocation();
     } else {
