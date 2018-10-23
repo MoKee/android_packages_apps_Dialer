@@ -48,7 +48,6 @@ import com.android.dialerbind.ObjectFactory;
 import com.mokee.cloud.location.LocationInfo;
 import com.mokee.cloud.location.LocationUtils;
 import com.mokee.cloud.location.OfflineNumber;
-import com.mokee.cloud.misc.CloudUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -310,7 +309,7 @@ public class CallerInfoAsyncQuery {
                                 // a fallback number.
                             if (!PhoneNumberHelper.isUriNumber(cw.number)) {
                                 LocationInfo locationInfo = LocationUtils.getLocationInfo(
-                                        mQueryContext.getContentResolver(), CloudUtils.formatNumber(cw.number));
+                                        mQueryContext.getContentResolver(), com.mokee.utils.PhoneNumberUtils.formatNumber(cw.number));
                                 if (locationInfo != null) {
                                     mCallerInfo.geoDescription = locationInfo.getLocation();
                                 } else {

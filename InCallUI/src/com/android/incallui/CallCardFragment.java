@@ -75,7 +75,6 @@ import com.android.dialer.util.DialerUtils;
 import com.android.phone.common.animation.AnimUtils;
 import com.mokee.cloud.location.LocationInfo;
 import com.mokee.cloud.location.LocationUtils;
-import com.mokee.cloud.misc.CloudUtils;
 
 import java.util.List;
 
@@ -588,7 +587,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
     @Override
     public void setMarkSnackBar(final String number) {
         if (!TextUtils.isEmpty(number)) {
-            final String formatNumber = CloudUtils.formatNumber(number);
+            final String formatNumber = com.mokee.utils.PhoneNumberUtils.formatNumber(number);
             LocationInfo locationInfo = LocationUtils.getLocationInfo(getActivity().getContentResolver(), formatNumber);
             if (locationInfo != null && TextUtils.isEmpty(locationInfo.getUserMark()) && locationInfo.getEngineType() == 1) {
                 SnackbarManager.show(Snackbar.with(getActivity()).position(Snackbar.SnackbarPosition.TOP).duration(8000L)
