@@ -17,5 +17,34 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="call_stats_detail_title">Névjegy-statisztikák részletei</string>
+    <string name="call_stats_incoming">Bejövő: <xliff:g id="value">%s</xliff:g></string>
+    <string name="call_stats_outgoing">Kimenő: <xliff:g id="value">%s</xliff:g></string>
+    <string name="call_stats_missed">Nem fogadott: <xliff:g id="value">%s</xliff:g></string>
+    <string name="call_stats_blocked">Blokkolt: <xliff:g id="value">%s</xliff:g></string>
+    <string name="call_stats_percent"><xliff:g id="percent">%d</xliff:g>%%</string>
+    <string name="call_stats_header_total">Összes: <xliff:g id="call_count">%s</xliff:g>, <xliff:g id="duration">%s</xliff:g></string>
+    <string name="call_stats_header_total_callsonly">Összesen: <xliff:g id="call_count">%s</xliff:g></string>
+    <string name="call_stats_filter_from">Kezdődátum</string>
+    <string name="call_stats_filter_to">Záródátum</string>
+    <string name="call_stats_filter_picker_title">Szűrési tartomány</string>
+    <string name="date_quick_selection">Gyors kiválasztás</string>
+    <string name="date_qs_currentmonth">Aktuális hónap</string>
+    <string name="date_qs_currentquarter">Aktuális negyedév</string>
+    <string name="date_qs_currentyear">Aktuális év</string>
+    <string name="date_qs_lastweek">Előző hét</string>
+    <string name="date_qs_lastmonth">Előző hónap</string>
+    <string name="date_qs_lastquarter">Előző negyedév</string>
+    <string name="date_qs_lastyear">Előző év</string>
+    <string name="call_stats_date_filter">Az időszak beállítása</string>
+    <string name="call_stats_reset_filter">Az időszak alaphelyzetbe állítása</string>
+    <string name="call_stats_sort_by_duration">Rendezés hívásidőtartam szerint</string>
+    <string name="call_stats_sort_by_count">Rendezés hívásszám szerint</string>
+    <string name="call_stats_title_for_number">Ehhez a számhoz</string>
+    <string name="call_stats_title_of_total">Az összeshez</string>
+    <string name="call_stats_title_durations">Hívásidőtartam</string>
+    <string name="call_stats_title_count">Hívásszám</string>
+    <string name="call_stats_title_average_duration">Átlagos hívásidőtartam</string>
     <!-- Text displayed when there are no call log entries in the selected time range. -->
+    <string name="recent_calls_no_items_in_range">Az Ön hívásnaplója nem tartalmaz semmilyen hívást a kijelölt időszakban.</string>
 </resources>

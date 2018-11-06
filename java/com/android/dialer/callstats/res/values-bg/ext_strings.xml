@@ -22,7 +22,6 @@
     <string name="call_stats_outgoing">Изходящи: <xliff:g id="value">%s </xliff:g></string>
     <string name="call_stats_missed">Пропуснати: <xliff:g id="value">%s </xliff:g></string>
     <string name="call_stats_blocked">Блокирани: <xliff:g id="value">%s </xliff:g></string>
-    <string name="call_stats_percent"><xliff:g id="percent">%d</xliff:g>%%</string>
     <string name="call_stats_header_total">Общо: <xliff:g id="call_count">%s</xliff:g>, <xliff:g id="duration">%s</xliff:g></string>
     <string name="call_stats_header_total_callsonly">Общо: <xliff:g id="call_count">%s</xliff:g></string>
     <string name="call_stats_filter_from">Начална дата</string>

@@ -25,8 +25,8 @@
     <string name="call_stats_percent"><xliff:g id="percent">%d</xliff:g>%%</string>
     <string name="call_stats_header_total">Celkem: <xliff:g id="call_count">%s</xliff:g>, <xliff:g id="duration">%s</xliff:g></string>
     <string name="call_stats_header_total_callsonly">Celkem: <xliff:g id="call_count">%s</xliff:g></string>
-    <string name="call_stats_filter_from">Datum zahájení</string>
-    <string name="call_stats_filter_to">Datum ukončení</string>
+    <string name="call_stats_filter_from">Počáteční datum</string>
+    <string name="call_stats_filter_to">Konečné datum</string>
     <string name="call_stats_filter_picker_title">Rozsah hodnot filtru</string>
     <string name="date_quick_selection">Rychlý výběr</string>
     <string name="date_qs_currentmonth">Aktuální měsíc</string>

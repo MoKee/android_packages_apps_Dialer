@@ -15,4 +15,12 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2"></resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <plurals name="play_recordings">
+        <item quantity="one">Прайграць запіс</item>
+        <item quantity="few">Прайграць запісы</item>
+        <item quantity="many">Прайграць запісы</item>
+        <item quantity="other">Прайграць запісы</item>
+    </plurals>
+    <string name="call_playback_no_app_found_toast">Не атрымалася знайсці праграму для прайгравання выбранага запісу.</string>
+</resources>

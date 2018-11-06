@@ -22,9 +22,6 @@
     <string name="call_stats_outgoing">Efectuat: <xliff:g id="value">%s</xliff:g></string>
     <string name="call_stats_missed">Pierdut: <xliff:g id="value">%s</xliff:g></string>
     <string name="call_stats_blocked">Blocat: <xliff:g id="value">%s</xliff:g></string>
-    <string name="call_stats_percent"><xliff:g id="percent">%d</xliff:g>%%</string>
-    <string name="call_stats_header_total">Total: <xliff:g id="call_count">%s</xliff:g>, <xliff:g id="duration">%s</xliff:g></string>
-    <string name="call_stats_header_total_callsonly">Total: <xliff:g id="call_count">%s</xliff:g></string>
     <string name="call_stats_filter_from">Data de început</string>
     <string name="call_stats_filter_to">Data de sfârșit</string>
     <string name="call_stats_filter_picker_title">Interval filtru</string>

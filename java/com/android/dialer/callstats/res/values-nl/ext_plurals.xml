@@ -20,14 +20,6 @@
         <item quantity="one">1 uur</item>
         <item quantity="other">%d uur</item>
     </plurals>
-    <plurals name="minute">
-        <item quantity="one">1 min</item>
-        <item quantity="other">%d min</item>
-    </plurals>
-    <plurals name="second">
-        <item quantity="one">1 sec</item>
-        <item quantity="other">%d sec</item>
-    </plurals>
     <plurals name="call">
         <item quantity="one">1 oproep</item>
         <item quantity="other">%d oproepen</item>

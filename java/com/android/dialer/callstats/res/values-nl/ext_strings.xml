@@ -21,7 +21,6 @@
     <string name="call_stats_outgoing">Uitgaand: <xliff:g id="value">%s</xliff:g></string>
     <string name="call_stats_missed">Gemist: <xliff:g id="value">%s</xliff:g></string>
     <string name="call_stats_blocked">Geblokkeerd: <xliff:g id="value">%s</xliff:g></string>
-    <string name="call_stats_percent"><xliff:g id="percent">%d</xliff:g>%%</string>
     <string name="call_stats_header_total">Totaal: <xliff:g id="call_count">%s</xliff:g>, <xliff:g id="duration">%s</xliff:g></string>
     <string name="call_stats_header_total_callsonly">Totaal: <xliff:g id="call_count">%s</xliff:g></string>
     <string name="call_stats_filter_from">Begindatum</string>
