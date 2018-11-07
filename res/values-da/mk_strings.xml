@@ -16,22 +16,22 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- dialpad t9 search -->
-  <string name="t9_search_input_locale_default">Standard</string>
-  <!-- Cloud Phone Number Location Engine -->
-  <string name="call_log_action_user_mark">Markér som</string>
-  <string name="description_user_mark_action">Markér <xliff:g id="nameOrNumber" example="Anders Andersen">^1</xliff:g> som</string>
-  <string name="cloud_location_lookup_mark_title">Markér %s </string>
-  <string name="cloud_location_lookup_mark_as">Markér opkaldsinfo</string>
-  <string name="cloud_location_lookup_mark_custom">Brugerdefineret opkaldsinfo</string>
-  <string name="cloud_location_lookup_mark_done">Udført</string>
-  <string name="cloud_location_lookup_mark_harassment">Chikane</string>
-  <string name="cloud_location_lookup_mark_fraud">Svindel</string>
-  <string name="cloud_location_lookup_mark_advertisement">Telefonsælger</string>
-  <string name="cloud_location_lookup_mark_agency">Agentur</string>
-  <string name="cloud_location_lookup_mark_takeaway">Take-Away</string>
-  <string name="cloud_location_lookup_mark_delivery">Levering</string>
-  <string name="cloud_location_lookup_mark_service">Kundeservice</string>
-  <string name="cloud_location_lookup_mark_taxi">Taxa</string>
-  <!-- Automatically call recording -->
+    <!-- dialpad t9 search -->
+    <string name="t9_search_input_locale_default">Standard</string>
+    <!-- Cloud Phone Number Location Engine -->
+    <string name="call_log_action_user_mark">Markér som</string>
+    <string name="description_user_mark_action">Markér <xliff:g id="nameOrNumber" example="Anders Andersen">^1</xliff:g> som</string>
+    <string name="cloud_location_lookup_mark_title">Markér %s</string>
+    <string name="cloud_location_lookup_mark_as">Markér opkaldsinfo</string>
+    <string name="cloud_location_lookup_mark_custom">Brugerdefineret opkaldsinfo</string>
+    <string name="cloud_location_lookup_mark_done">Udført</string>
+    <string name="cloud_location_lookup_mark_harassment">Chikane</string>
+    <string name="cloud_location_lookup_mark_fraud">Svindel</string>
+    <string name="cloud_location_lookup_mark_advertisement">Telefonsælger</string>
+    <string name="cloud_location_lookup_mark_agency">Agentur</string>
+    <string name="cloud_location_lookup_mark_takeaway">Take-Away</string>
+    <string name="cloud_location_lookup_mark_delivery">Levering</string>
+    <string name="cloud_location_lookup_mark_service">Kundeservice</string>
+    <string name="cloud_location_lookup_mark_taxi">Taxa</string>
+    <!-- Automatically call recording -->
 </resources>

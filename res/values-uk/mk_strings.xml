@@ -16,26 +16,26 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- dialpad t9 search -->
-  <string name="preference_category_t9_dialpad_search">T9 пошук в номеронабирачі</string>
-  <string name="t9_search_input_locale">Введення T9 пошуку</string>
-  <string name="t9_search_input_locale_default">За замовчуванням</string>
-  <!-- Cloud Phone Number Location Engine -->
-  <string name="call_log_action_user_mark">ПОЗНАЧИТИ ЯК</string>
-  <string name="description_user_mark_action">Позначити <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> як</string>
-  <string name="cloud_location_lookup_mark_title">Позначити %s </string>
-  <string name="cloud_location_lookup_mark_as">Позначити інформацію про абонента</string>
-  <string name="cloud_location_lookup_mark_custom">Додаткова інформація про абонента</string>
-  <string name="cloud_location_lookup_mark_done">Готово</string>
-  <string name="cloud_location_lookup_mark_harassment">Переслідування</string>
-  <string name="cloud_location_lookup_mark_fraud">Шахрайство</string>
-  <string name="cloud_location_lookup_mark_advertisement">Оголошення</string>
-  <string name="cloud_location_lookup_mark_agency">Агентство</string>
-  <string name="cloud_location_lookup_mark_takeaway">Їжа</string>
-  <string name="cloud_location_lookup_mark_delivery">Доставка</string>
-  <string name="cloud_location_lookup_mark_service">Служба підтримки</string>
-  <string name="cloud_location_lookup_mark_taxi">Таксі</string>
-  <!-- Automatically call recording -->
-  <string name="call_recording_automatically_title">Автоматичний запис</string>
-  <string name="call_recording_automatically_summary">Записувати автоматично після дзвінка</string>
+    <!-- dialpad t9 search -->
+    <string name="preference_category_t9_dialpad_search">T9 пошук в номеронабирачі</string>
+    <string name="t9_search_input_locale">Введення T9 пошуку</string>
+    <string name="t9_search_input_locale_default">За замовчуванням</string>
+    <!-- Cloud Phone Number Location Engine -->
+    <string name="call_log_action_user_mark">ПОЗНАЧИТИ ЯК</string>
+    <string name="description_user_mark_action">Позначити <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> як</string>
+    <string name="cloud_location_lookup_mark_title">Позначити %s</string>
+    <string name="cloud_location_lookup_mark_as">Позначити інформацію про абонента</string>
+    <string name="cloud_location_lookup_mark_custom">Додаткова інформація про абонента</string>
+    <string name="cloud_location_lookup_mark_done">Готово</string>
+    <string name="cloud_location_lookup_mark_harassment">Переслідування</string>
+    <string name="cloud_location_lookup_mark_fraud">Шахрайство</string>
+    <string name="cloud_location_lookup_mark_advertisement">Оголошення</string>
+    <string name="cloud_location_lookup_mark_agency">Агентство</string>
+    <string name="cloud_location_lookup_mark_takeaway">Їжа</string>
+    <string name="cloud_location_lookup_mark_delivery">Доставка</string>
+    <string name="cloud_location_lookup_mark_service">Служба підтримки</string>
+    <string name="cloud_location_lookup_mark_taxi">Таксі</string>
+    <!-- Automatically call recording -->
+    <string name="call_recording_automatically_title">Автоматичний запис</string>
+    <string name="call_recording_automatically_summary">Записувати автоматично після дзвінка</string>
 </resources>

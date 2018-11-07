@@ -16,26 +16,26 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- dialpad t9 search -->
-  <string name="preference_category_t9_dialpad_search">Toetsenblok T9-zoeken</string>
-  <string name="t9_search_input_locale">T9-zoeken</string>
-  <string name="t9_search_input_locale_default">Standaard</string>
-  <!-- Cloud Phone Number Location Engine -->
-  <string name="call_log_action_user_mark">Markeren als</string>
-  <string name="description_user_mark_action">Markeer <xliff:g id="nameOrNumber" example="John Smith"> ^ 1 </xliff:g> als</string>
-  <string name="cloud_location_lookup_mark_title">Noteer %s </string>
-  <string name="cloud_location_lookup_mark_as">Selecteer beller informatie</string>
-  <string name="cloud_location_lookup_mark_custom">Aangepaste beller informatie</string>
-  <string name="cloud_location_lookup_mark_done">Klaar</string>
-  <string name="cloud_location_lookup_mark_harassment">Lastigvallen</string>
-  <string name="cloud_location_lookup_mark_fraud">Fraude</string>
-  <string name="cloud_location_lookup_mark_advertisement">Advertentie</string>
-  <string name="cloud_location_lookup_mark_agency">Bureau</string>
-  <string name="cloud_location_lookup_mark_takeaway">Weghalen</string>
-  <string name="cloud_location_lookup_mark_delivery">Bezorging</string>
-  <string name="cloud_location_lookup_mark_service">Klantenservice</string>
-  <string name="cloud_location_lookup_mark_taxi">Taxi</string>
-  <!-- Automatically call recording -->
-  <string name="call_recording_automatically_title">Automatisch opnemen</string>
-  <string name="call_recording_automatically_summary">Opname automatisch na oproep</string>
+    <!-- dialpad t9 search -->
+    <string name="preference_category_t9_dialpad_search">Toetsenblok T9-zoeken</string>
+    <string name="t9_search_input_locale">T9-zoeken</string>
+    <string name="t9_search_input_locale_default">Standaard</string>
+    <!-- Cloud Phone Number Location Engine -->
+    <string name="call_log_action_user_mark">Markeren als</string>
+    <string name="description_user_mark_action">Markeer <xliff:g id="nameOrNumber" example="John Smith"> ^ 1 </xliff:g> als</string>
+    <string name="cloud_location_lookup_mark_title">Noteer %s</string>
+    <string name="cloud_location_lookup_mark_as">Selecteer beller informatie</string>
+    <string name="cloud_location_lookup_mark_custom">Aangepaste beller informatie</string>
+    <string name="cloud_location_lookup_mark_done">Klaar</string>
+    <string name="cloud_location_lookup_mark_harassment">Lastigvallen</string>
+    <string name="cloud_location_lookup_mark_fraud">Fraude</string>
+    <string name="cloud_location_lookup_mark_advertisement">Advertentie</string>
+    <string name="cloud_location_lookup_mark_agency">Bureau</string>
+    <string name="cloud_location_lookup_mark_takeaway">Weghalen</string>
+    <string name="cloud_location_lookup_mark_delivery">Bezorging</string>
+    <string name="cloud_location_lookup_mark_service">Klantenservice</string>
+    <string name="cloud_location_lookup_mark_taxi">Taxi</string>
+    <!-- Automatically call recording -->
+    <string name="call_recording_automatically_title">Automatisch opnemen</string>
+    <string name="call_recording_automatically_summary">Opname automatisch na oproep</string>
 </resources>

@@ -16,26 +16,26 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- dialpad t9 search -->
-  <string name="preference_category_t9_dialpad_search">Tárcsázó T9 keresés</string>
-  <string name="t9_search_input_locale">T9 keresés</string>
-  <string name="t9_search_input_locale_default">Alapértelmezés</string>
-  <!-- Cloud Phone Number Location Engine -->
-  <string name="call_log_action_user_mark">Megjelölés mint</string>
-  <string name="description_user_mark_action"><xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> megjelölése, mint</string>
-  <string name="cloud_location_lookup_mark_title">Megjelölés %s </string>
-  <string name="cloud_location_lookup_mark_as">Hívésinfó megjelölése</string>
-  <string name="cloud_location_lookup_mark_custom">Egyedi hívásinfó</string>
-  <string name="cloud_location_lookup_mark_done">Kész</string>
-  <string name="cloud_location_lookup_mark_harassment">Zaklatás</string>
-  <string name="cloud_location_lookup_mark_fraud">Csalás</string>
-  <string name="cloud_location_lookup_mark_advertisement">Hirdetés</string>
-  <string name="cloud_location_lookup_mark_agency">Ügynökség</string>
-  <string name="cloud_location_lookup_mark_takeaway">Lényeges</string>
-  <string name="cloud_location_lookup_mark_delivery">Futár</string>
-  <string name="cloud_location_lookup_mark_service">Ügyfélszolgálat</string>
-  <string name="cloud_location_lookup_mark_taxi">Taxi</string>
-  <!-- Automatically call recording -->
-  <string name="call_recording_automatically_title">Automatikus rögzítés</string>
-  <string name="call_recording_automatically_summary">Automatikus rögzítés tárcsázás után</string>
+    <!-- dialpad t9 search -->
+    <string name="preference_category_t9_dialpad_search">Tárcsázó T9 keresés</string>
+    <string name="t9_search_input_locale">T9 keresés</string>
+    <string name="t9_search_input_locale_default">Alapértelmezés</string>
+    <!-- Cloud Phone Number Location Engine -->
+    <string name="call_log_action_user_mark">Megjelölés mint</string>
+    <string name="description_user_mark_action"><xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> megjelölése, mint</string>
+    <string name="cloud_location_lookup_mark_title">Megjelölés %s</string>
+    <string name="cloud_location_lookup_mark_as">Hívésinfó megjelölése</string>
+    <string name="cloud_location_lookup_mark_custom">Egyedi hívásinfó</string>
+    <string name="cloud_location_lookup_mark_done">Kész</string>
+    <string name="cloud_location_lookup_mark_harassment">Zaklatás</string>
+    <string name="cloud_location_lookup_mark_fraud">Csalás</string>
+    <string name="cloud_location_lookup_mark_advertisement">Hirdetés</string>
+    <string name="cloud_location_lookup_mark_agency">Ügynökség</string>
+    <string name="cloud_location_lookup_mark_takeaway">Lényeges</string>
+    <string name="cloud_location_lookup_mark_delivery">Futár</string>
+    <string name="cloud_location_lookup_mark_service">Ügyfélszolgálat</string>
+    <string name="cloud_location_lookup_mark_taxi">Taxi</string>
+    <!-- Automatically call recording -->
+    <string name="call_recording_automatically_title">Automatikus rögzítés</string>
+    <string name="call_recording_automatically_summary">Automatikus rögzítés tárcsázás után</string>
 </resources>

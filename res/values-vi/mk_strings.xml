@@ -16,26 +16,26 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- dialpad t9 search -->
-  <string name="preference_category_t9_dialpad_search">Tìm kiếm bằng phím số T9</string>
-  <string name="t9_search_input_locale">Nhập tìm kiếm T9</string>
-  <string name="t9_search_input_locale_default">Mặc định</string>
-  <!-- Cloud Phone Number Location Engine -->
-  <string name="call_log_action_user_mark">Đánh dấu</string>
-  <string name="description_user_mark_action">Đánh dấu <xliff:g id="nameOrNumber" example="John Smith"> ^ 1 </xliff:g> như</string>
-  <string name="cloud_location_lookup_mark_title">Đánh dấu %s </string>
-  <string name="cloud_location_lookup_mark_as">Đánh dấu thông tin người gọi</string>
-  <string name="cloud_location_lookup_mark_custom">Tuỳ chỉnh thông tin người gọi</string>
-  <string name="cloud_location_lookup_mark_done">Đã thực hiện</string>
-  <string name="cloud_location_lookup_mark_harassment">Quấy rối</string>
-  <string name="cloud_location_lookup_mark_fraud">Gian lận</string>
-  <string name="cloud_location_lookup_mark_advertisement">Quảng cáo</string>
-  <string name="cloud_location_lookup_mark_agency">Cơ quan</string>
-  <string name="cloud_location_lookup_mark_takeaway">Mang đi</string>
-  <string name="cloud_location_lookup_mark_delivery">Giao hàng</string>
-  <string name="cloud_location_lookup_mark_service">Dịch vụ khách hàng</string>
-  <string name="cloud_location_lookup_mark_taxi">Xe taxi</string>
-  <!-- Automatically call recording -->
-  <string name="call_recording_automatically_title">Ghi âm tự động</string>
-  <string name="call_recording_automatically_summary">Tự động ghi âm cuộc gọi</string>
+    <!-- dialpad t9 search -->
+    <string name="preference_category_t9_dialpad_search">Tìm kiếm bằng phím số T9</string>
+    <string name="t9_search_input_locale">Nhập tìm kiếm T9</string>
+    <string name="t9_search_input_locale_default">Mặc định</string>
+    <!-- Cloud Phone Number Location Engine -->
+    <string name="call_log_action_user_mark">Đánh dấu</string>
+    <string name="description_user_mark_action">Đánh dấu <xliff:g id="nameOrNumber" example="John Smith"> ^ 1 </xliff:g> như</string>
+    <string name="cloud_location_lookup_mark_title">Đánh dấu %s</string>
+    <string name="cloud_location_lookup_mark_as">Đánh dấu thông tin người gọi</string>
+    <string name="cloud_location_lookup_mark_custom">Tuỳ chỉnh thông tin người gọi</string>
+    <string name="cloud_location_lookup_mark_done">Đã thực hiện</string>
+    <string name="cloud_location_lookup_mark_harassment">Quấy rối</string>
+    <string name="cloud_location_lookup_mark_fraud">Gian lận</string>
+    <string name="cloud_location_lookup_mark_advertisement">Quảng cáo</string>
+    <string name="cloud_location_lookup_mark_agency">Cơ quan</string>
+    <string name="cloud_location_lookup_mark_takeaway">Mang đi</string>
+    <string name="cloud_location_lookup_mark_delivery">Giao hàng</string>
+    <string name="cloud_location_lookup_mark_service">Dịch vụ khách hàng</string>
+    <string name="cloud_location_lookup_mark_taxi">Xe taxi</string>
+    <!-- Automatically call recording -->
+    <string name="call_recording_automatically_title">Ghi âm tự động</string>
+    <string name="call_recording_automatically_summary">Tự động ghi âm cuộc gọi</string>
 </resources>

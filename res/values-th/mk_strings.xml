@@ -16,13 +16,13 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- dialpad t9 search -->
-  <string name="t9_search_input_locale_default">ค่าเริ่มต้น</string>
-  <!-- Cloud Phone Number Location Engine -->
-  <string name="cloud_location_lookup_mark_done">เสร็จสิ้น</string>
-  <string name="cloud_location_lookup_mark_advertisement">โฆษณา</string>
-  <string name="cloud_location_lookup_mark_taxi">แท็กซี่</string>
-  <!-- Automatically call recording -->
-  <string name="call_recording_automatically_title">บันทึกอัตโนมัติ</string>
-  <string name="call_recording_automatically_summary">บันทึกอัตโนมัติเมื่อมีการโทร</string>
+    <!-- dialpad t9 search -->
+    <string name="t9_search_input_locale_default">ค่าเริ่มต้น</string>
+    <!-- Cloud Phone Number Location Engine -->
+    <string name="cloud_location_lookup_mark_done">เสร็จสิ้น</string>
+    <string name="cloud_location_lookup_mark_advertisement">โฆษณา</string>
+    <string name="cloud_location_lookup_mark_taxi">แท็กซี่</string>
+    <!-- Automatically call recording -->
+    <string name="call_recording_automatically_title">บันทึกอัตโนมัติ</string>
+    <string name="call_recording_automatically_summary">บันทึกอัตโนมัติเมื่อมีการโทร</string>
 </resources>

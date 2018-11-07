@@ -16,26 +16,26 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- dialpad t9 search -->
-  <string name="preference_category_t9_dialpad_search">Recherche avec clavier T9</string>
-  <string name="t9_search_input_locale">Champ de recherche T9</string>
-  <string name="t9_search_input_locale_default">Par Défaut</string>
-  <!-- Cloud Phone Number Location Engine -->
-  <string name="call_log_action_user_mark">Marquer Comme</string>
-  <string name="description_user_mark_action">Marquer <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> comme</string>
-  <string name="cloud_location_lookup_mark_title">Marquer %s </string>
-  <string name="cloud_location_lookup_mark_as">Marquer les informations de l\'appelant</string>
-  <string name="cloud_location_lookup_mark_custom">Informations personnalisé sur l\'appelant</string>
-  <string name="cloud_location_lookup_mark_done">Terminé</string>
-  <string name="cloud_location_lookup_mark_harassment">Harcèlement</string>
-  <string name="cloud_location_lookup_mark_fraud">Fraude</string>
-  <string name="cloud_location_lookup_mark_advertisement">Annonce publicitaire</string>
-  <string name="cloud_location_lookup_mark_agency">Agence</string>
-  <string name="cloud_location_lookup_mark_takeaway">À emporter</string>
-  <string name="cloud_location_lookup_mark_delivery">Livraison</string>
-  <string name="cloud_location_lookup_mark_service">Service Client</string>
-  <string name="cloud_location_lookup_mark_taxi">Taxi</string>
-  <!-- Automatically call recording -->
-  <string name="call_recording_automatically_title">Enregistrement automatique</string>
-  <string name="call_recording_automatically_summary">Enregistrement automatiquement après l\'appel</string>
+    <!-- dialpad t9 search -->
+    <string name="preference_category_t9_dialpad_search">Recherche avec clavier T9</string>
+    <string name="t9_search_input_locale">Champ de recherche T9</string>
+    <string name="t9_search_input_locale_default">Par Défaut</string>
+    <!-- Cloud Phone Number Location Engine -->
+    <string name="call_log_action_user_mark">Marquer Comme</string>
+    <string name="description_user_mark_action">Marquer <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> comme</string>
+    <string name="cloud_location_lookup_mark_title">Marquer %s</string>
+    <string name="cloud_location_lookup_mark_as">Marquer les informations de l\'appelant</string>
+    <string name="cloud_location_lookup_mark_custom">Informations personnalisé sur l\'appelant</string>
+    <string name="cloud_location_lookup_mark_done">Terminé</string>
+    <string name="cloud_location_lookup_mark_harassment">Harcèlement</string>
+    <string name="cloud_location_lookup_mark_fraud">Fraude</string>
+    <string name="cloud_location_lookup_mark_advertisement">Annonce publicitaire</string>
+    <string name="cloud_location_lookup_mark_agency">Agence</string>
+    <string name="cloud_location_lookup_mark_takeaway">À emporter</string>
+    <string name="cloud_location_lookup_mark_delivery">Livraison</string>
+    <string name="cloud_location_lookup_mark_service">Service Client</string>
+    <string name="cloud_location_lookup_mark_taxi">Taxi</string>
+    <!-- Automatically call recording -->
+    <string name="call_recording_automatically_title">Enregistrement automatique</string>
+    <string name="call_recording_automatically_summary">Enregistrement automatiquement après l\'appel</string>
 </resources>

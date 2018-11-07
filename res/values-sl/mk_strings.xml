@@ -16,26 +16,26 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- dialpad t9 search -->
-  <string name="preference_category_t9_dialpad_search">Številčnica, iskanje T9</string>
-  <string name="t9_search_input_locale">Iskalni vnos T9</string>
-  <string name="t9_search_input_locale_default">Privzeto</string>
-  <!-- Cloud Phone Number Location Engine -->
-  <string name="call_log_action_user_mark">Označi kot</string>
-  <string name="description_user_mark_action">Označi <xliff:g id="nameOrNumber" example="John Smith"> ^ 1 </xliff:g> kot</string>
-  <string name="cloud_location_lookup_mark_title">Označi %s </string>
-  <string name="cloud_location_lookup_mark_as">Označi inf. o klicu</string>
-  <string name="cloud_location_lookup_mark_custom">Uporabniške inf. o klicu</string>
-  <string name="cloud_location_lookup_mark_done">Opravljeno</string>
-  <string name="cloud_location_lookup_mark_harassment">Nadlegovanje</string>
-  <string name="cloud_location_lookup_mark_fraud">Goljufija</string>
-  <string name="cloud_location_lookup_mark_advertisement">Oglasi</string>
-  <string name="cloud_location_lookup_mark_agency">Agencija</string>
-  <string name="cloud_location_lookup_mark_takeaway">Kraja</string>
-  <string name="cloud_location_lookup_mark_delivery">Dostava</string>
-  <string name="cloud_location_lookup_mark_service">Podpora uporabnikom</string>
-  <string name="cloud_location_lookup_mark_taxi">Taksi</string>
-  <!-- Automatically call recording -->
-  <string name="call_recording_automatically_title">Samodejno snemanje</string>
-  <string name="call_recording_automatically_summary">Samodejno snemanje po klicu</string>
+    <!-- dialpad t9 search -->
+    <string name="preference_category_t9_dialpad_search">Številčnica, iskanje T9</string>
+    <string name="t9_search_input_locale">Iskalni vnos T9</string>
+    <string name="t9_search_input_locale_default">Privzeto</string>
+    <!-- Cloud Phone Number Location Engine -->
+    <string name="call_log_action_user_mark">Označi kot</string>
+    <string name="description_user_mark_action">Označi <xliff:g id="nameOrNumber" example="John Smith"> ^ 1 </xliff:g> kot</string>
+    <string name="cloud_location_lookup_mark_title">Označi %s</string>
+    <string name="cloud_location_lookup_mark_as">Označi inf. o klicu</string>
+    <string name="cloud_location_lookup_mark_custom">Uporabniške inf. o klicu</string>
+    <string name="cloud_location_lookup_mark_done">Opravljeno</string>
+    <string name="cloud_location_lookup_mark_harassment">Nadlegovanje</string>
+    <string name="cloud_location_lookup_mark_fraud">Goljufija</string>
+    <string name="cloud_location_lookup_mark_advertisement">Oglasi</string>
+    <string name="cloud_location_lookup_mark_agency">Agencija</string>
+    <string name="cloud_location_lookup_mark_takeaway">Kraja</string>
+    <string name="cloud_location_lookup_mark_delivery">Dostava</string>
+    <string name="cloud_location_lookup_mark_service">Podpora uporabnikom</string>
+    <string name="cloud_location_lookup_mark_taxi">Taksi</string>
+    <!-- Automatically call recording -->
+    <string name="call_recording_automatically_title">Samodejno snemanje</string>
+    <string name="call_recording_automatically_summary">Samodejno snemanje po klicu</string>
 </resources>

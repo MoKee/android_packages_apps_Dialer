@@ -16,26 +16,26 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- dialpad t9 search -->
-  <string name="preference_category_t9_dialpad_search">Vyhľadávanie T9 v číselníku</string>
-  <string name="t9_search_input_locale">Vstup T9 vyhľadávania</string>
-  <string name="t9_search_input_locale_default">Predvolený</string>
-  <!-- Cloud Phone Number Location Engine -->
-  <string name="call_log_action_user_mark">Označiť ako</string>
-  <string name="description_user_mark_action">Označiť <xliff:g id="nameOrNumber" example="John Smith"> ^ 1 </xliff:g> ako</string>
-  <string name="cloud_location_lookup_mark_title">Označiť %s </string>
-  <string name="cloud_location_lookup_mark_as">Poznačiť informácie o volajúcom</string>
-  <string name="cloud_location_lookup_mark_custom">Vlastné informácie o volajúcom</string>
-  <string name="cloud_location_lookup_mark_done">Hotovo</string>
-  <string name="cloud_location_lookup_mark_harassment">Obťažovanie</string>
-  <string name="cloud_location_lookup_mark_fraud">Podvod</string>
-  <string name="cloud_location_lookup_mark_advertisement">Reklama</string>
-  <string name="cloud_location_lookup_mark_agency">Agentúra</string>
-  <string name="cloud_location_lookup_mark_takeaway">So sebou</string>
-  <string name="cloud_location_lookup_mark_delivery">Donáška</string>
-  <string name="cloud_location_lookup_mark_service">Zákaznícky servis</string>
-  <string name="cloud_location_lookup_mark_taxi">Taxi</string>
-  <!-- Automatically call recording -->
-  <string name="call_recording_automatically_title">Automatické nahrávanie</string>
-  <string name="call_recording_automatically_summary">Automatické nahrávánie po hovore</string>
+    <!-- dialpad t9 search -->
+    <string name="preference_category_t9_dialpad_search">Vyhľadávanie T9 v číselníku</string>
+    <string name="t9_search_input_locale">Vstup T9 vyhľadávania</string>
+    <string name="t9_search_input_locale_default">Predvolený</string>
+    <!-- Cloud Phone Number Location Engine -->
+    <string name="call_log_action_user_mark">Označiť ako</string>
+    <string name="description_user_mark_action">Označiť <xliff:g id="nameOrNumber" example="John Smith"> ^ 1 </xliff:g> ako</string>
+    <string name="cloud_location_lookup_mark_title">Označiť %s</string>
+    <string name="cloud_location_lookup_mark_as">Poznačiť informácie o volajúcom</string>
+    <string name="cloud_location_lookup_mark_custom">Vlastné informácie o volajúcom</string>
+    <string name="cloud_location_lookup_mark_done">Hotovo</string>
+    <string name="cloud_location_lookup_mark_harassment">Obťažovanie</string>
+    <string name="cloud_location_lookup_mark_fraud">Podvod</string>
+    <string name="cloud_location_lookup_mark_advertisement">Reklama</string>
+    <string name="cloud_location_lookup_mark_agency">Agentúra</string>
+    <string name="cloud_location_lookup_mark_takeaway">So sebou</string>
+    <string name="cloud_location_lookup_mark_delivery">Donáška</string>
+    <string name="cloud_location_lookup_mark_service">Zákaznícky servis</string>
+    <string name="cloud_location_lookup_mark_taxi">Taxi</string>
+    <!-- Automatically call recording -->
+    <string name="call_recording_automatically_title">Automatické nahrávanie</string>
+    <string name="call_recording_automatically_summary">Automatické nahrávánie po hovore</string>
 </resources>

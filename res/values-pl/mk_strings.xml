@@ -16,26 +16,26 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- dialpad t9 search -->
-  <string name="preference_category_t9_dialpad_search">Klawiatura T9</string>
-  <string name="t9_search_input_locale">Pole wpisywania T9</string>
-  <string name="t9_search_input_locale_default">Domyślne</string>
-  <!-- Cloud Phone Number Location Engine -->
-  <string name="call_log_action_user_mark">Oznacz jako</string>
-  <string name="description_user_mark_action">Oznacz<xliff:g id="nameOrNumber" example="John Smith"> ^ 1 </xliff:g> jako</string>
-  <string name="cloud_location_lookup_mark_title">Oznacz %s </string>
-  <string name="cloud_location_lookup_mark_as">Oznacz opis dzwoniącego</string>
-  <string name="cloud_location_lookup_mark_custom">Własny opis dzwoniącego</string>
-  <string name="cloud_location_lookup_mark_done">Gotowe</string>
-  <string name="cloud_location_lookup_mark_harassment">Nękanie</string>
-  <string name="cloud_location_lookup_mark_fraud">Oszustwa</string>
-  <string name="cloud_location_lookup_mark_advertisement">Reklamy</string>
-  <string name="cloud_location_lookup_mark_agency">Agencje</string>
-  <string name="cloud_location_lookup_mark_takeaway">Na wynos</string>
-  <string name="cloud_location_lookup_mark_delivery">Dostawy</string>
-  <string name="cloud_location_lookup_mark_service">Biuro Obsługi Klienta</string>
-  <string name="cloud_location_lookup_mark_taxi">Taksówka</string>
-  <!-- Automatically call recording -->
-  <string name="call_recording_automatically_title">Nagrywanie automatyczne</string>
-  <string name="call_recording_automatically_summary">Nagrywaj automatycznie podczas dzwonienia</string>
+    <!-- dialpad t9 search -->
+    <string name="preference_category_t9_dialpad_search">Klawiatura T9</string>
+    <string name="t9_search_input_locale">Pole wpisywania T9</string>
+    <string name="t9_search_input_locale_default">Domyślne</string>
+    <!-- Cloud Phone Number Location Engine -->
+    <string name="call_log_action_user_mark">Oznacz jako</string>
+    <string name="description_user_mark_action">Oznacz<xliff:g id="nameOrNumber" example="John Smith"> ^ 1 </xliff:g> jako</string>
+    <string name="cloud_location_lookup_mark_title">Oznacz %s</string>
+    <string name="cloud_location_lookup_mark_as">Oznacz opis dzwoniącego</string>
+    <string name="cloud_location_lookup_mark_custom">Własny opis dzwoniącego</string>
+    <string name="cloud_location_lookup_mark_done">Gotowe</string>
+    <string name="cloud_location_lookup_mark_harassment">Nękanie</string>
+    <string name="cloud_location_lookup_mark_fraud">Oszustwa</string>
+    <string name="cloud_location_lookup_mark_advertisement">Reklamy</string>
+    <string name="cloud_location_lookup_mark_agency">Agencje</string>
+    <string name="cloud_location_lookup_mark_takeaway">Na wynos</string>
+    <string name="cloud_location_lookup_mark_delivery">Dostawy</string>
+    <string name="cloud_location_lookup_mark_service">Biuro Obsługi Klienta</string>
+    <string name="cloud_location_lookup_mark_taxi">Taksówka</string>
+    <!-- Automatically call recording -->
+    <string name="call_recording_automatically_title">Nagrywanie automatyczne</string>
+    <string name="call_recording_automatically_summary">Nagrywaj automatycznie podczas dzwonienia</string>
 </resources>

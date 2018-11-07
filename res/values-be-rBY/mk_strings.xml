@@ -16,26 +16,26 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- dialpad t9 search -->
-  <string name="preference_category_t9_dialpad_search">T9 пошук у нумаранабіральніку</string>
-  <string name="t9_search_input_locale">Увядзенне пошуку T9</string>
-  <string name="t9_search_input_locale_default">Па змаўчанні</string>
-  <!-- Cloud Phone Number Location Engine -->
-  <string name="call_log_action_user_mark">ПАЗНАЧЫЦЬ</string>
-  <string name="description_user_mark_action">Пазнычыць <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> як</string>
-  <string name="cloud_location_lookup_mark_title">Пазнычыць %s </string>
-  <string name="cloud_location_lookup_mark_as">Пазначыць інфармацыю аб тым, хто тэлефануе</string>
-  <string name="cloud_location_lookup_mark_custom">Iншае</string>
-  <string name="cloud_location_lookup_mark_done">Зроблена</string>
-  <string name="cloud_location_lookup_mark_harassment">Вымагальніцтва</string>
-  <string name="cloud_location_lookup_mark_fraud">Махлярства</string>
-  <string name="cloud_location_lookup_mark_advertisement">Рэклама</string>
-  <string name="cloud_location_lookup_mark_agency">Установа</string>
-  <string name="cloud_location_lookup_mark_takeaway">Ежа на вынас</string>
-  <string name="cloud_location_lookup_mark_delivery">Дастаўка</string>
-  <string name="cloud_location_lookup_mark_service">Абслугоўванне кліентаў</string>
-  <string name="cloud_location_lookup_mark_taxi">Таксі</string>
-  <!-- Automatically call recording -->
-  <string name="call_recording_automatically_title">Аўтаматычны запіс</string>
-  <string name="call_recording_automatically_summary">Запісваць аўтаматычна пасля званку</string>
+    <!-- dialpad t9 search -->
+    <string name="preference_category_t9_dialpad_search">T9 пошук у нумаранабіральніку</string>
+    <string name="t9_search_input_locale">Увядзенне пошуку T9</string>
+    <string name="t9_search_input_locale_default">Па змаўчанні</string>
+    <!-- Cloud Phone Number Location Engine -->
+    <string name="call_log_action_user_mark">ПАЗНАЧЫЦЬ</string>
+    <string name="description_user_mark_action">Пазнычыць <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> як</string>
+    <string name="cloud_location_lookup_mark_title">Пазнычыць %s</string>
+    <string name="cloud_location_lookup_mark_as">Пазначыць інфармацыю аб тым, хто тэлефануе</string>
+    <string name="cloud_location_lookup_mark_custom">Iншае</string>
+    <string name="cloud_location_lookup_mark_done">Зроблена</string>
+    <string name="cloud_location_lookup_mark_harassment">Вымагальніцтва</string>
+    <string name="cloud_location_lookup_mark_fraud">Махлярства</string>
+    <string name="cloud_location_lookup_mark_advertisement">Рэклама</string>
+    <string name="cloud_location_lookup_mark_agency">Установа</string>
+    <string name="cloud_location_lookup_mark_takeaway">Ежа на вынас</string>
+    <string name="cloud_location_lookup_mark_delivery">Дастаўка</string>
+    <string name="cloud_location_lookup_mark_service">Абслугоўванне кліентаў</string>
+    <string name="cloud_location_lookup_mark_taxi">Таксі</string>
+    <!-- Automatically call recording -->
+    <string name="call_recording_automatically_title">Аўтаматычны запіс</string>
+    <string name="call_recording_automatically_summary">Запісваць аўтаматычна пасля званку</string>
 </resources>

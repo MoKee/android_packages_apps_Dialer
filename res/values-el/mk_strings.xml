@@ -16,26 +16,26 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- dialpad t9 search -->
-  <string name="preference_category_t9_dialpad_search">Αναζήτηση πληκτρολογίου T9</string>
-  <string name="t9_search_input_locale">Είσοδος αναζήτησης T9</string>
-  <string name="t9_search_input_locale_default">Προεπιλογή</string>
-  <!-- Cloud Phone Number Location Engine -->
-  <string name="call_log_action_user_mark">Σημείωση ως</string>
-  <string name="description_user_mark_action">Σημείωση <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> ως</string>
-  <string name="cloud_location_lookup_mark_title">Σημείωση %s </string>
-  <string name="cloud_location_lookup_mark_as">Σημείωση πληροφοριών καλούντος</string>
-  <string name="cloud_location_lookup_mark_custom">Πληροφορίες καλούντος</string>
-  <string name="cloud_location_lookup_mark_done">Έτοιμο</string>
-  <string name="cloud_location_lookup_mark_harassment">Παρενόχληση</string>
-  <string name="cloud_location_lookup_mark_fraud">Απάτη</string>
-  <string name="cloud_location_lookup_mark_advertisement">Διαφήμιση</string>
-  <string name="cloud_location_lookup_mark_agency">Πρακτορείο</string>
-  <string name="cloud_location_lookup_mark_takeaway">Takeaway</string>
-  <string name="cloud_location_lookup_mark_delivery">Διανομή</string>
-  <string name="cloud_location_lookup_mark_service">Εξυπηρέτηση Πελατών</string>
-  <string name="cloud_location_lookup_mark_taxi">Ταξί</string>
-  <!-- Automatically call recording -->
-  <string name="call_recording_automatically_title">Αυτόματη εγγραφή</string>
-  <string name="call_recording_automatically_summary">Αυτόματη καταγραφή μετά από κλήση</string>
+    <!-- dialpad t9 search -->
+    <string name="preference_category_t9_dialpad_search">Αναζήτηση πληκτρολογίου T9</string>
+    <string name="t9_search_input_locale">Είσοδος αναζήτησης T9</string>
+    <string name="t9_search_input_locale_default">Προεπιλογή</string>
+    <!-- Cloud Phone Number Location Engine -->
+    <string name="call_log_action_user_mark">Σημείωση ως</string>
+    <string name="description_user_mark_action">Σημείωση <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> ως</string>
+    <string name="cloud_location_lookup_mark_title">Σημείωση %s</string>
+    <string name="cloud_location_lookup_mark_as">Σημείωση πληροφοριών καλούντος</string>
+    <string name="cloud_location_lookup_mark_custom">Πληροφορίες καλούντος</string>
+    <string name="cloud_location_lookup_mark_done">Έτοιμο</string>
+    <string name="cloud_location_lookup_mark_harassment">Παρενόχληση</string>
+    <string name="cloud_location_lookup_mark_fraud">Απάτη</string>
+    <string name="cloud_location_lookup_mark_advertisement">Διαφήμιση</string>
+    <string name="cloud_location_lookup_mark_agency">Πρακτορείο</string>
+    <string name="cloud_location_lookup_mark_takeaway">Takeaway</string>
+    <string name="cloud_location_lookup_mark_delivery">Διανομή</string>
+    <string name="cloud_location_lookup_mark_service">Εξυπηρέτηση Πελατών</string>
+    <string name="cloud_location_lookup_mark_taxi">Ταξί</string>
+    <!-- Automatically call recording -->
+    <string name="call_recording_automatically_title">Αυτόματη εγγραφή</string>
+    <string name="call_recording_automatically_summary">Αυτόματη καταγραφή μετά από κλήση</string>
 </resources>

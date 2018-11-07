@@ -16,26 +16,26 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- dialpad t9 search -->
-  <string name="preference_category_t9_dialpad_search">拨号盘 T9 搜索</string>
-  <string name="t9_search_input_locale">T9 搜索输入</string>
-  <string name="t9_search_input_locale_default">默认</string>
-  <!-- Cloud Phone Number Location Engine -->
-  <string name="call_log_action_user_mark">标记号码</string>
-  <string name="description_user_mark_action">为 <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> 标记</string>
-  <string name="cloud_location_lookup_mark_title">标记 %s 为：</string>
-  <string name="cloud_location_lookup_mark_as">标记该号码的身份信息</string>
-  <string name="cloud_location_lookup_mark_custom">自定义来电身份信息</string>
-  <string name="cloud_location_lookup_mark_done">完成</string>
-  <string name="cloud_location_lookup_mark_harassment">骚扰电话</string>
-  <string name="cloud_location_lookup_mark_fraud">诈骗电话</string>
-  <string name="cloud_location_lookup_mark_advertisement">广告推销</string>
-  <string name="cloud_location_lookup_mark_agency">中介电话</string>
-  <string name="cloud_location_lookup_mark_takeaway">外卖送餐</string>
-  <string name="cloud_location_lookup_mark_delivery">物流快递</string>
-  <string name="cloud_location_lookup_mark_service">客服电话</string>
-  <string name="cloud_location_lookup_mark_taxi">出租车司机</string>
-  <!-- Automatically call recording -->
-  <string name="call_recording_automatically_title">自动录音</string>
-  <string name="call_recording_automatically_summary">接通电话后自动录音</string>
+    <!-- dialpad t9 search -->
+    <string name="preference_category_t9_dialpad_search">拨号盘 T9 搜索</string>
+    <string name="t9_search_input_locale">T9 搜索输入</string>
+    <string name="t9_search_input_locale_default">默认</string>
+    <!-- Cloud Phone Number Location Engine -->
+    <string name="call_log_action_user_mark">标记号码</string>
+    <string name="description_user_mark_action">为 <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> 标记</string>
+    <string name="cloud_location_lookup_mark_title">标记 %s 为：</string>
+    <string name="cloud_location_lookup_mark_as">标记该号码的身份信息</string>
+    <string name="cloud_location_lookup_mark_custom">自定义来电身份信息</string>
+    <string name="cloud_location_lookup_mark_done">完成</string>
+    <string name="cloud_location_lookup_mark_harassment">骚扰电话</string>
+    <string name="cloud_location_lookup_mark_fraud">诈骗电话</string>
+    <string name="cloud_location_lookup_mark_advertisement">广告推销</string>
+    <string name="cloud_location_lookup_mark_agency">中介电话</string>
+    <string name="cloud_location_lookup_mark_takeaway">外卖送餐</string>
+    <string name="cloud_location_lookup_mark_delivery">物流快递</string>
+    <string name="cloud_location_lookup_mark_service">客服电话</string>
+    <string name="cloud_location_lookup_mark_taxi">出租车司机</string>
+    <!-- Automatically call recording -->
+    <string name="call_recording_automatically_title">自动录音</string>
+    <string name="call_recording_automatically_summary">接通电话后自动录音</string>
 </resources>

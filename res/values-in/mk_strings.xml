@@ -16,26 +16,26 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- dialpad t9 search -->
-  <string name="preference_category_t9_dialpad_search">Pencarian dialpad T9</string>
-  <string name="t9_search_input_locale">Masukan pencarian T9</string>
-  <string name="t9_search_input_locale_default">Bawaan</string>
-  <!-- Cloud Phone Number Location Engine -->
-  <string name="call_log_action_user_mark">Tandai sebagai</string>
-  <string name="description_user_mark_action">Tandai <xliff:g id="nameOrNumber" example="John Smith"> ^ 1 </xliff:g> sebagai</string>
-  <string name="cloud_location_lookup_mark_title">Tandai %s </string>
-  <string name="cloud_location_lookup_mark_as">Tandai info pemanggil</string>
-  <string name="cloud_location_lookup_mark_custom">Kustom info pemanggil</string>
-  <string name="cloud_location_lookup_mark_done">Selesai</string>
-  <string name="cloud_location_lookup_mark_harassment">Pelecehan</string>
-  <string name="cloud_location_lookup_mark_fraud">Penipuan</string>
-  <string name="cloud_location_lookup_mark_advertisement">Iklan</string>
-  <string name="cloud_location_lookup_mark_agency">Agen</string>
-  <string name="cloud_location_lookup_mark_takeaway">Takeaway</string>
-  <string name="cloud_location_lookup_mark_delivery">Pengiriman</string>
-  <string name="cloud_location_lookup_mark_service">Layanan pelanggan</string>
-  <string name="cloud_location_lookup_mark_taxi">Taksi</string>
-  <!-- Automatically call recording -->
-  <string name="call_recording_automatically_title">Merekam otomatis</string>
-  <string name="call_recording_automatically_summary">Merekam otomatis setelah panggilan</string>
+    <!-- dialpad t9 search -->
+    <string name="preference_category_t9_dialpad_search">Pencarian dialpad T9</string>
+    <string name="t9_search_input_locale">Masukan pencarian T9</string>
+    <string name="t9_search_input_locale_default">Bawaan</string>
+    <!-- Cloud Phone Number Location Engine -->
+    <string name="call_log_action_user_mark">Tandai sebagai</string>
+    <string name="description_user_mark_action">Tandai <xliff:g id="nameOrNumber" example="John Smith"> ^ 1 </xliff:g> sebagai</string>
+    <string name="cloud_location_lookup_mark_title">Tandai %s</string>
+    <string name="cloud_location_lookup_mark_as">Tandai info pemanggil</string>
+    <string name="cloud_location_lookup_mark_custom">Kustom info pemanggil</string>
+    <string name="cloud_location_lookup_mark_done">Selesai</string>
+    <string name="cloud_location_lookup_mark_harassment">Pelecehan</string>
+    <string name="cloud_location_lookup_mark_fraud">Penipuan</string>
+    <string name="cloud_location_lookup_mark_advertisement">Iklan</string>
+    <string name="cloud_location_lookup_mark_agency">Agen</string>
+    <string name="cloud_location_lookup_mark_takeaway">Takeaway</string>
+    <string name="cloud_location_lookup_mark_delivery">Pengiriman</string>
+    <string name="cloud_location_lookup_mark_service">Layanan pelanggan</string>
+    <string name="cloud_location_lookup_mark_taxi">Taksi</string>
+    <!-- Automatically call recording -->
+    <string name="call_recording_automatically_title">Merekam otomatis</string>
+    <string name="call_recording_automatically_summary">Merekam otomatis setelah panggilan</string>
 </resources>

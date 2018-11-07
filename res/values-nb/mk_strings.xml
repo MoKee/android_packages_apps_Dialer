@@ -16,15 +16,15 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- dialpad t9 search -->
-  <string name="t9_search_input_locale_default">Standard</string>
-  <!-- Cloud Phone Number Location Engine -->
-  <string name="cloud_location_lookup_mark_done">Ferdig</string>
-  <string name="cloud_location_lookup_mark_harassment">Trakassering</string>
-  <string name="cloud_location_lookup_mark_fraud">Svindel</string>
-  <string name="cloud_location_lookup_mark_advertisement">Reklame</string>
-  <string name="cloud_location_lookup_mark_takeaway">Takeaway</string>
-  <string name="cloud_location_lookup_mark_service">Kundeservice</string>
-  <string name="cloud_location_lookup_mark_taxi">Taxi</string>
-  <!-- Automatically call recording -->
+    <!-- dialpad t9 search -->
+    <string name="t9_search_input_locale_default">Standard</string>
+    <!-- Cloud Phone Number Location Engine -->
+    <string name="cloud_location_lookup_mark_done">Ferdig</string>
+    <string name="cloud_location_lookup_mark_harassment">Trakassering</string>
+    <string name="cloud_location_lookup_mark_fraud">Svindel</string>
+    <string name="cloud_location_lookup_mark_advertisement">Reklame</string>
+    <string name="cloud_location_lookup_mark_takeaway">Takeaway</string>
+    <string name="cloud_location_lookup_mark_service">Kundeservice</string>
+    <string name="cloud_location_lookup_mark_taxi">Taxi</string>
+    <!-- Automatically call recording -->
 </resources>
