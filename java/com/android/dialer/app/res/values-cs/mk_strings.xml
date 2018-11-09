@@ -19,7 +19,7 @@
     <!-- Cloud Phone Number Location Engine -->
     <string name="call_log_action_user_mark">OZNAČIT JAKO</string>
     <string name="description_user_mark_action">Označit <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> jako</string>
-    <string name="cloud_location_lookup_mark_title">Označit %s</string>
+    <string name="cloud_location_lookup_mark_title">Označit %s </string>
     <string name="cloud_location_lookup_mark_as">Označit info o volajícím</string>
     <string name="cloud_location_lookup_mark_custom">Vlastní informace o volajícím</string>
     <string name="cloud_location_lookup_mark_done">Hotovo</string>

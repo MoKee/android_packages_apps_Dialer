@@ -18,7 +18,7 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Cloud Phone Number Location Engine -->
     <string name="call_log_action_user_mark">Märgi kui</string>
-    <string name="cloud_location_lookup_mark_title">Märgi %s</string>
+    <string name="cloud_location_lookup_mark_title">Märgi %s </string>
     <string name="cloud_location_lookup_mark_as">Märgi helistaja info</string>
     <string name="cloud_location_lookup_mark_custom">Kohandatud helistaja info</string>
     <string name="cloud_location_lookup_mark_done">Valmis</string>

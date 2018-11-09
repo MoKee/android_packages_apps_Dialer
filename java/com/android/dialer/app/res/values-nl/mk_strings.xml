@@ -19,7 +19,7 @@
     <!-- Cloud Phone Number Location Engine -->
     <string name="call_log_action_user_mark">Markeren als</string>
     <string name="description_user_mark_action">Markeer <xliff:g id="nameOrNumber" example="John Smith"> ^ 1 </xliff:g> als</string>
-    <string name="cloud_location_lookup_mark_title">Noteer %s</string>
+    <string name="cloud_location_lookup_mark_title">Noteer %s </string>
     <string name="cloud_location_lookup_mark_as">Selecteer beller informatie</string>
     <string name="cloud_location_lookup_mark_custom">Aangepaste beller informatie</string>
     <string name="cloud_location_lookup_mark_done">Klaar</string>

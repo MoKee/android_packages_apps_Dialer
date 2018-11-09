@@ -19,7 +19,7 @@
     <!-- Cloud Phone Number Location Engine -->
     <string name="call_log_action_user_mark">Merkitse</string>
     <string name="description_user_mark_action">Merkitse <xliff:g id="nameOrNumber" esimerkki="John Smith">^1</xliff:g> kuin</string>
-    <string name="cloud_location_lookup_mark_title">Merkitse %s</string>
+    <string name="cloud_location_lookup_mark_title">Merkitse %s </string>
     <string name="cloud_location_lookup_mark_as">Merkitse soittajan tiedot</string>
     <string name="cloud_location_lookup_mark_custom">Mukautetun soittajan tiedot</string>
     <string name="cloud_location_lookup_mark_done">Valmis</string>
