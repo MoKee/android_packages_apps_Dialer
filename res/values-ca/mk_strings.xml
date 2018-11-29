@@ -21,7 +21,7 @@
     <!-- Cloud Phone Number Location Engine -->
     <string name="call_log_action_user_mark">MARCA D\'AS</string>
     <string name="description_user_mark_action">Marcada <xliff:g id="nameOrNumber" example="John Smith"> ^ 1 </xliff:g> com</string>
-    <string name="cloud_location_lookup_mark_title">Marcada %s</string>
+    <string name="cloud_location_lookup_mark_title">Marcada %s </string>
     <string name="cloud_location_lookup_mark_as">Marcada trucada informació</string>
     <string name="cloud_location_lookup_mark_custom">Informació d\'usuaris de costum</string>
     <string name="cloud_location_lookup_mark_done">Fet</string>

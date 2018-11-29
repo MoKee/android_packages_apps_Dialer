@@ -23,7 +23,7 @@
     <!-- Cloud Phone Number Location Engine -->
     <string name="call_log_action_user_mark">Σημείωση ως</string>
     <string name="description_user_mark_action">Σημείωση <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> ως</string>
-    <string name="cloud_location_lookup_mark_title">Σημείωση %s</string>
+    <string name="cloud_location_lookup_mark_title">Σημείωση %s </string>
     <string name="cloud_location_lookup_mark_as">Σημείωση πληροφοριών καλούντος</string>
     <string name="cloud_location_lookup_mark_custom">Πληροφορίες καλούντος</string>
     <string name="cloud_location_lookup_mark_done">Έτοιμο</string>

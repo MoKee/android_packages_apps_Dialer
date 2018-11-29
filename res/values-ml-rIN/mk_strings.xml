@@ -19,7 +19,7 @@
     <!-- dialpad t9 search -->
     <!-- Cloud Phone Number Location Engine -->
     <string name="call_log_action_user_mark">മാര്‍ക്ക്‌ ചെയ്യേണ്ടത്</string>
-    <string name="cloud_location_lookup_mark_title">മാര്‍ക്ക്‌ ചെയ്യേണ്ടത്</string>
+    <string name="cloud_location_lookup_mark_title">മാര്‍ക്ക്‌ ചെയ്യേണ്ടത് </string>
     <string name="cloud_location_lookup_mark_as">വിളിക്കുന്ന ആളിന്റെ വിവരം ചേർക്കുക</string>
     <string name="cloud_location_lookup_mark_custom">ഇഷ്ടമുള്ള കോളർ ഇൻഫോ</string>
     <string name="cloud_location_lookup_mark_done">പൂർത്തിയായി</string>

@@ -21,7 +21,7 @@
     <!-- Cloud Phone Number Location Engine -->
     <string name="call_log_action_user_mark">סמן</string>
     <string name="description_user_mark_action">סמן <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> כ</string>
-    <string name="cloud_location_lookup_mark_title">סמן %s</string>
+    <string name="cloud_location_lookup_mark_title">סמן %s </string>
     <string name="cloud_location_lookup_mark_as">סמן פרטי המתקשר</string>
     <string name="cloud_location_lookup_mark_custom">סימון מותאם אישית</string>
     <string name="cloud_location_lookup_mark_done">בצע</string>

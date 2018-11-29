@@ -23,7 +23,7 @@
     <!-- Cloud Phone Number Location Engine -->
     <string name="call_log_action_user_mark">으로 표시</string>
     <string name="description_user_mark_action">마크 <xliff:g id="nameOrNumber" example="John Smith"> ^1 </xliff:g>로</string>
-    <string name="cloud_location_lookup_mark_title">마크 %s</string>
+    <string name="cloud_location_lookup_mark_title">마크 %s </string>
     <string name="cloud_location_lookup_mark_as">발신자 정보 표시</string>
     <string name="cloud_location_lookup_mark_custom">사용자 지정 호출자 정보</string>
     <string name="cloud_location_lookup_mark_done">삭제 성공</string>

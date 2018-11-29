@@ -23,7 +23,7 @@
     <!-- Cloud Phone Number Location Engine -->
     <string name="call_log_action_user_mark">Oznacz jako</string>
     <string name="description_user_mark_action">Oznacz<xliff:g id="nameOrNumber" example="John Smith"> ^ 1 </xliff:g> jako</string>
-    <string name="cloud_location_lookup_mark_title">Oznacz %s</string>
+    <string name="cloud_location_lookup_mark_title">Oznacz %s </string>
     <string name="cloud_location_lookup_mark_as">Oznacz opis dzwoniącego</string>
     <string name="cloud_location_lookup_mark_custom">Własny opis dzwoniącego</string>
     <string name="cloud_location_lookup_mark_done">Gotowe</string>

@@ -23,7 +23,7 @@
     <!-- Cloud Phone Number Location Engine -->
     <string name="call_log_action_user_mark">Tandai sebagai</string>
     <string name="description_user_mark_action">Tandai <xliff:g id="nameOrNumber" example="John Smith"> ^ 1 </xliff:g> sebagai</string>
-    <string name="cloud_location_lookup_mark_title">Tandai %s</string>
+    <string name="cloud_location_lookup_mark_title">Tandai %s </string>
     <string name="cloud_location_lookup_mark_as">Tandai info pemanggil</string>
     <string name="cloud_location_lookup_mark_custom">Kustom info pemanggil</string>
     <string name="cloud_location_lookup_mark_done">Selesai</string>

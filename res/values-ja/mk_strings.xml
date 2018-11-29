@@ -23,7 +23,7 @@
     <!-- Cloud Phone Number Location Engine -->
     <string name="call_log_action_user_mark">マークする</string>
     <string name="description_user_mark_action"><xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> をマークする</string>
-    <string name="cloud_location_lookup_mark_title">%sをマーク</string>
+    <string name="cloud_location_lookup_mark_title">%sをマーク </string>
     <string name="cloud_location_lookup_mark_as">発信者情報をマーク</string>
     <string name="cloud_location_lookup_mark_custom">発信者情報の編集</string>
     <string name="cloud_location_lookup_mark_done">完了</string>

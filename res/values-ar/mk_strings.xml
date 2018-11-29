@@ -23,7 +23,7 @@
     <!-- Cloud Phone Number Location Engine -->
     <string name="call_log_action_user_mark">حدد كـ</string>
     <string name="description_user_mark_action">حدد <xliff:g id="nameOrNumber" example="John Smith"> ^ 1 </xliff:g> كـ</string>
-    <string name="cloud_location_lookup_mark_title">حدد %s</string>
+    <string name="cloud_location_lookup_mark_title">حدد %s </string>
     <string name="cloud_location_lookup_mark_as">حدد على معلومات المتصل</string>
     <string name="cloud_location_lookup_mark_custom">تعديل معلومات المتصل</string>
     <string name="cloud_location_lookup_mark_done">تمّ</string>

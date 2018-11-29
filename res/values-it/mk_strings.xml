@@ -23,7 +23,7 @@
     <!-- Cloud Phone Number Location Engine -->
     <string name="call_log_action_user_mark">Contrassegna come</string>
     <string name="description_user_mark_action">Contrassegna<xliff:g id="nameOrNumber" example="John Smith"> ^ 1 </xliff:g> come</string>
-    <string name="cloud_location_lookup_mark_title">Contrassegna %s</string>
+    <string name="cloud_location_lookup_mark_title">Contrassegna %s </string>
     <string name="cloud_location_lookup_mark_as">Contrassegna info chiamante</string>
     <string name="cloud_location_lookup_mark_custom">Info chiamante personalizzate</string>
     <string name="cloud_location_lookup_mark_done">Fatto</string>

@@ -23,7 +23,7 @@
     <!-- Cloud Phone Number Location Engine -->
     <string name="call_log_action_user_mark">Označi kot</string>
     <string name="description_user_mark_action">Označi <xliff:g id="nameOrNumber" example="John Smith"> ^ 1 </xliff:g> kot</string>
-    <string name="cloud_location_lookup_mark_title">Označi %s</string>
+    <string name="cloud_location_lookup_mark_title">Označi %s </string>
     <string name="cloud_location_lookup_mark_as">Označi inf. o klicu</string>
     <string name="cloud_location_lookup_mark_custom">Uporabniške inf. o klicu</string>
     <string name="cloud_location_lookup_mark_done">Opravljeno</string>

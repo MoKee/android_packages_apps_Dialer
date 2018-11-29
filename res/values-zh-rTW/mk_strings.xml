@@ -23,7 +23,7 @@
     <!-- Cloud Phone Number Location Engine -->
     <string name="call_log_action_user_mark">標記為</string>
     <string name="description_user_mark_action">把 <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> 標註為</string>
-    <string name="cloud_location_lookup_mark_title">標註 %s</string>
+    <string name="cloud_location_lookup_mark_title">標註 %s </string>
     <string name="cloud_location_lookup_mark_as">標註來電者資訊</string>
     <string name="cloud_location_lookup_mark_custom">自訂來電者資訊</string>
     <string name="cloud_location_lookup_mark_done">完成</string>

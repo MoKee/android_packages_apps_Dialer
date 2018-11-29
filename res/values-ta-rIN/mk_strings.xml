@@ -21,7 +21,7 @@
     <!-- Cloud Phone Number Location Engine -->
     <string name="call_log_action_user_mark">குறிப்பிடவும்</string>
     <string name="description_user_mark_action"><xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> என குறிப்பிடவும்</string>
-    <string name="cloud_location_lookup_mark_title">%s குறிப்பிடவும்</string>
+    <string name="cloud_location_lookup_mark_title">%s குறிப்பிடவும் </string>
     <string name="cloud_location_lookup_mark_as">அழைப்பாளர் தகவல் குறிக்கவும்</string>
     <string name="cloud_location_lookup_mark_custom">தனிப்பயன் அழைப்பாளர் தகவல்</string>
     <string name="cloud_location_lookup_mark_done">முடிந்தது</string>
