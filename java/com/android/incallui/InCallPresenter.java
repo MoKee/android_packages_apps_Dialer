@@ -354,8 +354,10 @@ public class InCallPresenter implements CallList.Listener {
     mProximitySensor = proximitySensor;
     addListener(mProximitySensor);
 
-    mThemeColorManager =
-        new ThemeColorManager(new InCallUIMaterialColorMapUtils(mContext.getResources()));
+    if (mThemeColorManager == null) {
+      mThemeColorManager =
+          new ThemeColorManager(new InCallUIMaterialColorMapUtils(mContext.getResources()));
+    }
 
     mCallList = callList;
     mExternalCallList = externalCallList;
@@ -1646,6 +1648,11 @@ public class InCallPresenter implements CallList.Listener {
 
   public ThemeColorManager getThemeColorManager() {
     return mThemeColorManager;
+  }
+
+  @VisibleForTesting
+  public void setThemeColorManager(ThemeColorManager themeColorManager) {
+    mThemeColorManager = themeColorManager;
   }
 
   /** Called when the foreground call changes. */
