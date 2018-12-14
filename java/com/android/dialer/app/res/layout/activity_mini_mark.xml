@@ -33,10 +33,9 @@
         android:layout_height="0dp"
         android:layout_gravity="bottom|center_horizontal"
         android:layout_weight="8"
-        android:background="@color/setting_background_color"
+        android:background="?android:attr/colorBackground"
         android:orientation="vertical"
-        android:elevation="1dp"
-        android:theme="@style/MiniMarkRootViewStyle">
+        android:elevation="1dp">
 
         <TextView
             android:id="@+id/mark_number_header"
@@ -61,6 +60,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_gravity="bottom|center_horizontal"
+        android:background="?android:attr/colorBackground"
         android:gravity="center_horizontal|center_vertical"
         android:orientation="horizontal">
 
@@ -69,26 +69,26 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:background="@android:color/white"
             android:hint="@string/cloud_location_lookup_mark_custom"
             android:singleLine="true"
             android:paddingStart="16dp"
-            android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+            android:background="@null"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@android:color/white" />
+            android:background="@color/call_log_action_divider" />
 
         <Button
             android:id="@+id/mark_number_done"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/btn_circle_ripple_normal"
             android:onClick="btnComfirmOnClick"
             android:text="@string/cloud_location_lookup_mark_done"
-            android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:background="?android:selectableItemBackground" />
     </LinearLayout>
 
 </LinearLayout>
