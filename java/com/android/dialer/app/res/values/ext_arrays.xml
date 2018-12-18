@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
+     Copyright (C) 2013-2019 The MoKee Open Source Project
      Copyright (C) 2013-2014 The CyanogenMod Project
+     Copyright (C) 2018 The LineageOS Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -15,9 +17,14 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <plurals name="play_recordings">
-        <item quantity="one">Play recording</item>
-        <item quantity="other">Play recordings</item>
-    </plurals>
-    <string name="call_playback_no_app_found_toast">No app could be found for playback of the selected recording.</string>
+    <string-array name="call_recording_encoder_entries" translatable="false">
+        <item>@string/wb_amr_format</item>
+        <item>@string/aac_format</item>
+    </string-array>
+
+    <string-array name="call_recording_encoder_values" translatable="false">
+        <item>"0"</item>
+        <item>"1"</item>
+    </string-array>
+
 </resources>

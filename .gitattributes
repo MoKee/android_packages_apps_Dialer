@@ -1,0 +1,10 @@
+java/com/android/dialer/app/res/values-*/ext_arrays.xml merge=ours
+java/com/android/dialer/app/res/values-*/ext_strings.xml merge=ours
+java/com/android/dialer/calldetails/res/values-*/ext_strings.xml merge=ours
+java/com/android/dialer/calllogutils/res/values-*/ext_strings.xml merge=ours
+java/com/android/dialer/callstats/res/values-*/ext_arrays.xml merge=ours
+java/com/android/dialer/callstats/res/values-*/ext_plurals.xml merge=ours
+java/com/android/dialer/callstats/res/values-*/ext_strings.xml merge=ours
+java/com/android/dialer/lookup/res/values-*/ext_arrays.xml merge=ours
+java/com/android/dialer/lookup/res/values-*/ext_strings.xml merge=ours
+java/com/android/incallui/res/values-*/ext_strings.xml merge=ours
