@@ -83,7 +83,7 @@ public class InCallVibrationHandler extends Handler implements
     long durationMillis = System.currentTimeMillis() - call.getConnectTimeMillis();
     Log.d(this, "Start outgoing call: duration = " + durationMillis);
 
-    if (prefs.getBoolean(KEY_VIBRATE_OUTGOING, false) && durationMillis < 200) {
+    if (prefs.getBoolean(KEY_VIBRATE_OUTGOING, true) && durationMillis < 200) {
       vibrate(100, 200, 0);
     }
     if (prefs.getBoolean(KEY_VIBRATE_45SECS, false)) {
@@ -110,7 +110,7 @@ public class InCallVibrationHandler extends Handler implements
     Log.d(this, "Ending active call: duration = " + durationMillis
         + ", locally disconnected = " + localDisconnect);
 
-    if (prefs.getBoolean(KEY_VIBRATE_HANGUP, false)
+    if (prefs.getBoolean(KEY_VIBRATE_HANGUP, true)
         && !localDisconnect && durationMillis > 500) {
       vibrate(50, 100, 50);
     }
