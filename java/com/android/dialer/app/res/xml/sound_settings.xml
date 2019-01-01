@@ -54,7 +54,8 @@
 
     <SwitchPreference
       android:key="@string/incall_vibrate_outgoing_key"
-      android:title="@string/incall_vibrate_outgoing_title" />
+      android:title="@string/incall_vibrate_outgoing_title"
+      android:defaultValue="true" />
 
     <SwitchPreference
       android:key="@string/incall_vibrate_call_waiting_key"
@@ -62,7 +63,8 @@
 
     <SwitchPreference
       android:key="@string/incall_vibrate_hangup_key"
-      android:title="@string/incall_vibrate_hangup_title" />
+      android:title="@string/incall_vibrate_hangup_title"
+      android:defaultValue="true" />
 
     <SwitchPreference
       android:key="@string/incall_vibrate_45_key"
