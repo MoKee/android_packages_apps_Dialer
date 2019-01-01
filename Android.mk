@@ -147,6 +147,7 @@ LOCAL_STATIC_ANDROID_LIBRARIES := \
 
 LOCAL_JAVA_LIBRARIES := \
 	dialer-auto-value-target \
+	mokee-cloud \
 	org.apache.http.legacy \
 
 LOCAL_ANNOTATION_PROCESSORS := \
