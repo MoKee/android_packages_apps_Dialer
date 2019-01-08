@@ -766,12 +766,9 @@ public class CallCardPresenter
               .setNumber(number)
               .setName(primary.updateNameIfRestricted(name))
               .setNameIsNumber(nameIsNumber)
-              .setLabel(
-                  shouldShowLocationAsLabel(nameIsNumber, primaryContactInfo.shouldShowLocation)
-                      ? primaryContactInfo.location
-                      : null)
+              .setLabel(primaryContactInfo.label)
               .setLocation(
-                  isChildNumberShown || isCallSubjectShown ? null : primaryContactInfo.label)
+                  isChildNumberShown || isCallSubjectShown ? null : primaryContactInfo.location)
               .setPhoto(primaryContactInfo.photo)
               .setPhotoType(primaryContactInfo.photoType)
               .setIsSipCall(primaryContactInfo.isSipCall)
@@ -798,16 +795,16 @@ public class CallCardPresenter
     }
   }
 
-  private static boolean shouldShowLocationAsLabel(
-      boolean nameIsNumber, boolean shouldShowLocation) {
-    if (nameIsNumber) {
-      return true;
-    }
-    if (shouldShowLocation) {
-      return true;
-    }
-    return false;
-  }
+//  private static boolean shouldShowLocationAsLabel(
+//      boolean nameIsNumber, boolean shouldShowLocation) {
+//    if (nameIsNumber) {
+//      return true;
+//    }
+//    if (shouldShowLocation) {
+//      return true;
+//    }
+//    return false;
+//  }
 
   private Fragment getLocationFragment() {
     if (!shouldShowLocation()) {

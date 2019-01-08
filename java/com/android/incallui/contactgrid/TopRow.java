@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2016 The Android Open Source Project
+ * Copyright (C) 2018-2019 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -115,21 +116,21 @@ public class TopRow {
   }
 
   private static boolean shouldShowNumber(PrimaryInfo primaryInfo, boolean isIncoming) {
-    if (primaryInfo.nameIsNumber()) {
-      return false;
-    }
-    // Don't show number since it's already shown in bottom row of incoming screen if there is no
-    // location info.
-    if (primaryInfo.location() == null && isIncoming) {
-      return false;
-    }
-    if (primaryInfo.isLocalContact() && !isIncoming) {
-      return false;
-    }
-    if (TextUtils.isEmpty(primaryInfo.number())) {
-      return false;
-    }
-    return true;
+    // if (primaryInfo.nameIsNumber()) {
+    //   return false;
+    // }
+    // // Don't show number since it's already shown in bottom row of incoming screen if there is no
+    // // location info.
+    // if (primaryInfo.location() == null && isIncoming) {
+    //   return false;
+    // }
+    // if (primaryInfo.isLocalContact() && !isIncoming) {
+    //   return false;
+    // }
+    // if (TextUtils.isEmpty(primaryInfo.number())) {
+    //   return false;
+    // }
+    return false;
   }
 
   private static CharSequence getLabelForIncoming(Context context, PrimaryCallState state) {

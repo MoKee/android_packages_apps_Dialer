@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2015 The Android Open Source Project
+ * Copyright (C) 2015-2019 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -72,7 +73,7 @@ public class NumbersAdapter extends SimpleCursorAdapter {
       info = new ContactInfo();
       info.number = number;
     }
-    final CharSequence locationOrType = getNumberTypeOrLocation(info, countryIso);
+    final CharSequence locationOrType = getNumberTypeOrLocation(info);
     final String displayNumber = getDisplayNumber(info);
     final String displayNumberStr =
         bidiFormatter.unicodeWrap(displayNumber, TextDirectionHeuristics.LTR);
@@ -81,7 +82,7 @@ public class NumbersAdapter extends SimpleCursorAdapter {
     if (!TextUtils.isEmpty(info.name)) {
       nameForDefaultImage = info.name;
       callerName.setText(info.name);
-      callerNumber.setText(locationOrType + " " + displayNumberStr);
+      callerNumber.setText(displayNumberStr + " " + locationOrType);
     } else {
       nameForDefaultImage = displayNumber;
       callerName.setText(displayNumberStr);
@@ -121,12 +122,14 @@ public class NumbersAdapter extends SimpleCursorAdapter {
     }
   }
 
-  private CharSequence getNumberTypeOrLocation(ContactInfo info, String countryIso) {
+  private CharSequence getNumberTypeOrLocation(ContactInfo info) {
     if (!TextUtils.isEmpty(info.name)) {
-      return ContactsContract.CommonDataKinds.Phone.getTypeLabel(
+      CharSequence label = ContactsContract.CommonDataKinds.Phone.getTypeLabel(
           context.getResources(), info.type, info.label);
+      String location = PhoneNumberHelper.getLocation(context, info.number);
+      return TextUtils.isEmpty(location) ? label : label + " " + location;
     } else {
-      return PhoneNumberHelper.getGeoDescription(context, info.number, countryIso);
+      return PhoneNumberHelper.getLocation(context, info.number);
     }
   }
 

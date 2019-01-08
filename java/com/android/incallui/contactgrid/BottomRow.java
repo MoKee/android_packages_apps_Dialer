@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2016 The Android Open Source Project
+ * Copyright (C) 2018-2019 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -114,8 +115,12 @@ public class BottomRow {
   }
 
   private static CharSequence getLabelForPhoneNumber(PrimaryInfo primaryInfo) {
-    if (primaryInfo.location() != null) {
-      return primaryInfo.location();
+    if (!TextUtils.isEmpty(primaryInfo.location())) {
+      if (!TextUtils.isEmpty(primaryInfo.label())) {
+        return TextUtils.concat(primaryInfo.label(), " ", primaryInfo.location());
+      } else {
+        return primaryInfo.location();
+      }
     }
     if (!primaryInfo.nameIsNumber() && !TextUtils.isEmpty(primaryInfo.number())) {
       CharSequence spannedNumber = spanDisplayNumber(primaryInfo.number());

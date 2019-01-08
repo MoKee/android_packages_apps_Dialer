@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 The Android Open Source Project
+ * Copyright (C) 2017-2019 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,6 +45,7 @@ import com.android.dialer.dialercontact.DialerContact;
 import com.android.dialer.logging.InteractionEvent;
 import com.android.dialer.logging.Logger;
 import com.android.dialer.util.DialerUtils;
+import com.mokee.cloud.location.OfflineNumber;
 
 /** ViewHolder for Header/Contact in {@link CallDetailsActivity}. */
 public class CallDetailsHeaderViewHolder extends RecyclerView.ViewHolder
@@ -149,6 +151,7 @@ public class CallDetailsHeaderViewHolder extends RecyclerView.ViewHolder
             contact.getContactType());
 
     nameView.setText(contact.getNameOrNumber());
+    String location = OfflineNumber.detect(contact.getNumber(), context);
     if (!TextUtils.isEmpty(contact.getDisplayNumber())) {
       numberView.setVisibility(View.VISIBLE);
       String secondaryInfo =
@@ -158,10 +161,15 @@ public class CallDetailsHeaderViewHolder extends RecyclerView.ViewHolder
                   com.android.contacts.common.R.string.call_subject_type_and_number,
                   contact.getNumberLabel(),
                   contact.getDisplayNumber());
-      numberView.setText(secondaryInfo);
+      numberView.setText(TextUtils.isEmpty(location) ? secondaryInfo : secondaryInfo + " " + location);
     } else {
-      numberView.setVisibility(View.GONE);
-      numberView.setText(null);
+      if (TextUtils.isEmpty(location)) {
+        numberView.setVisibility(View.GONE);
+        numberView.setText(null);
+      } else {
+        numberView.setVisibility(View.VISIBLE);
+        numberView.setText(location);
+      }
     }
 
     if (!TextUtils.isEmpty(contact.getSimDetails().getNetwork())) {

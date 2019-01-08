@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright (C) 2012 The Android Open Source Project
+  ~ Copyright (C) 2015-2019 The MoKee Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -284,6 +285,16 @@
   <style name="PromoLinkStyle">
     <item name="android:textColor">@color/dialer_theme_color</item>
     <item name="android:fontFamily">"sans-serif-medium"</item>
+  </style>
+
+  <style name="MiniMarkActivityStyle" parent="DialtactsThemeWithoutActionBarOverlay">
+    <item name="android:colorPrimaryDark">@android:color/transparent</item>
+    <item name="android:windowBackground">@android:color/transparent</item>
+    <item name="android:windowLightNavigationBar">true</item>
+    <item name="android:navigationBarColor">@color/background_dialer_white</item>
+    <item name="android:navigationBarDividerColor">#E0E0E0</item>
+    <item name="android:windowIsTranslucent">true</item>
+    <item name="android:backgroundDimEnabled">true</item>
   </style>
 
 </resources>

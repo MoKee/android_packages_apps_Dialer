@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2014 The Android Open Source Project
+ * Copyright (C) 2015-2019 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -82,6 +83,7 @@ public class DialpadView extends LinearLayout {
   private final int translateDistance;
 
   private EditText digits;
+  private TextView location;
   private ImageButton delete;
   private View overflowMenuButton;
   private ViewGroup rateContainer;
@@ -134,6 +136,7 @@ public class DialpadView extends LinearLayout {
 
     setupKeypad();
     digits = (EditText) findViewById(R.id.digits);
+    location = (TextView) findViewById(R.id.location);
     delete = (ImageButton) findViewById(R.id.deleteButton);
     overflowMenuButton = findViewById(R.id.dialpad_overflow);
     rateContainer = (ViewGroup) findViewById(R.id.rate_container);
@@ -309,6 +312,10 @@ public class DialpadView extends LinearLayout {
 
   public EditText getDigits() {
     return digits;
+  }
+
+  public TextView getLocation() {
+    return location;
   }
 
   public ImageButton getDeleteButton() {
