@@ -17,6 +17,8 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Saved call recording notification -->
+    <string name="call_recording_notification_with_label_title">Enregistrement d\'appel sauvegardé avec %s</string>
+    <string name="call_recording_notification_with_no_label_title">Enregistrement des appels sauvegardé</string>
     <!-- Automatically call recording -->
     <string name="call_recording_automatically_title">Enregistrement automatique</string>
     <string name="call_recording_automatically_summary">Enregistrement automatiquement après l\'appel</string>
