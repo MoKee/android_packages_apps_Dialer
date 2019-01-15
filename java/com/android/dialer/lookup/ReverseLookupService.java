@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2014 Xiao-Long Chen <chillermillerlong@hotmail.com>
+ * Copyright (C) 2019 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +25,7 @@ import android.os.HandlerThread;
 import android.os.Message;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 
 import com.android.dialer.location.GeoUtil;
 import com.android.dialer.logging.ContactLookupResult;
@@ -66,6 +68,10 @@ public class ReverseLookupService implements PhoneNumberService, Handler.Callbac
         String countryIso = mTelephonyManager.getSimCountryIso().toUpperCase();
         String normalizedNumber = phoneNumber != null
                 ? PhoneNumberUtils.formatNumberToE164(phoneNumber, countryIso) : null;
+        if (TextUtils.isEmpty(normalizedNumber) && countryIso.equals("CN")
+                && phoneNumber.length() >= 5) {
+            normalizedNumber = phoneNumber;
+        }
 
         // Can't do reverse lookup without a number
         if (normalizedNumber == null) {
@@ -202,6 +208,10 @@ public class ReverseLookupService implements PhoneNumberService, Handler.Callbac
         public boolean isBusiness() {
             // FIXME
             return false;
+        }
+        @Override
+        public String getGeoDescription() {
+            return mInfo.geoDescription;
         }
         @Override
         public String getLookupKey() {

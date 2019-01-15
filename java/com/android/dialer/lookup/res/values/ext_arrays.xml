@@ -36,6 +36,7 @@
     <string-array name="reverse_lookup_providers" translatable="false">
         <item>Auskunft</item>
         <item>DasTelefonbuch</item>
+        <item>MoKeeChinese</item>
         <item>OpenCnam</item>
         <item>YellowPages</item>
         <item>YellowPages_CA</item>
@@ -45,6 +46,7 @@
     <string-array name="reverse_lookup_provider_names" translatable="false">
         <item>Auskunft (AT)</item>
         <item>Das Telefonbuch (DE)</item>
+        <item>MoKee Chinese (CN)</item>
         <item>OpenCnam (US)</item>
         <item>YellowPages (US)</item>
         <item>YellowPages (CA)</item>
