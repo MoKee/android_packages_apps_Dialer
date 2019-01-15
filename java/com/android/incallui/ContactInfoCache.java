@@ -923,6 +923,10 @@ public class ContactInfoCache implements OnImageLoadCompleteListener {
         entry.photoType = ContactPhotoType.BUSINESS;
       }
 
+      if (!TextUtils.isEmpty(info.getGeoDescription())) {
+        entry.location = info.getGeoDescription();
+      }
+
       Log.d(TAG, "put entry into map: " + entry);
       infoMap.put(callId, entry);
       sendInfoNotifications(callId, entry);
