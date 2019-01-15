@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2014 Xiao-Long Chen <chillermillerlong@hotmail.com>
+ * Copyright (C) 2019 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +22,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.mokee.utils.MoKeeUtils;
 import android.provider.Settings;
 
 import java.util.List;
@@ -42,10 +44,10 @@ public final class LookupSettings {
   public static final String RLP_YELLOWPAGES = "YellowPages";
   public static final String RLP_YELLOWPAGES_CA = "YellowPages_CA";
   public static final String RLP_ZABASEARCH = "ZabaSearch";
-  public static final String RLP_CYNGN_CHINESE = "CyngnChinese";
+  public static final String RLP_MOKEE_CHINESE = "MoKeeChinese";
   public static final String RLP_DASTELEFONBUCH = "DasTelefonbuch";
   public static final String RLP_AUSKUNFT = "Auskunft";
-  public static final String RLP_DEFAULT = RLP_OPENCNAM;
+  public static final String RLP_DEFAULT = MoKeeUtils.isSupportLanguage(true) ? RLP_MOKEE_CHINESE : RLP_OPENCNAM;
 
   /** Preferences */
   private static final String SHARED_PREFERENCES_NAME = "lookup_settings";
