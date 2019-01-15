@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2014 Xiao-Long Chen <chillermillerlong@hotmail.com>
+ * Copyright (C) 2019 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,6 +65,8 @@ public class ContactBuilder {
   private final String normalizedNumber;
   private final String formattedNumber;
   private Uri photoUri;
+
+  private String geoDescription;
 
   public static ContactBuilder forForwardLookup(String number) {
       return new ContactBuilder(DirectoryId.NEARBY, null, number);
@@ -184,6 +187,18 @@ public class ContactBuilder {
     return this;
   }
 
+  public String getGeoDescription() {
+    return geoDescription;
+  }
+
+  public ContactBuilder setGeoDescription(String geoDescription) {
+    if (DEBUG) Log.d(TAG, "Setting geo description");
+    if (geoDescription != null) {
+      this.geoDescription = geoDescription;
+    }
+    return this;
+  }
+
   public ContactBuilder setPhotoUri(String photoUri) {
     if (photoUri != null) {
       setPhotoUri(Uri.parse(photoUri));
@@ -248,6 +263,7 @@ public class ContactBuilder {
       ContactInfo info = new ContactInfo();
       info.name = name.displayName;
       info.normalizedNumber = normalizedNumber;
+      info.geoDescription = geoDescription;
       info.number = phoneNumbers.get(0).number;
       info.type = phoneNumbers.get(0).type;
       info.label = phoneNumbers.get(0).label;

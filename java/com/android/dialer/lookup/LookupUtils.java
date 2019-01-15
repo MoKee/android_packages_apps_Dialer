@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2014 The CyanogenMod Project
+ * Copyright (C) 2019 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +18,7 @@
 package com.android.dialer.lookup;
 
 import android.text.Html;
+import android.text.TextUtils;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedWriter;
@@ -164,5 +166,9 @@ public class LookupUtils {
       return null;
     }
     return Html.fromHtml(input).toString().trim();
+  }
+
+  public static boolean isChineseCustomerServiceHotline(String normalizedNumber, String phoneNumber, String countryIso) {
+    return TextUtils.isEmpty(normalizedNumber) && countryIso.equals("CN") && phoneNumber.length() >= 5;
   }
 }

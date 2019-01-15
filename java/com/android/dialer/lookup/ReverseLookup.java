@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2014 Xiao-Long Chen <chillermillerlong@hotmail.com>
+ * Copyright (C) 2019 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +21,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.util.Log;
-
+import com.android.dialer.lookup.mokee.MoKeeReverseLookup;
 import com.android.dialer.phonenumbercache.ContactInfo;
 import com.android.dialer.lookup.auskunft.AuskunftReverseLookup;
 import com.android.dialer.lookup.dastelefonbuch.TelefonbuchReverseLookup;
@@ -52,6 +53,8 @@ public abstract class ReverseLookup {
         INSTANCE = new TelefonbuchReverseLookup(context);
       } else if (provider.equals(LookupSettings.RLP_AUSKUNFT)) {
         INSTANCE = new AuskunftReverseLookup(context);
+      } else if (provider.equals(LookupSettings.RLP_MOKEE_CHINESE)) {
+        INSTANCE = new MoKeeReverseLookup(context);
       }
     }
 
@@ -74,6 +77,9 @@ public abstract class ReverseLookup {
       return true;
     } else if (provider.equals(LookupSettings.RLP_AUSKUNFT)
         && INSTANCE instanceof AuskunftReverseLookup) {
+      return true;
+    } else if (provider.equals(LookupSettings.RLP_MOKEE_CHINESE)
+        && INSTANCE instanceof MoKeeReverseLookup) {
       return true;
     } else {
       return false;

@@ -20,6 +20,8 @@
 
   <uses-sdk android:minSdkVersion="23"/>
   <uses-permission android:name="mokee.permission.WRITE_SETTINGS"/>
+  <uses-permission android:name="mokee.permission.READ_PHONE_LOCATION" />
+  <uses-permission android:name="mokee.permission.WRITE_PHONE_LOCATION" />
 
   <application>
     <provider android:name="com.android.dialer.lookup.LookupProvider"
