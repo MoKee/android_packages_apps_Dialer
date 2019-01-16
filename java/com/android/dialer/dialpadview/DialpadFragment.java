@@ -101,7 +101,6 @@ import com.android.dialer.util.ViewUtil;
 import com.android.dialer.widget.FloatingActionButtonController;
 import com.google.common.base.Ascii;
 import com.google.common.base.Optional;
-import com.mokee.cloud.location.OfflineNumber;
 import java.util.HashSet;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -337,7 +336,7 @@ public class DialpadFragment extends Fragment
       String number = digits.getText().toString();
       dialpadQueryListener.onDialpadQueryChanged(number);
       if (number.length() >= 3) {
-        location.setText(OfflineNumber.detect(number, getActivity()));
+        location.setText(PhoneNumberHelper.getLocation(getContext(), number));
       } else {
         location.setText("");
       }

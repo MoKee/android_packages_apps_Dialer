@@ -44,8 +44,8 @@ import com.android.dialer.contactphoto.ContactPhotoManager;
 import com.android.dialer.dialercontact.DialerContact;
 import com.android.dialer.logging.InteractionEvent;
 import com.android.dialer.logging.Logger;
+import com.android.dialer.phonenumberutil.PhoneNumberHelper;
 import com.android.dialer.util.DialerUtils;
-import com.mokee.cloud.location.OfflineNumber;
 
 /** ViewHolder for Header/Contact in {@link CallDetailsActivity}. */
 public class CallDetailsHeaderViewHolder extends RecyclerView.ViewHolder
@@ -151,7 +151,7 @@ public class CallDetailsHeaderViewHolder extends RecyclerView.ViewHolder
             contact.getContactType());
 
     nameView.setText(contact.getNameOrNumber());
-    String location = OfflineNumber.detect(contact.getNumber(), context);
+    String location = PhoneNumberHelper.getLocation(context, contact.getNumber());
     if (!TextUtils.isEmpty(contact.getDisplayNumber())) {
       numberView.setVisibility(View.VISIBLE);
       String secondaryInfo =
@@ -161,7 +161,12 @@ public class CallDetailsHeaderViewHolder extends RecyclerView.ViewHolder
                   com.android.contacts.common.R.string.call_subject_type_and_number,
                   contact.getNumberLabel(),
                   contact.getDisplayNumber());
-      numberView.setText(TextUtils.isEmpty(location) ? secondaryInfo : secondaryInfo + " " + location);
+      // 通话详情
+      if (!TextUtils.isEmpty(location) && !TextUtils.equals(location, contact.getNameOrNumber())) {
+        numberView.setText(secondaryInfo + " " + location);
+      } else {
+        numberView.setText(secondaryInfo);
+      }
     } else {
       if (TextUtils.isEmpty(location)) {
         numberView.setVisibility(View.GONE);

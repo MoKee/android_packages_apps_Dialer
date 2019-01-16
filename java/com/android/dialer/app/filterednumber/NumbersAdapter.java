@@ -127,7 +127,11 @@ public class NumbersAdapter extends SimpleCursorAdapter {
       CharSequence label = ContactsContract.CommonDataKinds.Phone.getTypeLabel(
           context.getResources(), info.type, info.label);
       String location = PhoneNumberHelper.getLocation(context, info.number);
-      return TextUtils.isEmpty(location) ? label : label + " " + location;
+      if (!TextUtils.isEmpty(location) && !TextUtils.equals(info.name, location)) {
+        return label + " " + location;
+      } else {
+        return label;
+      }
     } else {
       return PhoneNumberHelper.getLocation(context, info.number);
     }

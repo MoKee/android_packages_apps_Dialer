@@ -37,8 +37,6 @@ import com.android.dialer.compat.telephony.TelephonyManagerCompat;
 import com.android.dialer.phonenumbergeoutil.PhoneNumberGeoUtilComponent;
 import com.android.dialer.telecom.TelecomUtil;
 import com.google.common.base.Ascii;
-import com.mokee.cloud.location.LocationInfo;
-import com.mokee.cloud.location.LocationUtils;
 import com.mokee.cloud.location.OfflineNumber;
 
 import java.util.Arrays;
@@ -194,13 +192,7 @@ public class PhoneNumberHelper {
     if (TextUtils.isEmpty(number)) {
       return null;
     }
-    LocationInfo locationInfo = LocationUtils.getLocationInfo(context.getContentResolver(),
-            com.mokee.utils.PhoneNumberUtils.formatNumber(number));
-    if (locationInfo != null) {
-      return locationInfo.getLocation();
-    } else {
-      return OfflineNumber.detect(number, context);
-    }
+    return OfflineNumber.detect(number, context);
   }
 
   /**

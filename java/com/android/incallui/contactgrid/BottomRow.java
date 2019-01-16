@@ -115,20 +115,17 @@ public class BottomRow {
   }
 
   private static CharSequence getLabelForPhoneNumber(PrimaryInfo primaryInfo) {
-    if (!TextUtils.isEmpty(primaryInfo.location())) {
-      if (!TextUtils.isEmpty(primaryInfo.label())) {
-        return TextUtils.concat(primaryInfo.label(), " ", primaryInfo.location());
-      } else {
-        return primaryInfo.location();
-      }
-    }
     if (!primaryInfo.nameIsNumber() && !TextUtils.isEmpty(primaryInfo.number())) {
       CharSequence spannedNumber = spanDisplayNumber(primaryInfo.number());
-      if (primaryInfo.label() == null) {
-        return spannedNumber;
+      if (!TextUtils.isEmpty(primaryInfo.location()) && !TextUtils.equals(primaryInfo.name(), primaryInfo.location())) {
+        return TextUtils.concat(spannedNumber, " ", primaryInfo.location());
       } else {
-        return TextUtils.concat(primaryInfo.label(), " ", spannedNumber);
+        return spannedNumber;
       }
+    } else {
+        if (!TextUtils.isEmpty(primaryInfo.location())) {
+            return primaryInfo.location();
+        }
     }
     return null;
   }
