@@ -30,8 +30,6 @@ import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
 import com.google.i18n.phonenumbers.geocoding.PhoneNumberOfflineGeocoder;
-import com.mokee.cloud.location.LocationInfo;
-import com.mokee.cloud.location.LocationUtils;
 import com.mokee.cloud.location.OfflineNumber;
 
 import java.util.Arrays;
@@ -103,13 +101,7 @@ public class PhoneNumberHelper {
     if (TextUtils.isEmpty(number)) {
       return null;
     }
-    LocationInfo locationInfo = LocationUtils.getLocationInfo(context.getContentResolver(),
-            com.mokee.utils.PhoneNumberUtils.formatNumber(number));
-    if (locationInfo != null) {
-      return locationInfo.getLocation();
-    } else {
-      return OfflineNumber.detect(number, context);
-    }
+    return OfflineNumber.detect(number, context);
   }
 
   /**

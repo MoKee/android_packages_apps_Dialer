@@ -219,7 +219,7 @@ public class PhoneCallDetailsHelper {
             mPhoneTypeLabelForTest != null
                 ? mPhoneTypeLabelForTest
                 : Phone.getTypeLabel(mResources, details.numberType, details.numberLabel);
-        if (!TextUtils.isEmpty(details.geocode)) {
+        if (shouldShowLocation(details)) {
             numberFormattedLabel = numberFormattedLabel + ", " + details.geocode;
         }
       }
@@ -236,13 +236,12 @@ public class PhoneCallDetailsHelper {
     if (TextUtils.isEmpty(details.geocode)) {
       return false;
     }
+    if (!TextUtils.isEmpty(details.namePrimary) && TextUtils.equals(details.namePrimary, details.geocode)) {
+      return false;
+    }
     // For caller ID provided by Cequint we want to show the geo location.
     if (details.sourceType == ContactSource.Type.SOURCE_TYPE_CEQUINT_CALLER_ID) {
       return true;
-    }
-    // Don't bother showing geo location for contacts.
-    if (!TextUtils.isEmpty(details.namePrimary)) {
-      return false;
     }
     return true;
   }

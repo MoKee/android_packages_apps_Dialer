@@ -122,22 +122,18 @@ public class BottomRow {
   }
 
   private static CharSequence getLabelForPhoneNumber(PrimaryInfo primaryInfo) {
-    if (!TextUtils.isEmpty(primaryInfo.number)) {
-      if (!primaryInfo.nameIsNumber) {
-        CharSequence spannedNumber = spanDisplayNumber(primaryInfo.number);
-        if (!TextUtils.isEmpty(primaryInfo.location)) {
-          spannedNumber = TextUtils.concat(spannedNumber, " ", primaryInfo.location);
-        }
-        if (primaryInfo.label == null) {
-          return spannedNumber;
-        } else {
-          return TextUtils.concat(primaryInfo.label, " ", spannedNumber);
-        }
-      } else if (!TextUtils.isEmpty(primaryInfo.location)) {
-        return primaryInfo.location;
+    if (!primaryInfo.nameIsNumber && !TextUtils.isEmpty(primaryInfo.number)) {
+      CharSequence spannedNumber = spanDisplayNumber(primaryInfo.number);
+      if (!TextUtils.isEmpty(primaryInfo.location) && !TextUtils.equals(primaryInfo.name, primaryInfo.location)) {
+        return TextUtils.concat(spannedNumber, " ", primaryInfo.location);
+      } else {
+        return spannedNumber;
       }
+    } else {
+        if (!TextUtils.isEmpty(primaryInfo.location)) {
+            return primaryInfo.location;
+        }
     }
-
     return null;
   }
 

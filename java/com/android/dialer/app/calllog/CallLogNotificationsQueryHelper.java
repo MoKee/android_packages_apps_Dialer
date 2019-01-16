@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2013 The Android Open Source Project
+ * Copyright (C) 2019 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,6 +39,7 @@ import com.android.dialer.common.LogUtil;
 import com.android.dialer.location.GeoUtil;
 import com.android.dialer.phonenumbercache.ContactInfo;
 import com.android.dialer.phonenumbercache.ContactInfoHelper;
+import com.android.dialer.phonenumberutil.PhoneNumberHelper;
 import com.android.dialer.util.PermissionsUtil;
 import java.util.ArrayList;
 import java.util.List;
@@ -181,6 +183,7 @@ public class CallLogNotificationsQueryHelper {
     contactInfo.formattedNumber = PhoneNumberUtils.formatNumber(number, countryIso);
     // contactInfo.normalizedNumber is not PhoneNumberUtils.normalizeNumber. Read ContactInfo.
     contactInfo.normalizedNumber = PhoneNumberUtils.formatNumberToE164(number, countryIso);
+    contactInfo.geoDescription = PhoneNumberHelper.getLocation(mContext, number);
 
     // 1. Special number representation.
     contactInfo.name =

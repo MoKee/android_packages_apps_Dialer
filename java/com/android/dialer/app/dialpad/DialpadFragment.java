@@ -91,13 +91,12 @@ import com.android.dialer.location.GeoUtil;
 import com.android.dialer.logging.UiAction;
 import com.android.dialer.oem.MotorolaUtils;
 import com.android.dialer.performancereport.PerformanceReport;
+import com.android.dialer.phonenumberutil.PhoneNumberHelper;
 import com.android.dialer.proguard.UsedByReflection;
 import com.android.dialer.telecom.TelecomUtil;
 import com.android.dialer.util.CallUtil;
 import com.android.dialer.util.DialerUtils;
 import com.android.dialer.util.PermissionsUtil;
-
-import com.mokee.cloud.location.OfflineNumber;
 
 import java.util.HashSet;
 import java.util.List;
@@ -328,7 +327,7 @@ public class DialpadFragment extends Fragment
       String number = mDigits.getText().toString();
       mDialpadQueryListener.onDialpadQueryChanged(number);
       if (number.length() >= 3) {
-        mLocation.setText(OfflineNumber.detect(number, getActivity()));
+        mLocation.setText(PhoneNumberHelper.getLocation(getContext(), number));
       } else {
         mLocation.setText("");
       }

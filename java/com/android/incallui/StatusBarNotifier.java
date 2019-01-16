@@ -587,8 +587,8 @@ public class StatusBarNotifier
               .unicodeWrap(TextUtils.isEmpty(contactInfo.location) ? contactInfo.number
                   : contactInfo.number + " " + contactInfo.location, TextDirectionHeuristics.LTR);
     }
-    return TextUtils.isEmpty(contactInfo.location)
-        ? preferredName : preferredName + " " + contactInfo.location;
+    return !TextUtils.isEmpty(contactInfo.location) && !TextUtils.equals(preferredName, contactInfo.location)
+            ? preferredName + " " + contactInfo.location : preferredName;
   }
 
   private void addPersonReference(
