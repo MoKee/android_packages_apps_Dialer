@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2014 Xiao-Long Chen <chenxiaolong@cxl.epac.to>
+ * Copyright (C) 2019 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -278,7 +279,12 @@ public class LookupCache {
     private static String formatE164(Context context, String number) {
         String countryIso = ((TelephonyManager) context.getSystemService(
                 Context.TELEPHONY_SERVICE)).getSimCountryIso().toUpperCase();
-        return PhoneNumberUtils.formatNumberToE164(number, countryIso);
+        String normalizedNumber = PhoneNumberUtils.formatNumberToE164(number, countryIso);
+        if (normalizedNumber == null
+                && LookupUtils.isChineseCustomerServiceHotline(normalizedNumber, number, countryIso)) {
+            normalizedNumber = number;
+        }
+        return normalizedNumber;
     }
 
     private static File getFilePath(Context context, String normalizedNumber) {
