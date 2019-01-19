@@ -68,8 +68,8 @@ public class ReverseLookupService implements PhoneNumberService, Handler.Callbac
         String countryIso = mTelephonyManager.getSimCountryIso().toUpperCase();
         String normalizedNumber = phoneNumber != null
                 ? PhoneNumberUtils.formatNumberToE164(phoneNumber, countryIso) : null;
-        if (TextUtils.isEmpty(normalizedNumber) && countryIso.equals("CN")
-                && phoneNumber.length() >= 5) {
+        if (normalizedNumber == null
+                && LookupUtils.isChineseCustomerServiceHotline(normalizedNumber, phoneNumber, countryIso)) {
             normalizedNumber = phoneNumber;
         }
 
