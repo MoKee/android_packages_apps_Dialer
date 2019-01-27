@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 The Android Open Source Project
+ * Copyright (C) 2019 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +21,11 @@ import android.content.Context;
 import android.support.annotation.VisibleForTesting;
 import android.support.v4.util.SimpleArrayMap;
 import com.android.dialer.compat.CompatUtils;
+import com.android.dialer.smartdial.util.SmartDialMatchPosition;
+import com.android.dialer.smartdial.util.SmartDialNameMatcher;
 import com.google.common.base.Optional;
+
+import java.util.ArrayList;
 
 /**
  * A utility class that combines the functionality of two implementations of {@link SmartDialMap} so
@@ -45,6 +50,7 @@ public class CompositeSmartDialMap {
     EXTRA_MAPS.put("bul", BulgarianSmartDialMap.getInstance());
     EXTRA_MAPS.put("rus", RussianSmartDialMap.getInstance());
     EXTRA_MAPS.put("ukr", UkrainianSmartDialMap.getInstance());
+    EXTRA_MAPS.put("zho", ChineseSmartDialMap.getInstance());
   }
 
   private CompositeSmartDialMap() {}
@@ -156,10 +162,19 @@ public class CompositeSmartDialMap {
   }
 
   @VisibleForTesting
-  static Optional<SmartDialMap> getExtraMap(Context context) {
+  public static Optional<SmartDialMap> getExtraMap(Context context) {
     String languageCode = CompatUtils.getLocale(context).getISO3Language();
     return EXTRA_MAPS.containsKey(languageCode)
         ? Optional.of(EXTRA_MAPS.get(languageCode))
         : Optional.absent();
+  }
+
+  public static boolean matchesCombination(Context context, SmartDialNameMatcher smartDialNameMatcher, String displayName, String query, ArrayList<SmartDialMatchPosition> matchPositions) {
+    Optional<SmartDialMap> extraMap = getExtraMap(context);
+    if (extraMap.isPresent()) {
+      return extraMap.get().matchesCombination(context, smartDialNameMatcher, displayName, query, matchPositions);
+    } else {
+      return smartDialNameMatcher.matchesCombination(context, displayName, query, matchPositions);
+    }
   }
 }

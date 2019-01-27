@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2013 The Android Open Source Project
+ * Copyright (C) 2019 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,6 +48,8 @@ import com.android.dialer.database.FilteredNumberContract.FilteredNumberColumns;
 import com.android.dialer.smartdial.util.SmartDialNameMatcher;
 import com.android.dialer.smartdial.util.SmartDialPrefix;
 import com.android.dialer.util.PermissionsUtil;
+import com.google.android.collect.Lists;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
@@ -82,7 +85,7 @@ public class DialerDatabaseHelper extends SQLiteOpenHelper {
   static final String DEFAULT_LAST_UPDATED_CONFIG_KEY = "smart_dial_default_last_update_millis";
 
   private static final String DATABASE_VERSION_PROPERTY = "database_version";
-  private static final int MAX_ENTRIES = 20;
+  private static final int MAX_ENTRIES = 40;
 
   private final Context context;
   private boolean isTestInstance = false;
@@ -880,10 +883,18 @@ public class DialerDatabaseHelper extends SQLiteOpenHelper {
   @WorkerThread
   public synchronized ArrayList<ContactNumber> getLooseMatches(
       String query, SmartDialNameMatcher nameMatcher) {
+    if (query.length() == 0) {
+      return Lists.newArrayList();
+    }
     final SQLiteDatabase db = getReadableDatabase();
 
     /** Uses SQL query wildcard '%' to represent prefix matching. */
-    final String looseQuery = query + "%";
+    StringBuilder looseQuery = new StringBuilder(query);
+    for (int i = 0; i < looseQuery.toString().length();) {
+      looseQuery.insert(i, "%");
+      i = i + 2;
+    }
+    looseQuery.append("%");
 
     final ArrayList<ContactNumber> result = new ArrayList<>();
 
