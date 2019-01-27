@@ -77,6 +77,9 @@ LOCAL_FULL_LIBS_MANIFEST_FILES := \
 LOCAL_SRC_FILES := $(call all-java-files-under, $(BASE_DIR))
 LOCAL_SRC_FILES += $(call all-proto-files-under, $(BASE_DIR))
 LOCAL_SRC_FILES += $(call all-Iaidl-files-under, $(BASE_DIR))
+LOCAL_SRC_FILES += ../../providers/ContactsProvider/src/com/android/providers/contacts/NameSplitter.java \
+                   ../../providers/ContactsProvider/src/com/android/providers/contacts/HanziToPinyin.java \
+                   ../../providers/ContactsProvider/src/com/android/providers/contacts/util/NeededForTesting.java
 LOCAL_SRC_FILES := $(filter-out $(EXCLUDE_FILES),$(LOCAL_SRC_FILES))
 
 LOCAL_AIDL_INCLUDES := $(LOCAL_PATH)/java
