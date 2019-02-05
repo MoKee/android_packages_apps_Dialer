@@ -27,7 +27,9 @@
        user if it's OK to send the numbers following the "wait". -->
   <string name="wait_prompt_str">Anfon y tonau canlynol?\n</string>
   <!-- In-call screen: button label on the "wait" prompt dialog in CDMA Mode-->
+  <string name="pause_prompt_yes">Iawn</string>
   <!-- In-call screen: button label on the "wait" prompt dialog in CDMA Mode-->
+  <string name="pause_prompt_no">Na</string>
   <!-- Notification strings -->
   <!-- The "label" of the in-call Notification for a dialing call, used
        as the format string for a Chronometer widget. [CHAR LIMIT=60] -->
@@ -111,6 +113,7 @@
   <!-- Used to inform the user that a call was received via a number other than the primary
       phone number associated with their device. [CHAR LIMIT=16] -->
   <!-- Distance strings for business caller ID context. -->
+  <string name="conference_caller_disconnect_content_description">Gorffen yr Alwad</string>
   <!-- Name for a conference call. Shown in the in call UI and in notifications. -->
   <!-- Name for a generic conference call. Shown in the in call UI. This is used in CDMA where we
        don't know the precise state of participants in the conference.  -->

@@ -25,6 +25,7 @@
        the "wait" character in a phone number to be dialed; this dialog asks the
        user if it's OK to send the numbers following the "wait". -->
   <!-- In-call screen: button label on the "wait" prompt dialog in CDMA Mode-->
+  <string name="pause_prompt_yes">بەڵێ</string>
   <!-- In-call screen: button label on the "wait" prompt dialog in CDMA Mode-->
   <!-- Notification strings -->
   <!-- The "label" of the in-call Notification for a dialing call, used
