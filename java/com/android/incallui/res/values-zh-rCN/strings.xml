@@ -169,4 +169,5 @@
   <string name="video_call_lte_to_wifi_failed_message">系统将使用移动网络继续视频通话。这可能会产生标准数据流量费。</string>
   <string name="video_call_lte_to_wifi_failed_do_not_show">不再显示</string>
   <!-- Text for bubble return-to-call button -->
+  <string name="bubble_return_to_call">返回呼叫</string>
 </resources>

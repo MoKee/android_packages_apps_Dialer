@@ -17,12 +17,17 @@
   -->
 <resources>
   <!-- Toast when the user tried to place a call but has revoked phone permission [CHAR_LIMIT=none]  -->
+  <string name="pre_call_permission_check_no_phone_permission">Nelze uskutečnit hovor bez oprávnění k telefonu</string>
   <!-- Title of the dialog to select which SIM to call with before making a call, if the device has
   multiple SIMs [CHAR LIMIT=40]-->
+  <string name="pre_call_select_phone_account">Zvolte SIM pro toto volání</string>
   <!-- Checkbox label when selecting a SIM when calling a contact, to use the selected SIM for the
    same contact and never ask again [CHAR LIMIT=40]-->
+  <string name="pre_call_select_phone_account_remember">Zapamatovat tuto volbu</string>
   <!-- Hint text under a SIM when selecting SIM to call, indicating the SIM is on the same carrier
    as the outgoing call.[CHAR LIMIT=40]-->
+  <string name="pre_call_select_phone_account_hint_intra_carrier">Používá stejného operátora</string>
   <!-- Hint text under a SIM when selecting SIM to call, indicating user often use the SIM to call
   the contact.[CHAR LIMIT=40]-->
+  <string name="pre_call_select_phone_account_hint_frequent">Naposledy použito</string>
 </resources>

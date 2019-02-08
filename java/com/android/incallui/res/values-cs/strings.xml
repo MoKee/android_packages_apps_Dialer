@@ -57,7 +57,9 @@
   <!-- The "label" of the in-call Notification for an incoming ringing call. [CHAR LIMIT=60] -->
   <string name="notification_incoming_call">Příchozí hovor</string>
   <!-- The "label" of the in-call Notification for an incoming ringing call. [CHAR LIMIT=60] -->
+  <string name="notification_incoming_video_call">Příchozí videohovor</string>
   <!-- The "label" of the in-call Notification for an incoming ringing call on a device with multiple SIMs. [CHAR LIMIT=60] -->
+  <string name="notification_incoming_call_mutli_sim">Příchozí hovor prostřednictvím <xliff:g id="sim_label" example="SIM 1">%1$s</xliff:g></string>
   <!-- The "label" of the in-call Notification for an incoming ringing call. [CHAR LIMIT=50] -->
   <string name="notification_incoming_call_with_photo">Příchozí hovor s fotkou</string>
   <!-- The "label" of the in-call Notification for an incoming ringing call. [CHAR LIMIT=50] -->
@@ -169,4 +171,5 @@
   <string name="video_call_lte_to_wifi_failed_message">Videohovor zůstane na mobilní síti. Za datový přenos mohou být účtovány standardní poplatky.</string>
   <string name="video_call_lte_to_wifi_failed_do_not_show">Tuto zprávu příště nezobrazovat</string>
   <!-- Text for bubble return-to-call button -->
+  <string name="bubble_return_to_call">Zpět k hovoru</string>
 </resources>
