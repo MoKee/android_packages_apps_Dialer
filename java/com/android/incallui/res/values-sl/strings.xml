@@ -57,7 +57,9 @@
   <!-- The "label" of the in-call Notification for an incoming ringing call. [CHAR LIMIT=60] -->
   <string name="notification_incoming_call">Dohodni klic</string>
   <!-- The "label" of the in-call Notification for an incoming ringing call. [CHAR LIMIT=60] -->
+  <string name="notification_incoming_video_call">Dohodni video klic</string>
   <!-- The "label" of the in-call Notification for an incoming ringing call on a device with multiple SIMs. [CHAR LIMIT=60] -->
+  <string name="notification_incoming_call_mutli_sim">Dohodni klic prek <xliff:g id="sim_label" example="SIM 1">%1$s</xliff:g></string>
   <!-- The "label" of the in-call Notification for an incoming ringing call. [CHAR LIMIT=50] -->
   <string name="notification_incoming_call_with_photo">Dohodni klic s fotografijo</string>
   <!-- The "label" of the in-call Notification for an incoming ringing call. [CHAR LIMIT=50] -->
@@ -169,4 +171,5 @@
   <string name="video_call_lte_to_wifi_failed_message">Videoklic bo še naprej potekal v mobilnem omrežju. Morda boste morali plačati standardne stroške prenosa podatkov.</string>
   <string name="video_call_lte_to_wifi_failed_do_not_show">Tega ne kaži več</string>
   <!-- Text for bubble return-to-call button -->
+  <string name="bubble_return_to_call">Nazaj na klic</string>
 </resources>

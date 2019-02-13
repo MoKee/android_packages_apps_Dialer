@@ -169,4 +169,5 @@
   <string name="video_call_lte_to_wifi_failed_message">L\'appel vidéo restera sur le réseau cellulaire. Des frais de données standards peuvent s\'appliquer.</string>
   <string name="video_call_lte_to_wifi_failed_do_not_show">Ne plus afficher</string>
   <!-- Text for bubble return-to-call button -->
+  <string name="bubble_return_to_call">Retour à l\'appel</string>
 </resources>

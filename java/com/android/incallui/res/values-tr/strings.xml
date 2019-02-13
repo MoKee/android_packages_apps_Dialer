@@ -57,7 +57,9 @@
   <!-- The "label" of the in-call Notification for an incoming ringing call. [CHAR LIMIT=60] -->
   <string name="notification_incoming_call">Gelen çağrı</string>
   <!-- The "label" of the in-call Notification for an incoming ringing call. [CHAR LIMIT=60] -->
+  <string name="notification_incoming_video_call">Gelen görüntülü arama</string>
   <!-- The "label" of the in-call Notification for an incoming ringing call on a device with multiple SIMs. [CHAR LIMIT=60] -->
+  <string name="notification_incoming_call_mutli_sim"><xliff:g id="sim_label" example="SIM 1">%1$s</xliff:g> üzerinden gelen arama</string>
   <!-- The "label" of the in-call Notification for an incoming ringing call. [CHAR LIMIT=50] -->
   <string name="notification_incoming_call_with_photo">Fotoğraf eklenmiş gelen çağrı</string>
   <!-- The "label" of the in-call Notification for an incoming ringing call. [CHAR LIMIT=50] -->
@@ -169,4 +171,5 @@
   <string name="video_call_lte_to_wifi_failed_message">Görüntülü görüşme mobil ağda devam edecek. Standart veri ücretleri alınabilir.</string>
   <string name="video_call_lte_to_wifi_failed_do_not_show">Bunu bir daha gösterme</string>
   <!-- Text for bubble return-to-call button -->
+  <string name="bubble_return_to_call">Aramaya geri dön</string>
 </resources>
