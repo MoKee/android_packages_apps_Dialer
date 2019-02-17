@@ -57,7 +57,9 @@
   <!-- The "label" of the in-call Notification for an incoming ringing call. [CHAR LIMIT=60] -->
   <string name="notification_incoming_call">來電</string>
   <!-- The "label" of the in-call Notification for an incoming ringing call. [CHAR LIMIT=60] -->
+  <string name="notification_incoming_video_call">視訊通話來電</string>
   <!-- The "label" of the in-call Notification for an incoming ringing call on a device with multiple SIMs. [CHAR LIMIT=60] -->
+  <string name="notification_incoming_call_mutli_sim">透過 <xliff:g id="sim_label" example="SIM 1">%1$s</xliff:g> 來電</string>
   <!-- The "label" of the in-call Notification for an incoming ringing call. [CHAR LIMIT=50] -->
   <string name="notification_incoming_call_with_photo">包含相片的來電</string>
   <!-- The "label" of the in-call Notification for an incoming ringing call. [CHAR LIMIT=50] -->
@@ -169,4 +171,5 @@
   <string name="video_call_lte_to_wifi_failed_message">視訊通話將繼續透過行動網路進行 (可能需支付一般數據傳輸費用)。</string>
   <string name="video_call_lte_to_wifi_failed_do_not_show">不要再顯示這項說明</string>
   <!-- Text for bubble return-to-call button -->
+  <string name="bubble_return_to_call">回電</string>
 </resources>
