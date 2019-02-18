@@ -18,7 +18,18 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Forward lookup -->
+    <string name="nearby_places">ಹತ್ತಿರದ ಸ್ಥಳಗಳು</string>
     <string name="people">ಜನರು</string>
     <!-- Number lookup -->
+    <string name="lookup_settings_label">ಫೋನ್ ಸಂಖ್ಯೆ ಹುಡುಕು</string>
+    <string name="enable_forward_lookup_title">ಮುಂದೆ ಕಳುಹಿಸಿದದನ್ನು ಹುಡುಕು</string>
+    <string name="enable_forward_lookup_summary">ಡೈಲರ್ ಹುಡುಕುತ್ತಿರುವಾಗ ಹತ್ತಿರದ ಸ್ಥಳಗಳನ್ನು ತೋರಿಸು</string>
+    <string name="enable_people_lookup_title">ಜನರನ್ನು ಹುಡುಕು</string>
+    <string name="enable_people_lookup_summary">ಡೈಲರ್ ಹುಡುಕುತ್ತಿರುವಾಗ ಜನರಿಗಾಗಿ ಆನಲೈನ್ ಫಲಿತಾಂಶಗಳನ್ನು ತೋರಿಸು</string>
+    <string name="enable_reverse_lookup_title">ವಿರುದ್ಧವಾಗಿ ಹುಡುಕು</string>
+    <string name="enable_reverse_lookup_summary">ಅಪರಿಚಿತ ಸಂಖ್ಯೆಗಳೊಂದಿಗೆ ಒಳಬರುತ್ತಿರುವ ಕರೆಗಳ ವ್ಯಕ್ತಿ ಅಥವಾ ಕರೆಗಳ ಕುರಿತು ಮಾಹಿತಿಯನ್ನು ಹುಡುಕು</string>
+    <string name="forward_lookup_provider_title">ಮುಂದೆಕಳುಹಿಸಿದ ಹುಡುಕಾಟ ಸೇವಾದಾರ</string>
+    <string name="people_lookup_provider_title">ಜನರ ಹುಡುಕಾಟ ಸೇವಾದಾರ</string>
+    <string name="reverse_lookup_provider_title">ವಿರುದ್ಧ ಹುಡುಕಾಟ ಸೇವಾದಾರ</string>
     <!-- Disclaimer -->
 </resources>
