@@ -32,4 +32,5 @@
     <string name="people_lookup_provider_title">ಜನರ ಹುಡುಕಾಟ ಸೇವಾದಾರ</string>
     <string name="reverse_lookup_provider_title">ವಿರುದ್ಧ ಹುಡುಕಾಟ ಸೇವಾದಾರ</string>
     <!-- Disclaimer -->
+    <string name="lookup_disclaimer">ಪರಿಚಾರಕ ಮಾಹಿತಿಯನ್ನು ಸಂಗ್ರಹಿಸಲು ದೂರದ ಜಾಲತಾಣಗಳಿಗೆ ಸುರಕ್ಷಿತ ಶಿಷ್ಟಾಚಾರ (https) ಬಳಸಿ ಪ್ರಶ್ನೆಗಳನ್ನು ಕಳುಹಿಸಬಹುದು. ಪರಿಚಾರಕ ಪ್ರಶ್ನೆಯಲ್ಲಿ ಇನ್ನೊಬ್ಬ ವ್ಯಕ್ತಿಯ ದೂರವಾಣಿ ಸಂಖ್ಯೆಯನ್ನೂ ಕಳುಹಿಸಬಹುದು</string>
 </resources>

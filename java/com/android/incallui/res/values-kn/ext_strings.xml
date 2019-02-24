@@ -16,4 +16,12 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2"></resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="call_recording_failed_message">ಕರೆ ದಾಖಲಾತಿ ಪ್ರಾರಂಭ ವಿಫಲವಾಗಿದೆ</string>
+    <string name="call_recording_file_location"><xliff:g id="ದಾಖಲೆ ಹೆಸರು">%s</xliff:g> ಉಳಿಸಿದ ಕರೆ ದಾಖಲಿಸಲಾಗಿದೆ</string>
+    <string name="onscreenCallRecordText">ಕರೆ ದಾಖಲಿಸು</string>
+    <string name="onscreenCallRecordingText">ಕರೆ ದಾಖಲಿಸಲಾಗುತ್ತಿದೆ -<xliff:g id="ಅವಧಿ" ಉದಾಹರಣೆ="00:10">%1$s</xliff:g></string>
+    <string name="onscreenStopCallRecordText">ದಾಖಲಿಸುವುದನ್ನು ನಿಲ್ಲಿಸು</string>
+    <string name="recording_warning_title">ಕರೆ ದಾಖಲೆಯನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಬೇಕೆ?</string>
+    <string name="recording_warning_text">ಸೂಚನೆ: ಕರೆ ಧ್ವನಿಮುದ್ರಣ ಮತ್ತು ಆ ಧ್ವನಿಮುದ್ರಣಗಳ ಬಳಕೆ ಅಥವಾ ವಿತರಣೆಗೆ ಅನ್ವಯಿಸುವ ಯಾವುದೇ ಕಾನೂನು, ಕಾಯಿದೆ ಮತ್ತು ನಿಯಮಗಳ ಅನುಸರಣೆಯ ಜವಾಬ್ದಾರಿ ನಿಮ್ಮದಾಗಿರುತ್ತದೆ.</string>
+</resources>
