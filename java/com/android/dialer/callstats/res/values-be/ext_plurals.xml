@@ -15,4 +15,29 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2"></resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <plurals name="hour">
+        <item quantity="one">1 г.</item>
+        <item quantity="few">%d гадз.</item>
+        <item quantity="many">%d гадз.</item>
+        <item quantity="other">%d гадз.</item>
+    </plurals>
+    <plurals name="minute">
+        <item quantity="one">1 хв.</item>
+        <item quantity="few">%d хв.</item>
+        <item quantity="many">%d хв.</item>
+        <item quantity="other">%d хв.</item>
+    </plurals>
+    <plurals name="second">
+        <item quantity="one">1 сек.</item>
+        <item quantity="few">%d сек.</item>
+        <item quantity="many">%d сек.</item>
+        <item quantity="other">%d сек.</item>
+    </plurals>
+    <plurals name="call">
+        <item quantity="one">1 выклік</item>
+        <item quantity="few">%d выклікі</item>
+        <item quantity="many">%d выклікаў</item>
+        <item quantity="other">%d выклікаў</item>
+    </plurals>
+</resources>

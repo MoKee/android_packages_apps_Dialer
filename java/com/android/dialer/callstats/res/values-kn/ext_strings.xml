@@ -17,5 +17,34 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="call_stats_detail_title">ಸಂಪರ್ಕ ಅಂಕಿಅಂಶ ವಿವರಗಳು</string>
+    <string name="call_stats_incoming">ಒಳಬರುವ:<xliff:g id="value">%s</xliff:g></string>
+    <string name="call_stats_outgoing">ಹೊರಹೋಗುವ:<xliff:g id="value">%s</xliff:g></string>
+    <string name="call_stats_missed">ತಪ್ಪಿದ:<xliff:g id="value">%s</xliff:g></string>
+    <string name="call_stats_blocked">ನಿರ್ಬಂಧಿತ:<xliff:g id="value">%s</xliff:g></string>
+    <string name="call_stats_percent"><xliff:g id="percent">%d</xliff:g>%%</string>
+    <string name="call_stats_header_total">ಒಟ್ಟು:<xliff:g id="call_count">%s</xliff:g>,<xliff:g id="duration">%s</xliff:g></string>
+    <string name="call_stats_header_total_callsonly">ಒಟ್ಟು:<xliff:g id="call_count">%s</xliff:g></string>
+    <string name="call_stats_filter_from">ಆರಂಭಿಕ ದಿನಾಂಕ </string>
+    <string name="call_stats_filter_to">ಮುಕ್ತಾಯ ದಿನಾಂಕ</string>
+    <string name="call_stats_filter_picker_title">ಶೋಧಕ ಕ್ರಮ</string>
+    <string name="date_quick_selection">ಶೀಘ್ರ ಆಯ್ಕೆ</string>
+    <string name="date_qs_currentmonth">ಪ್ರಸ್ತುತ ತಿಂಗಳು</string>
+    <string name="date_qs_currentquarter">ಪ್ರಸ್ತುತ ಕಾಲುಭಾಗ</string>
+    <string name="date_qs_currentyear">ಪ್ರಸ್ತುತ ವರ್ಷ</string>
+    <string name="date_qs_lastweek">ಕೊನೆಯ ವಾರ</string>
+    <string name="date_qs_lastmonth">ಕೊನೆಯ ತಿಂಗಳು</string>
+    <string name="date_qs_lastquarter">ಕೊನೆಯ ಕಾಲುದಿನಗಳು</string>
+    <string name="date_qs_lastyear">ಕೊನೆಯ ವರ್ಷ</string>
+    <string name="call_stats_date_filter">ಸಮಯ ಕ್ರಮ ಹೊಂದಿಸು</string>
+    <string name="call_stats_reset_filter">ಸಮಯ ಕ್ರಮ ಮರುಹೊಂದಿಸು</string>
+    <string name="call_stats_sort_by_duration">ಕರೆ ಅವಧಿಯ ಮೇಲೆ ವಿಂಗಡಿಸು</string>
+    <string name="call_stats_sort_by_count">ಕರೆ ಎಣಿಕೆ ಮೇಲೆ ವಿಂಗಡಿಸು</string>
+    <string name="call_stats_title_for_number">ಈ ಸಂಖ್ಯೆ</string>
+    <string name="call_stats_title_of_total">ಒಟ್ಟಿನಲ್ಲಿಯ</string>
+    <string name="call_stats_title_durations">ಕರೆ ಅವಧಿಗಳು</string>
+    <string name="call_stats_title_count">ಕರೆ ಎಣಿಕೆ</string>
+    <string name="call_stats_title_average_duration">ಸರಾಸರಿ ಕರೆ ಅವಧಿ</string>
     <!-- Text displayed when there are no call log entries in the selected time range. -->
+    <string name="recent_calls_no_items_in_range">ಆಯ್ಕೆಮಾಡಿದ ಸಮಯದ ಕ್ರಮದಲ್ಲಿ ನಿಮ್ಮ ಕರೆ ಲಾಗ್ ಯಾವುದೇ ಕರೆಗಳನ್ನು ಹೊಂದಿಲ್ಲ.</string>
 </resources>

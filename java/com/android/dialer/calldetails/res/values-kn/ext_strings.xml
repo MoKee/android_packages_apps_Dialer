@@ -15,4 +15,10 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2"></resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <plurals name="play_recordings">
+        <item quantity="one">ರೆಕಾರ್ಡಿಂಗ್ ಚಲಾಯಿಸು</item>
+        <item quantity="other">ರೆಕಾರ್ಡಿಂಗ್ ಚಲಾಯಿಸು</item>
+    </plurals>
+    <string name="call_playback_no_app_found_toast">ಆಯ್ಕೆಮಾಡಿದ ರೆಕಾರ್ಡಿಂಗ್ ಹಿನ್ನೆಲೆಯಲ್ಲಿ ಚಲಾಯಿಸಲು ಯಾವುದೇ ತಂತ್ರಾಂಶಗಳು ಕಂಡುಬಂದಿಲ್ಲ.</string>
+</resources>
