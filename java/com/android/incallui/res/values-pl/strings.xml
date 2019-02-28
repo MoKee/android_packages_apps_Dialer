@@ -57,7 +57,9 @@
   <!-- The "label" of the in-call Notification for an incoming ringing call. [CHAR LIMIT=60] -->
   <string name="notification_incoming_call">Połączenie</string>
   <!-- The "label" of the in-call Notification for an incoming ringing call. [CHAR LIMIT=60] -->
+  <string name="notification_incoming_video_call">Przychodząca rozmowa wideo</string>
   <!-- The "label" of the in-call Notification for an incoming ringing call on a device with multiple SIMs. [CHAR LIMIT=60] -->
+  <string name="notification_incoming_call_mutli_sim">Połączenie przychodzące dla <xliff:g id="sim_label" example="SIM 1">%1$s</xliff:g></string>
   <!-- The "label" of the in-call Notification for an incoming ringing call. [CHAR LIMIT=50] -->
   <string name="notification_incoming_call_with_photo">Połączenie przychodzące ze zdjęciem</string>
   <!-- The "label" of the in-call Notification for an incoming ringing call. [CHAR LIMIT=50] -->
@@ -169,4 +171,5 @@
   <string name="video_call_lte_to_wifi_failed_message">Rozmowa wideo będzie nadal prowadzona przez sieć komórkową. Za transfer danych może zostać pobrana opłata.</string>
   <string name="video_call_lte_to_wifi_failed_do_not_show">Nie pokazuj ponownie tego komunikatu</string>
   <!-- Text for bubble return-to-call button -->
+  <string name="bubble_return_to_call">Powrót do połączenia</string>
 </resources>
