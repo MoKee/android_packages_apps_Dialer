@@ -17,9 +17,8 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- In-call screen: call failure reason (call denied because call barring is ON on MT side ) -->
-    <!-- In-call screen: status label for an incoming call that is not answered and forwarded  -->
-    <!-- In-call screen: status label for a call in the "dialing" state that's waiting for the busy remote side -->
-    <!-- In-call screen: status label for an outgoing call that's routed via a specific
-         provider (e.g. MSIM) and is waiting for the busy remote side -->
+    <string name="callFailed_incoming_cb_enabled">Hartzaileak dei guztiak jasotzea trabatu du.</string>
+    <string name="callUnanswered_forwarded">Deia ez da erantzun eta birbidali da</string>
+    <string name="incall_connecting_waiting">Deitzen (itxaroten\u2026)</string>
+    <string name="incall_calling_via_waiting_template"><xliff:g id="provider_name">%s</xliff:g> bidez deitzen (Itxaroten\u2026)</string>
 </resources>
