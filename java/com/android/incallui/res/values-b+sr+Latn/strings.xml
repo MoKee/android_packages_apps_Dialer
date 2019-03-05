@@ -14,9 +14,7 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License
    -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="phoneAppLabel" product="default" msgid="4266606423746318128">"Telefon"</string>
     <string name="wait_prompt_str" msgid="3509685348904329594">"Želite li da pošaljete sledeće tonove?\n"</string>
     <string name="pause_prompt_yes" msgid="4642047011233552973">"Da"</string>

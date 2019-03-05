@@ -16,160 +16,66 @@
   ~ limitations under the License
   -->
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- Official label of the phone app, as seen in "Manage Applications"
-       and other settings UIs. -->
   <string name="phoneAppLabel" product="default">Телефон</string>
-  <!-- MMI dialog strings -->
-  <!-- Dialog label when an MMI code starts running -->
-  <!-- post dial -->
-  <!-- In-call screen: body text of the dialog that appears when we encounter
-       the "wait" character in a phone number to be dialed; this dialog asks the
-       user if it's OK to send the numbers following the "wait". -->
   <string name="wait_prompt_str">Отправить следующие тоны?\n</string>
-  <!-- In-call screen: button label on the "wait" prompt dialog in CDMA Mode-->
   <string name="pause_prompt_yes">Да</string>
-  <!-- In-call screen: button label on the "wait" prompt dialog in CDMA Mode-->
   <string name="pause_prompt_no">Нет</string>
-  <!-- Notification strings -->
-  <!-- The "label" of the in-call Notification for a dialing call, used
-       as the format string for a Chronometer widget. [CHAR LIMIT=60] -->
   <string name="notification_dialing">Набор номера…</string>
-  <!-- The "label" of the in-call Notification for an ongoing call. [CHAR LIMIT=60] -->
   <string name="notification_ongoing_call">Текущий вызов</string>
-  <!-- The "label" of the in-call Notification for an ongoing video call. [CHAR LIMIT=60] -->
   <string name="notification_ongoing_video_call">Текущий видеовызов</string>
-  <!-- The "label" of the in-call Notification for an ongoing paused video call. [CHAR LIMIT=60] -->
   <string name="notification_ongoing_paused_video_call">Текущий видеовызов – собеседник временно выключил камеру</string>
-  <!-- The "label" of the in-call Notification for an ongoing work call. [CHAR LIMIT=60] -->
   <string name="notification_ongoing_work_call">Текущий звонок (работа)</string>
-  <!-- Template for the label on the in-call Notification for an ongoing call, which is being made
-      over Wi-Fi. The format argument is @string/notification_call_wifi_brand [CHAR LIMIT=20]-->
   <string name="notification_ongoing_call_wifi_template">Текущий <xliff:g id="BRAND_NAME">%1$s</xliff:g></string>
-  <!-- Template for the label of the in-call Notification for an incoming call, which is being made
-      over Wi-Fi. The format argument is @string/notification_call_wifi_brand [CHAR LIMIT=20] -->
   <string name="notification_incoming_call_wifi_template">Входящий <xliff:g id="BRAND_NAME">%1$s</xliff:g></string>
-  <!-- "Brand name" for WiFi calls. Will be overridden for specific mcc-mnc combinations [CHAR LIMIT=40]-->
   <string name="notification_call_wifi_brand">звонок по Wi‑Fi</string>
-  <!-- "Brand name" for WiFi work calls. Will be overridden for specific mcc-mnc combinations [CHAR LIMIT=40] -->
   <string name="notification_call_wifi_work_brand">звонок по Wi‑Fi (работа)</string>
-  <!-- The "label" of the in-call Notification for a call that's on hold -->
   <string name="notification_on_hold">Ждет ответа</string>
-  <!-- The "label" of the in-call Notification for an incoming ringing call. [CHAR LIMIT=60] -->
   <string name="notification_incoming_call">Входящий вызов</string>
-  <!-- The "label" of the in-call Notification for an incoming ringing call. [CHAR LIMIT=60] -->
   <string name="notification_incoming_video_call">Входящий видеозвонок</string>
-  <!-- The "label" of the in-call Notification for an incoming ringing call on a device with multiple SIMs. [CHAR LIMIT=60] -->
   <string name="notification_incoming_call_mutli_sim">Входящий звонок на <xliff:g id="sim_label" example="SIM 1">%1$s</xliff:g></string>
-  <!-- The "label" of the in-call Notification for an incoming ringing call. [CHAR LIMIT=50] -->
   <string name="notification_incoming_call_with_photo">Входящий вызов с фотографией</string>
-  <!-- The "label" of the in-call Notification for an incoming ringing call. [CHAR LIMIT=50] -->
   <string name="notification_incoming_call_with_message">Входящий вызов с сообщением</string>
-  <!-- The "label" of the in-call Notification for an incoming ringing call. [CHAR LIMIT=50] -->
   <string name="notification_incoming_call_with_location">Входящий вызов с геоданными</string>
-  <!-- The "label" of the in-call Notification for an incoming ringing call. [CHAR LIMIT=50] If can't meet limit, remove "Incoming". If still can't meet, replace with "Incoming call with attachments." -->
   <string name="notification_incoming_call_with_photo_message">Входящий вызов с фотографией и сообщением</string>
-  <!-- The "label" of the in-call Notification for an incoming ringing call. [CHAR LIMIT=50] If can't meet limit, remove "Incoming". If still can't meet, replace with "Incoming call with attachments." -->
   <string name="notification_incoming_call_with_photo_location">Входящий вызов с фотографией и геоданными</string>
-  <!-- The "label" of the in-call Notification for an incoming ringing call. [CHAR LIMIT=50] If can't meet limit, remove "Incoming". If still can't meet, replace with "Incoming call with attachments." -->
   <string name="notification_incoming_call_with_message_location">Входящий вызов с сообщением и геоданными</string>
-  <!-- The "label" of the in-call Notification for an incoming ringing call. [CHAR LIMIT=50] If can't meet limit, remove "Incoming". If still can't meet, replace with "Incoming call with attachments." -->
   <string name="notification_incoming_call_with_photo_message_location">Входящий вызов с фото, сообщением и геоданными</string>
-  <!-- The "label" of the in-call Notification for an incoming ringing call. [CHAR LIMIT=50] -->
   <string name="notification_incoming_call_attachments">Входящий вызов с прикрепленными файлами</string>
-  <!-- The "label" of the in-call Notification for an incoming ringing call. [CHAR LIMIT=50] -->
   <string name="important_notification_incoming_call">Важный входящий вызов</string>
-  <!-- The "label" of the in-call Notification for an incoming ringing call. [CHAR LIMIT=50] If can't meet limit, remove "Incoming". -->
   <string name="important_notification_incoming_call_with_photo">Важный входящий вызов с фотографией</string>
-  <!-- The "label" of the in-call Notification for an incoming ringing call. [CHAR LIMIT=50] If can't meet limit, remove "Incoming". -->
   <string name="important_notification_incoming_call_with_message">Важный входящий вызов с сообщением</string>
-  <!-- The "label" of the in-call Notification for an incoming ringing call. [CHAR LIMIT=50] If can't meet limit, remove "Incoming". -->
   <string name="important_notification_incoming_call_with_location">Важный входящий вызов с геоданными</string>
-  <!-- The "label" of the in-call Notification for an incoming ringing call. [CHAR LIMIT=50] If can't meet limit, remove "Incoming". If still can't meet, replace with "Incoming call with attachments." -->
   <string name="important_notification_incoming_call_with_photo_message">Важный входящий вызов с фотографией и сообщением</string>
-  <!-- The "label" of the in-call Notification for an incoming ringing call. [CHAR LIMIT=50] If can't meet limit, remove "Incoming". If still can't meet, replace with "Incoming call with attachments." -->
   <string name="important_notification_incoming_call_with_photo_location">Важный входящий вызов с фотографией и геоданными</string>
-  <!-- The "label" of the in-call Notification for an incoming ringing call. [CHAR LIMIT=50] If can't meet limit, remove "Incoming". If still can't meet, replace with "Incoming call with attachments." -->
   <string name="important_notification_incoming_call_with_message_location">Важный входящий вызов с сообщением и геоданными</string>
-  <!-- The "label" of the in-call Notification for an incoming ringing call. [CHAR LIMIT=50] If can't meet limit, remove "Incoming". If still can't meet, replace with "Incoming call with attachments." -->
   <string name="important_notification_incoming_call_with_photo_message_location">Важный вызов с фото, сообщением и геоданными</string>
-  <!-- The "label" of the in-call Notification for an incoming ringing call. [CHAR LIMIT=50] If can't meet limit, remove "Incoming". -->
   <string name="important_notification_incoming_call_attachments">Важный входящий вызов с прикрепленными файлами</string>
-  <!-- The "label" of the in-call Notification for an incoming ringing call. [CHAR LIMIT=60] -->
   <string name="notification_incoming_work_call">Входящий звонок (работа)</string>
-  <!-- The "label" of the in-call Notification for an incoming ringing spam call. -->
   <string name="notification_incoming_spam_call">Входящий вызов: подозрение на спам</string>
-  <!-- The "label" of the in-call Notification for upgrading an existing call to a video call. -->
   <string name="notification_requesting_video_call">Входящий видеовызов</string>
-  <!-- Label for the "Answer call" action. This is the displayed label for the action that answers
-       an incoming call. [CHAR LIMIT=12] -->
   <string name="notification_action_answer">Ответить</string>
-  <!-- Label for "end call" Action.
-       It is displayed in the "Ongoing call" notification, which is shown
-       when the user is outside the in-call screen while the phone call is still
-       active. [CHAR LIMIT=12] -->
   <string name="notification_action_end_call">Завершить разговор</string>
-  <!-- Label for "Video Call" notification action. This is a displayed on the notification for an
-       incoming video call, and answers the call as a video call. [CHAR LIMIT=12] -->
   <string name="notification_action_answer_video">Видео</string>
-  <!-- Label for "Accept" notification action. This is somewhat generic, and may refer to
-       scenarios such as accepting an incoming call or accepting a video call request.
-       [CHAR LIMIT=12] -->
   <string name="notification_action_accept">Принять</string>
-  <!-- Label for "Dismiss" notification action. This is somewhat generic, and may refer to
-       scenarios such as declining an incoming call or declining a video call request.
-       [CHAR LIMIT=12] -->
   <string name="notification_action_dismiss">Отклонить</string>
   <string name="notification_action_speaker_on">Включить динамик</string>
   <string name="notification_action_speaker_off">Выключить динамик</string>
-  <!-- The "label" of the in-call Notification for an ongoing external call.
-       External calls are a representation of a call which is in progress on the user's other
-       device (e.g. another phone or a watch).
-       [CHAR LIMIT=60] -->
   <string name="notification_external_call">Вы участвуете в разговоре на другом устройстве</string>
-  <!-- The "label" of the in-call Notification for an ongoing external video call.
-       External calls are a representation of a call which is in progress on the user's other
-       device (e.g. another phone or a watch).
-       [CHAR LIMIT=60] -->
   <string name="notification_external_video_call">Вы участвуете в видеовстрече на другом устройстве</string>
-  <!-- Notification action displayed for external call notifications.  External calls are a
-       representation of a call which is in progress on the user's other device (e.g. another
-       phone or a watch).  The "take call" action initiates the process of pulling an external
-       call to the current device.
-       [CHAR LIMIT=30] -->
   <string name="notification_take_call">Продолжить на этом устройстве</string>
-  <!-- Notification action displayed for external call notifications.  External calls are a
-       representation of a call which is in progress on the user's other device (e.g. another
-       phone or a watch).  The "take video call" action initiates the process of pulling an external
-       video call to the current device.
-       [CHAR LIMIT=30] -->
   <string name="notification_take_video_call">Продолжить на этом устройстве</string>
-  <!-- In-call screen: message displayed in an error dialog -->
   <string name="incall_error_supp_service_unknown">Сервис не поддерживается.</string>
-  <!-- For incoming calls, this is a string we can get from a CDMA network instead of
-       the actual phone number, to indicate there's no number present.  DO NOT TRANSLATE. -->
-  <!-- Use this to describe the separate conference call button; currently for screen readers through accessibility. -->
   <string name="goPrivate">приватная конференция</string>
-  <!-- Label for "Manage conference call" panel [CHAR LIMIT=40] -->
   <string name="manageConferenceLabel" tools:ignore="UnusedResources">Настройка конференц-связи</string>
-  <!-- This can be used in any application wanting to disable the text "Emergency number" -->
   <string name="emergency_call_dialog_number_for_display">Экстренная служба</string>
-  <!-- Used to inform the user that a call was received via a number other than the primary
-      phone number associated with their device. [CHAR LIMIT=16] -->
   <string name="child_number">через <xliff:g id="CHILD_NUMBER">%s</xliff:g></string>
-  <!-- Distance strings for business caller ID context. -->
   <string name="callFailed_simError">Ошибка SIM-карты или SIM-карта не установлена</string>
   <string name="conference_caller_disconnect_content_description">Завершить вызов</string>
-  <!-- Name for a conference call. Shown in the in call UI and in notifications. -->
   <string name="conference_call_name">Конференц-вызов</string>
-  <!-- Name for a generic conference call. Shown in the in call UI. This is used in CDMA where we
-       don't know the precise state of participants in the conference.  -->
   <string name="generic_conference_call_name">Вызов</string>
-  <!-- Displayed when handover from WiFi to Lte occurs during a video call -->
   <string name="video_call_wifi_to_lte_handover_toast">Переключение на мобильный Интернет…</string>
-  <!-- Displayed when WiFi handover from LTE fails during a video call. -->
   <string name="video_call_lte_to_wifi_failed_title">Не удалось переключиться на сеть Wi-Fi</string>
   <string name="video_call_lte_to_wifi_failed_message">Видеовызов будет выполняться по мобильной сети. Может взиматься стандартная плата за передачу данных.</string>
   <string name="video_call_lte_to_wifi_failed_do_not_show">Больше не показывать</string>
-  <!-- Text for bubble return-to-call button -->
   <string name="bubble_return_to_call">Вернуться к звонку</string>
 </resources>
