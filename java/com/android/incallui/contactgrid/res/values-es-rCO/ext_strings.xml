@@ -17,12 +17,7 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- In-call screen: call failure reason (call denied because call barring is ON on MT side ) -->
     <string name="callFailed_incoming_cb_enabled">Se han bloqueado todas las llamadas entrantes.</string>
-    <!-- In-call screen: status label for an incoming call that is not answered and forwarded  -->
-    <!-- In-call screen: status label for a call in the "dialing" state that's waiting for the busy remote side -->
     <string name="incall_connecting_waiting">Llamando (esperando\u2026)</string>
-    <!-- In-call screen: status label for an outgoing call that's routed via a specific
-         provider (e.g. MSIM) and is waiting for the busy remote side -->
     <string name="incall_calling_via_waiting_template">Llamando vía <xliff:g id="provider_name">%s</xliff:g> (esperando\u2026)</string>
 </resources>

@@ -18,7 +18,7 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="callFailed_incoming_cb_enabled">Il corrispondente ha bloccato tutte le chiamate in arrivo.</string>
-    <string name="callUnanswered_forwarded">Chiamata non risposta e inoltrata</string>
+    <string name="callUnanswered_forwarded">Chiamata senza risposta e inoltrata</string>
     <string name="incall_connecting_waiting">Chiamando (attendendo\u2026)</string>
     <string name="incall_calling_via_waiting_template">Chiamata con<xliff:g id="provider_name">%s</xliff:g> (attendendo\u2026)</string>
 </resources>

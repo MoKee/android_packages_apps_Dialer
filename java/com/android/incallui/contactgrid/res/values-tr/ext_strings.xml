@@ -17,8 +17,8 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="callFailed_incoming_cb_enabled">Abone bütün gelen aramaları engelledi.</string>
-    <string name="callUnanswered_forwarded">Arama cevaplanmadı ve yönlendirildi</string>
-    <string name="incall_connecting_waiting">Aranıyor (bekleniyor\u2026)</string>
-    <string name="incall_calling_via_waiting_template"><xliff:g id="provider_name">%s</xliff:g> üzerinden aranıyor (bekleniyor\u2026)</string>
+    <string name="callFailed_incoming_cb_enabled">Bütün grup aramaları engellendi.</string>
+    <string name="callUnanswered_forwarded">Çağrı cevaplanmayıp yönlendirildi</string>
+    <string name="incall_connecting_waiting">Arama (bekleniyor\u2026)</string>
+    <string name="incall_calling_via_waiting_template"><xliff:g id="provider_name">%s</xliff:g> ile aranıyor (bekleniyor\u2026)</string>
 </resources>

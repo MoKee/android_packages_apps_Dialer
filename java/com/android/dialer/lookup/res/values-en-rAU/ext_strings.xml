@@ -17,9 +17,6 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Forward lookup -->
-    <!-- Number lookup -->
     <string name="enable_forward_lookup_summary">Show nearby places when searching in the dialler</string>
     <string name="enable_people_lookup_summary">Show online results for people when searching in the dialler</string>
-    <!-- Disclaimer -->
 </resources>

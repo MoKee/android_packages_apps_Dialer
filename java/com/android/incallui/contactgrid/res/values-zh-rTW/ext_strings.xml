@@ -19,6 +19,6 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="callFailed_incoming_cb_enabled">對方已拒接所有來電。</string>
     <string name="callUnanswered_forwarded">來電未接聽並已轉接</string>
-    <string name="incall_connecting_waiting">正在撥號 (等待中\u2026)</string>
+    <string name="incall_connecting_waiting">正在撥號 (等待中\ u2026)</string>
     <string name="incall_calling_via_waiting_template">經由 <xliff:g id="provider_name">%s</xliff:g> 撥打 (等待中\u2026)</string>
 </resources>

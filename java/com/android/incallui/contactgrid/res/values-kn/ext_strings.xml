@@ -17,13 +17,8 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- In-call screen: call failure reason (call denied because call barring is ON on MT side ) -->
     <string name="callFailed_incoming_cb_enabled">ಪಕ್ಷವು ಎಲ್ಲ ಒಳಬರುವ ಕರೆಗಳನ್ನು ನಿರ್ಬಂಧಿಸಿದೆ.</string>
-    <!-- In-call screen: status label for an incoming call that is not answered and forwarded  -->
     <string name="callUnanswered_forwarded">ಕರೆ ಉತ್ತರಿಸಲಾಗಲಿಲ್ಲ ಮತ್ತು ಮುಂದೆ ಕಳುಹಿಸಲಾಗಿದೆ</string>
-    <!-- In-call screen: status label for a call in the "dialing" state that's waiting for the busy remote side -->
     <string name="incall_connecting_waiting">ಕರೆ ಮಾಡಲಾಗುತ್ತಿದೆ (ಕಾಯಲಾಗುತ್ತಿದೆ\u2026)</string>
-    <!-- In-call screen: status label for an outgoing call that's routed via a specific
-         provider (e.g. MSIM) and is waiting for the busy remote side -->
     <string name="incall_calling_via_waiting_template">ಮೂಲಕ ಕರೆ ಮಾಡಲಾಗುತ್ತಿದೆ <xliff:g id="provider_name">%s</xliff:g>(ನಿರೀಕ್ಷಿಸಲಾಗುತ್ತಿದೆ\u2026)</string>
 </resources>
