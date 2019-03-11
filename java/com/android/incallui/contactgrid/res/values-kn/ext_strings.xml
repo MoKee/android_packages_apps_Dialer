@@ -17,8 +17,8 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="callFailed_incoming_cb_enabled">ಪಕ್ಷವು ಎಲ್ಲ ಒಳಬರುವ ಕರೆಗಳನ್ನು ನಿರ್ಬಂಧಿಸಿದೆ.</string>
-    <string name="callUnanswered_forwarded">ಕರೆ ಉತ್ತರಿಸಲಾಗಲಿಲ್ಲ ಮತ್ತು ಮುಂದೆ ಕಳುಹಿಸಲಾಗಿದೆ</string>
-    <string name="incall_connecting_waiting">ಕರೆ ಮಾಡಲಾಗುತ್ತಿದೆ (ಕಾಯಲಾಗುತ್ತಿದೆ\u2026)</string>
-    <string name="incall_calling_via_waiting_template">ಮೂಲಕ ಕರೆ ಮಾಡಲಾಗುತ್ತಿದೆ <xliff:g id="provider_name">%s</xliff:g>(ನಿರೀಕ್ಷಿಸಲಾಗುತ್ತಿದೆ\u2026)</string>
+    <string name="callFailed_incoming_cb_enabled">ವ್ಯಕ್ತಿಯು ಎಲ್ಲಾ ಆಗಮಿತ ಕರೆಗಳನ್ನು ನಿಷೇಧಿಸಿದ್ದಾರೆ.</string>
+    <string name="callUnanswered_forwarded">ಕರೆ ಉತ್ತರಿಸದೆ ರವಾನಿಸಲಾಗಿದೆ</string>
+    <string name="incall_connecting_waiting">ಕರೆ (ಕಾಯುತ್ತಿದೆ\u2026)</string>
+    <string name="incall_calling_via_waiting_template"><xliff:g id="provider_name">%s</xliff:g> ಮೂಲಕ ಕರೆ (ಕಾಯುತ್ತಿದೆ\u2026)</string>
 </resources>
