@@ -19,15 +19,15 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="nearby_places">Közeli helyek</string>
     <string name="people">Személyek</string>
-    <string name="lookup_settings_label">Telefonszám lekérdezés</string>
-    <string name="enable_forward_lookup_title">Címkeresés</string>
+    <string name="lookup_settings_label">Telefonszám-lekérdezés</string>
+    <string name="enable_forward_lookup_title">Címlekérdezés</string>
     <string name="enable_forward_lookup_summary">Közeli helyek megjelenítése a tárcsázóban történő kereséskor</string>
-    <string name="enable_people_lookup_title">Személy lekérdezés</string>
+    <string name="enable_people_lookup_title">Személy-lekérdezés</string>
     <string name="enable_people_lookup_summary">Mutassa az online elérhető személyeket a tárcsázóban történő kereséskor</string>
-    <string name="enable_reverse_lookup_title">Névkeresés</string>
+    <string name="enable_reverse_lookup_title">Fordított-lekérdezés</string>
     <string name="enable_reverse_lookup_summary">Információ kikeresése személyekről vagy helyekről ismeretlen számról érkező bejövő hívásoknál</string>
-    <string name="forward_lookup_provider_title">Címkeresési szolgáltató</string>
-    <string name="people_lookup_provider_title">Személykeresési szolgáltató</string>
-    <string name="reverse_lookup_provider_title">Névkeresési szolgáltató</string>
-    <string name="lookup_disclaimer">A kikeresések lekérdezhetnek egy biztonságos (https) protokollon keresztül távoli webhelyeket az információk összegyűjtésének érdekében. A tudakozódás tartalmazhatja a másik fél telefonszámát vagy lekérdezési keresőkifejezést</string>
+    <string name="forward_lookup_provider_title">Címlekérdezési szolgáltató</string>
+    <string name="people_lookup_provider_title">Személy-lekérdezési szolgáltató</string>
+    <string name="reverse_lookup_provider_title">Fordított-lekérdezési szolgáltató</string>
+    <string name="lookup_disclaimer">A lekérdezések lekérdezhetnek egy biztonságos (https) protokollon keresztül távoli webhelyeket az információk összegyűjtésének érdekében. A tudakozódás tartalmazhatja a másik fél telefonszámát vagy keresési lekérdezést</string>
 </resources>
