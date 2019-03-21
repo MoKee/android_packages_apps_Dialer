@@ -66,10 +66,10 @@
   <string name="notification_take_video_call">Videohívás fogadása</string>
   <string name="incall_error_supp_service_unknown">A szolgáltatás nem támogatott.</string>
   <string name="goPrivate">magánbeszélgetés</string>
-  <string name="manageConferenceLabel" tools:ignore="UnusedResources">Konferenciahívás kezelése</string>
+  <string name="manageConferenceLabel" tools:ignore="UnusedResources">Konferenciahívás-kezelés</string>
   <string name="emergency_call_dialog_number_for_display">Segélyhívó szám</string>
   <string name="child_number">a következő számon keresztül: <xliff:g id="CHILD_NUMBER">%s</xliff:g></string>
-  <string name="callFailed_simError">Hiányzó vagy hibás SIM kártya</string>
+  <string name="callFailed_simError">Hiányzó vagy hibás SIM-kártya</string>
   <string name="conference_caller_disconnect_content_description">Hívás befejezése</string>
   <string name="conference_call_name">Konferenciahívás</string>
   <string name="generic_conference_call_name">Hívásban</string>
