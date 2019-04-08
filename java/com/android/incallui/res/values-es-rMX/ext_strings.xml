@@ -20,7 +20,7 @@
     <string name="call_recording_file_location">Grabación de la llamada guardada en <xliff:g id="filename">%s</xliff:g></string>
     <string name="onscreenCallRecordText">Grabar la llamada</string>
     <string name="onscreenCallRecordingText">Grabando llamada - <xliff:g id="duration" example="00:10">%1$s</xliff:g></string>
-    <string name="onscreenStopCallRecordText">Parar grabación</string>
+    <string name="onscreenStopCallRecordText">Finalizar grabación</string>
     <string name="recording_time_text">Grabando</string>
     <string name="recording_warning_title">¿Habilitar la grabación de la llamada?</string>
     <string name="recording_warning_text">Aviso: El cumplimiento de las leyes, regulaciones y reglas que se aplican al uso de las grabaciones de llamadas, su distribución y uso de las mismas es responsabilidad del usuario final.</string>
