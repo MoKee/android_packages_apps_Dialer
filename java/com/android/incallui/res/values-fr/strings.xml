@@ -31,6 +31,8 @@
   <string name="notification_call_wifi_work_brand">Appel professionnel Wi‑Fi</string>
   <string name="notification_on_hold">En attente</string>
   <string name="notification_incoming_call">Appel entrant</string>
+  <string name="notification_incoming_video_call">Appel vidéo entrant</string>
+  <string name="notification_incoming_call_mutli_sim">Appel entrant via <xliff:g id="sim_label" example="SIM 1">%1$s</xliff:g></string>
   <string name="notification_incoming_call_with_photo">Appel entrant avec photo</string>
   <string name="notification_incoming_call_with_message">Appel entrant avec message</string>
   <string name="notification_incoming_call_with_location">Appel entrant avec position</string>
