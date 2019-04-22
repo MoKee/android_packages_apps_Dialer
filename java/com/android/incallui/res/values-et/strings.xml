@@ -31,6 +31,8 @@
   <string name="notification_call_wifi_work_brand">WiFi-töökõne</string>
   <string name="notification_on_hold">Ootel</string>
   <string name="notification_incoming_call">Sissetulev kõne</string>
+  <string name="notification_incoming_video_call">Sissetulev videokõne</string>
+  <string name="notification_incoming_call_mutli_sim">Sissetulev kõne <xliff:g id="sim_label" example="SIM 1">%1$s</xliff:g></string>
   <string name="notification_incoming_call_with_photo">Sissetulev kõne koos fotoga</string>
   <string name="notification_incoming_call_with_message">Sissetulev kõne koos sõnumiga</string>
   <string name="notification_incoming_call_with_location">Sissetulev kõne koos asukohaga</string>
@@ -75,4 +77,5 @@
   <string name="video_call_lte_to_wifi_failed_title">WiFi-võrgule ei saanud lülituda</string>
   <string name="video_call_lte_to_wifi_failed_message">Videokõne jääb mobiilsidevõrku. Rakenduda võivad tavapärased andmesidetasud.</string>
   <string name="video_call_lte_to_wifi_failed_do_not_show">Ära seda enam näita</string>
+  <string name="bubble_return_to_call">Tagasi kõne juurde</string>
 </resources>
