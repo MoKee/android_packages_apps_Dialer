@@ -174,10 +174,10 @@ public class MissedCallNotifier implements Worker<Pair<Integer, String>, Void> {
         expandedText =
             PhoneNumberUtils.createTtsSpannable(
                 BidiFormatter.getInstance()
-                    .unicodeWrap(TextUtils.isEmpty(contactInfo.geoDescription)
-                        ? contactInfo.name : contactInfo.name + " " + contactInfo.geoDescription, TextDirectionHeuristics.LTR));
+                    .unicodeWrap(!TextUtils.isEmpty(contactInfo.geoDescription)
+                        ? contactInfo.name + " " + contactInfo.geoDescription : contactInfo.name, TextDirectionHeuristics.LTR));
       } else {
-        expandedText = !TextUtils.isEmpty(contactInfo.geoDescription) && !TextUtils.equals(contactInfo.name, contactInfo.geoDescription)
+        expandedText = PhoneNumberHelper.shouldShowNameWithLocation(contactInfo.name, contactInfo.geoDescription)
             ? contactInfo.name + " " + contactInfo.geoDescription : contactInfo.name;
       }
 
@@ -333,10 +333,10 @@ public class MissedCallNotifier implements Worker<Pair<Integer, String>, Void> {
       expandedText =
           PhoneNumberUtils.createTtsSpannable(
               BidiFormatter.getInstance()
-                  .unicodeWrap(TextUtils.isEmpty(contactInfo.geoDescription)
-                      ? contactInfo.name : contactInfo.name + " " + contactInfo.geoDescription, TextDirectionHeuristics.LTR));
+                  .unicodeWrap(!TextUtils.isEmpty(contactInfo.geoDescription)
+                      ? contactInfo.name + " " + contactInfo.geoDescription : contactInfo.name, TextDirectionHeuristics.LTR));
     } else {
-      expandedText = !TextUtils.isEmpty(contactInfo.geoDescription) && !TextUtils.equals(contactInfo.name, contactInfo.geoDescription)
+      expandedText = PhoneNumberHelper.shouldShowNameWithLocation(contactInfo.name, contactInfo.geoDescription)
           ? contactInfo.name + " " + contactInfo.geoDescription : contactInfo.name;
     }
 

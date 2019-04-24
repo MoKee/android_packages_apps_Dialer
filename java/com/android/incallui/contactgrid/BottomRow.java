@@ -23,6 +23,8 @@ import android.telephony.PhoneNumberUtils;
 import android.text.BidiFormatter;
 import android.text.TextDirectionHeuristics;
 import android.text.TextUtils;
+
+import com.android.dialer.phonenumberutil.PhoneNumberHelper;
 import com.android.incallui.call.DialerCall.State;
 import com.android.incallui.incall.protocol.PrimaryCallState;
 import com.android.incallui.incall.protocol.PrimaryInfo;
@@ -117,7 +119,7 @@ public class BottomRow {
   private static CharSequence getLabelForPhoneNumber(PrimaryInfo primaryInfo) {
     if (!primaryInfo.nameIsNumber() && !TextUtils.isEmpty(primaryInfo.number())) {
       CharSequence spannedNumber = spanDisplayNumber(primaryInfo.number());
-      if (!TextUtils.isEmpty(primaryInfo.location()) && !TextUtils.equals(primaryInfo.name(), primaryInfo.location())) {
+      if (PhoneNumberHelper.shouldShowNameWithLocation(primaryInfo.name(), primaryInfo.location())) {
         return TextUtils.concat(spannedNumber, " ", primaryInfo.location());
       } else {
         return spannedNumber;

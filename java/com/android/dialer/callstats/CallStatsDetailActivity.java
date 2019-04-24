@@ -199,7 +199,7 @@ public class CallStatsDetailActivity extends AppCompatActivity implements
     if (!TextUtils.isEmpty(mData.displayName)) {
       mCallerName.setText(mData.displayName);
       // 联系人统计信息
-      if (!TextUtils.isEmpty(mData.geocode) && !TextUtils.equals(mData.displayName, mData.geocode)) {
+      if (PhoneNumberHelper.shouldShowNameWithLocation(mData.displayName, mData.geocode)) {
         mCallerNumber.setText(callLocationOrType + " " + mData.geocode + " " + mData.displayNumber);
       } else {
         mCallerNumber.setText(callLocationOrType + " " + mData.displayNumber);

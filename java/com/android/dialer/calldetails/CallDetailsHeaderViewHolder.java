@@ -162,7 +162,7 @@ public class CallDetailsHeaderViewHolder extends RecyclerView.ViewHolder
                   contact.getNumberLabel(),
                   contact.getDisplayNumber());
       // 通话详情
-      if (!TextUtils.isEmpty(location) && !TextUtils.equals(location, contact.getNameOrNumber())) {
+      if (PhoneNumberHelper.shouldShowNameWithLocation(contact.getNameOrNumber(), location)) {
         numberView.setText(secondaryInfo + " " + location);
       } else {
         numberView.setText(secondaryInfo);

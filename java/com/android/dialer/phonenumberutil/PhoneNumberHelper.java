@@ -195,6 +195,10 @@ public class PhoneNumberHelper {
     return OfflineNumber.detect(number, context);
   }
 
+  public static boolean shouldShowNameWithLocation(CharSequence name, CharSequence location) {
+    return !TextUtils.isEmpty(location) && !TextUtils.equals(name, location);
+  }
+
   /**
    * @param countryIso Country ISO used if there is no country code in the number, may be null
    *     otherwise.

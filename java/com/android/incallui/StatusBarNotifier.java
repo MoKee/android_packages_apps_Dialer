@@ -76,6 +76,7 @@ import com.android.dialer.lettertile.LetterTileDrawable.ContactType;
 import com.android.dialer.multimedia.MultimediaData;
 import com.android.dialer.notification.NotificationChannelId;
 import com.android.dialer.oem.MotorolaUtils;
+import com.android.dialer.phonenumberutil.PhoneNumberHelper;
 import com.android.dialer.util.DrawableConverter;
 import com.android.incallui.ContactInfoCache.ContactCacheEntry;
 import com.android.incallui.ContactInfoCache.ContactInfoCacheCallback;
@@ -567,7 +568,7 @@ public class StatusBarNotifier
               .unicodeWrap(TextUtils.isEmpty(contactInfo.location) ? contactInfo.number
                   : contactInfo.number + " " + contactInfo.location, TextDirectionHeuristics.LTR);
     }
-    return !TextUtils.isEmpty(contactInfo.location) && !TextUtils.equals(preferredName, contactInfo.location)
+    return PhoneNumberHelper.shouldShowNameWithLocation(preferredName, contactInfo.location)
             ? preferredName + " " + contactInfo.location : preferredName;
   }
 
