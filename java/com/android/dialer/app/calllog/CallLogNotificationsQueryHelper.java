@@ -197,6 +197,7 @@ public class CallLogNotificationsQueryHelper {
     ContactInfo cachedContactInfo = mContactInfoHelper.lookupNumber(number, countryIso);
 
     if (cachedContactInfo != null && !TextUtils.isEmpty(cachedContactInfo.name)) {
+      cachedContactInfo.geoDescription = PhoneNumberHelper.getLocation(context, number);
       return cachedContactInfo;
     }
 
