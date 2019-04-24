@@ -195,6 +195,7 @@ public class ContactInfoHelper {
         (matchedNumber == null) ? c.getString(CallLogQuery.NUMBER) + postDialDigits : matchedNumber;
 
     info.normalizedNumber = c.getString(CallLogQuery.CACHED_NORMALIZED_NUMBER);
+    info.geoDescription = c.getString(CallLogQuery.GEOCODED_LOCATION);
     info.photoId = c.getLong(CallLogQuery.CACHED_PHOTO_ID);
     info.photoUri =
         UriUtils.nullForNonContactsUri(
@@ -375,6 +376,7 @@ public class ContactInfoHelper {
     info.label = phoneLookupCursor.getString(PhoneQuery.LABEL);
     info.number = phoneLookupCursor.getString(PhoneQuery.MATCHED_NUMBER);
     info.normalizedNumber = phoneLookupCursor.getString(PhoneQuery.NORMALIZED_NUMBER);
+    info.geoDescription = PhoneNumberHelper.getLocation(mContext, info.number);
     info.photoId = phoneLookupCursor.getLong(PhoneQuery.PHOTO_ID);
     info.photoUri = UriUtils.parseUriOrNull(phoneLookupCursor.getString(PhoneQuery.PHOTO_URI));
     info.formattedNumber = null;
