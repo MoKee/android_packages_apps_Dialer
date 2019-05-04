@@ -270,6 +270,7 @@ public class ContactInfoHelper {
     contactInfo.number = number;
     contactInfo.formattedNumber = formatPhoneNumber(number, null, countryIso);
     contactInfo.normalizedNumber = PhoneNumberUtils.formatNumberToE164(number, countryIso);
+    contactInfo.geoDescription = PhoneNumberHelper.getLocation(mContext, number);
     contactInfo.lookupUri = createTemporaryContactUri(contactInfo.formattedNumber);
     return contactInfo;
   }
