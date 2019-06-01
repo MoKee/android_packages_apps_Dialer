@@ -19,6 +19,6 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="callFailed_incoming_cb_enabled">El destinatario tiene bloqueadas todas las llamadas entrantes.</string>
     <string name="callUnanswered_forwarded">Llamada no respondida y desviada</string>
-    <string name="incall_connecting_waiting">Marcando (esperando\u2026)</string>
-    <string name="incall_calling_via_waiting_template">Llamando mediante <xliff:g id="provider_name">%s</xliff:g> (Esperando\u2026)</string>
+    <string name="incall_connecting_waiting">Llamando (esperando\u2026)</string>
+    <string name="incall_calling_via_waiting_template">Llamando vía <xliff:g id="provider_name">%s</xliff:g> (esperando\u2026)</string>
 </resources>
