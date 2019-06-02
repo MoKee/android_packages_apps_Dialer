@@ -16,12 +16,12 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="call_recording_failed_message">Nem sikerült a hívásrögzítést elindítani</string>
-    <string name="call_recording_file_location">Hívások mentése ide: <xliff:g id="filename">%s</xliff:g></string>
+    <string name="call_recording_failed_message">Nem sikerült a hívásrögzítés elindítása</string>
+    <string name="call_recording_file_location">Hívásrögzítés mentve ide: <xliff:g id="filename">%s</xliff:g></string>
     <string name="onscreenCallRecordText">Hívásrögzítés</string>
     <string name="onscreenCallRecordingText">Hívásrögzítés - <xliff:g id="duration" example="00:10">%1$s-</xliff:g></string>
     <string name="onscreenStopCallRecordText">A rögzítés leállítása</string>
     <string name="recording_time_text">Rögzítés</string>
     <string name="recording_warning_title">Engedélyezi a hívásrögzítést?</string>
-    <string name="recording_warning_text">Figyelmeztetés: A hívás rögzítésére és a hangfelvétel felhasználására vonatkozó törvények, rendeletek és szabályozások betartásáért Ön tartozik felelősséggel.</string>
+    <string name="recording_warning_text">Figyelmeztetés: A hívások rögzítésére és a hangfelvétel felhasználására vonatkozó törvények, rendeletek és szabályozások betartásáért Ön tartozik felelősséggel.</string>
 </resources>

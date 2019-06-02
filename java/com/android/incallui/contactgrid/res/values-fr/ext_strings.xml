@@ -17,8 +17,8 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="callFailed_incoming_cb_enabled">Le correspondant a interdit tous les appels entrants.</string>
-    <string name="callUnanswered_forwarded">Appel sans réponse et renvoyé</string>
-    <string name="incall_connecting_waiting">Composition (patientez\u2026)</string>
-    <string name="incall_calling_via_waiting_template">Appel via <xliff:g id="provider_name">%s</xliff:g> (en attente\u2026)</string>
+    <string name="callFailed_incoming_cb_enabled">L\'interlocuteur a interdit tous les appels entrants.</string>
+    <string name="callUnanswered_forwarded">Rappeler les appels sans réponse et les appels transférés</string>
+    <string name="incall_connecting_waiting">En appel (patientez\u2026)</string>
+    <string name="incall_calling_via_waiting_template">Appel via <xliff:g id="Provider_NAME">%s</xliff:g> (en attente\u2026)</string>
 </resources>

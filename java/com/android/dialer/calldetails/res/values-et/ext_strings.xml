@@ -17,8 +17,8 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <plurals name="play_recordings">
-        <item quantity="one">Opname ôfspylje</item>
-        <item quantity="other">Opnamen ôfspylje</item>
+        <item quantity="one">Esita salvestus</item>
+        <item quantity="other">Esita salvestused</item>
     </plurals>
-    <string name="call_playback_no_app_found_toast">Kin gjin app fine om de selektearre opname ôf te spyljen.</string>
+    <string name="call_playback_no_app_found_toast">Valitud salvestuse taasesitamiseks ei leitud ühtegi rakendust.</string>
 </resources>

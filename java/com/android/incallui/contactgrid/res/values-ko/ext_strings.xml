@@ -17,8 +17,5 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="callFailed_incoming_cb_enabled">Personi ka bllokuar të gjitha thirrjet hyrëse.</string>
-    <string name="callUnanswered_forwarded">Telefonatë e pa përgjigjur dhe e transferuar</string>
-    <string name="incall_connecting_waiting">Duke telefonuar (në pritje\u2026)</string>
-    <string name="incall_calling_via_waiting_template">Duke telefonuar me <xliff:g id="provider_name">%s</xliff:g> (në pritje\u2026)</string>
+    <string name="callUnanswered_forwarded">응답되지 않고 착신전환된 통화</string>
 </resources>
