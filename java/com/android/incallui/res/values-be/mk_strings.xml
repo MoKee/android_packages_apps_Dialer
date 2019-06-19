@@ -16,10 +16,8 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Saved call recording notification -->
     <string name="call_recording_notification_with_label_title">Запіс выкліку захаваны з %s</string>
     <string name="call_recording_notification_with_no_label_title">Запіс выкліку захаваны</string>
-    <!-- Automatically call recording -->
     <string name="call_recording_automatically_title">Аўтаматычны запіс</string>
     <string name="call_recording_automatically_summary">Запісваць аўтаматычна пасля званку</string>
 </resources>

@@ -16,7 +16,6 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Cloud Phone Number Location Engine -->
     <string name="call_log_action_user_mark">Marcar Como</string>
     <string name="description_user_mark_action">Marcar <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> como</string>
     <string name="cloud_location_lookup_mark_title">Marcar %s </string>

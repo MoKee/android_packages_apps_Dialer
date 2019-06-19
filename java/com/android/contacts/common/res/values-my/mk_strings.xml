@@ -16,7 +16,6 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Call Log Delete Limit  -->
     <string name="call_log_delete_limit_title">ဖုန်းခေါ်ဆိုမှု့မှတ်တမ်းကန့်သတ်ချက်</string>
     <string name="call_log_delete_limit_summary">ဖုန်းခေါ်ဆိုမှု့မှတ်တမ်း<xliff:g id="count">%1$s</xliff:g>ထိသိမ်းထားမည်</string>
     <string name="call_log_delete_limit_default">၅၀၀ (ပုံမှန်)</string>

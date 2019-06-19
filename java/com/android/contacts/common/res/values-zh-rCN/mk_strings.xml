@@ -16,7 +16,6 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Call Log Delete Limit  -->
     <string name="call_log_delete_limit_title">通话记录限制</string>
     <string name="call_log_delete_limit_summary">达到 <xliff:g id="count">%1$s</xliff:g> 条通话记录时删除旧记录</string>
     <string name="call_log_delete_limit_default">500（默认）</string>

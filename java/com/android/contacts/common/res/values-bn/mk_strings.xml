@@ -16,7 +16,6 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Call Log Delete Limit  -->
     <string name="call_log_delete_limit_title">কল লগ সীমা</string>
     <string name="call_log_delete_limit_summary">ছালু রাখুন <xliff:g id="count">%1$s</xliff:g> কল লগ</string>
     <string name="call_log_delete_limit_default">৫০০ (আকী)</string>

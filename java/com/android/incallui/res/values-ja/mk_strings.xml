@@ -16,10 +16,8 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Saved call recording notification -->
     <string name="call_recording_notification_with_label_title">%sとして通話録音を保存しました</string>
     <string name="call_recording_notification_with_no_label_title">通話録音を保存しました</string>
-    <!-- Automatically call recording -->
     <string name="call_recording_automatically_title">自動的に記録する</string>
     <string name="call_recording_automatically_summary">通話後自動的に録音する</string>
 </resources>

@@ -16,7 +16,6 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Cloud Phone Number Location Engine -->
     <string name="call_log_action_user_mark">Označiť ako</string>
     <string name="description_user_mark_action">Označiť <xliff:g id="nameOrNumber" example="John Smith"> ^ 1 </xliff:g> ako</string>
     <string name="cloud_location_lookup_mark_title">Označiť %s </string>

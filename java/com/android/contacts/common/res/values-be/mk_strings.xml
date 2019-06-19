@@ -16,7 +16,6 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Call Log Delete Limit  -->
     <string name="call_log_delete_limit_title">Абмежаванне запісаў у журнале выклікаў</string>
     <string name="call_log_delete_limit_summary">Захоўваць <xliff:g id="count">%1$s</xliff:g> запісаў аб выкліках</string>
     <string name="call_log_delete_limit_default">500 (па змаўчанню)</string>
