@@ -16,7 +16,6 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Call Log Delete Limit  -->
     <string name="call_log_delete_limit_title">Limitasyon ng log ng tawag</string>
     <string name="call_log_delete_limit_summary">Panatiliin ang <xliff:g id="count">%1$s</xliff:g> tawag na log</string>
     <string name="call_log_delete_limit_default">500 (Default)</string>

@@ -16,7 +16,6 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Cloud Phone Number Location Engine -->
     <string name="call_log_action_user_mark">குறிப்பிடவும்</string>
     <string name="description_user_mark_action"><xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> என குறிப்பிடவும்</string>
     <string name="cloud_location_lookup_mark_title">%s குறிப்பிடவும் </string>
@@ -31,6 +30,5 @@
     <string name="cloud_location_lookup_mark_delivery">விநியோக</string>
     <string name="cloud_location_lookup_mark_service">வாடிக்கையாளர் சேவை</string>
     <string name="cloud_location_lookup_mark_taxi">டாக்ஸி</string>
-    <!-- dialpad t9 search -->
     <string name="t9_search_input_locale_default">இயல்புநிலை</string>
 </resources>

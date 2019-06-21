@@ -16,12 +16,11 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Cloud Phone Number Location Engine -->
-    <string name="call_log_action_user_mark">MARCAR COMO</string>
+    <string name="call_log_action_user_mark">Marcar como</string>
     <string name="description_user_mark_action">Marcar <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> como</string>
     <string name="cloud_location_lookup_mark_title">Marcar %s </string>
     <string name="cloud_location_lookup_mark_as">Información del marcador</string>
-    <string name="cloud_location_lookup_mark_custom">Información personalizada</string>
+    <string name="cloud_location_lookup_mark_custom">Información personalizada del llamante</string>
     <string name="cloud_location_lookup_mark_done">Completado</string>
     <string name="cloud_location_lookup_mark_harassment">Acoso</string>
     <string name="cloud_location_lookup_mark_fraud">Fraude</string>
@@ -31,8 +30,7 @@
     <string name="cloud_location_lookup_mark_delivery">Envío</string>
     <string name="cloud_location_lookup_mark_service">Atención al cliente</string>
     <string name="cloud_location_lookup_mark_taxi">Taxi</string>
-    <!-- dialpad t9 search -->
     <string name="preference_category_t9_dialpad_search">Búsqueda de teclado T9</string>
-    <string name="t9_search_input_locale">Entrada de búsqueda T9</string>
+    <string name="t9_search_input_locale">Entrada de búsqueda modo T9</string>
     <string name="t9_search_input_locale_default">Predeterminado</string>
 </resources>

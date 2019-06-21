@@ -16,7 +16,6 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Cloud Phone Number Location Engine -->
     <string name="call_log_action_user_mark">Маркирай като</string>
     <string name="description_user_mark_action">Маркирай <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> като</string>
     <string name="cloud_location_lookup_mark_title">Маркирай %s </string>
@@ -31,7 +30,6 @@
     <string name="cloud_location_lookup_mark_delivery">Доставка</string>
     <string name="cloud_location_lookup_mark_service">Обслужване на клиенти</string>
     <string name="cloud_location_lookup_mark_taxi">Такси</string>
-    <!-- dialpad t9 search -->
     <string name="preference_category_t9_dialpad_search">Клавиатура T9 търсене</string>
     <string name="t9_search_input_locale">T9 търсене</string>
     <string name="t9_search_input_locale_default">По подразбиране</string>

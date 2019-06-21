@@ -16,10 +16,8 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Cloud Phone Number Location Engine -->
     <string name="cloud_location_lookup_mark_done">เสร็จสิ้น</string>
     <string name="cloud_location_lookup_mark_advertisement">โฆษณา</string>
     <string name="cloud_location_lookup_mark_taxi">แท็กซี่</string>
-    <!-- dialpad t9 search -->
     <string name="t9_search_input_locale_default">ค่าเริ่มต้น</string>
 </resources>

@@ -16,7 +16,6 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Cloud Phone Number Location Engine -->
     <string name="call_log_action_user_mark">Markera som</string>
     <string name="cloud_location_lookup_mark_done">Färdig</string>
     <string name="cloud_location_lookup_mark_harassment">Trakasserier</string>
@@ -27,6 +26,5 @@
     <string name="cloud_location_lookup_mark_delivery">Leverans</string>
     <string name="cloud_location_lookup_mark_service">Kundtjänst</string>
     <string name="cloud_location_lookup_mark_taxi">Taxi</string>
-    <!-- dialpad t9 search -->
     <string name="t9_search_input_locale_default">Standard</string>
 </resources>

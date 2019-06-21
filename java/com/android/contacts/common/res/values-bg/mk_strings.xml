@@ -16,7 +16,6 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Call Log Delete Limit  -->
     <string name="call_log_delete_limit_title">Лимит на регистъра за повиквания</string>
     <string name="call_log_delete_limit_summary">Запази <xliff:g id="count">%1$s</xliff:g> повиквания в регистъра</string>
     <string name="call_log_delete_limit_default">500 (по подразбиране)</string>

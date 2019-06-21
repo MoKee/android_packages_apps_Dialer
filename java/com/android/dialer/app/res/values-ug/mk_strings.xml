@@ -16,11 +16,9 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Cloud Phone Number Location Engine -->
     <string name="call_log_action_user_mark">بەلگە قويۇش</string>
     <string name="cloud_location_lookup_mark_title">بەلگە %s </string>
     <string name="cloud_location_lookup_mark_done">تامام</string>
     <string name="cloud_location_lookup_mark_advertisement">ئېلان</string>
     <string name="cloud_location_lookup_mark_delivery">يەتكۈزۈپ بېرىش</string>
-    <!-- dialpad t9 search -->
 </resources>
