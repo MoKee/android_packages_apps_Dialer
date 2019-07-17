@@ -28,6 +28,7 @@
     <string name="incall_label_merge" msgid="720076442985913175">"合并"</string>
     <string name="incall_label_manage" msgid="2175471192903568159">"管理"</string>
     <string name="a11y_description_incall_label_manage_content" msgid="8298638893449287602">"管理来电者"</string>
+    <string name="incall_label_swap_sim">"更改 SIM 卡"</string>
     <string name="incall_label_swap" msgid="10458642864243507">"切换"</string>
     <string name="incall_note_sent" msgid="4524130323127388367">"已发送备注"</string>
 </resources>
