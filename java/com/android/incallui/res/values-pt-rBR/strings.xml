@@ -31,6 +31,8 @@
   <string name="notification_call_wifi_work_brand">Chamada de trabalho por Wi-Fi</string>
   <string name="notification_on_hold">Em espera</string>
   <string name="notification_incoming_call">Chamada recebida</string>
+  <string name="notification_incoming_video_call">Chamada de vídeo recebida</string>
+  <string name="notification_incoming_call_mutli_sim">Chamada recebida via <xliff:g id="sim_label" example="SIM 1">%1$s</xliff:g></string>
   <string name="notification_incoming_call_with_photo">Chamada recebida com foto</string>
   <string name="notification_incoming_call_with_message">Chamada recebida com mensagem</string>
   <string name="notification_incoming_call_with_location">Chamada recebida com local</string>
@@ -75,4 +77,5 @@
   <string name="video_call_lte_to_wifi_failed_title">Não foi possível alternar para a rede Wi-Fi</string>
   <string name="video_call_lte_to_wifi_failed_message">A videochamada continuará via rede móvel. O uso de dados está sujeito a cobranças padrão.</string>
   <string name="video_call_lte_to_wifi_failed_do_not_show">Não exibir novamente</string>
+  <string name="bubble_return_to_call">Voltar para chamada</string>
 </resources>
