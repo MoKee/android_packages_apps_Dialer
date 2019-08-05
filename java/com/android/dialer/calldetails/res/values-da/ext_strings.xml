@@ -16,5 +16,5 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="lookup_disclaimer">Zoekopdrachten kunnen gegevens versturen naar externe websites via een beveiligd protocol (https) om informatie te verzamelen. De gegevens kunnen het telefoonnummer van de andere partij of de zoekopdracht bevatten</string>
+    <string name="call_playback_no_app_found_toast">Ingen app kunne findes til afspilning af den valgte optagelse.</string>
 </resources>
