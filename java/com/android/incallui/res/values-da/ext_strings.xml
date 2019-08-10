@@ -16,11 +16,5 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="call_recording_failed_message">Start på opkaldsoptagelse fejlede</string>
-    <string name="call_recording_file_location">Gemte opkaldsoptagelse til <xliff:g id="filename">%s</xliff:g></string>
-    <string name="onscreenCallRecordText">Optag opkald</string>
-    <string name="onscreenCallRecordingText">Optager opkald - <xliff:g id="duration" example="00:10">%1$s</xliff:g></string>
-    <string name="onscreenStopCallRecordText">Stop optagelse</string>
-    <string name="recording_warning_title">Aktivér opkaldoptagelse?</string>
-    <string name="recording_warning_text">Bemærk: Du er ansvarlig for overholdelse af alle love, reguleringer og regler, som gælder for brugen af opkaldsoptagelsesfunktionalitet, og brugen, eller distributionen af de optagelser.</string>
+    <string name="recording_time_text">Optager</string>
 </resources>
