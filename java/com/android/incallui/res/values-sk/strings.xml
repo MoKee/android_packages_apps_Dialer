@@ -77,4 +77,5 @@
   <string name="video_call_lte_to_wifi_failed_title">Nepodarilo sa prepnúť na sieť Wi‑Fi</string>
   <string name="video_call_lte_to_wifi_failed_message">Videohovor bude pokračovať v mobilnej sieti. Môžu sa účtovať štandardné poplatky za prenos dát.</string>
   <string name="video_call_lte_to_wifi_failed_do_not_show">Informácie nabudúce nezobrazovať</string>
+  <string name="bubble_return_to_call">Späť na hovor</string>
 </resources>
