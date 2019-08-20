@@ -16,6 +16,8 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="call_recording_notification_with_label_title">Ghi âm cuộc gọi đã lưu % s</string>
+    <string name="call_recording_notification_with_no_label_title">Ghi âm cuộc gọi đã lưu</string>
     <string name="call_recording_automatically_title">Ghi âm tự động</string>
     <string name="call_recording_automatically_summary">Tự động ghi âm cuộc gọi</string>
 </resources>
