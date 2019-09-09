@@ -31,6 +31,8 @@
   <string name="notification_call_wifi_work_brand">Llamada de trabajo con Wi‑Fi</string>
   <string name="notification_on_hold">En espera</string>
   <string name="notification_incoming_call">Llamada entrante</string>
+  <string name="notification_incoming_video_call">Videollamada entrante</string>
+  <string name="notification_incoming_call_mutli_sim">Llamada entrante vía <xliff:g id="sim_label" example="SIM 1">%1$s</xliff:g></string>
   <string name="notification_incoming_call_with_photo">Llamada entrante con foto</string>
   <string name="notification_incoming_call_with_message">Llamada entrante con mensaje</string>
   <string name="notification_incoming_call_with_location">Llamada entrante con ubicación</string>
@@ -75,4 +77,5 @@
   <string name="video_call_lte_to_wifi_failed_title">No se pudo cambiar a la red Wi-Fi</string>
   <string name="video_call_lte_to_wifi_failed_message">La videollamada permanecerá en la red móvil. Es posible que se te cobren cargos estándar por el uso de datos.</string>
   <string name="video_call_lte_to_wifi_failed_do_not_show">No volver a mostrar esto</string>
+  <string name="bubble_return_to_call">Volver a la llamada</string>
 </resources>

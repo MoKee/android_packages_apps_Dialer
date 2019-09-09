@@ -70,7 +70,7 @@
   <string name="callFailed_simError">Tidak ada SIM atau kesalahan SIM</string>
   <string name="conference_caller_disconnect_content_description">Akhiri panggilan</string>
   <string name="conference_call_name">Telewicara</string>
-  <string name="generic_conference_call_name">Sedang menelepon</string>
+  <string name="generic_conference_call_name">In call</string>
   <string name="video_call_wifi_to_lte_handover_toast">Melanjutkan panggilan menggunakan data seluler...</string>
   <string name="video_call_lte_to_wifi_failed_title">Tidak dapat beralih ke jaringan Wi-Fi</string>
   <string name="video_call_lte_to_wifi_failed_message">Video call akan tetap di jaringan seluler. Tarif data standar mungkin berlaku.</string>
