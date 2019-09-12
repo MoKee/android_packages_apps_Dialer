@@ -16,5 +16,12 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="call_recording_failed_message">Неуспешно започињање снимања</string>
+    <string name="call_recording_file_location">Снимак позива сачуван у <xliff:g id="filename">%s</xliff:g></string>
+    <string name="onscreenCallRecordText">Сними позив</string>
+    <string name="onscreenCallRecordingText">Снимање позива - <xliff:g id="duration" example="00:10">%1$s</xliff:g></string>
+    <string name="onscreenStopCallRecordText">Зауставити снимање</string>
     <string name="recording_time_text">Снимање</string>
+    <string name="recording_warning_title">Омогући снимање позива?</string>
+    <string name="recording_warning_text">Пажња: Ви сте одговорни за придржавање било каквих закона, регулација и правила који се односе на снимање позива, као и коришћење и дистрибуцију снимака.</string>
 </resources>

@@ -19,6 +19,8 @@
     <string name="call_log_action_user_mark">Означи као</string>
     <string name="description_user_mark_action">Означи <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> као</string>
     <string name="cloud_location_lookup_mark_title">Означи %s </string>
+    <string name="cloud_location_lookup_mark_as">Подвуци информације позиваоца</string>
+    <string name="cloud_location_lookup_mark_custom">Додатне информације позиваоца</string>
     <string name="cloud_location_lookup_mark_done">Готово</string>
     <string name="cloud_location_lookup_mark_harassment">Узнемиравање</string>
     <string name="cloud_location_lookup_mark_fraud">Превара</string>
@@ -28,5 +30,7 @@
     <string name="cloud_location_lookup_mark_delivery">Испорука</string>
     <string name="cloud_location_lookup_mark_service">Кориснички сервис</string>
     <string name="cloud_location_lookup_mark_taxi">Такси</string>
+    <string name="preference_category_t9_dialpad_search">Т9 претрага на бројчанику</string>
+    <string name="t9_search_input_locale">Унос Т9 претраге</string>
     <string name="t9_search_input_locale_default">Подразумевано</string>
 </resources>
