@@ -31,6 +31,8 @@
   <string name="notification_call_wifi_work_brand">Wi‑Fi пословни позив</string>
   <string name="notification_on_hold">На чекању</string>
   <string name="notification_incoming_call">Долазни позив</string>
+  <string name="notification_incoming_video_call">Долазни видео позив</string>
+  <string name="notification_incoming_call_mutli_sim">Долазни позив преко <xliff:g id="sim_label" example="SIM 1">%1$s</xliff:g></string>
   <string name="notification_incoming_call_with_photo">Долазни позив са сликом</string>
   <string name="notification_incoming_call_with_message">Долазни позив са поруком</string>
   <string name="notification_incoming_call_with_location">Долазни позив са локацијом</string>
@@ -75,4 +77,5 @@
   <string name="video_call_lte_to_wifi_failed_title">Пребацивање на Wi‑Fi мрежу није успело</string>
   <string name="video_call_lte_to_wifi_failed_message">Видео позив ће остати на мобилној мрежи. Важе стандардне накнаде за пренос података.</string>
   <string name="video_call_lte_to_wifi_failed_do_not_show">Не приказуј ово поново</string>
+  <string name="bubble_return_to_call">Врати се у Позив</string>
 </resources>
