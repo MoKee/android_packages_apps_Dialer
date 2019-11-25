@@ -193,7 +193,7 @@ public class ContactBuilder {
 
   public ContactBuilder setGeoDescription(String geoDescription) {
     if (DEBUG) Log.d(TAG, "Setting geo description");
-    if (geoDescription != null) {
+    if (!TextUtils.isEmpty(geoDescription)) {
       this.geoDescription = geoDescription;
     }
     return this;

@@ -24,6 +24,7 @@ import android.net.Uri;
 import android.provider.ContactsContract.Contacts;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.util.JsonReader;
 import android.util.JsonWriter;
 import android.util.Log;
@@ -275,7 +276,7 @@ public class LookupCache {
     TelephonyManager tm = context.getSystemService(TelephonyManager.class);
     String countryIso = tm.getSimCountryIso().toUpperCase();
     String normalizedNumber = PhoneNumberUtils.formatNumberToE164(number, countryIso);
-    if (normalizedNumber == null
+    if (TextUtils.isEmpty(normalizedNumber)
         && LookupUtils.isChineseCustomerServiceHotline(normalizedNumber, number, countryIso)) {
       normalizedNumber = number;
     }
