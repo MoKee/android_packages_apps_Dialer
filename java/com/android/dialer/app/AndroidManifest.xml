@@ -78,6 +78,11 @@
       android:theme="@style/DialtactsTheme">
     </activity>
 
+    <activity
+        android:name="com.android.dialer.app.calllog.MiniMarkActivity"
+        android:excludeFromRecents="true"
+        android:theme="@style/MiniMarkActivityStyle" />
+
     <activity android:name="com.android.dialer.app.AccountSelectionActivity"
       android:theme="@style/TransparentTheme"
       android:exported="false" />

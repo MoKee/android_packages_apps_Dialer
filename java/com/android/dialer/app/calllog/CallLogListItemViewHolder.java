@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
+ * Copyright (C) 2019 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -157,6 +158,7 @@ public final class CallLogListItemViewHolder extends RecyclerView.ViewHolder
   public View callWithNoteButtonView;
   public View callComposeButtonView;
   public View sendVoicemailButtonView;
+  public View userMarkButtonView;
   public ImageView workIconView;
   public ImageView checkBoxView;
   /**
@@ -502,6 +504,9 @@ public final class CallLogListItemViewHolder extends RecyclerView.ViewHolder
 
       sendVoicemailButtonView = actionsView.findViewById(R.id.share_voicemail);
       sendVoicemailButtonView.setOnClickListener(this);
+
+      userMarkButtonView = actionsView.findViewById(R.id.user_mark_action);
+      userMarkButtonView.setOnClickListener(this);
     }
   }
 
@@ -611,6 +616,7 @@ public final class CallLogListItemViewHolder extends RecyclerView.ViewHolder
       blockReportView.setVisibility(View.GONE);
       blockView.setVisibility(View.GONE);
       unblockView.setVisibility(View.GONE);
+      userMarkButtonView.setVisibility(View.GONE);
       reportNotSpamView.setVisibility(View.GONE);
       voicemailPlaybackView.setVisibility(View.GONE);
 
@@ -637,6 +643,7 @@ public final class CallLogListItemViewHolder extends RecyclerView.ViewHolder
       blockReportView.setVisibility(View.GONE);
       blockView.setVisibility(View.GONE);
       unblockView.setVisibility(View.GONE);
+      userMarkButtonView.setVisibility(View.GONE);
       reportNotSpamView.setVisibility(View.GONE);
 
       voicemailPlaybackView.setVisibility(View.VISIBLE);
@@ -793,9 +800,11 @@ public final class CallLogListItemViewHolder extends RecyclerView.ViewHolder
           IntentProvider.getAddContactIntentProvider(
               info.lookupUri, info.name, info.number, info.type, false /* isNewContact */));
       addToExistingContactButtonView.setVisibility(View.VISIBLE);
+      userMarkButtonView.setVisibility(View.VISIBLE);
     } else {
       createNewContactButtonView.setVisibility(View.GONE);
       addToExistingContactButtonView.setVisibility(View.GONE);
+      userMarkButtonView.setVisibility(View.GONE);
     }
 
     if (canPlaceCallToNumber && !isBlockedOrSpam && !isVoicemailNumber) {
@@ -1046,6 +1055,13 @@ public final class CallLogListItemViewHolder extends RecyclerView.ViewHolder
     if (view.getId() == R.id.share_voicemail) {
       Logger.get(context).logImpression(DialerImpression.Type.VVM_SHARE_PRESSED);
       voicemailPlaybackPresenter.shareVoicemail();
+      return;
+    }
+
+    if (view.getId() == R.id.user_mark_action) {
+      Intent intent = new Intent(context, MiniMarkActivity.class);
+      intent.putExtra("number", number);
+      DialerUtils.startActivityWithErrorToast(context, intent);
       return;
     }
 
