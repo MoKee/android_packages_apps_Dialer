@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2006 The Android Open Source Project
+ * Copyright (C) 2019 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -506,7 +507,7 @@ public class CallerInfoAsyncQuery {
               // new parameter to CallerInfoAsyncQuery.startQuery() to force
               // the geoDescription field to be populated.)
 
-              if (TextUtils.isEmpty(callerInfo.name)) {
+              if (!PhoneNumberHelper.isUriNumber(cw.number)) {
                 // Actually when no contacts match the incoming phone number,
                 // the CallerInfo object is totally blank here (i.e. no name
                 // *or* phoneNumber).  So we need to pass in cw.number as

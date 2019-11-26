@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2016 The Android Open Source Project
+ * Copyright (C) 2019 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +20,8 @@ package com.android.incallui.contactgrid;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+
+import com.android.dialer.phonenumberutil.PhoneNumberHelper;
 import com.android.incallui.call.state.DialerCallState;
 import com.android.incallui.incall.protocol.PrimaryCallState;
 import com.android.incallui.incall.protocol.PrimaryInfo;
@@ -111,14 +114,11 @@ public class BottomRow {
   }
 
   private static CharSequence getLabelForPhoneNumber(PrimaryInfo primaryInfo) {
-    if (primaryInfo.location() != null) {
-      return primaryInfo.location();
-    }
     if (!primaryInfo.nameIsNumber() && !TextUtils.isEmpty(primaryInfo.number())) {
-      if (primaryInfo.label() == null) {
-        return primaryInfo.number();
-      } else {
-        return TextUtils.concat(primaryInfo.label(), " ", primaryInfo.number());
+      return PhoneNumberHelper.getPreferredName(primaryInfo.name(), primaryInfo.location(), primaryInfo.number());
+    } else {
+      if (!TextUtils.isEmpty(primaryInfo.location())) {
+        return primaryInfo.location();
       }
     }
     return null;

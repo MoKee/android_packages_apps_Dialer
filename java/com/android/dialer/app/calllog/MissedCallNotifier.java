@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2016 The Android Open Source Project
+ * Copyright (C) 2019 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -178,9 +179,9 @@ public class MissedCallNotifier implements Worker<Pair<Integer, String>, Void> {
         expandedText =
             PhoneNumberUtils.createTtsSpannable(
                 BidiFormatter.getInstance()
-                    .unicodeWrap(contactInfo.name, TextDirectionHeuristics.LTR));
+                    .unicodeWrap(PhoneNumberHelper.getPreferredName(contactInfo.name, contactInfo.geoDescription), TextDirectionHeuristics.LTR));
       } else {
-        expandedText = contactInfo.name;
+        expandedText = PhoneNumberHelper.getPreferredName(contactInfo.name, contactInfo.geoDescription);
       }
 
       ContactPhotoLoader loader = new ContactPhotoLoader(context, contactInfo);
@@ -342,9 +343,9 @@ public class MissedCallNotifier implements Worker<Pair<Integer, String>, Void> {
       expandedText =
           PhoneNumberUtils.createTtsSpannable(
               BidiFormatter.getInstance()
-                  .unicodeWrap(contactInfo.name, TextDirectionHeuristics.LTR));
+                  .unicodeWrap(PhoneNumberHelper.getPreferredName(contactInfo.name, contactInfo.geoDescription), TextDirectionHeuristics.LTR));
     } else {
-      expandedText = contactInfo.name;
+      expandedText = PhoneNumberHelper.getPreferredName(contactInfo.name, contactInfo.geoDescription);
     }
 
     if (postCallMessage != null) {

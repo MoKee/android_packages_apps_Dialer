@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2013 The Android Open Source Project
+ * Copyright (C) 2019 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -76,6 +77,7 @@ import com.android.dialer.lettertile.LetterTileDrawable.ContactType;
 import com.android.dialer.multimedia.MultimediaData;
 import com.android.dialer.notification.NotificationChannelId;
 import com.android.dialer.oem.MotorolaUtils;
+import com.android.dialer.phonenumberutil.PhoneNumberHelper;
 import com.android.dialer.theme.base.ThemeComponent;
 import com.android.dialer.util.DrawableConverter;
 import com.android.incallui.ContactInfoCache.ContactCacheEntry;
@@ -569,9 +571,9 @@ public class StatusBarNotifier
       return TextUtils.isEmpty(contactInfo.number)
           ? null
           : BidiFormatter.getInstance()
-              .unicodeWrap(contactInfo.number, TextDirectionHeuristics.LTR);
+              .unicodeWrap(PhoneNumberHelper.getPreferredName(contactInfo.number, contactInfo.location), TextDirectionHeuristics.LTR);
     }
-    return preferredName;
+    return PhoneNumberHelper.getPreferredName(preferredName, contactInfo.location);
   }
 
   private void addPersonReference(

@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2013 The Android Open Source Project
+ * Copyright (C) 2019 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -712,10 +713,7 @@ public class CallCardPresenter
               .setNumber(number)
               .setName(primary.updateNameIfRestricted(name))
               .setNameIsNumber(nameIsNumber)
-              .setLocation(
-                  shouldShowLocationAsLabel(nameIsNumber, primaryContactInfo.shouldShowLocation)
-                      ? primaryContactInfo.location
-                      : null)
+              .setLocation(primaryContactInfo.location)
               .setLabel(isChildNumberShown || isCallSubjectShown ? null : primaryContactInfo.label)
               .setPhoto(primaryContactInfo.photo)
               .setPhotoUri(primaryContactInfo.displayPhotoUri)
@@ -742,17 +740,6 @@ public class CallCardPresenter
     } else {
       LogUtil.i("CallCardPresenter.updatePrimaryDisplayInfo", "UI not ready, not showing location");
     }
-  }
-
-  private static boolean shouldShowLocationAsLabel(
-      boolean nameIsNumber, boolean shouldShowLocation) {
-    if (nameIsNumber) {
-      return true;
-    }
-    if (shouldShowLocation) {
-      return true;
-    }
-    return false;
   }
 
   private Fragment getLocationFragment() {

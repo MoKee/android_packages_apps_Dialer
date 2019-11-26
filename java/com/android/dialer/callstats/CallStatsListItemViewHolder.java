@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
+ * Copyright (C) 2019 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -133,15 +134,15 @@ public final class CallStatsListItemViewHolder extends RecyclerView.ViewHolder
     if (TextUtils.isEmpty(details.displayName)) {
       nameText = details.displayNumber;
       if (TextUtils.isEmpty(details.geocode) || details.isVoicemailNumber) {
-          numberText = null;
+        labelText = null;
       } else {
-          numberText = details.geocode;
+        labelText = details.geocode;
       }
-      labelText = null;
+      numberText = null;
     } else {
       nameText = details.displayName;
       numberText = details.displayNumber;
-      labelText = numberFormattedLabel;
+      labelText = PhoneNumberHelper.getPreferredName(nameText, details.geocode, numberFormattedLabel);
     }
 
     float in = 0, out = 0, missed = 0, blocked = 0;
