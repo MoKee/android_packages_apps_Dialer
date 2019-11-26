@@ -1,6 +1,7 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
  * Copyright (C) 2013 Android Open Kang Project
+ * Copyright (C) 2019 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -197,7 +198,8 @@ public class CallStatsDetailActivity extends AppCompatActivity implements
 
     if (!TextUtils.isEmpty(mData.displayName)) {
       mCallerName.setText(mData.displayName);
-      mCallerNumber.setText(callLocationOrType + " " + mData.displayNumber);
+      // 联系人统计信息
+      mCallerNumber.setText(PhoneNumberHelper.getPreferredName(mData.displayName, mData.geocode, callLocationOrType) + " " + mData.displayNumber);
     } else {
       mCallerName.setText(mData.displayNumber);
       if (!TextUtils.isEmpty(callLocationOrType)) {

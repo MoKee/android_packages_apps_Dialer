@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 The Android Open Source Project
+ * Copyright (C) 2019 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -173,6 +174,7 @@ public class CallDetailsHeaderViewHolder extends RecyclerView.ViewHolder
       nameView.setText(context.getResources().getString(R.string.emergency_number));
     } else {
       nameView.setText(contact.getNameOrNumber());
+      String location = PhoneNumberHelper.getLocation(context, contact.getNumber());
       if (!TextUtils.isEmpty(contact.getDisplayNumber())) {
         numberView.setVisibility(View.VISIBLE);
         String secondaryInfo =
@@ -182,7 +184,13 @@ public class CallDetailsHeaderViewHolder extends RecyclerView.ViewHolder
                     com.android.dialer.contacts.resources.R.string.call_subject_type_and_number,
                     contact.getNumberLabel(),
                     contact.getDisplayNumber());
-        numberView.setText(secondaryInfo);
+        // 通话详情
+        numberView.setText(PhoneNumberHelper.getPreferredName(contact.getNameOrNumber(), location, secondaryInfo));
+      } else {
+        if (!TextUtils.isEmpty(location)) {
+          numberView.setVisibility(View.VISIBLE);
+          numberView.setText(location);
+        }
       }
     }
 

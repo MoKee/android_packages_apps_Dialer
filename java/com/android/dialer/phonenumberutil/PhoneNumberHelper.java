@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2013 The Android Open Source Project
+ * Copyright (C) 2019 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,6 +40,8 @@ import com.android.dialer.oem.PhoneNumberUtilsAccessor;
 import com.android.dialer.phonenumbergeoutil.PhoneNumberGeoUtilComponent;
 import com.android.dialer.telecom.TelecomUtil;
 import com.google.common.base.Optional;
+import com.mokee.cloud.location.OfflineNumber;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -219,6 +222,23 @@ public class PhoneNumberHelper {
 
   public static boolean isLegacyUnknownNumbers(CharSequence number) {
     return number != null && LEGACY_UNKNOWN_NUMBERS.contains(number.toString());
+  }
+
+  public static String getLocation(Context context, String number) {
+    if (TextUtils.isEmpty(number)) {
+      return null;
+    } else {
+      return OfflineNumber.detect(number, context);
+    }
+  }
+
+  public static String getPreferredName(CharSequence preferredName, CharSequence location, CharSequence... number) {
+    boolean hasNumber = number != null;
+    if (!TextUtils.isEmpty(location) && !TextUtils.equals(preferredName, location)) {
+      return String.join(" ", !hasNumber ? preferredName : number[0], location);
+    } else {
+      return String.valueOf(!hasNumber ? preferredName : number[0]);
+    }
   }
 
   /**

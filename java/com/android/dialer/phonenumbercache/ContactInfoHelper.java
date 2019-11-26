@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
+ * Copyright (C) 2019 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
@@ -177,6 +178,7 @@ public class ContactInfoHelper {
         (matchedNumber == null) ? c.getString(CallLogQuery.NUMBER) + postDialDigits : matchedNumber;
 
     info.normalizedNumber = c.getString(CallLogQuery.CACHED_NORMALIZED_NUMBER);
+    info.geoDescription = c.getString(CallLogQuery.GEOCODED_LOCATION);
     info.photoId = c.getLong(CallLogQuery.CACHED_PHOTO_ID);
     info.photoUri =
         UriUtils.nullForNonContactsUri(
@@ -251,6 +253,7 @@ public class ContactInfoHelper {
     contactInfo.number = number;
     contactInfo.formattedNumber = formatPhoneNumber(number, null, countryIso);
     contactInfo.normalizedNumber = PhoneNumberUtils.formatNumberToE164(number, countryIso);
+    contactInfo.geoDescription = PhoneNumberHelper.getLocation(context, number);
     contactInfo.lookupUri = createTemporaryContactUri(contactInfo.formattedNumber);
     return contactInfo;
   }
@@ -363,6 +366,7 @@ public class ContactInfoHelper {
     info.label = phoneLookupCursor.getString(PhoneQuery.LABEL);
     info.number = phoneLookupCursor.getString(PhoneQuery.MATCHED_NUMBER);
     info.normalizedNumber = phoneLookupCursor.getString(PhoneQuery.NORMALIZED_NUMBER);
+    info.geoDescription = PhoneNumberHelper.getLocation(context, info.number);
     info.photoId = phoneLookupCursor.getLong(PhoneQuery.PHOTO_ID);
     info.photoUri = UriUtils.parseUriOrNull(phoneLookupCursor.getString(PhoneQuery.PHOTO_URI));
     info.formattedNumber = null;

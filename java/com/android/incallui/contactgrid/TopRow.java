@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2016 The Android Open Source Project
+ * Copyright (C) 2019 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -83,11 +84,6 @@ public class TopRow {
         labelIsSingleLine = false;
       } else {
         label = getLabelForIncoming(context, state);
-        // Show phone number if it's not displayed in name (center row) or location field (bottom
-        // row).
-        if (shouldShowNumber(primaryInfo, true /* isIncoming */)) {
-          label = TextUtils.concat(label, " ", spanDisplayNumber(primaryInfo.number()));
-        }
       }
     } else if (VideoUtils.hasSentVideoUpgradeRequest(state.sessionModificationState())
         || VideoUtils.hasReceivedVideoUpgradeRequest(state.sessionModificationState())) {
@@ -101,9 +97,6 @@ public class TopRow {
       label = getLabelForDialing(context, state);
     } else if (state.state() == DialerCallState.ACTIVE && state.isRemotelyHeld()) {
       label = context.getString(R.string.incall_remotely_held);
-    } else if (state.state() == DialerCallState.ACTIVE
-        && shouldShowNumber(primaryInfo, false /* isIncoming */)) {
-      label = spanDisplayNumber(primaryInfo.number());
     } else if (state.state() == DialerCallState.CALL_PENDING
         && !TextUtils.isEmpty(state.customLabel())) {
       label = state.customLabel();
@@ -119,24 +112,6 @@ public class TopRow {
   private static CharSequence spanDisplayNumber(String displayNumber) {
     return PhoneNumberUtils.createTtsSpannable(
         BidiFormatter.getInstance().unicodeWrap(displayNumber, TextDirectionHeuristics.LTR));
-  }
-
-  private static boolean shouldShowNumber(PrimaryInfo primaryInfo, boolean isIncoming) {
-    if (primaryInfo.nameIsNumber()) {
-      return false;
-    }
-    // Don't show number since it's already shown in bottom row of incoming screen if there is no
-    // location info.
-    if (primaryInfo.location() == null && isIncoming) {
-      return false;
-    }
-    if (primaryInfo.isLocalContact() && !isIncoming) {
-      return false;
-    }
-    if (TextUtils.isEmpty(primaryInfo.number())) {
-      return false;
-    }
-    return true;
   }
 
   private static CharSequence getLabelForIncoming(Context context, PrimaryCallState state) {
