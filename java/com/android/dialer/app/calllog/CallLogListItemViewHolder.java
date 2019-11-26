@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
- * Copyright (C) 2015-2019 The Android Open Source Project
+ * Copyright (C) 2015-2019 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -774,9 +774,11 @@ public final class CallLogListItemViewHolder extends RecyclerView.ViewHolder
           IntentProvider.getAddContactIntentProvider(
               info.lookupUri, info.name, info.number, info.type, false /* isNewContact */));
       addToExistingContactButtonView.setVisibility(View.VISIBLE);
+      userMarkButtonView.setVisibility(View.VISIBLE);
     } else {
       createNewContactButtonView.setVisibility(View.GONE);
       addToExistingContactButtonView.setVisibility(View.GONE);
+      userMarkButtonView.setVisibility(View.GONE);
     }
 
     if (canPlaceCallToNumber && !isBlockedOrSpam && !isVoicemailNumber) {
