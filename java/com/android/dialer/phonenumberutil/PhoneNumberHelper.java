@@ -233,7 +233,7 @@ public class PhoneNumberHelper {
   }
 
   public static String getPreferredName(CharSequence preferredName, CharSequence location, CharSequence... number) {
-    boolean hasNumber = number != null;
+    boolean hasNumber = number.length > 0;
     if (!TextUtils.isEmpty(location) && !TextUtils.equals(preferredName, location)) {
       return String.join(" ", !hasNumber ? preferredName : number[0], location);
     } else {
