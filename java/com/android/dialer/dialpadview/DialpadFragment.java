@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
+ * Copyright (C) 2019 The MoKee Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -349,7 +350,13 @@ public class DialpadFragment extends Fragment
     }
 
     if (dialpadQueryListener != null) {
-      dialpadQueryListener.onDialpadQueryChanged(digits.getText().toString());
+      String number = digits.getText().toString();
+      dialpadQueryListener.onDialpadQueryChanged(number);
+      if (number.length() >= 3) {
+        digitsHint.setText(PhoneNumberHelper.getLocation(getContext(), number));
+      } else {
+        digitsHint.setText("");
+      }
     }
 
     updateDeleteButtonEnabledState();
@@ -469,21 +476,13 @@ public class DialpadFragment extends Fragment
    * difficult.
    */
   private void updateDialpadHint() {
-    if (!TextUtils.isEmpty(digits.getText())) {
-      digitsHint.setVisibility(View.GONE);
-      return;
-    }
-
     if (shouldShowEmergencyCallWarning(getContext())) {
       String hint = getContext().getString(R.string.dialpad_hint_emergency_calling_not_available);
       digits.setContentDescription(hint);
       digitsHint.setText(hint);
-      digitsHint.setVisibility(View.VISIBLE);
       return;
     }
     digits.setContentDescription(null);
-
-    digitsHint.setVisibility(View.GONE);
   }
 
   /**
@@ -1232,6 +1231,9 @@ public class DialpadFragment extends Fragment
   public void clearDialpad() {
     if (digits != null) {
       digits.getText().clear();
+    }
+    if (digitsHint != null) {
+      digitsHint.setText("");
     }
     selectedAccount = null;
   }
