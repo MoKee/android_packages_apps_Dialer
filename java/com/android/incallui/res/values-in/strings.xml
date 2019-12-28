@@ -31,6 +31,8 @@
   <string name="notification_call_wifi_work_brand">Panggilan kerja Wi-Fi</string>
   <string name="notification_on_hold">Ditangguhkan</string>
   <string name="notification_incoming_call">Panggilan masuk</string>
+  <string name="notification_incoming_video_call">Panggilan Video Masuk</string>
+  <string name="notification_incoming_call_mutli_sim">Panggilan masuk melalui <xliff:g id="sim_label" example="SIM 1">%1$s</xliff:g></string>
   <string name="notification_incoming_call_with_photo">Panggilan masuk dengan foto</string>
   <string name="notification_incoming_call_with_message">Panggilan masuk dengan pesan</string>
   <string name="notification_incoming_call_with_location">Panggilan masuk dengan lokasi</string>
@@ -75,4 +77,5 @@
   <string name="video_call_lte_to_wifi_failed_title">Tidak dapat beralih ke jaringan Wi-Fi</string>
   <string name="video_call_lte_to_wifi_failed_message">Video call akan tetap di jaringan seluler. Tarif data standar mungkin berlaku.</string>
   <string name="video_call_lte_to_wifi_failed_do_not_show">Jangan tampilkan ini lagi</string>
+  <string name="bubble_return_to_call">Kembali ke panggilan</string>
 </resources>
