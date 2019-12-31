@@ -20,6 +20,10 @@
         <item quantity="one">1 t</item>
         <item quantity="other">%d t</item>
     </plurals>
+    <plurals name="minute">
+        <item quantity="one">1 min</item>
+        <item quantity="other">%d min</item>
+    </plurals>
     <plurals name="second">
         <item quantity="one">1 s</item>
         <item quantity="other">%d s</item>

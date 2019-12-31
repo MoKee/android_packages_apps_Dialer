@@ -27,7 +27,7 @@
     <string name="incall_vibrate_45_summary">Vibrar en el segundo 45 de cada minuto durante las llamadas salientes</string>
     <string name="incall_dnd_dialog_message">Para habilitar el modo No molestar, la aplicación teléfono necesita permisos para controlar dicho estado.\n Por favor active dicho permiso.</string>
     <string name="allow">Permitir</string>
-    <string name="deny">Denegar</string>
+    <string name="deny">Rechazar</string>
     <string name="call_recording_category_title">Grabación de llamadas</string>
     <string name="call_recording_format">Formato de audio</string>
     <string name="call_via">Llamar a través de</string>
