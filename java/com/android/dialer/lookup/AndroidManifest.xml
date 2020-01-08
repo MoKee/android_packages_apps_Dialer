@@ -19,7 +19,7 @@
   package="com.android.dialer.lookup">
 
   <uses-sdk android:minSdkVersion="23"/>
-  <uses-permission android:name="lineageos.permission.WRITE_SETTINGS"/>
+  <uses-permission android:name="mokee.permission.WRITE_SETTINGS"/>
 
   <application>
     <provider android:name="com.android.dialer.lookup.LookupProvider"
