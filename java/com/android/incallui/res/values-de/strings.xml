@@ -31,6 +31,8 @@
   <string name="notification_call_wifi_work_brand">geschäftlicher WLAN-Anruf</string>
   <string name="notification_on_hold">Gehaltener Anruf</string>
   <string name="notification_incoming_call">Eingehender Anruf</string>
+  <string name="notification_incoming_video_call">Eingehender Videoanruf</string>
+  <string name="notification_incoming_call_mutli_sim">Eingehender Anruf über <xliff:g id="sim_label" example="SIM 1">%1$s</xliff:g></string>
   <string name="notification_incoming_call_with_photo">Eingehender Anruf mit Foto</string>
   <string name="notification_incoming_call_with_message">Eingehender Anruf mit Nachricht</string>
   <string name="notification_incoming_call_with_location">Eingehender Anruf mit Standort</string>
@@ -75,4 +77,5 @@
   <string name="video_call_lte_to_wifi_failed_title">Wechseln zu WLAN nicht möglich</string>
   <string name="video_call_lte_to_wifi_failed_message">Der Videoanruf erfolgt weiter über das Mobilfunknetz. Es können Standardgebühren für die Datenübertragung anfallen.</string>
   <string name="video_call_lte_to_wifi_failed_do_not_show">Meldung nicht mehr anzeigen</string>
+  <string name="bubble_return_to_call">Zurück zum Anruf</string>
 </resources>
