@@ -17,5 +17,12 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="call_recording_failed_message">Не вдалося запустити запис дзвінка</string>
+    <string name="call_recording_file_location">Запис дзвінка збережено до <xliff:g id="filename">%s</xliff:g></string>
+    <string name="onscreenCallRecordText">Записати виклик</string>
+    <string name="onscreenCallRecordingText">Запис дзвінка - <xliff:g id="duration" example="00:10">%1$s</xliff:g></string>
+    <string name="onscreenStopCallRecordText">Зупинити запис</string>
     <string name="recording_time_text">Запис</string>
+    <string name="recording_warning_title">Увімкнути запис дзвінків?</string>
+    <string name="recording_warning_text">Сповіщення: Ви відповідальні за дотримання будь-яких законів, правил та обмежень, що стосуються використання функції запису дзвінків і використання або розповсюдження цих записів.</string>
 </resources>
