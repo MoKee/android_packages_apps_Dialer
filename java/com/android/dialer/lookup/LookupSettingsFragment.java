@@ -22,6 +22,7 @@ import android.preference.Preference;
 import android.preference.ListPreference;
 import android.preference.PreferenceFragment;
 import android.preference.SwitchPreference;
+import android.text.TextUtils;
 
 import com.android.dialer.R;
 
@@ -132,7 +133,11 @@ public class LookupSettingsFragment extends PreferenceFragment
         final ContentResolver cr = getActivity().getContentResolver();
         String provider = MKSettings.System.getString(cr, key);
         if (provider == null) {
-            pref.setValueIndex(0);
+            if (TextUtils.equals(key, KEY_REVERSE_LOOKUP_PROVIDER)) {
+                pref.setValue(LookupSettings.RLP_DEFAULT);
+            } else {
+                pref.setValueIndex(0);
+            }
             MKSettings.System.putString(cr, key, pref.getValue());
         } else {
             pref.setValue(provider);
