@@ -17,5 +17,11 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="call_playback_no_app_found_toast">Не виявлено додатку, здатного відтворити обраний запис.</string>
+    <plurals name="play_recordings">
+        <item quantity="one">Відтворити запис</item>
+        <item quantity="few">Відтворення записів</item>
+        <item quantity="many">Відтворення записів</item>
+        <item quantity="other">Відтворити запис</item>
+    </plurals>
+    <string name="call_playback_no_app_found_toast">Не виявлено додатку, для відтворення даного запису.</string>
 </resources>

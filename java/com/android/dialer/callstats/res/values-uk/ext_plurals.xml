@@ -23,6 +23,12 @@
         <item quantity="many">%d год</item>
         <item quantity="other">%d год</item>
     </plurals>
+    <plurals name="minute">
+        <item quantity="one">1 хвилина</item>
+        <item quantity="few">%d хв</item>
+        <item quantity="many">%d хв</item>
+        <item quantity="other">%d хв</item>
+    </plurals>
     <plurals name="second">
         <item quantity="one">1 сек</item>
         <item quantity="few">%d сек</item>
