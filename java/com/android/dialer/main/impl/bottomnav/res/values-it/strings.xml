@@ -19,4 +19,5 @@
   <string name="tab_title_call_history">App Recenti</string>
   <string name="tab_title_speed_dial">Preferiti</string>
   <string name="tab_title_voicemail">Segreteria telefonica</string>
+  <string name="tab_title_contacts">Contatti</string>
 </resources>

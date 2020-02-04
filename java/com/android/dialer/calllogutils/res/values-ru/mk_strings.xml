@@ -19,4 +19,5 @@
     <string name="display_options_call_log_limit_title">Ограничение записей в журнале вызовов</string>
     <string name="display_options_call_log_limit_summary">Хранить <xliff:g id="count">%1$s</xliff:g> записей о вызовах</string>
     <string name="display_options_call_log_limit_default">500 (по умолчанию)</string>
+    <string name="display_options_call_log_limit_unlimited">Без ограничений</string>
 </resources>

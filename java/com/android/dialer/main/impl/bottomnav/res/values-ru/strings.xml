@@ -19,4 +19,5 @@
   <string name="tab_title_call_history">Меню недавних приложений</string>
   <string name="tab_title_speed_dial">Избранное</string>
   <string name="tab_title_voicemail">Голосовая почта</string>
+  <string name="tab_title_contacts">Контакты</string>
 </resources>
