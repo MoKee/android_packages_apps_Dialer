@@ -17,19 +17,27 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <plurals name="hour">
-        <item quantity="one">1 hr</item>
-        <item quantity="other">%d hrs</item>
+        <item quantity="one">1 година</item>
+        <item quantity="few">%d год</item>
+        <item quantity="many">%d год</item>
+        <item quantity="other">%d год</item>
     </plurals>
     <plurals name="minute">
-        <item quantity="one">1 min</item>
-        <item quantity="other">%d mins</item>
+        <item quantity="one">1 хвилина</item>
+        <item quantity="few">%d хв</item>
+        <item quantity="many">%d хв</item>
+        <item quantity="other">%d хв</item>
     </plurals>
     <plurals name="second">
-        <item quantity="one">1 seg</item>
-        <item quantity="other">%d segs</item>
+        <item quantity="one">1 сек</item>
+        <item quantity="few">%d сек</item>
+        <item quantity="many">%d сек</item>
+        <item quantity="other">%d сек</item>
     </plurals>
     <plurals name="call">
-        <item quantity="one">1 llamada</item>
-        <item quantity="other">%d llamadas</item>
+        <item quantity="one">1 дзвінок</item>
+        <item quantity="few">%d викликів</item>
+        <item quantity="many">%d викликів</item>
+        <item quantity="other">%d викликів</item>
     </plurals>
 </resources>

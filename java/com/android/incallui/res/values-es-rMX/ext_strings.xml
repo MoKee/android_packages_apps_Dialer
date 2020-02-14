@@ -16,12 +16,12 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="call_recording_failed_message">Fallo al iniciar la grabación de la llamada</string>
+    <string name="call_recording_failed_message">Error al iniciar la grabación de llamadas</string>
     <string name="call_recording_file_location">Grabación de la llamada guardada en <xliff:g id="filename">%s</xliff:g></string>
     <string name="onscreenCallRecordText">Grabar la llamada</string>
     <string name="onscreenCallRecordingText">Grabando llamada - <xliff:g id="duration" example="00:10">%1$s</xliff:g></string>
-    <string name="onscreenStopCallRecordText">Finalizar grabación</string>
+    <string name="onscreenStopCallRecordText">Detener grabación</string>
     <string name="recording_time_text">Grabando</string>
-    <string name="recording_warning_title">¿Habilitar la grabación de la llamada?</string>
-    <string name="recording_warning_text">Aviso: El cumplimiento de las leyes, regulaciones y reglas que se aplican al uso de las grabaciones de llamadas, su distribución y uso de las mismas es responsabilidad del usuario final.</string>
+    <string name="recording_warning_title">¿Habilitar grabación de llamadas?</string>
+    <string name="recording_warning_text">Aviso: Usted es responsable del cumplimiento de cualquier ley, reglamentos y reglas que se aplican al uso de la función de grabación de llamadas y el uso o distribución de dichas grabaciones.</string>
 </resources>
