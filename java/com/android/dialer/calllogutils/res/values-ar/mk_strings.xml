@@ -18,4 +18,5 @@
     <string name="display_options_call_log_limit_title">حد سجل المكالمة</string>
     <string name="display_options_call_log_limit_summary">الحفاظ على سجل المكالمات <xliff:g id="count">%1$s </xliff:g></string>
     <string name="display_options_call_log_limit_default">500 (افتراضي)</string>
+    <string name="display_options_call_log_limit_unlimited">غير محدود</string>
 </resources>

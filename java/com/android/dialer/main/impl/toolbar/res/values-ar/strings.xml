@@ -15,6 +15,13 @@
   ~ limitations under the License
   -->
 <resources>
+  <string name="action_menu_back_from_search">إيقاف البحث</string>
+  <string name="description_clear_search">حذف البحث</string>
+  <string msgid="2295659037509008453" name="action_menu_overflow_description">مزيد من الخيارات</string>
+  <string name="description_start_voice_search">بدء البحث الصوتي</string>
+  <string name="dialer_hint_find_contact">البحث في جهات الاتصال</string>
   <string name="settings">الإعدادات</string>
+  <string name="main_menu_call_history">سجل المكالمات</string>
+  <string name="main_menu_clear_frequents">محو قائمة من يتصل بهم كثيرًا</string>
   <string name="main_remove_contact">إزالة</string>
 </resources>
