@@ -18,4 +18,5 @@
   <string name="tab_title_call_history">Ostatnie</string>
   <string name="tab_title_speed_dial">Ulubione</string>
   <string name="tab_title_voicemail">Poczta głosowa</string>
+  <string name="tab_title_contacts">Kontakty</string>
 </resources>

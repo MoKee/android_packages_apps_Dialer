@@ -18,4 +18,5 @@
     <string name="display_options_call_log_limit_title">Çağrı günlüğü sınırı</string>
     <string name="display_options_call_log_limit_summary"><xliff:g id="count">%1$s</xliff:g> arama kaydını tut</string>
     <string name="display_options_call_log_limit_default">500 (Varsayılan)</string>
+    <string name="display_options_call_log_limit_unlimited">Sınırsız</string>
 </resources>

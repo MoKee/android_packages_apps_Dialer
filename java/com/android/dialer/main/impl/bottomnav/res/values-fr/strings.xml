@@ -18,4 +18,5 @@
   <string name="tab_title_call_history">Récents</string>
   <string name="tab_title_speed_dial">Favoris</string>
   <string name="tab_title_voicemail">Messagerie vocale</string>
+  <string name="tab_title_contacts">Contacts</string>
 </resources>

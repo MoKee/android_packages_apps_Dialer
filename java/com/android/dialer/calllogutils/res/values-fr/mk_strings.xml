@@ -18,4 +18,5 @@
     <string name="display_options_call_log_limit_title">Limite du journal d\'appel</string>
     <string name="display_options_call_log_limit_summary">Enregistrer <xliff:g id="count">%1$s</xliff:g> appels</string>
     <string name="display_options_call_log_limit_default">500 (par défaut)</string>
+    <string name="display_options_call_log_limit_unlimited">Illimité</string>
 </resources>
