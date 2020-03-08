@@ -15,6 +15,13 @@
   ~ limitations under the License
   -->
 <resources>
+  <string name="action_menu_back_from_search">dejar de buscar</string>
+  <string name="description_clear_search">Limpiar búsqueda</string>
+  <string msgid="2295659037509008453" name="action_menu_overflow_description">Más opciones</string>
+  <string name="description_start_voice_search">Iniciar búsqueda por voz</string>
+  <string name="dialer_hint_find_contact">Buscar contactos</string>
   <string name="settings">Ajustes</string>
+  <string name="main_menu_call_history">Registros de llamadas</string>
+  <string name="main_menu_clear_frequents">Limpiar frecuentes</string>
   <string name="main_remove_contact">Quitar</string>
 </resources>
