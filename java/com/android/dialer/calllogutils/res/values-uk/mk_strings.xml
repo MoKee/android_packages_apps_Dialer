@@ -18,4 +18,5 @@
     <string name="display_options_call_log_limit_title">Ліміт історії викликів</string>
     <string name="display_options_call_log_limit_summary">Зберігати дані <xliff:g id="count">%1$s</xliff:g>  викликів</string>
     <string name="display_options_call_log_limit_default">500 (за замовчуванням)</string>
+    <string name="display_options_call_log_limit_unlimited">Без обмежень</string>
 </resources>

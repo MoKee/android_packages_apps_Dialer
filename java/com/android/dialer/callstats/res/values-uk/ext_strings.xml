@@ -21,6 +21,8 @@
     <string name="call_stats_outgoing">Вихідні: <xliff:g id="value">%s</xliff:g></string>
     <string name="call_stats_missed">Пропущені: <xliff:g id="value">%s</xliff:g></string>
     <string name="call_stats_blocked">Заблоковані: <xliff:g id="value">%s</xliff:g></string>
+    <string name="call_stats_percent"><xliff:g id="percent">%d</xliff:g>%%</string>
+    <string name="call_stats_header_total">Загалом: <xliff:g id="call_count">%1$s</xliff:g>, <xliff:g id="duration">%2$s</xliff:g></string>
     <string name="call_stats_header_total_callsonly">Загалом: <xliff:g id="call_count">%s</xliff:g></string>
     <string name="call_stats_filter_from">Початкова дата</string>
     <string name="call_stats_filter_to">Кінцева дата</string>
