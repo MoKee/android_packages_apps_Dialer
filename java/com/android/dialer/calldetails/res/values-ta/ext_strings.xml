@@ -16,9 +16,7 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <plurals name="play_recordings">
-        <item quantity="one">Пусти снимке</item>
-        <item quantity="few">Пусти снимак</item>
-        <item quantity="other">Пусти снимак</item>
+        <item quantity="one">பதிவை இயக்கு</item>
+        <item quantity="other">பதிவுகளை இயக்கு</item>
     </plurals>
-    <string name="call_playback_no_app_found_toast">Нема апликације за пуштање изабраног снимка.</string>
 </resources>

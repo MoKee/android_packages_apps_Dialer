@@ -16,5 +16,8 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="call_stats_header_total">Totalt: <xliff:g id="call_count">%1$s</xliff:g>, <xliff:g id="duration">%2$s</xliff:g></string>
+    <string name="date_qs_lastweek">கடந்த வாரம்</string>
+    <string name="date_qs_lastmonth">கடந்த மாதம்</string>
+    <string name="date_qs_lastyear">கடந்த ஆண்டு</string>
+    <string name="call_stats_title_for_number">இந்த எண்</string>
 </resources>

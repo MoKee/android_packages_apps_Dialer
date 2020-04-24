@@ -15,13 +15,6 @@
   ~ limitations under the License
   -->
 <resources>
-  <string name="action_menu_back_from_search">ukončit hledání</string>
-  <string name="description_clear_search">Vymazat vyhledávání</string>
-  <string msgid="2295659037509008453" name="action_menu_overflow_description">Více možností</string>
-  <string name="description_start_voice_search">Spustit hlasové vyhledávání</string>
-  <string name="dialer_hint_find_contact">Vyhledat kontakty</string>
-  <string name="settings">Nastavení</string>
-  <string name="main_menu_call_history">Historie hovorů</string>
-  <string name="main_menu_clear_frequents">Vymazat často kontaktované</string>
-  <string name="main_remove_contact">Odstranit</string>
+  <string name="settings">அமைப்புகள்</string>
+  <string name="main_remove_contact">அகற்று</string>
 </resources>

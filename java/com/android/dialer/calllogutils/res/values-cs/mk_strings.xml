@@ -18,4 +18,5 @@
     <string name="display_options_call_log_limit_title">Limit protokolu volání</string>
     <string name="display_options_call_log_limit_summary">Zachovat <xliff:g id="count">%1$s</xliff:g> záznamů protokolu volání</string>
     <string name="display_options_call_log_limit_default">500 (výchozí)</string>
+    <string name="display_options_call_log_limit_unlimited">Bez omezení</string>
 </resources>

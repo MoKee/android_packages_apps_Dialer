@@ -15,10 +15,5 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <plurals name="play_recordings">
-        <item quantity="one">Пусти снимке</item>
-        <item quantity="few">Пусти снимак</item>
-        <item quantity="other">Пусти снимак</item>
-    </plurals>
-    <string name="call_playback_no_app_found_toast">Нема апликације за пуштање изабраног снимка.</string>
+    <string name="call_playback_no_app_found_toast">Aplikacija za reproduciranje odabrane snimke nije pronađena.</string>
 </resources>

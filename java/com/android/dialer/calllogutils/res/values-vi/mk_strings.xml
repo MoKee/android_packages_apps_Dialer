@@ -18,4 +18,5 @@
     <string name="display_options_call_log_limit_title">Giới hạn nhật ký gọi</string>
     <string name="display_options_call_log_limit_summary">Giữ trên <xliff:g id="count">%1$s </xliff:g> nhật ký cuộc gọi</string>
     <string name="display_options_call_log_limit_default">500 (mặc định)</string>
+    <string name="display_options_call_log_limit_unlimited">Không giới hạn</string>
 </resources>

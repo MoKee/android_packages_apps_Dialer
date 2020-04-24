@@ -15,6 +15,13 @@
   ~ limitations under the License
   -->
 <resources>
+  <string name="action_menu_back_from_search">ngừng tìm kiếm</string>
+  <string name="description_clear_search">Xóa tìm kiếm</string>
+  <string msgid="2295659037509008453" name="action_menu_overflow_description">Tùy chọn khác</string>
+  <string name="description_start_voice_search">Bắt đầu tìm kiếm bằng giọng nói</string>
+  <string name="dialer_hint_find_contact">Tìm kiếm danh bạ</string>
   <string name="settings">Cài đặt</string>
+  <string name="main_menu_call_history">Lịch sử gọi</string>
+  <string name="main_menu_clear_frequents">Xóa DS liên hệ thường xuyên</string>
   <string name="main_remove_contact">Xóa</string>
 </resources>
