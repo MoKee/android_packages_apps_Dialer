@@ -17,8 +17,8 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <plurals name="hour">
         <item quantity="one">1 сат</item>
-        <item quantity="few">%d сати</item>
-        <item quantity="other">%d сата</item>
+        <item quantity="few">%d сата</item>
+        <item quantity="other">%d сати</item>
     </plurals>
     <plurals name="minute">
         <item quantity="one">1 мин</item>
@@ -27,7 +27,7 @@
     </plurals>
     <plurals name="second">
         <item quantity="one">1 секунда</item>
-        <item quantity="few">%d секунди</item>
+        <item quantity="few">%d секунде</item>
         <item quantity="other">%d секунди</item>
     </plurals>
     <plurals name="call">

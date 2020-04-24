@@ -17,21 +17,22 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="call_stats_detail_title">Детаљи статистике контакта</string>
-    <string name="call_stats_incoming">Долазни: <xliff:g id="value">%s</xliff:g></string>
-    <string name="call_stats_outgoing">Одлазни: <xliff:g id="value">%s</xliff:g></string>
-    <string name="call_stats_missed">Пропуштени: <xliff:g id="value">%s</xliff:g></string>
-    <string name="call_stats_blocked">Блокирани: <xliff:g id="value">%s</xliff:g></string>
+    <string name="call_stats_incoming">Долазних: <xliff:g id="value">%s</xliff:g></string>
+    <string name="call_stats_outgoing">Одлазних: <xliff:g id="value">%s</xliff:g></string>
+    <string name="call_stats_missed">Пропуштених: <xliff:g id="value">%s</xliff:g></string>
+    <string name="call_stats_blocked">Блокираних: <xliff:g id="value">%s</xliff:g></string>
     <string name="call_stats_percent"><xliff:g id="percent">%d</xliff:g>%%</string>
-    <string name="call_stats_header_total_callsonly">Укупно:<xliff:g id="call_count">%s</xliff:g></string>
+    <string name="call_stats_header_total">Укупно: <xliff:g id="call_count">%1$s</xliff:g>, <xliff:g id="duration">%2$s</xliff:g></string>
+    <string name="call_stats_header_total_callsonly">Укупно: <xliff:g id="call_count">%s</xliff:g></string>
     <string name="call_stats_filter_from">Почетни датум</string>
-    <string name="call_stats_filter_to">Датум завршетка</string>
+    <string name="call_stats_filter_to">Крајњи датум</string>
     <string name="call_stats_filter_picker_title">Опсег филтера</string>
-    <string name="date_quick_selection">Брзи избор</string>
-    <string name="date_qs_currentmonth">Актуелни месец</string>
-    <string name="date_qs_currentquarter">Актуелни квартал</string>
-    <string name="date_qs_currentyear">Актуелна година</string>
+    <string name="date_quick_selection">Брзи одабир</string>
+    <string name="date_qs_currentmonth">Тренутни месец</string>
+    <string name="date_qs_currentquarter">Текући квартал</string>
+    <string name="date_qs_currentyear">Текућа година</string>
     <string name="date_qs_lastweek">Прошла недеља</string>
-    <string name="date_qs_lastmonth">Претходни месец</string>
+    <string name="date_qs_lastmonth">Прошли месец</string>
     <string name="date_qs_lastquarter">Прошли квартал</string>
     <string name="date_qs_lastyear">Прошла година</string>
     <string name="call_stats_date_filter">Подеси временски опсег</string>
@@ -39,9 +40,9 @@
     <string name="call_stats_sort_by_duration">Сортирај по трајању позива</string>
     <string name="call_stats_sort_by_count">Сортирај по броју позива</string>
     <string name="call_stats_title_for_number">Овај број</string>
-    <string name="call_stats_title_of_total">Од укупног</string>
-    <string name="call_stats_title_durations">Трајање позива</string>
+    <string name="call_stats_title_of_total">Од укупно</string>
+    <string name="call_stats_title_durations">Трајања позива</string>
     <string name="call_stats_title_count">Број позива</string>
     <string name="call_stats_title_average_duration">Просечно трајање позива</string>
-    <string name="recent_calls_no_items_in_range">Ваш дневник позива не садржи позиве у изабраном временском распону.</string>
+    <string name="recent_calls_no_items_in_range">Дневник позива не садржи ниједан позив у датим опсегу.</string>
 </resources>
