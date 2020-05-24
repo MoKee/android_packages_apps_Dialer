@@ -16,8 +16,13 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="call_stats_detail_title">தொடர்பு புள்ளிவிவர தகவல்கள்</string>
+    <string name="call_stats_incoming">உள்வரும் அழைப்பு: <xliff:g id="value">%s</xliff:g></string>
+    <string name="date_qs_currentmonth">தற்போதய மாதம்</string>
+    <string name="date_qs_currentyear">தற்போதய ஆண்டு</string>
     <string name="date_qs_lastweek">கடந்த வாரம்</string>
     <string name="date_qs_lastmonth">கடந்த மாதம்</string>
     <string name="date_qs_lastyear">கடந்த ஆண்டு</string>
     <string name="call_stats_title_for_number">இந்த எண்</string>
+    <string name="call_stats_title_count">அழைப்பு எண்ணிக்கை</string>
 </resources>
