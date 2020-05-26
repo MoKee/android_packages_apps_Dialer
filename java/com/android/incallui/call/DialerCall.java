@@ -126,6 +126,8 @@ public class DialerCall implements VideoTechListener, StateChangedListener, Capa
 
   private static int idCounter = 0;
 
+  public static final int UNKNOWN_PEER_DIMENSIONS = -1;
+
   /**
    * A counter used to append to restricted/private/hidden calls so that users can identify them in
    * a conversation. This value is reset in {@link CallList#onCallRemoved(Context, Call)} when there
@@ -343,6 +345,7 @@ public class DialerCall implements VideoTechListener, StateChangedListener, Capa
               // now update the UI to possibly re-enable the Merge button based on the number of
               // currently conferenceable calls available or Connection Capabilities.
             case android.telecom.Connection.EVENT_CALL_MERGE_FAILED:
+              isMergeInProcess = false;
               update();
               break;
             case TelephonyManagerCompat.EVENT_HANDOVER_VIDEO_FROM_WIFI_TO_LTE:
@@ -387,6 +390,8 @@ public class DialerCall implements VideoTechListener, StateChangedListener, Capa
       };
 
   private long timeAddedMs;
+  private int peerDimensionWidth = UNKNOWN_PEER_DIMENSIONS;
+  private int peerDimensionHeight = UNKNOWN_PEER_DIMENSIONS;
 
   public DialerCall(
       Context context,
@@ -1565,6 +1570,8 @@ public class DialerCall implements VideoTechListener, StateChangedListener, Capa
 
   @Override
   public void onPeerDimensionsChanged(int width, int height) {
+    peerDimensionWidth = width;
+    peerDimensionHeight = height;
     InCallVideoCallCallbackNotifier.getInstance().peerDimensionsChanged(this, width, height);
   }
 
@@ -1980,5 +1987,15 @@ public class DialerCall implements VideoTechListener, StateChangedListener, Capa
   /** Called when canned text responses have been loaded. */
   public interface CannedTextResponsesLoadedListener {
     void onCannedTextResponsesLoaded(DialerCall call);
+  }
+
+  /** Gets peer dimension width. */
+  public int getPeerDimensionWidth() {
+    return peerDimensionWidth;
+  }
+
+  /** Gets peer dimension height. */
+  public int getPeerDimensionHeight() {
+    return peerDimensionHeight;
   }
 }
