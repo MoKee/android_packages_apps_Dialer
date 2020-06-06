@@ -21,6 +21,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ComponentName;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -31,8 +32,8 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.RemoteException;
 import android.os.SystemProperties;
+import android.provider.MediaStore;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
@@ -43,7 +44,6 @@ import com.android.dialer.callrecord.CallRecordingDataStore;
 import com.android.dialer.callrecord.CallRecording;
 import com.android.dialer.callrecord.ICallRecorderService;
 import com.android.dialer.callrecord.impl.CallRecorderService;
-import com.android.dialer.constants.Constants;
 import com.android.dialer.location.GeoUtil;
 import com.android.incallui.call.state.DialerCallState;
 
@@ -197,7 +197,7 @@ public class CallRecorder implements CallList.Listener {
         final CallRecording recording = service.stopRecording();
         if (recording != null) {
           String msg = context.getResources().getString(
-                  R.string.call_recording_file_location, recording.getFile().getAbsolutePath());
+                  R.string.call_recording_file_location, recording.fileName);
           String title;
           if (!TextUtils.isEmpty(recording.phoneNumber)) {
             title = context.getResources().getString(
@@ -217,9 +217,9 @@ public class CallRecorder implements CallList.Listener {
             Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
           }
 
-          Uri uri = FileProvider.getUriForFile(context,
-                  Constants.get().getFileProviderAuthority(), recording.getFile());
-          String extension = MimeTypeMap.getFileExtensionFromUrl(uri.toString());
+          Uri uri = ContentUris.withAppendedId(
+                  MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, recording.mediaId);
+          String extension = MimeTypeMap.getFileExtensionFromUrl(recording.fileName);
           String mime = !TextUtils.isEmpty(extension)
                   ? MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension) : "audio/*";
 
