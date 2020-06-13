@@ -15,7 +15,7 @@
   ~ limitations under the License
   -->
 <resources>
-  <string name="tab_title_call_history">最近任务</string>
+  <string name="tab_title_call_history">最近通话</string>
   <string name="tab_title_speed_dial">收藏</string>
   <string name="tab_title_voicemail">语音邮件</string>
   <string name="tab_title_contacts">联系人</string>
