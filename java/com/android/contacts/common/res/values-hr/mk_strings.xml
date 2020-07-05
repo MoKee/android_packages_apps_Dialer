@@ -15,11 +15,8 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="call_log_action_user_mark">లా గుర్తించు</string>
-    <string name="description_user_mark_action">గుర్తించు </string>
-    <string name="cloud_location_lookup_mark_title">%sని ఎంచుకో</string>
-    <string name="cloud_location_lookup_mark_done">పూర్తయింది</string>
-    <string name="cloud_location_lookup_mark_fraud">మోసపూరితం</string>
-    <string name="cloud_location_lookup_mark_advertisement">ప్రకటన</string>
-    <string name="cloud_location_lookup_mark_service">వినియోగదారుని  సేవ</string>
+    <string name="call_log_delete_limit_title">Ograničenje dnevnika poziva</string>
+    <string name="call_log_delete_limit_summary">Keep on <xliff:g id="count">%1$s</xliff:g> call log</string>
+    <string name="call_log_delete_limit_default">500 (zadano)</string>
+    <string name="call_log_delete_limit_nolimit">Ne ograničavajte se</string>
 </resources>

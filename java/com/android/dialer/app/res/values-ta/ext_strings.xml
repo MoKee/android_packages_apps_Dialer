@@ -17,11 +17,12 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="call_log_show_all_accounts">Tất cả tài khoản</string>
-    <string name="call_log_all_calls_header">Tất cả các cuộc gọi</string>
-    <string name="call_log_incoming_header">Chỉ cuộc gọi đến</string>
-    <string name="call_log_outgoing_header">Chỉ cuộc gọi đi</string>
-    <string name="call_log_missed_header">Chỉ cuộc gọi nhỡ</string>
-    <string name="call_log_voicemail_header">Chỉ cuộc gọi có thư thoại</string>
-    <string name="call_log_blacklist_header">Chỉ các cuộc gọi bị chặn</string>
+    <string name="incall_category_title">அழைப்பில்</string>
+    <string name="allow">அனுமதி</string>
+    <string name="deny">மறு</string>
+    <string name="call_recording_category_title">அழைப்பு பதிவுசெய்தல்</string>
+    <string name="call_recording_format">ஒலி வடிவமைப்பு</string>
+    <string name="call_via">மூலம் அழை</string>
+    <string name="call_via_dialog_title">\u2026 மூலம் அழை</string>
+    <string name="call_log_stats_title">புள்ளிவிவரங்கள்</string>
 </resources>

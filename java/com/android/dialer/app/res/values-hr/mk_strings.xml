@@ -15,5 +15,18 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="call_log_action_user_mark">Označi kao</string>
+    <string name="description_user_mark_action">Mark <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> as</string>
+    <string name="cloud_location_lookup_mark_title">Označi %s </string>
+    <string name="cloud_location_lookup_mark_as">Označi podatke o pozivaocu</string>
+    <string name="cloud_location_lookup_mark_custom">Podaci o prilagođenom pozivu</string>
     <string name="cloud_location_lookup_mark_done">Gotovo</string>
+    <string name="cloud_location_lookup_mark_harassment">Uznemiravanje</string>
+    <string name="cloud_location_lookup_mark_fraud">Prevara</string>
+    <string name="cloud_location_lookup_mark_advertisement">Oglašavanje</string>
+    <string name="cloud_location_lookup_mark_agency">Agencija</string>
+    <string name="cloud_location_lookup_mark_takeaway">Oduzeti</string>
+    <string name="cloud_location_lookup_mark_delivery">Dostava</string>
+    <string name="cloud_location_lookup_mark_service">Korisnička podrška</string>
+    <string name="cloud_location_lookup_mark_taxi">Taksi</string>
 </resources>

@@ -30,6 +30,8 @@
   <string name="notification_call_wifi_work_brand">Cuộc gọi về công việc qua Wi‑Fi</string>
   <string name="notification_on_hold">Đang chờ</string>
   <string name="notification_incoming_call">Cuộc gọi đến</string>
+  <string name="notification_incoming_video_call">Cuộc gọi điện video đến</string>
+  <string name="notification_incoming_call_mutli_sim">Cuộc gọi đến thông qua <xliff:g id="sim_label" example="SIM 1">%1$s</xliff:g></string>
   <string name="notification_incoming_call_with_photo">Cuộc gọi đến có ảnh</string>
   <string name="notification_incoming_call_with_message">Cuộc gọi đến có tin nhắn</string>
   <string name="notification_incoming_call_with_location">Cuộc gọi đến có vị trí</string>
@@ -74,4 +76,5 @@
   <string name="video_call_lte_to_wifi_failed_title">Không thể chuyển sang mạng Wi-Fi</string>
   <string name="video_call_lte_to_wifi_failed_message">Cuộc gọi điện video sẽ tiếp tục trên mạng di động. Bạn có thể phải trả phí dữ liệu chuẩn.</string>
   <string name="video_call_lte_to_wifi_failed_do_not_show">Không hiển thị lại</string>
+  <string name="bubble_return_to_call">Trở lại cuộc gọi</string>
 </resources>
