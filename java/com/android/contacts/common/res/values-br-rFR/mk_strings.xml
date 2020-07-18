@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-     Copyright (C) 2013-2019 The MoKee Open Source Project
-     Copyright (C) 2013-2014 The CyanogenMod Project
-     Copyright (C) 2018 The LineageOS Project
+     Copyright (C) 2015-2019 The MoKee Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -17,8 +15,5 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="call_log_show_all_accounts">எல்லா கணக்குகள்</string>
-    <string name="call_log_all_calls_header">அனைத்து அழைப்புகள்</string>
-    <string name="call_log_missed_header">தவறிய அழைப்புகள் மட்டும்</string>
-    <string name="call_log_blacklist_header">தடுக்கப்பட்ட அழைப்புகள் மட்டும்</string>
+    <string name="call_log_delete_limit_default">500 (dre ziouer)</string>
 </resources>
