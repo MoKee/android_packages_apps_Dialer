@@ -18,4 +18,5 @@
     <string name="display_options_call_log_limit_title">Grenze des Anrufprotokolls</string>
     <string name="display_options_call_log_limit_summary">Behalten von <xliff:g id="count">%1$s</xliff:g> Anrufen</string>
     <string name="display_options_call_log_limit_default">500 (Standard)</string>
+    <string name="display_options_call_log_limit_unlimited">Unbegrenzt</string>
 </resources>

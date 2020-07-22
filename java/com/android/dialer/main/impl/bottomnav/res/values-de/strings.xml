@@ -18,4 +18,5 @@
   <string name="tab_title_call_history">App-Verlauf</string>
   <string name="tab_title_speed_dial">Favoriten</string>
   <string name="tab_title_voicemail">Sprachnachricht</string>
+  <string name="tab_title_contacts">Kontakte</string>
 </resources>
