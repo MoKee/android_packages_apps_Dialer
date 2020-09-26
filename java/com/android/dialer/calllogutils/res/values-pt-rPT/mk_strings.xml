@@ -18,4 +18,5 @@
     <string name="display_options_call_log_limit_title">Limite de registro de chamada</string>
     <string name="display_options_call_log_limit_summary">Manter-se no registo de chamadas <xliff:g id="count">%1$s</xliff:g></string>
     <string name="display_options_call_log_limit_default">500 (padrão)</string>
+    <string name="display_options_call_log_limit_unlimited">Ilimitado</string>
 </resources>
