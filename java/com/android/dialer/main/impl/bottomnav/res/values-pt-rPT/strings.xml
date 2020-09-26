@@ -18,4 +18,5 @@
   <string name="tab_title_call_history">Recentes</string>
   <string name="tab_title_speed_dial">Marcadores</string>
   <string name="tab_title_voicemail">Correio de voz</string>
+  <string name="tab_title_contacts">Contactos</string>
 </resources>
