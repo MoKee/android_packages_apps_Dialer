@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
+     Copyright (C) 2013-2019 The MoKee Open Source Project
      Copyright (C) 2013-2014 The CyanogenMod Project
      Copyright (C) 2018 The LineageOS Project
 
@@ -16,33 +17,33 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="call_stats_detail_title">Детаљи статистике контакта</string>
-    <string name="call_stats_incoming">Долазних: <xliff:g id="value">%s</xliff:g></string>
-    <string name="call_stats_outgoing">Одлазних: <xliff:g id="value">%s</xliff:g></string>
-    <string name="call_stats_missed">Пропуштених: <xliff:g id="value">%s</xliff:g></string>
-    <string name="call_stats_blocked">Блокираних: <xliff:g id="value">%s</xliff:g></string>
-    <string name="call_stats_percent"><xliff:g id="percent">%d</xliff:g>%%</string>
-    <string name="call_stats_header_total">Укупно: <xliff:g id="call_count">%s</xliff:g>, <xliff:g id="duration">%s</xliff:g></string>
-    <string name="call_stats_header_total_callsonly">Укупно: <xliff:g id="call_count">%s</xliff:g></string>
-    <string name="call_stats_filter_from">Почетни датум</string>
-    <string name="call_stats_filter_to">Крајњи датум</string>
-    <string name="call_stats_filter_picker_title">Опсег филтера</string>
-    <string name="date_quick_selection">Брзи одабир</string>
-    <string name="date_qs_currentmonth">Тренутни месец</string>
-    <string name="date_qs_currentquarter">Текући квартал</string>
-    <string name="date_qs_currentyear">Текућа година</string>
-    <string name="date_qs_lastweek">Прошла недеља</string>
-    <string name="date_qs_lastmonth">Прошли месец</string>
-    <string name="date_qs_lastquarter">Прошли квартал</string>
-    <string name="date_qs_lastyear">Прошла година</string>
-    <string name="call_stats_date_filter">Подеси временски опсег</string>
-    <string name="call_stats_reset_filter">Ресетуј временски опсег</string>
-    <string name="call_stats_sort_by_duration">Сортирај по трајању позива</string>
-    <string name="call_stats_sort_by_count">Сортирај по броју позива</string>
-    <string name="call_stats_title_for_number">Овај број</string>
-    <string name="call_stats_title_of_total">Од укупно</string>
-    <string name="call_stats_title_durations">Трајања позива</string>
-    <string name="call_stats_title_count">Број позива</string>
-    <string name="call_stats_title_average_duration">Просечно трајање позива</string>
-    <string name="recent_calls_no_items_in_range">Дневник позива не садржи ниједан позив у датим опсегу.</string>
+    <string name="call_stats_detail_title">Details zur Kontaktstatistik</string>
+    <string name="call_stats_incoming">Eingehend: <xliff:g id="value">%s</xliff:g></string>
+    <string name="call_stats_outgoing">Ausgehend: <xliff:g id="value">%s</xliff:g></string>
+    <string name="call_stats_missed">Verpasst: <xliff:g id="value">%s</xliff:g></string>
+    <string name="call_stats_blocked">Blockiert: <xliff:g id="value">%s</xliff:g></string>
+    <string name="call_stats_percent"><xliff:g id="percent">%d</xliff:g> %%</string>
+    <string name="call_stats_header_total">Gesamt: <xliff:g id="call_count">%s</xliff:g>, <xliff:g id="duration">%s</xliff:g></string>
+    <string name="call_stats_header_total_callsonly">Gesamt: <xliff:g id="call_count">%s</xliff:g></string>
+    <string name="call_stats_filter_from">Startdatum</string>
+    <string name="call_stats_filter_to">Enddatum</string>
+    <string name="call_stats_filter_picker_title">Filterbereich</string>
+    <string name="date_quick_selection">Schnellauswahl</string>
+    <string name="date_qs_currentmonth">Aktueller Monat</string>
+    <string name="date_qs_currentquarter">Aktuelles Quartal</string>
+    <string name="date_qs_currentyear">Aktuelles Jahr</string>
+    <string name="date_qs_lastweek">Letzte Woche</string>
+    <string name="date_qs_lastmonth">Letzter Monat</string>
+    <string name="date_qs_lastquarter">Letztes Quartal</string>
+    <string name="date_qs_lastyear">Letztes Jahr</string>
+    <string name="call_stats_date_filter">Zeitraum anpassen</string>
+    <string name="call_stats_reset_filter">Zeitraum zurücksetzen</string>
+    <string name="call_stats_sort_by_duration">Nach Anrufdauer sortieren</string>
+    <string name="call_stats_sort_by_count">Nach Anrufanzahl sortieren</string>
+    <string name="call_stats_title_for_number">Diese Nummer</string>
+    <string name="call_stats_title_of_total">Von insgesamt</string>
+    <string name="call_stats_title_durations">Gesprächsdauer</string>
+    <string name="call_stats_title_count">Gesprächsanzahl</string>
+    <string name="call_stats_title_average_duration">Durchschnittliche Gesprächsdauer</string>
+    <string name="recent_calls_no_items_in_range">Das Anrufprotokoll enthält keine Anrufe im ausgewählten Zeitraum.</string>
 </resources>
