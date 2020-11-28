@@ -15,5 +15,6 @@
   ~ limitations under the License
   -->
 <resources>
+  <string name="tab_title_speed_dial">Të preferuarat</string>
   <string name="tab_title_voicemail">Mesazh zanor</string>
 </resources>
