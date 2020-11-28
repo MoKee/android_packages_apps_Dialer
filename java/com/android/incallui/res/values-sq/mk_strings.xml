@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-     Copyright (C) 2019 The MoKee Open Source Project
+     Copyright (C) 2018-2019 The MoKee Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -15,10 +15,8 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="call_log_action_user_mark">Shënojeni si...</string>
-    <string name="cloud_location_lookup_mark_title">Shëno %s</string>
-    <string name="cloud_location_lookup_mark_as">Shëno informacionin e telefonuesit</string>
-    <string name="cloud_location_lookup_mark_custom">Informacioni i telefonuesit të personalizuar</string>
-    <string name="cloud_location_lookup_mark_done">U krye</string>
-    <string name="cloud_location_lookup_mark_harassment">Ngacmim</string>
+    <string name="call_recording_notification_with_label_title">Regjistrimi i thirrjes u ruajtur me %s</string>
+    <string name="call_recording_notification_with_no_label_title">Ruaj inqizimin</string>
+    <string name="auto_call_recording_title">Incizo telefonatat automatikisht</string>
+    <string name="auto_call_recording_summary">Regjistrimi automatik pas thirrjes</string>
 </resources>
