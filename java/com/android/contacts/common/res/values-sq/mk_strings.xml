@@ -15,10 +15,7 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="call_log_action_user_mark">Shënojeni si...</string>
-    <string name="cloud_location_lookup_mark_title">Shëno %s</string>
-    <string name="cloud_location_lookup_mark_as">Shëno informacionin e telefonuesit</string>
-    <string name="cloud_location_lookup_mark_custom">Informacioni i telefonuesit të personalizuar</string>
-    <string name="cloud_location_lookup_mark_done">U krye</string>
-    <string name="cloud_location_lookup_mark_harassment">Ngacmim</string>
+    <string name="call_log_delete_limit_title">Kufiri i regjistrit të thirrjeve</string>
+    <string name="call_log_delete_limit_default">500 (E parazgjedhur)</string>
+    <string name="call_log_delete_limit_nolimit">Mos e kufizoni</string>
 </resources>
