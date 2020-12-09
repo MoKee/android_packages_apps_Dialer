@@ -19,7 +19,7 @@
   <string name="wait_prompt_str">Dëshiron t\'i dërgosh tonet e mëposhtme?\n</string>
   <string name="pause_prompt_yes">Po</string>
   <string name="pause_prompt_no">Jo</string>
-  <string name="notification_dialing">Po formon numrin</string>
+  <string name="notification_dialing">Duke i telefonuar...</string>
   <string name="notification_ongoing_call">Telefonatë në vazhdim</string>
   <string name="notification_ongoing_video_call">Telefonatë me video në vazhdim</string>
   <string name="notification_ongoing_paused_video_call">Telefonatë me video në vazhdim - videoja u ndërpre</string>
