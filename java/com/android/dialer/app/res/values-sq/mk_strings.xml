@@ -15,10 +15,18 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="call_log_action_user_mark">Shënojeni si...</string>
+    <string name="call_log_action_user_mark">Shënojeni si</string>
+    <string name="description_user_mark_action">Shëno shembullin <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g> si</string>
     <string name="cloud_location_lookup_mark_title">Shëno %s</string>
     <string name="cloud_location_lookup_mark_as">Shëno informacionin e telefonuesit</string>
     <string name="cloud_location_lookup_mark_custom">Informacioni i telefonuesit të personalizuar</string>
     <string name="cloud_location_lookup_mark_done">U krye</string>
     <string name="cloud_location_lookup_mark_harassment">Ngacmim</string>
+    <string name="cloud_location_lookup_mark_fraud">Mashtrim</string>
+    <string name="cloud_location_lookup_mark_advertisement">Reklamë</string>
+    <string name="cloud_location_lookup_mark_agency">Agjenci</string>
+    <string name="cloud_location_lookup_mark_takeaway">Udhëtim</string>
+    <string name="cloud_location_lookup_mark_delivery">Dorëzimi</string>
+    <string name="cloud_location_lookup_mark_service">Shërbimi për konsumatorë</string>
+    <string name="cloud_location_lookup_mark_taxi">Taksi</string>
 </resources>
