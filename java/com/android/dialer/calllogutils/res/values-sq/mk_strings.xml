@@ -16,5 +16,6 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="display_options_call_log_limit_title">Kufiri i regjistrit të thirrjeve</string>
+    <string name="display_options_call_log_limit_summary">Vazhdoni në <xliff:g id="count">%1$s</xliff:g> regjistrin e thirrjeve</string>
     <string name="display_options_call_log_limit_default">500 (E parazgjedhur)</string>
 </resources>
