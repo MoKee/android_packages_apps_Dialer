@@ -17,6 +17,6 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="call_recording_notification_with_label_title">%s kaydedilen arama kaydı</string>
     <string name="call_recording_notification_with_no_label_title">Kayıtlı arama kaydı</string>
-    <string name="auto_call_recording_title">Otomatik olarak kayıt</string>
-    <string name="auto_call_recording_summary">Otomatik olarak aramadan sonra kayıt</string>
+    <string name="auto_call_recording_title">Otomatik kayıt</string>
+    <string name="auto_call_recording_summary">Otomatik olarak aramadan sonra kayıt eder</string>
 </resources>

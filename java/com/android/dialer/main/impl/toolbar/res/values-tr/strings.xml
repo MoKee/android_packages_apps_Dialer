@@ -17,7 +17,7 @@
 <resources>
   <string name="action_menu_back_from_search">aramayı durdur</string>
   <string name="description_clear_search">Aramayı temizle</string>
-  <string msgid="2295659037509008453" name="action_menu_overflow_description">Daha fazla seçenek</string>
+  <string msgid="2295659037509008453" name="action_menu_overflow_description">Diğer seçenekler</string>
   <string name="description_start_voice_search">Sesli arama başlat</string>
   <string name="dialer_hint_find_contact">Kişileri ara</string>
   <string name="settings">Ayarlar</string>
