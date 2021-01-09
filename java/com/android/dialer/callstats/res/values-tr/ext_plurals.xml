@@ -29,6 +29,6 @@
     </plurals>
     <plurals name="call">
         <item quantity="one">1 arama</item>
-        <item quantity="other">%d arama</item>
+        <item quantity="other">%d aramalar</item>
     </plurals>
 </resources>

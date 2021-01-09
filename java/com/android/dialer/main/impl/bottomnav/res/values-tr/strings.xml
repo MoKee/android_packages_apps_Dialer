@@ -15,7 +15,7 @@
   ~ limitations under the License
   -->
 <resources>
-  <string name="tab_title_call_history">Son uygulamalar</string>
+  <string name="tab_title_call_history">Son kullanılanlar</string>
   <string name="tab_title_speed_dial">Favoriler</string>
   <string name="tab_title_voicemail">Sesli mesaj</string>
   <string name="tab_title_contacts">Rehber</string>

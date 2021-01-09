@@ -19,5 +19,5 @@
         <item quantity="one">Kaydı oynat</item>
         <item quantity="other">Kayıtları oynat</item>
     </plurals>
-    <string name="call_playback_no_app_found_toast">Seçili kaydı yürütmek için hiçbir uygulama bulunamadı.</string>
+    <string name="call_playback_no_app_found_toast">Seçili kaydı oynatmak için hiçbir uygulama bulunamadı.</string>
 </resources>
