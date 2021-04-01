@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (C) 2017 The Android Open Source Project
+  ~ Copyright (C) 2013 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -14,10 +14,6 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License
   -->
-<resources>
-  <string name="pre_call_permission_check_no_phone_permission">Telefoni loata ei saa kõnet teha</string>
-  <string name="pre_call_select_phone_account">Valige selle kõne jaoks SIM</string>
-  <string name="pre_call_select_phone_account_remember">Pea see valik meeles</string>
-  <string name="pre_call_select_phone_account_hint_intra_carrier">Kasutab sama teenusepakkujat</string>
-  <string name="pre_call_select_phone_account_hint_frequent">Viimati kasutatud</string>
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="phoneAppLabel" product="default">ଫୋନ୍</string>
 </resources>
