@@ -15,7 +15,7 @@
   ~ limitations under the License
   -->
 <resources>
-  <string name="tab_title_call_history">Đa Nhiệm</string>
+  <string name="tab_title_call_history">Gần đây</string>
   <string name="tab_title_speed_dial">Yêu thích</string>
   <string name="tab_title_voicemail">Thư thoại</string>
   <string name="tab_title_contacts">Liên hệ</string>

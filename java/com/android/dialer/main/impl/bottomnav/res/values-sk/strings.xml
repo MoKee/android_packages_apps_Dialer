@@ -18,4 +18,5 @@
   <string name="tab_title_call_history">Nedávne</string>
   <string name="tab_title_speed_dial">Obľúbené</string>
   <string name="tab_title_voicemail">Odkazová schránka</string>
+  <string name="tab_title_contacts">Kontakty</string>
 </resources>
