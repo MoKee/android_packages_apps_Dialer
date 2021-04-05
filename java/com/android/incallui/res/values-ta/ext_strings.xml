@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-     Copyright (C) 2015-2019 The MoKee Open Source Project
+     Copyright (C) 2013-2014 The CyanogenMod Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -15,8 +15,8 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="display_options_call_log_limit_title">Limit denníka hovorov</string>
-    <string name="display_options_call_log_limit_summary">Zachovať <xliff:g id="count">%1$s</xliff:g> záznamov denníka hovorov</string>
-    <string name="display_options_call_log_limit_default">500 (predvolené)</string>
-    <string name="display_options_call_log_limit_unlimited">Neobmedzený</string>
+    <string name="onscreenCallRecordText">அழைப்பைப் பதிவுசெய்</string>
+    <string name="onscreenStopCallRecordText">பதிவுசெய்தலை நிறுத்து</string>
+    <string name="recording_time_text">பதிவு</string>
+    <string name="recording_warning_title">அழைப்பு பதிவை செயல்படுத்தட்டா?</string>
 </resources>
