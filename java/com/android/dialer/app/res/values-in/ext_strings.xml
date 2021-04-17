@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
      Copyright (C) 2013-2014 The CyanogenMod Project
-     Copyright (C) 2018 The LineageOS Project
+     Copyright (C) 2018-2021 The LineageOS Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@
     <string name="incall_vibrate_hangup_title">Bergetar saat tutup telepon</string>
     <string name="incall_vibrate_45_title">Bergetar setiap menit</string>
     <string name="incall_vibrate_45_summary">Bergetar pada detik ke-45 menandai tiap menit selama panggilan keluar</string>
+    <string name="incall_dnd_dialog_message">Agar bisa menggunakan mode jangan diganggu, aplikasi telepon perlu diberikan izin untuk mengendalikan status mode jangan ganggu. \nMohon anda izinkan.</string>
     <string name="allow">Izinkan</string>
     <string name="deny">Tolak</string>
     <string name="call_recording_category_title">Rekaman panggilan</string>
