@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2013-2014 The CyanogenMod Project
+     Copyright (C) 2018 The LineageOS Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="call_stats_detail_title">Pojedinosti statistike kontakta</string>
+    <string name="call_stats_incoming">Dolazni: <xliff:g id="value">%s</xliff:g></string>
+    <string name="call_stats_outgoing">Odlazni: <xliff:g id="value">%s</xliff:g></string>
+    <string name="call_stats_missed">Propušteni: <xliff:g id="value">%s</xliff:g></string>
+    <string name="call_stats_blocked">Blokirani: <xliff:g id="value">%s</xliff:g></string>
+    <string name="call_stats_percent"><xliff:g id="percent">%d</xliff:g>%%</string>
+    <string name="call_stats_header_total_callsonly">Ukupno: <xliff:g id="call_count">%s</xliff:g></string>
+    <string name="call_stats_filter_from">Datum Početka</string>
+    <string name="call_stats_filter_to">Završni datum</string>
+    <string name="call_stats_filter_picker_title">Raspon filtera</string>
+    <string name="date_quick_selection">Brzi izbor</string>
+    <string name="date_qs_currentmonth">Tekući mjesec</string>
+    <string name="date_qs_currentquarter">Tekuće tromjesečje</string>
+    <string name="date_qs_currentyear">Tekuća godina</string>
+    <string name="date_qs_lastweek">Prošli tjedan</string>
+    <string name="date_qs_lastmonth">Prošli mjesec</string>
+    <string name="date_qs_lastquarter">Prošlo tromjesečje</string>
+    <string name="date_qs_lastyear">Prošla godina</string>
+    <string name="call_stats_date_filter">Podesi vremenski raspon</string>
+    <string name="call_stats_reset_filter">Poništi vremenski raspon</string>
+    <string name="call_stats_sort_by_duration">Sortiraj po trajanju poziva</string>
+    <string name="call_stats_sort_by_count">Posloži po broju poziva</string>
+    <string name="call_stats_title_for_number">Ovaj broj</string>
+    <string name="call_stats_title_of_total">Od ukupno</string>
+    <string name="call_stats_title_durations">Trajanje poziva</string>
+    <string name="call_stats_title_count">Broj poziva</string>
+    <string name="call_stats_title_average_duration">Prosječno trajanje poziva</string>
+    <string name="recent_calls_no_items_in_range">Vaš popis poziva ne sadrži nijedan poziv u odabranom razdoblju.</string>
+</resources>
