@@ -17,7 +17,7 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="helplines_name">Helplines</string>
     <string name="helplines_loading">Loading\u2026</string>
-    <string name="helplines_empty">No helplines found.\nInsert a sim card and try again</string>
+    <string name="helplines_empty">No helplines found.\nInsert a SIM card and try again</string>
     <string name="helplines_help">Help</string>
     <string name="helplines_help_title">These are safe to call</string>
     <string name="helplines_help_message">None of these numbers appear in your call history.\nYou can click any item for more information</string>
@@ -26,15 +26,13 @@
 
     <string name="helpline_button_more">More</string>
 
-    <string name="unknown_helpline_name">Unknown Organisation</string>
+    <string name="unknown_helpline_name">Unknown organization</string>
 
     <string name="helpline_name">Name</string>
     <string name="helpline_org">Organization</string>
     <string name="helpline_categories">Categories</string>
     <string name="helpline_number">Number</string>
     <string name="helpline_website">Website</string>
-    <string name="helpline_browser_history_title">Attention</string>
-    <string name="helpline_browser_history_message">Don\'t forget to clear the browser history</string>
 
     <!-- Format for displaying a helpline name with the country - Example will resolve to "Emotional Support Hotline (US)" -->
     <string name="helpline_name_format_country"><xliff:g id="helpline_name" example="Emotional Support Helpline">%1$s</xliff:g> (<xliff:g id="helpline_county" example="US">%2$s</xliff:g>)</string>
