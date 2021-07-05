@@ -21,7 +21,7 @@
     <string name="cloud_location_lookup_mark_as">Отметить информацию о звонящем</string>
     <string name="cloud_location_lookup_mark_custom">Доп. информация о звонящем</string>
     <string name="cloud_location_lookup_mark_done">Готово</string>
-    <string name="cloud_location_lookup_mark_harassment">Вымогательстово</string>
+    <string name="cloud_location_lookup_mark_harassment">Вымогательство</string>
     <string name="cloud_location_lookup_mark_fraud">Мошенничество</string>
     <string name="cloud_location_lookup_mark_advertisement">Реклама</string>
     <string name="cloud_location_lookup_mark_agency">Агенство</string>
