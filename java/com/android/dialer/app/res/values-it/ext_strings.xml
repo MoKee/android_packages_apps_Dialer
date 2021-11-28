@@ -31,4 +31,5 @@
     <string name="call_via">Chiama con</string>
     <string name="call_via_dialog_title">Chiama con\u2026</string>
     <string name="call_log_stats_title">Statistiche</string>
+    <string name="action_menu_helplines">Assistenza telefonica</string>
 </resources>
