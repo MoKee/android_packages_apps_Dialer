@@ -21,5 +21,5 @@
     <string name="onscreenCallRecordingText">Grabación de llamada - <xliff:g id="duration" example="00:10">%1$s</xliff:g></string>
     <string name="onscreenStopCallRecordText">Parar la grabación</string>
     <string name="recording_warning_title">¿Activar la grabación de llamaes?</string>
-    <string name="recording_warning_text">Nota: Yes responsable del cumplimientu de cualesquier llei, regulación y regles que s\'apliquen al usar la función de grabación de llamaes y de la distrubución y usu d\'eses grabaciones.</string>
+    <string name="recording_warning_text">Nota: Yes responsable del cumplimientu de cualesquier llei, regulación y regkes que s\'apliquen al usar la funcionalidá de grabación de llamaes y la distrubución y usu d\'eses grabaciones.</string>
 </resources>
