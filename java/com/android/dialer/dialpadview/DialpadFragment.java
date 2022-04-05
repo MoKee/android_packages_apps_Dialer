@@ -1170,7 +1170,7 @@ public class DialpadFragment extends Fragment
 
   public void callVoicemail() {
     PreCall.start(
-        getContext(), CallIntentBuilder.forVoicemail(null, CallInitiationType.Type.DIALPAD));
+        getContext(), CallIntentBuilder.forVoicemail(CallInitiationType.Type.DIALPAD));
     hideAndClearDialpad();
   }
 
