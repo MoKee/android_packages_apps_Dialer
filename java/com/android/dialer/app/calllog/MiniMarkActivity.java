@@ -32,7 +32,7 @@ import com.mokee.cloud.location.LocationUtils;
 
 public class MiniMarkActivity extends Activity implements AdapterView.OnItemClickListener {
 
-    private boolean mUseStrictPhoneNumberComparation;
+    private final boolean mUseStrictPhoneNumberComparation = false;
     private TextView tvMarkNumber;
     private EditText btnMarkNumberEdit;
     private ListView lvMarkList;
@@ -50,7 +50,6 @@ public class MiniMarkActivity extends Activity implements AdapterView.OnItemClic
         Bundle bundle = getIntent().getExtras();
         phoneNumber = bundle.getString("number");
         if (TextUtils.isEmpty(phoneNumber)) finish();
-        mUseStrictPhoneNumberComparation = getResources().getBoolean(com.android.internal.R.bool.config_use_strict_phone_number_comparation);
     }
 
     @Override
