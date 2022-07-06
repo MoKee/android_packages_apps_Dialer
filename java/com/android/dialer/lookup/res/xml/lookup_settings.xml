@@ -53,7 +53,7 @@
         android:key="enable_reverse_lookup"
         android:title="@string/enable_reverse_lookup_title"
         android:summary="@string/enable_reverse_lookup_summary"
-        android:defaultValue="false"
+        android:defaultValue="true"
         android:persistent="false" />
 
     <ListPreference

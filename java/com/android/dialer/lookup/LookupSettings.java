@@ -84,7 +84,7 @@ public final class LookupSettings {
   }
 
   public static boolean isReverseLookupEnabled(Context context) {
-    return getSharedPreferences(context).getBoolean(ENABLE_REVERSE_LOOKUP, false);
+    return getSharedPreferences(context).getBoolean(ENABLE_REVERSE_LOOKUP, true);
   }
 
   public static void setReverseLookupEnabled(Context context, boolean value) {
